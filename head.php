@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/css/main_dark.css">
 <!--<link rel="stylesheet" href="/css/headfoot.css">
 <link rel="stylesheet" href="/css/headfoot_dark.css">-->
-<link rel="icon" href="/img/logo.png">
+<link rel="icon" href="/img/favicon.ico">
 
 <!--
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
