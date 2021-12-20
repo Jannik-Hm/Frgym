@@ -1,0 +1,173 @@
+<html>
+    <head>
+        <title>Friedrich-Gymnasium - Unsere Schule</title>
+        <link rel="icon" href="pics/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="/css/style-white.css" title="Grundlayout">
+        <link rel="alternate stylesheet" type="text/css" href="/css/style-dark.css" title="dunkel">
+        <script src="./js/header.js"></script>
+        <!-- <script type="text/javascript">
+            var currentSheet = document.getElementById("stylesheet"),
+            switcher = document.getElementById("styleswitcher");
+
+            function loadStyle () {
+                currentSheet.href = stylez;
+            }
+
+            switcher.addEventListener("click", function (ev) {
+                var b = ev.target; // button
+
+                if (b && b.hasAttribute("data-stylesheet")) {
+                     stylez = b.getAttribute("data-stylesheet");
+                } 
+
+                loadStyle();
+            });
+        </script> -->
+        <script>
+            (function () {
+                document.addEventListener("DOMContentLoaded", function () {
+
+                    var currentSheet = document.getElementById("stylesheet"),
+                    switcher = document.getElementById("styleswitcher");
+
+                    function loadStyle () {
+                        if (localStorage.getItem("stylez")) {
+                            currentSheet.href = localStorage.getItem("stylez");
+                        }
+                    }
+
+                    // only continue if required elements are present
+                    if (currentSheet && switcher) {
+
+                        // set previously stored stylesheet?
+                        loadStyle();
+
+                        // listen for clicks on buttons
+                        switcher.addEventListener("click", function (ev) {
+                            var b = ev.target; // button
+
+                            if (b && b.hasAttribute("data-stylesheet")) {
+
+                                // save value
+                                localStorage.setItem(
+                                    "stylez",
+                                    b.getAttribute("data-stylesheet")
+                                );
+
+                                loadStyle();
+                            }
+                        });
+                    }
+                });
+            }());
+        </script>
+    </head>
+    <body class="body" id="#top">
+        <div class="top-container">
+            <img class="png-banner" src="/pics/bann_n2.png">
+        </div>
+        <div class="content" sticky>
+            <div class="dropdown header sticky" style="position: sticky;">
+            <button class="dropbtn" id="myHeader">Menu</button>
+                <div class="dropdown-content">
+                    <a href="./unsere%20Schule.html">Unsere Lehrer</a>
+                    <a href="./unsere-Schule/geschichte/geschichte-main.html">Geschichte</a>
+                    <a href="./unsere-Schule/rundgang.html">Rundgang</a>
+                    <a href="./unsere-Schule/sch%C3%BCler.html">Schüler</a>
+                    <a href="./unsere-Schule/zaitunk.html">Zaitunk</a>
+                    <p style="text-align: center;">------------------</p>
+                    <a href="/index.html">Home</a>
+                    <a href="/unsere%20Schule.html">Unsere Schule</a>
+                    <a href="/vertretung.html">Vertretung</a>
+                    <a href="/termine.html">Termine</a>
+                    <a href="http://www.org-gym.homepage.t-online.de/">Schulprogramm</a>
+                    <a href="/faecher.html">Fächer</a>
+                    <a href="#">Veranstaltungen</a>
+                    <a href="#">Wettbewerbe</a>
+                    <a href="#">AG's</a>
+                    <a href="#">Fortbildung</a>
+                    <a href="#">Unsere Blogs</a>
+                    <a href="#">Impressum</a>
+                </div>
+            </div>
+        </div>
+        <div align="center">
+  <center>
+
+<table border="0" width="800" style="border-collapse: collapse" bordercolor="#111111" cellpadding="0" cellspacing="0">
+    <tbody><tr>
+        <td align="center" width="50%"><img src="josi1_1.jpg" width="257" height="177"><p>&nbsp;</p></td>
+        <td align="center" width="50%"><img src="josi8_1.jpg" width="295" height="202"></td>
+    </tr>
+    <tr>
+        <td align="center" width="50%"><img src="josi2_1.jpg" width="257" height="189"><p>&nbsp;</p></td>
+        <td rowspan="3" width="50%"><table border="0">
+            <tbody><tr>
+                <td>Name:</td>
+                <td>Josefine Schuster</td>
+            </tr>
+            <tr>
+                <td>Alter:</td>
+                <td>19</td>
+            </tr>
+            <tr>
+                <td>Jahr:</td>
+                <td>1998/99</td>
+            </tr>
+            <tr>
+                <td>Ort:</td>
+                <td>Quincy / Illinois / USA</td>
+            </tr>
+            <tr>
+                <td>Schule:<p>&nbsp;</p></td>
+                <td>Quincy High School (QHS)<p>&nbsp;</p></td>
+            </tr>
+            <tr>
+                <td>Besonderheiten<p>&nbsp;</p></td>
+                <td>
+                <p>Es gab viele verschiedene Fächer, die zum
+                größten Teil nicht in Deutschland angeboten
+                werden. Ich belegte Ernährung, Psychologie,
+                Fahrschule, Kunst, Biologie und Sport. Die Anzahl
+                der Sportarten ist in den High Schools wesentlich
+                höher, als hier bei uns. Der Stundenplan war
+                jeden Tag derselbe und jeden Tag hatten wir eine
+                Stunde Mittagspause.</p>
+                <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td>Erlebnisse</td>
+                <td>
+                <p>Zu Thanksgiving sind wir in Colorado Ski
+                gefahren, zu Weihnachten war alles viel mehr
+                geschmückt und beleuchtet als in Deutschland und
+                es gab viel mehr Geschenke. Da die Menschen in
+                den Staaten kein Feuerwerk zu Silvester machen,
+                war es etwas langweilig. Sehr erlebnisreich waren
+                auch die ganzen Schultänze, wie z.B. Prom,
+                Homecoming, Junior-Senior-Dance.</p>
+                </td>
+            </tr>
+        </tbody></table>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" width="50%"><img src="josi3_1.jpg" width="265" height="180"><p>&nbsp;</p></td>
+    </tr>
+    <tr>
+        <td align="center" width="50%"><img src="josi4_1.jpg" width="265" height="184"></td>
+    </tr>
+    <tr>
+        <td align="center" width="50%">&nbsp;<p>
+        <img src="josi7_1.jpg" width="171" height="269"></p></td>
+        <td align="center" width="50%">&nbsp;<p>
+        <img src="josi6_1.jpg" width="174" height="270"></p></td>
+    </tr>
+</tbody></table>
+
+  </center>
+            <a href="../schueleraustausch.html">zurück</a>
+        </div>
+    </body>
+</html>

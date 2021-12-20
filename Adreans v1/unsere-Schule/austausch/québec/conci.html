@@ -1,0 +1,166 @@
+<html>
+    <head>
+        <title>Friedrich-Gymnasium - Unsere Schule</title>
+        <link rel="icon" href="pics/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="/css/style-white.css" title="Grundlayout">
+        <link rel="alternate stylesheet" type="text/css" href="/css/style-dark.css" title="dunkel">
+        <script src="./js/header.js"></script>
+        <!-- <script type="text/javascript">
+            var currentSheet = document.getElementById("stylesheet"),
+            switcher = document.getElementById("styleswitcher");
+
+            function loadStyle () {
+                currentSheet.href = stylez;
+            }
+
+            switcher.addEventListener("click", function (ev) {
+                var b = ev.target; // button
+
+                if (b && b.hasAttribute("data-stylesheet")) {
+                     stylez = b.getAttribute("data-stylesheet");
+                } 
+
+                loadStyle();
+            });
+        </script> -->
+        <script>
+            (function () {
+                document.addEventListener("DOMContentLoaded", function () {
+
+                    var currentSheet = document.getElementById("stylesheet"),
+                    switcher = document.getElementById("styleswitcher");
+
+                    function loadStyle () {
+                        if (localStorage.getItem("stylez")) {
+                            currentSheet.href = localStorage.getItem("stylez");
+                        }
+                    }
+
+                    // only continue if required elements are present
+                    if (currentSheet && switcher) {
+
+                        // set previously stored stylesheet?
+                        loadStyle();
+
+                        // listen for clicks on buttons
+                        switcher.addEventListener("click", function (ev) {
+                            var b = ev.target; // button
+
+                            if (b && b.hasAttribute("data-stylesheet")) {
+
+                                // save value
+                                localStorage.setItem(
+                                    "stylez",
+                                    b.getAttribute("data-stylesheet")
+                                );
+
+                                loadStyle();
+                            }
+                        });
+                    }
+                });
+            }());
+        </script>
+    </head>
+    <body class="body" id="#top">
+        <div class="top-container">
+            <img class="png-banner" src="/pics/bann_n2.png">
+        </div>
+        <div class="content" sticky>
+            <div class="dropdown header sticky" style="position: sticky;">
+            <button class="dropbtn" id="myHeader">Menu</button>
+                <div class="dropdown-content">
+                    <a href="#top">Unsere Lehrer</a>
+                    <a href="./unsere-Schule/geschichte/geschichte-main.html">Geschichte</a>
+                    <a href="/unsere-Schule/rundgang.html">Rundgang</a>
+                    <a href="#">Schüler</a>
+                    <a href="#">Zaitunk</a>
+                    <p style="text-align: center;">------------------</p>
+                    <a href="./index.html">Home</a>
+                    <a href="#top">Unsere Schule</a>
+                    <a href="#">Vertretung</a>
+                    <a href="#">Termine</a>
+                    <a href="#">Schulprogramm</a>
+                    <a href="#">Fächer</a>
+                    <a href="#">Veranstaltungen</a>
+                    <a href="#">Wettbewerbe</a>
+                    <a href="#">AG's</a>
+                    <a href="#">Fortbildung</a>
+                    <a href="#">Unsere Blogs</a>
+                    <a href="#">Impressum</a>
+                </div>
+            </div>
+        </div>
+        <div align="center">
+  <center>
+
+<table border="0" width="800" style="border-collapse: collapse" bordercolor="#111111" cellpadding="0" cellspacing="0">
+    <tbody><tr>
+        <td align="center" width="376"><img src="konzi_1.jpg" width="339" height="207"></td>
+        <td rowspan="3" width="424"><table border="0" width="421">
+            <tbody><tr>
+                <td width="103">Name:</td>
+                <td width="308">Constance S.</td>
+            </tr>
+            <tr>
+                <td width="103">Alter:</td>
+                <td width="308">19</td>
+            </tr>
+            <tr>
+                <td width="103">Jahr.</td>
+                <td width="308">1998/99</td>
+            </tr>
+            <tr>
+                <td width="103">Ort:</td>
+                <td width="308">Roberval / Québec / Canada</td>
+            </tr>
+            <tr>
+                <td width="103">Schule:<p>&nbsp;</p></td>
+                <td width="308">Cité Étudiante, Roberval<p>&nbsp;</p></td>
+            </tr>
+            <tr>
+                <td width="103">Besonderheiten:<p>&nbsp;</p></td>
+                <td width="308">
+                <p>Der totale Horror war Mathe auf
+                französisch.Wir hatten 4 verschiedene Fächer am
+                Tag, die 75 min lang waren und dazwischen immer
+                20 min Pause. Ich war im Schulorchester (
+                Baßklarinette ), in der Jazzband ( Klavier ) und
+                habe auch ab und zu Badminton gespielt.</p>
+                <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="103">Erlebnisse:</td>
+                <td width="308">
+                <p>Wir sind manchmal so lange Snowboard gefahren,
+                daß wir am nächsten tag nicht in die Schule
+                gehen konnten, weil wir uns nicht mehr bewegen
+                konnten. Mit meiner großen Familie und einem
+                Meter Schnee feierte ich ein total schönes
+                Weihnachten. An Halloween haben wir uns alle
+                verkleidet und gegenseitig angemalt. Einer meiner
+                traurigsten Momente war, als bei unserem
+                Abschlußball ein Bekannter tödlich verunglückt
+                ist.</p>
+                <p>Da wir an einem See wohnten, konnten wir im
+                Sommer Motorboot fahren, Inline Skaten und
+                Radfahren.</p>
+                </td>
+            </tr>
+        </tbody></table>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" width="376"><img src="konzi_2.jpg" width="326" height="195"></td>
+    </tr>
+    <tr>
+        <td align="center" width="376"><img src="konzi_3.jpg" width="323" height="217"></td>
+    </tr>
+</tbody></table>
+
+  </center>
+            <a href="../schueleraustausch.html">zurück</a>
+</div>
+    </body>
+</html>

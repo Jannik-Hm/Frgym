@@ -1,0 +1,423 @@
+<html>
+    <head>
+        <title>Friedrich-Gymnasium - Unsere Schule</title>
+        <link rel="icon" href="pics/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="css/style-white.css" title="Grundlayout">
+        <link rel="alternate stylesheet" type="text/css" href="css/style-dark.css" title="dunkel">
+        <script src="./js/header.js"></script>
+        <!-- <script type="text/javascript">
+            var currentSheet = document.getElementById("stylesheet"),
+            switcher = document.getElementById("styleswitcher");
+
+            function loadStyle () {
+                currentSheet.href = stylez;
+            }
+
+            switcher.addEventListener("click", function (ev) {
+                var b = ev.target; // button
+
+                if (b && b.hasAttribute("data-stylesheet")) {
+                     stylez = b.getAttribute("data-stylesheet");
+                } 
+
+                loadStyle();
+            });
+        </script> -->
+        <script>
+            (function () {
+                document.addEventListener("DOMContentLoaded", function () {
+
+                    var currentSheet = document.getElementById("stylesheet"),
+                    switcher = document.getElementById("styleswitcher");
+
+                    function loadStyle () {
+                        if (localStorage.getItem("stylez")) {
+                            currentSheet.href = localStorage.getItem("stylez");
+                        }
+                    }
+
+                    // only continue if required elements are present
+                    if (currentSheet && switcher) {
+
+                        // set previously stored stylesheet?
+                        loadStyle();
+
+                        // listen for clicks on buttons
+                        switcher.addEventListener("click", function (ev) {
+                            var b = ev.target; // button
+
+                            if (b && b.hasAttribute("data-stylesheet")) {
+
+                                // save value
+                                localStorage.setItem(
+                                    "stylez",
+                                    b.getAttribute("data-stylesheet")
+                                );
+
+                                loadStyle();
+                            }
+                        });
+                    }
+                });
+            }());
+        </script>
+    </head>
+    <body class="body" id="#top">
+        <div class="top-container">
+            <img class="png-banner" src="/pics/bann_n2.png">
+        </div>
+        <div class="content" sticky>
+            <div class="dropdown header sticky" style="position: sticky;">
+            <button class="dropbtn" id="myHeader">Menu</button>
+                <div class="dropdown-content">
+                    <a href="./unsere%20Schule.html">Unsere Lehrer</a>
+                    <a href="./unsere-Schule/geschichte/geschichte-main.html">Geschichte</a>
+                    <a href="./unsere-Schule/rundgang.html">Rundgang</a>
+                    <a href="./unsere-Schule/sch%C3%BCler.html">Schüler</a>
+                    <a href="./unsere-Schule/zaitunk.html">Zaitunk</a>
+                    <p style="text-align: center;">------------------</p>
+                    <a href="./index.html">Home</a>
+                    <a href="./unsere%20Schule.html">Unsere Schule</a>
+                    <a href="./vertretung.html">Vertretung</a>
+                    <a href="./termine.html">Termine</a>
+                    <a href="http://www.org-gym.homepage.t-online.de/">Schulprogramm</a>
+                    <a href="./faecher.html">Fächer</a>
+                    <a href="#">Veranstaltungen</a>
+                    <a href="#">Wettbewerbe</a>
+                    <a href="#">AG's</a>
+                    <a href="#">Fortbildung</a>
+                    <a href="#">Unsere Blogs</a>
+                    <a href="#">Impressum</a>
+                </div>
+            </div>
+        </div>
+            <table style="width:70%; float: right; text-align: center;" class="tablelehrer">
+                <tr>
+                    <th>Lehrer</th>
+                    <th>Unterrichtsfach</th>
+                </tr>
+                <tr>
+                    <td>Adam, Viola</td>
+                    <td class="fach">Ma, Geo, If, Fr</td>
+                </tr>
+                <tr>
+                    <td>Arnold, Hién-Kristin</td>
+                    <td class="fach">Ru, De</td>
+                </tr>
+                <tr>
+                    <td>Basler, Johannes <br>(Referendar)</td>
+                    <td class="fach">Ph, If</td>
+                </tr>
+                <tr>
+                    <td>Barth, Maria-Luise</td>
+                    <td class="fach">Fr, De</td>
+                </tr>
+                <tr>
+                    <td>Beelitz, Stefanie</td>
+                    <td class="fach">Bio, Ch</td>
+                </tr>
+                <tr>
+                    <td>Berger, Josefin</td>
+                    <td class="fach">Bio, De</td>
+                </tr>
+                <tr>
+                    <td>Blaschka, Gunnar</td>
+                    <td class="fach">Sp, Ge</td>
+                </tr>
+                <tr>
+                    <td>Böhme, Constanze</td>
+                    <td class="fach">La</td>
+                </tr>
+                <tr>
+                    <td>Bölter, Steffen</td>
+                    <td class="fach">Mu</td>
+                </tr>
+                <tr>
+                    <td>Braune, Antje</td>
+                    <td class="fach">Geo, Sp</td>
+                </tr>
+                <tr>
+                    <td>Busch, Nico</td>
+                    <td class="fach">Ph, Ge</td>
+                </tr>
+                <tr>
+                    <td>Dalbock, Annette</td>
+                    <td class="fach">Ek, Sp</td>
+                </tr>
+                <tr>
+                    <td>Doms, Alexander</td>
+                    <td class="fach">Ge, La</td>
+                </tr>
+                <tr>
+                    <td>Feuerhak, Kathrin</td>
+                    <td class="fach">Sp, Ge, WAT</td>
+                </tr>
+                <tr>
+                    <td>Fritsche, Kathrin</td>
+                    <td class="fach">En, Ru</td>
+                </tr>
+                <tr>
+                    <td>Fritsche, Julia <br>(Referendarin)</td>
+                    <td class="fach">PB, De</td>
+                </tr>
+                <tr>
+                    <td>Griebsch, Grit</td>
+                    <td class="fach">Sp, Ge, PB</td>
+                </tr>
+                <tr>
+                    <td>Hartung, Frank</td>
+                    <td class="fach">EN, WAT</td>
+                </tr>
+                <tr>
+                    <td>Hauke, Alexander</td>
+                    <td class="fach">Ru, Ee</td>
+                </tr>
+                <tr>
+                    <td>Hiebsch, Paul <br>(Referendar)</td>
+                    <td class="fach">Sp, Ge</td>
+                </tr>
+                <tr>
+                    <td>Hinterleitner, Michele</td>
+                    <td class="fach">Ch, Ph</td>
+                </tr>
+                <tr>
+                    <td>Hobracht, René</td>
+                    <td class="fach">Fr, Geo</td>
+                </tr>
+                <tr>
+                    <td>Jacob, Silvana <br>(Referendarin)</td>
+                    <td class="fach">Ee, Ge</td>
+                </tr>
+                <tr>
+                    <td>Kagelmacher, Kerstin</td>
+                    <td class="fach">En, Ru</td>
+                </tr>
+                <tr>
+                    <td>Kappler, Undine</td>
+                    <td class="fach">WW, WAT</td>
+                </tr>
+                <tr>
+                    <td>Kasimir, Ilona</td>
+                    <td class="fach">Fr</td>
+                </tr>
+                <tr>
+                    <td>Klatt, Cornelia</td>
+                    <td class="fach">Bi, Ch</td>
+                </tr>
+                <tr>
+                    <td>Kohl, Heidrun</td>
+                    <td class="fach">Ma, Ph</td>
+                </tr>
+                <tr>
+                    <td>Kohl, Michael</td>
+                    <td class="fach">Ma, Ph</td>
+                </tr>
+                <tr>
+                    <td>Krause, Manuela</td>
+                    <td class="fach">De, Ru, DS, LER</td>
+                </tr>
+                <tr>
+                    <td>Kübler, Ellen</td>
+                    <td class="fach">Bio, Ch</td>
+                </tr>
+                <tr>
+                    <td>Kühnen, Matthias</td>
+                    <td class="fach">Sp, WAT</td>
+                </tr>
+                <tr>
+                    <td>Labes, Stephanie</td>
+                    <td class="fach">Sp, Bi</td>
+                </tr>
+                <tr>
+                    <td>Marscheider, Steven</td>
+                    <td class="fach">Ph, Sp</td>
+                </tr>
+                <tr>
+                    <td>Mehlis, Carmen</td>
+                    <td class="fach">Ma, Ph</td>
+                </tr>
+                <tr>
+                    <td>Müller, Julia <br>(Referendarin)</td>
+                    <td class="fach">De, PB</td>
+                </tr>
+                <tr>
+                    <td>Piltz, Tobias</td>
+                    <td class="fach">PB, Ma</td>
+                </tr>
+                <tr>
+                    <td>Plättner, Mathias</td>
+                    <td class="fach">Ek, Ma</td>
+                </tr>
+                <tr>
+                    <td>Popiela, Christian</td>
+                    <td class="fach">De, Ge</td>
+                </tr>
+                <tr>
+                    <td>Punzel, Stefan</td>
+                    <td class="fach">Ma, Ph</td>
+                </tr>
+                <tr>
+                    <td>Richter, Anne</td>
+                    <td class="fach">Ge, Ku</td>
+                </tr>
+                <tr>
+                    <td>Scheffler, Monika</td>
+                    <td class="fach">De, Ku</td>
+                </tr>
+                <tr>
+                    <td>Schoene, Sylke</td>
+                    <td class="fach">Geo, Ma</td>
+                </tr>
+                <tr>
+                    <td>Schwerdt, Claudia</td>
+                    <td class="fach">En, Ru</td>
+                </tr>
+                <tr>
+                    <td>Steffen, Reinhold</td>
+                    <td class="fach">Sp, If, Ch</td>
+                </tr>
+                <tr>
+                    <td>Strehmel, Christian</td>
+                    <td class="fach">Sp, Geo</td>
+                </tr>
+                <tr>
+                    <td>Träger, Frank</td>
+                    <td class="fach">LER, PB</td>
+                </tr>
+                <tr>
+                    <td>Tursch, Janine <br>(Referendarin)</td>
+                    <td class="fach">BIO, Ge</td>
+                </tr>
+                <tr>
+                    <td>Ulrich, Franco</td>
+                    <td class="fach">De, Ge, DS</td>
+                </tr>
+                <tr>
+                    <td>Ulrich, Gabriela</td>
+                    <td class="fach">De, Ge, DS</td>
+                </tr>
+                <tr>
+                    <td>von Faber, Elfi</td>
+                    <td class="fach">De, En</td>
+                </tr>
+                <tr>
+                    <td>Wegner, Bernd</td>
+                    <td class="fach">PB, LER, Geo</td>
+                </tr>
+                <tr>
+                    <td>Werner, Christel</td>
+                    <td class="fach">De, Ge, LER</td>
+                </tr>
+                <tr>
+                    <td>Wernitz, Cindy</td>
+                    <td class="fach">Sp, PB</td>
+                </tr>
+                <tr>
+                    <td>Wittan, Norbert</td>
+                    <td class="fach">Ek, Sp</td>
+                </tr>
+                <tr>
+                    <td>Zemann, Uta</td>
+                    <td class="fach">Geo, Mu, LER</td>
+                </tr>
+                <tr>
+                    <td>Zschille, Michael</td>
+                    <td class="fach">De, Geo</td>
+                </tr>
+            </table>
+        <table style="width:70%; float: right;text-align: center;" class="tablelehrer">
+            <tr>
+                <th>Abkürzung</th>
+                <th>Fach</th>
+            </tr>
+            <tr>
+                <td>MA</td>
+                <td>Mathematik</td>
+            </tr>
+            <tr>
+                <td>DE</td>
+                <td>Deutsch</td>
+            </tr>
+            <tr>
+                <td>EN</td>
+                <td>Englisch</td>
+            </tr>
+            <tr>
+                <td>FR</td>
+                <td>Französisch</td>
+            </tr>
+            <tr>
+                <td>RU</td>
+                <td>Russisch</td>
+            </tr>
+            <tr>
+                <td>LA</td>
+                <td>Latein</td>
+            </tr>
+            <tr>
+                <td>SP</td>
+                <td>Sport</td>
+            </tr>
+            <tr>
+                <td>KU</td>
+                <td>Kunst</td>
+            </tr>
+            <tr>
+                <td>MU</td>
+                <td>Musik</td>
+            </tr>
+            <tr>
+                <td>DS</td>
+                <td>Darstelendes Spiel</td>
+            </tr>
+            <tr>
+                <td>LER</td>
+                <td>Lebensgestaltung-Ethik-Religionskunde</td>
+            </tr>
+            <tr>
+                <td>PB</td>
+                <td>Politische Bildung</td>
+            </tr>
+            <tr>
+                <td>GE</td>
+                <td>Geschichte</td>
+            </tr>
+            <tr>
+                <td>WW</td>
+                <td>Wirtschaftswissenschaften</td>
+            </tr>
+            <tr>
+                <td>REL</td>
+                <td>Religion</td>
+            </tr>
+            <tr>
+                <td>GEO</td>
+                <td>Geographie</td>
+            </tr>
+            <tr>
+                <td>CH</td>
+                <td>Chemie</td>
+            </tr>
+            <tr>
+                <td>BI</td>
+                <td>Biologie</td>
+            </tr>
+            <tr>
+                <td>IF</td>
+                <td>Informatik</td>
+            </tr>
+            <tr>
+                <td>PH</td>
+                <td>Physik</td>
+            </tr>
+            <tr>
+                <td>WAT</td>
+                <td>Wirtschaft-Arbeit-Technik</td>
+            </tr>
+            <tr>
+                <td>KR</td>
+                <td>Katholische Religion</td>
+            </tr>
+        </table>
+    </body>
+</html>

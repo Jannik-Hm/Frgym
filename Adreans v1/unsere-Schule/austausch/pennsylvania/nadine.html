@@ -1,0 +1,165 @@
+<html>
+    <head>
+        <title>Friedrich-Gymnasium - Unsere Schule</title>
+        <link rel="icon" href="pics/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="/css/style-white.css" title="Grundlayout">
+        <link rel="alternate stylesheet" type="text/css" href="/css/style-dark.css" title="dunkel">
+        <script src="./js/header.js"></script>
+        <!-- <script type="text/javascript">
+            var currentSheet = document.getElementById("stylesheet"),
+            switcher = document.getElementById("styleswitcher");
+
+            function loadStyle () {
+                currentSheet.href = stylez;
+            }
+
+            switcher.addEventListener("click", function (ev) {
+                var b = ev.target; // button
+
+                if (b && b.hasAttribute("data-stylesheet")) {
+                     stylez = b.getAttribute("data-stylesheet");
+                } 
+
+                loadStyle();
+            });
+        </script> -->
+        <script>
+            (function () {
+                document.addEventListener("DOMContentLoaded", function () {
+
+                    var currentSheet = document.getElementById("stylesheet"),
+                    switcher = document.getElementById("styleswitcher");
+
+                    function loadStyle () {
+                        if (localStorage.getItem("stylez")) {
+                            currentSheet.href = localStorage.getItem("stylez");
+                        }
+                    }
+
+                    // only continue if required elements are present
+                    if (currentSheet && switcher) {
+
+                        // set previously stored stylesheet?
+                        loadStyle();
+
+                        // listen for clicks on buttons
+                        switcher.addEventListener("click", function (ev) {
+                            var b = ev.target; // button
+
+                            if (b && b.hasAttribute("data-stylesheet")) {
+
+                                // save value
+                                localStorage.setItem(
+                                    "stylez",
+                                    b.getAttribute("data-stylesheet")
+                                );
+
+                                loadStyle();
+                            }
+                        });
+                    }
+                });
+            }());
+        </script>
+    </head>
+    <body class="body" id="#top">
+        <div class="top-container">
+            <img class="png-banner" src="/pics/bann_n2.png">
+        </div>
+        <div class="content" sticky>
+            <div class="dropdown header sticky" style="position: sticky;">
+            <button class="dropbtn" id="myHeader">Menu</button>
+                <div class="dropdown-content">
+                    <a href="#top">Unsere Lehrer</a>
+                    <a href="./unsere-Schule/geschichte/geschichte-main.html">Geschichte</a>
+                    <a href="/unsere-Schule/rundgang.html">Rundgang</a>
+                    <a href="#">Schüler</a>
+                    <a href="#">Zaitunk</a>
+                    <p style="text-align: center;">------------------</p>
+                    <a href="./index.html">Home</a>
+                    <a href="#top">Unsere Schule</a>
+                    <a href="#">Vertretung</a>
+                    <a href="#">Termine</a>
+                    <a href="#">Schulprogramm</a>
+                    <a href="#">Fächer</a>
+                    <a href="#">Veranstaltungen</a>
+                    <a href="#">Wettbewerbe</a>
+                    <a href="#">AG's</a>
+                    <a href="#">Fortbildung</a>
+                    <a href="#">Unsere Blogs</a>
+                    <a href="#">Impressum</a>
+                </div>
+            </div>
+        </div>
+        <p align="center"><img src="nad1_1.jpg" width="178" height="318"></p>
+        <div align="center">
+  <center>
+
+<table border="0" width="800" style="border-collapse: collapse" bordercolor="#111111" cellpadding="0" cellspacing="0">
+    <tbody><tr>
+        <td align="center" width="50%">&nbsp;</td>
+        <td rowspan="2" width="50%"><table border="0">
+            <tbody><tr>
+                <td>Name:</td>
+                <td>Nadine Neumann</td>
+            </tr>
+            <tr>
+                <td>Alter:</td>
+                <td>20</td>
+            </tr>
+            <tr>
+                <td>Jahr:</td>
+                <td>1997/98</td>
+            </tr>
+            <tr>
+                <td>Ort:</td>
+                <td>Bristol / Pennsylvania / USA</td>
+            </tr>
+            <tr>
+                <td>Schule:<p>&nbsp;</p></td>
+                <td>Bristol High School (BHS)<p>&nbsp;</p></td>
+            </tr>
+            <tr>
+                <td>Besonderheiten:<p>&nbsp;</p></td>
+                <td>
+                <p>Obwohl es mehr Hausaufgaben gab als hier und
+                der Unterricht auch an sich länger dauerte,
+                machte die Schule viel mehr Spaß. Unsere Lehrer
+                waren immer ansprechbar und hatten ein offenes
+                Ohr für all unsere Probleme. Auch die Art der
+                Kurse war außergewöhnlich, z.B. Töpfern;
+                Fotografie. Nach dem Unterricht waren immer
+                diverse Aktivitäten angesagt: Jahrbuch, Chor,
+                soziale Aktivitäten, Promvorbereitungen...</p>
+                <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td>Erlebnisse:</td>
+                <td>
+                <p>Die Feiertage sind etwas ganz besonderes in
+                den USA, aber traditionell sehr familiär.
+                Ausflüge von der Schule waren der Knaller
+                überhaupt, und nicht zu vergessen sind die
+                Bowling-, Kino- und Videoabende mit Freunden und
+                Familie.</p>
+                <p>Meine Familie war sehr gastfreundlich und hat
+                mich sowohl bei Familienanlässen, als auch in
+                Pflichten und Aufgaben mit eingebunden. Außerdem
+                haben sie alles getan, um mir ein wunderschönes
+                Jahr zu ermöglichen.</p>
+                </td>
+            </tr>
+        </tbody></table>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" width="50%"><img src="nad2_1.jpg" width="133" height="338"><p>&nbsp;</p></td>
+    </tr>
+    </tbody></table>
+
+  </center>
+            <a href="../schueleraustausch.html">zurück</a>
+</div>
+    </body>
+</html>

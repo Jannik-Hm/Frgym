@@ -1,0 +1,186 @@
+﻿<html>
+    <head>
+        <title>Friedrich-Gymnasium</title>
+        <link rel="icon" href="pics/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="css/style-white.css" title="Grundlayout">
+        <link rel="alternate stylesheet" type="text/css" href="css/style-dark.css" title="dunkel"> 
+        <script src="./js/header.js"></script>
+        <script src="js/slider.js"></script>
+        <!-- <script type="text/javascript">
+            var currentSheet = document.getElementById("stylesheet"),
+            switcher = document.getElementById("styleswitcher");
+
+            function loadStyle () {
+                currentSheet.href = stylez;
+            }
+
+            switcher.addEventListener("click", function (ev) {
+                var b = ev.target; // button
+
+                if (b && b.hasAttribute("data-stylesheet")) {
+                     stylez = b.getAttribute("data-stylesheet");
+                } 
+
+                loadStyle();
+            });
+        </script> -->
+        <script>
+            (function () {
+                document.addEventListener("DOMContentLoaded", function () {
+
+                    var currentSheet = document.getElementById("stylesheet"),
+                    switcher = document.getElementById("styleswitcher");
+
+                    function loadStyle () {
+                        if (localStorage.getItem("stylez")) {
+                            currentSheet.href = localStorage.getItem("stylez");
+                        }
+                    }
+
+                    // only continue if required elements are present
+                    if (currentSheet && switcher) {
+
+                        // set previously stored stylesheet?
+                        loadStyle();
+
+                        // listen for clicks on buttons
+                        switcher.addEventListener("click", function (ev) {
+                            var b = ev.target; // button
+
+                            if (b && b.hasAttribute("data-stylesheet")) {
+
+                                // save value
+                                localStorage.setItem(
+                                    "stylez",
+                                    b.getAttribute("data-stylesheet")
+                                );
+
+                                loadStyle();
+                            }
+                        });
+                    }
+                });
+            }());
+        </script>
+    </head>
+    <body class="body" id="#top">
+        <div class="top-container">
+            <img class="png-banner" src="./pics/bann_n2.png">
+        </div>
+        <div class="content">
+            <div class="dropdown header sticky" style="position: sticky;">
+            <button class="dropbtn" id="myHeader">Menu</button>
+                <div class="dropdown-content">
+                    <a href="./index.html">Home</a>
+                    <a href="./unsere%20Schule.html">Unsere Schule</a>
+                    <a href="./vertretung.html">Vertretung</a>
+                    <a href="./termine.html">Termine</a>
+                    <a href="http://www.org-gym.homepage.t-online.de/">Schulprogramm</a>
+                    <a href="./faecher.html">Fächer</a>
+                    <a href="#">Veranstaltungen</a>
+                    <a href="#">Wettbewerbe</a>
+                    <a href="#">AG's</a>
+                    <a href="#">Fortbildung</a>
+                    <a href="#">Unsere Blogs</a>
+                    <a href="#">Impressum</a>
+                </div>
+            </div>
+            <div class="line"></div>
+            <section style="padding-top:0; padding-bottom: 10;">
+                <p style="text-align: center; font-size: 50px;">Die Schule</p>
+                    <div style="float: right" class="box col-s-1 col-1 ">
+                        <h1 class="col-s-2 col-2 col-s-3 col-3">Anschrift</h1>
+                        <p class="col-s-2 col-2 ">
+                            Friedrich - Gymnasium <br>
+                            Parkstraße 59 <br>
+                            14943 Luckenwalde <br>
+                        </p>
+                        <p class="col-s-2 col-2 ">
+                            Telefon: <a href="tel:+493371/632569">03371/632569</a> <br>
+                            Fax: 03371/641060 <br>
+                            <a href="mailto:friedrich-gymnasium.luckenwalde@schulen.brandenburg.de">E-Mail</a>
+                        </p>
+                       <!-- <p><a href="http://www.friedrich-gymnasium.de/neu/schule/rundgang/index.htm">Schulrundgang</a></p> -->
+                    </div>
+                    <div class="slideshow-container">
+                        <div class="mySlides fade">
+                            <img src="./pics/slider/schule_vorne.png" style="width:100%" class="imgslide">
+                            <div class="text">der Haupteingang</div>
+                        </div>
+                        <div class="mySlides fade">
+                            <img src="./pics/slider/schule_vorne.png" style="width:100%" class="imgslide">
+                            <div class="text">Bild 2</div>
+                        </div>
+                        <div class="mySlides fade">
+                            <img src="./pics/slider/schule_vorne.png" style="width:100%" class="imgslide">
+                            <div class="text">Bild 3</div>
+                        </div>
+                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                    </div>
+                <br>
+                <div style="text-align:center">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                </div>
+            </section>
+            <div class="line"></div>
+            <section style="padding-top:0; padding-bottom: 10;">
+                <p style="text-align: center; font-size: 50px;">Was uns auszeichnet</p>
+                <div class="row">
+                    <div>
+                        <a href="https://de.wikipedia.org/wiki/DELF-DALF-Programm">
+                            <img class="img-responsive" src="./pics/home/delf-logo.jpg" style="border-radius: 100px">
+                        </a>
+                        <p style="padding-bottom: 20px;">Das DELF Zertifikat steht Sprachkenntnisse in der Fremdsprache Französisch.</p>
+                    </div>
+                    <div>
+                        <a href="https://www.etwinning.net/de/pub/index.htm">
+                            <img class="img-responsive" src="./pics/home/label-english.jpg" style="border-radius: 100px">
+                        </a>
+                        <p style="padding-bottom: 20px;">Das e-Twinning Label ist ein Qualitätssiegel für die Englischlehrer der Schule.</p>
+                    </div>
+                    <div>
+                        <a href="https://www.netzwerkzukunft.de/projekte-und-aktivitaeten/auszeichnungsverfahren/auszeichnungsverfahren-copy/">
+                            <img class="img-responsive" src="./pics/home/schule_siegel.jpg" style="border-radius: 7px">
+                        </a>
+                        <p style="padding-bottom: 20px;">Dieses Zertifikat, zeichnet Schulen mit einer guten Berufs- und Studienorientierung aus.</p>
+                    </div>
+                    <div>
+                        <a href="https://m.schule-ohne-rassismus.org/startseite/">
+                            <img class="img-responsive" src="./pics/home/schule_or_mc.jpg"/>
+                        </a>
+                        <p style="padding-bottom: 20px;">Mit diesem Zertifikat werden Schulen ausgezeichnet, welche sich für einen Alltag ohne Rassismus einsetzten.</p>
+                    </div>
+                </div>
+            </section>
+            <div class="line"></div>
+            <section style="padding-top:0; padding-bottom: 10;">
+                <p style="text-align: center; font-size: 50px;">Von wem wir unterstützt werden</p>
+                <div class="row">
+                    <figure>
+                        <img class="img-responsive" src="pics/home/wappen_tf.png">
+                        <p style="padding-bottom: 20px;">
+                            <a href="http://www.teltow-flaeming.de/">
+                            Der Landkreis Teltow Fläming ist der Träger der Schule
+                            </a>
+                        </p>
+                    </figure>
+                    <figure>
+                        <img class="img-responsive" src="./pics/home/logo-eu.jpg">
+                        <p style="padding-bottom: 20px;">
+                            <a href="https://ec.europa.eu/germany/eu-funding/grants_de">
+                            Die IT-Infrastruktur der Schule wurde von der EU mit Fördermitteln gefördert.
+                            </a>
+                        </p>
+                    </figure>
+                </div>
+            </section>
+        </div>
+    </body>
+    <script>
+                        var slideIndex = 1;
+                        showSlides(slideIndex);
+    </script>
+</html>

@@ -1,0 +1,188 @@
+<html>
+    <head>
+        <title>Friedrich-Gymnasium</title>
+        <link rel="icon" href="pics/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="css/style-white.css" title="Grundlayout">
+        <link rel="alternate stylesheet" type="text/css" href="css/style-dark.css" title="dunkel"> 
+        <script src="./js/header.js"></script>
+        <script src="js/slider.js"></script>
+        <!-- <script type="text/javascript">
+            var currentSheet = document.getElementById("stylesheet"),
+            switcher = document.getElementById("styleswitcher");
+
+            function loadStyle () {
+                currentSheet.href = stylez;
+            }
+
+            switcher.addEventListener("click", function (ev) {
+                var b = ev.target; // button
+
+                if (b && b.hasAttribute("data-stylesheet")) {
+                     stylez = b.getAttribute("data-stylesheet");
+                } 
+
+                loadStyle();
+            });
+        </script> -->
+        <script>
+            (function () {
+                document.addEventListener("DOMContentLoaded", function () {
+
+                    var currentSheet = document.getElementById("stylesheet"),
+                    switcher = document.getElementById("styleswitcher");
+
+                    function loadStyle () {
+                        if (localStorage.getItem("stylez")) {
+                            currentSheet.href = localStorage.getItem("stylez");
+                        }
+                    }
+
+                    // only continue if required elements are present
+                    if (currentSheet && switcher) {
+
+                        // set previously stored stylesheet?
+                        loadStyle();
+
+                        // listen for clicks on buttons
+                        switcher.addEventListener("click", function (ev) {
+                            var b = ev.target; // button
+
+                            if (b && b.hasAttribute("data-stylesheet")) {
+
+                                // save value
+                                localStorage.setItem(
+                                    "stylez",
+                                    b.getAttribute("data-stylesheet")
+                                );
+
+                                loadStyle();
+                            }
+                        });
+                    }
+                });
+            }());
+        </script>
+    </head>
+    <body class="body" id="#top">
+        <div class="top-container">
+            <img class="png-banner" src="/pics/bann_n2.png">
+        </div>
+        <div class="content">
+            <div class="dropdown header sticky" style="position: sticky;">
+            <button class="dropbtn" id="myHeader">Menu</button>
+                <div class="dropdown-content">
+                  <a href="./index.html">Home</a>
+                  <a href="./unsere%20Schule.html">Unsere Schule</a>
+                  <a href="./vertretung.html">Vertretung</a>
+                  <a href="./termine.html">Termine</a>
+                  <a href="http://www.org-gym.homepage.t-online.de/">Schulprogramm</a>
+                  <a href="./faecher.html">Fächer</a>
+                    <a href="#">Veranstaltungen</a>
+                    <a href="#">Wettbewerbe</a>
+                    <a href="#">AG's</a>
+                    <a href="#">Fortbildung</a>
+                    <a href="#">Unsere Blogs</a>
+                    <a href="#">Impressum</a>
+                </div>
+            </div>
+        </div>
+             <body bgcolor="#FFFFFF" text="#000000" link="#339933" vlink="#996600" alink="#CC9900" marginwidth="15" marginheight="15" align=center;>
+    <h1 style="line-height: 100%; margin-top: 0">Wichtige Termine in diesem Schuljahr</h1>
+    <p>
+    <br>
+    <br>
+    </p>
+    <h2 style="margin-top: 0; line-height:100%"><font size="4">Abiturprüfungen</font></h2>
+    &nbsp;<div align="center">
+      <center>
+        <table width="525" border="0" style="border-collapse: collapse" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td width="152" align="center">
+                <p style="margin-top: 0">schriftliche Prüfungen</p>
+                <p style="margin-top: 0">20.04.-05.05.2020</p>
+              </td>
+              <td width="158" align="center">
+                <p style="margin-top: 0">mündliche Prüfungen</p>
+                <p style="margin-top: 0">11.05.-12.05.2020</p></td>
+              <td width="215" align="center">
+                <p style="margin-top: 0">zusätzliche mündliche Prüfungen</p>
+                <p style="margin-top: 0">Juni 2020</p></td>
+            </tr>
+          </tbody>
+        </table>
+      </center>
+    </div>
+    <h2 style="line-height: 100%; margin-top: 0"><font size="4"><br>
+    <br>
+    Prüfungen am Ende der Jahrgangsstufe 10</font></h2>
+  <p>&nbsp;</p>
+  <p align="center">18.05.-19.05 2020&nbsp; &nbsp; mündliche Prüfung 
+  Fremdsprachen</p>
+  <p align="center">21.04.2020 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; schriftliche Prüfung in Deutsch</p>
+  <p align="center">&nbsp;29.04.2020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  schriftliche Prüfung in Mathe&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+  <p align="center">05.05.2020&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  schriftliche Prüfung in Englisch</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <h2 style="line-height: 100%; margin-top: 0"><font size="4">Weitere Termine </font></h2>
+  <p>&nbsp;</p>
+    <div align="center">
+      <center>
+        <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="363" id="AutoNumber1">
+          <tbody><tr>
+            <td width="363">
+              <p id="abstand" style="margin-top: 0; margin-bottom:0" align="left">
+                <img border="0" src="../point.jpg" width="14" height="13"> 
+                Klassenfahrten&nbsp; für das Schuljahr 2019/20</p>
+              <p id="abstand" style="margin-top: 0; margin-bottom:0" align="left">
+                &nbsp;&nbsp;&nbsp;&nbsp;26.08. bis 30.08.2019</p>
+              <p id="abstand" style="margin-top: 0; margin-bottom:0" align="left">
+                &nbsp;&nbsp;&nbsp;&nbsp; Klassenfahrten für das Schuljahr 
+                2020/21</p>
+              <p id="abstand" style="margin-top: 0; margin-bottom:0" align="left">
+                &nbsp;&nbsp;&nbsp;&nbsp; 31.08. bis 04.09.2020</p>
+              <p id="abstand" style="margin-top: 0; margin-bottom:0" align="left">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Betriebspraktikum 2020/21</p>
+              <p id="abstand" style="margin-top: 0; margin-bottom:0" align="left">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;31.08. bis 11.09.2020 (Klasse 9)</p>
+              <p id="abstand" style="margin-top: 0; margin-bottom:0" align="left">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;31.08. bis 04.09.2020 (Klasse 11)</p>
+              <p id="abstand" style="margin-top: 0; margin-bottom:0" align="left">
+                &nbsp;</p>
+              <p id="abstand" style="margin-top: 0" align="left">
+                <img border="0" src="../point.jpg" width="14" height="13"> Tag der Wissenschaften<br>
+                &nbsp;&nbsp;&nbsp;&nbsp; 17.02.2020</p>
+              <p id="abstand" style="margin-top: 0" align="left">
+                <img border="0" src="../point.jpg" width="14" height="13"> Tag der offenen Tür<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 18.01.2020</p>
+              <p id="abstand" style="margin-top: 0" align="left">
+                <img border="0" src="../point.jpg" width="14" height="13">
+                Ausgabe der Abiturzeugnisse<br>
+                &nbsp;&nbsp;&nbsp; 20.06.2020<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                10 Uhr im Stadttheater
+              </p>
+              <p id="abstand" style="margin-top: 0" align="left">
+                <img border="0" src="../point.jpg" width="14" height="13"> 
+                Abschlussfeier <br>
+                &nbsp;&nbsp;&nbsp; 20.06.2020<br>
+                &nbsp; <br>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td width="363">
+              &nbsp;</td>
+          </tr>
+        </tbody></table>
+      </center>
+    </div>
+    <br>
+    <br>
+  
+  
+</body>           
+    </body>
+</html>

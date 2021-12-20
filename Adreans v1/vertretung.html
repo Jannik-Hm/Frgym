@@ -1,0 +1,119 @@
+<html>
+    <head>
+        <title>Friedrich-Gymnasium</title>
+        <link rel="icon" href="pics/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="css/style-white.css" title="Grundlayout">
+        <link rel="alternate stylesheet" type="text/css" href="css/style-dark.css" title="dunkel"> 
+        <script src="./js/header.js"></script>
+        <script src="js/slider.js"></script>
+        <!-- <script type="text/javascript">
+            var currentSheet = document.getElementById("stylesheet"),
+            switcher = document.getElementById("styleswitcher");
+
+            function loadStyle () {
+                currentSheet.href = stylez;
+            }
+
+            switcher.addEventListener("click", function (ev) {
+                var b = ev.target; // button
+
+                if (b && b.hasAttribute("data-stylesheet")) {
+                     stylez = b.getAttribute("data-stylesheet");
+                } 
+
+                loadStyle();
+            });
+        </script> -->
+        <script>
+            (function () {
+                document.addEventListener("DOMContentLoaded", function () {
+
+                    var currentSheet = document.getElementById("stylesheet"),
+                    switcher = document.getElementById("styleswitcher");
+
+                    function loadStyle () {
+                        if (localStorage.getItem("stylez")) {
+                            currentSheet.href = localStorage.getItem("stylez");
+                        }
+                    }
+
+                    // only continue if required elements are present
+                    if (currentSheet && switcher) {
+
+                        // set previously stored stylesheet?
+                        loadStyle();
+
+                        // listen for clicks on buttons
+                        switcher.addEventListener("click", function (ev) {
+                            var b = ev.target; // button
+
+                            if (b && b.hasAttribute("data-stylesheet")) {
+
+                                // save value
+                                localStorage.setItem(
+                                    "stylez",
+                                    b.getAttribute("data-stylesheet")
+                                );
+
+                                loadStyle();
+                            }
+                        });
+                    }
+                });
+            }());
+        </script>
+    </head>
+    <body class="body" id="#top">
+        <div class="top-container">
+            <img class="png-banner" src="/pics/bann_n2.png">
+        </div>
+        <div class="content">
+            <div class="dropdown header sticky" style="position: sticky;">
+            <button class="dropbtn" id="myHeader">Menu</button>
+                <div class="dropdown-content">
+                    <a href="./index.html">Home</a>
+                    <a href="./unsere%20Schule.html">Unsere Schule</a>
+                    <a href="./vertretung.html">Vertretung</a>
+                    <a href="./termine.html">Termine</a>
+                    <a href="http://www.org-gym.homepage.t-online.de/">Schulprogramm</a>
+                    <a href="./faecher.html">Fächer</a>
+                    <a href="#">Veranstaltungen</a>
+                    <a href="#">Wettbewerbe</a>
+                    <a href="#">AG's</a>
+                    <a href="#">Fortbildung</a>
+                    <a href="#">Unsere Blogs</a>
+                    <a href="#">Impressum</a>
+                </div>
+            </div>
+        </div>
+        <body background="../_themes/friedrich/weiss.jpg" bgcolor="#FFFFFF" text="#000000" link="#339933" vlink="#996600" alink="#CC9900" marginwidth="15" marginheight="15"><!--mstheme-->
+            <font face="trebuchet ms, Arial, Helvetica">
+                <p>
+                    <script language="JavaScript"><!--
+MSFPhover = 
+  (((navigator.appName == "Netscape") && 
+  (parseInt(navigator.appVersion) >= 3 )) || 
+  ((navigator.appName == "Microsoft Internet Explorer") && 
+  (parseInt(navigator.appVersion) >= 4 ))); 
+function MSFPpreload(img) 
+{
+  var a=new Image(); a.src=img; return a; 
+}
+// --></script>
+                    <script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav1n=MSFPpreload("schueler_b/index.htm_cmp_friedrich010_hbtn.gif"); MSFPnav1h=MSFPpreload("schueler_b/index.htm_cmp_friedrich010_hbtn_a.gif"); }
+// --></script>
+                    <a href="schueler/index.htm" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav1'].src=MSFPnav1h.src" onmouseout="if(MSFPhover) document['MSFPnav1'].src=MSFPnav1n.src">
+                        <button class="vertbtn">Schueler</button>
+                    </a> 
+                    <script language="JavaScript"><!--
+if(MSFPhover) { MSFPnav2n=MSFPpreload("lehrer_b/index.htm_cmp_friedrich010_hbtn.gif"); MSFPnav2h=MSFPpreload("lehrer_b/index.htm_cmp_friedrich010_hbtn_a.gif"); }
+// --></script>
+                    <a href="lehrer/index.htm" language="JavaScript" onmouseover="if(MSFPhover) document['MSFPnav2'].src=MSFPnav2h.src" onmouseout="if(MSFPhover) document['MSFPnav2'].src=MSFPnav2n.src">
+                        <button class="vertbtn">Lehrer</button>
+                    </a>
+                </p>
+            </font>
+        </body>
+    </body>
+</html>

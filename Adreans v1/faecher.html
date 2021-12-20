@@ -1,0 +1,206 @@
+<html>
+    <head>
+        <title>Friedrich-Gymnasium</title>
+        <link rel="icon" href="pics/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="css/style-white.css" title="Grundlayout">
+        <link rel="alternate stylesheet" type="text/css" href="css/style-dark.css" title="dunkel"> 
+        <script src="./js/header.js"></script>
+        <script src="js/slider.js"></script>
+        <!-- <script type="text/javascript">
+            var currentSheet = document.getElementById("stylesheet"),
+            switcher = document.getElementById("styleswitcher");
+
+            function loadStyle () {
+                currentSheet.href = stylez;
+            }
+
+            switcher.addEventListener("click", function (ev) {
+                var b = ev.target; // button
+
+                if (b && b.hasAttribute("data-stylesheet")) {
+                     stylez = b.getAttribute("data-stylesheet");
+                } 
+
+                loadStyle();
+            });
+        </script> -->
+        <script>
+            (function () {
+                document.addEventListener("DOMContentLoaded", function () {
+
+                    var currentSheet = document.getElementById("stylesheet"),
+                    switcher = document.getElementById("styleswitcher");
+
+                    function loadStyle () {
+                        if (localStorage.getItem("stylez")) {
+                            currentSheet.href = localStorage.getItem("stylez");
+                        }
+                    }
+
+                    // only continue if required elements are present
+                    if (currentSheet && switcher) {
+
+                        // set previously stored stylesheet?
+                        loadStyle();
+
+                        // listen for clicks on buttons
+                        switcher.addEventListener("click", function (ev) {
+                            var b = ev.target; // button
+
+                            if (b && b.hasAttribute("data-stylesheet")) {
+
+                                // save value
+                                localStorage.setItem(
+                                    "stylez",
+                                    b.getAttribute("data-stylesheet")
+                                );
+
+                                loadStyle();
+                            }
+                        });
+                    }
+                });
+            }());
+        </script>
+    </head>
+    <body class="body" id="#top">
+        <div class="top-container">
+            <img class="png-banner" src="/pics/bann_n2.png">
+        </div>
+        <div class="content">
+            <div class="dropdown header sticky" style="position: sticky;">
+            <button class="dropbtn" id="myHeader">Menu</button>
+                <div class="dropdown-content">
+                    <a href="./index.html">Home</a>
+                    <a href="./unsere%20Schule.html">Unsere Schule</a>
+                    <a href="./vertretung.html">Vertretung</a>
+                    <a href="./termine.html">Termine</a>
+                    <a href="http://www.org-gym.homepage.t-online.de/">Schulprogramm</a>
+                    <a href="./faecher.html">Fächer</a>
+                    <a href="#">Veranstaltungen</a>
+                    <a href="#">Wettbewerbe</a>
+                    <a href="#">AG's</a>
+                    <a href="#">Fortbildung</a>
+                    <a href="#">Unsere Blogs</a>
+                    <a href="#">Impressum</a>
+                </div>
+            </div>
+        </div>
+            <body background="../_themes/friedrich-gym/titel_f.jpg" bgcolor="#FFFFFF" text="#000000" link="#0066FF" vlink="#00CCFF" alink="#3399FF" marginwidth="15" marginheight="15">
+    <h1><font size="3"><br>
+    </font>Fächer</h1>
+    <p align="center"><b><font size="4" color="#000080">
+    <a href="qualiII.wmv" style="text-decoration: none"><font color="#000080">
+    Informationen zur Gestaltung der Qualifikationsphase der Gymnasialen 
+    Oberstufe nach GOSTV 2009</font></a></font></b></p>
+    <p>
+    <br>
+    </p>
+    <div align="center">
+      <center>
+        <table height="541" cellspacing="0" cellpadding="0" width="800" border="0" style="border-collapse: collapse" bordercolor="#111111">
+          <tbody><tr>
+            <td width="127" height="108" valign="middle" align="center">Arbeitslehre </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <img height="52" src="faecher/IMAGE19.gif" width="100" border="0"> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <a href="englisch/index.htm">Englisch</a> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <img height="69" src="faecher/brit.gif" width="44" border="0"> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              Kunst
+            </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <img src="faecher/IMAGE10.gif" border="0" width="68" height="65"> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              Politische Bildung
+            </td>
+            <td width="127" height="108" valign="middle" align="center">§ </td>
+          </tr>
+          <tr>
+            <td width="127" height="108" valign="middle" align="center">
+              Biologie </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <img height="65" src="faecher/IMAGE1.gif" width="33" border="0"> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              Erdkunde </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <img height="51" src="faecher/IMAGE6.gif" width="103" border="0"> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              Latein
+            </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <img height="57" src="faecher/italien.gif" width="49" border="0"> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              Physik
+            </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <img src="faecher/IMAGE12.gif" border="0" width="50" height="60"> </td>
+          </tr>
+          <tr>
+            <td width="127" height="108" valign="middle" align="center">
+              Chemie </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <img src="faecher/IMAGE11.gif" border="0" width="59" height="71"> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <a href="franzoe/index.htm">Französisch</a> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <img src="faecher/franz.gif" border="0" width="63" height="67"> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              LER/Religion
+            </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <img src="faecher/IMAGE16.gif" border="0" width="55" height="60"> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              Russisch
+            </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <img src="faecher/IMAGE2.gif" border="0" width="89" height="53"> </td>
+          </tr>
+          <tr>
+            <td width="127" height="108" valign="middle" align="center">
+              <a href="darst_sp/index.htm">Darstellendes Spiel</a> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <img src="faecher/IMAGE18.gif" border="0" width="66" height="49"> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              Geschichte </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <img src="faecher/IMAGE15.gif" border="0" width="58" height="69"> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <a target="_self" href="mathe/mathe.htm">Mathematik</a> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <img src="faecher/IMAGE7.gif" border="0" width="76" height="54"> </td>
+            <td width="127" height="108" valign="middle" align="center">
+              Sport </td>
+            <td width="127" height="108" valign="middle" align="center">
+              <img src="faecher/IMAGE17.gif" border="0" width="127" height="63"> </td>
+          </tr>
+          <tr>
+            <td width="127" height="109" valign="middle" align="center">
+            <a href="deutsch/index.htm">Deutsch</a> </td>
+            <td width="127" height="109" valign="middle" align="center">
+              <img height="69" src="faecher/IMAGE14.gif" width="79" border="0"> </td>
+            <td width="127" height="109" valign="middle" align="center">
+              Informatik </td>
+            <td width="127" height="109" valign="middle" align="center">
+              <img src="faecher/IMAGE8.gif" border="0" width="104" height="71"> </td>
+            <td width="127" height="109" valign="middle" align="center">
+              Musik </td>
+            <td width="127" height="109" valign="middle" align="center">
+              <img src="faecher/IMAGE13.gif" border="0" width="67" height="76"> </td>
+            <td width="127" height="109" valign="middle" align="center">
+              &nbsp;</td>
+            <td width="127" height="109" valign="middle" align="center">
+              &nbsp;</td>
+          </tr>
+        </tbody></table>
+      </center>
+    </div>
+    <br>
+    <br>
+    <br>
+  
+  
+</body>
+    </body>
+</html>
