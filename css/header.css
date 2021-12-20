@@ -2,4 +2,27 @@ header {
     width: 100%;
     height: auto;
     background-color: black;
+    color: lightgrey;
+    display: inline-block;
+    margin: 1% 1% 1% 1%;
+    font-size: 17px;
+}
+
+header a {
+    color: lightgray;
+}
+
+header a:hover {
+    color: lightskyblue;
+
+}
+
+.dropdown {
+    visibility: hidden;
+    display: none;
+}
+
+.dropdown:hover {
+    visibility: visible;
+    display: block;
 }
