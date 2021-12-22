@@ -3,7 +3,7 @@
     <head>
         <?php 
 
-            include_once "./sites/head.html" 
+            include_once "./../sites/head.html" 
 
         ?>
         <title>Startseite - Friedrich-Gymnasium Luckenwalde</title>
@@ -11,11 +11,11 @@
     <body>
         <?php 
 
-            include_once "./sites/header.html" 
+            include_once "./../sites/header.html" 
 
         ?>
 
-
+        
         
     </body>
 </html>
