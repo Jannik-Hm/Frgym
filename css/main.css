@@ -20,3 +20,58 @@ iframe {
 #untisframe {
     top: 50px;
 }
+
+#lehrerTable {
+    width: 75%;
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    position: relative;
+    top: 75px;
+    text-align: center;
+    margin: auto;
+    color: #fff;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 0px;
+    border-collapse: collapse;
+}
+
+input {
+    top: 60px;
+    align-self: center;
+    position: relative;
+    width: 90%;
+    height: 30px;
+    font-size: 15px;
+    color: #000;
+    margin: auto;
+    display: block;
+    border-radius: 13px;
+}
+
+#lehrerTable td, #lehrerTable th {
+    border: 1px solid #fff;
+    border-collapse: collapse;
+    padding: 8px;
+}
+
+#lehrerTable tr:nth-child(even) {
+    background-color: #5a5a5a;
+}
+
+#lehrerTable tr:nth-child(odd) {
+    background-color: #3d3d3d;
+}
+
+#lehrerTable tr:first-child {
+    background-color: lightskyblue;
+}
+
+#lehrerTable tr:hover {
+    background-color: #9b9b9b;
+}
+
+#lehrerTable td {
+    cursor: pointer;
+}
