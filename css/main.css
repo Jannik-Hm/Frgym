@@ -4,6 +4,7 @@ html, body {
     padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px;
     z-index: 0;
+    background-color: #5a5a5a;
 }
 
 iframe {
@@ -54,24 +55,122 @@ input {
     border: 1px solid #fff;
     border-collapse: collapse;
     padding: 8px;
+    color: #fff;
+    font: 16px 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+
+#lehrerTable th {
+    font-size: 20px;
 }
 
 #lehrerTable tr:nth-child(even) {
+    transition: 0.25s all;
     background-color: #5a5a5a;
 }
 
 #lehrerTable tr:nth-child(odd) {
+    transition: 0.25s all;
     background-color: #3d3d3d;
 }
 
 #lehrerTable tr:first-child {
-    background-color: lightskyblue;
+    background-color: darkcyan;
 }
 
 #lehrerTable tr:hover {
-    background-color: #9b9b9b;
+    background-color: #686868;
+}
+
+#lehrerTable tr:hover:first-child {
+    background-color: darkcyan;
 }
 
 #lehrerTable td {
     cursor: pointer;
+}
+
+section {
+    margin: auto;
+    top: 60px;
+    text-align: center;
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+}
+
+#lehrerimg {
+    max-width: 350px;
+    max-height: 450px;
+    min-width: 100px;
+    min-height: 128.57;
+    border: 1px solid #fff;
+    border-radius: 30px;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #fff;
+}
+
+h1 {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 20px;
+    margin-top: 0px;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+section a button {
+    transition: 0.5s all;
+     font-size: large;
+     width: 100px;
+     height: 35px;
+     background-color: #3d3d3d;
+     color: white;
+     border: 1px solid #fff;
+     border-radius: 10px;
+     cursor: pointer;
+}
+
+section a button:hover {
+    background-color: #444444;
+    box-shadow: 2px 2px 10px gray;
+}
+
+section a button i {
+    width: 10px;
+    height: 10px;
+    color: deepskyblue;
+    padding-right: 5px;
+}
+
+
+@media only screen and (max-width: 579px) {
+    #untisframe {
+        top: 100px;
+    }
+
+    #lehrerTable {
+        top: 115px;
+    }
+
+    input {
+        top: 100px;
+    }
+
+    section {
+        top: 110px;
+    }
 }

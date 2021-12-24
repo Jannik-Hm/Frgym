@@ -77,4 +77,8 @@ nav ul li ul li a:hover {
     background: #333333;
     border-left: 4px solid #477f92;
 }
+
+.drop-menu li {
+    z-index: +3;
+}
   

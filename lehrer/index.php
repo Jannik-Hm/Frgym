@@ -63,12 +63,12 @@
             if(!isset($_GET["id"])) {
             //output every lehrer 
                 
-                $sql = "SELECT * FROM lehrer;";
+                $sql = "SELECT * FROM lehrer ORDER BY nachname ASC;";
                 $result = mysqli_query($conn,$sql); 
                 $myArray = array();
                 if ($result->num_rows > 0) {
 
-                    echo('<input type="text" id="lehrerTableSearch" onkeyup="searchTable();" placeholder="Suche nach Namen...">');
+                    echo('<input type="text" id="lehrerTableSearch" onkeyup="searchTable();" placeholder=" Suche nach Namen...">');
                     echo('<table id="lehrerTable">');
                     echo('<tr class="tableHeader">');
                     echo('<th>Name</th>');
@@ -99,14 +99,16 @@
                     foreach (explode(";", $row["faecher"]) as $fach) {
                         $faecher = $faecher . " & " . $fach;
                     }
+                    $date = explode("-", $row["datum"])[2] . "." . explode("-", $row["datum"])[1] . "." . explode("-", $row["datum"])[0];
                     $faecher = substr($faecher, 3);
                     $faecher = faecherReplace($faecher);
                     echo("<section>");
                     echo("<h1>" . $row["vorname"] . " " . $row["nachname"] . "</h1>");
-                    echo("<h1>" . $row["position"] . "</h1>");
-                    echo("<img src=\"/img/" . $row["vorname"] . "_" . $row["nachname"] . ".png\">");
+                    echo("<h3>" . $row["position"] . "</h3>");
+                    echo("<img src=\"./img/" . $row["vorname"] . "_" . $row["nachname"] . ".png\" id=\"lehrerimg\">");
                     echo("<h2>" . $faecher . "</h2>");
-                    echo("<a href=\"mailto:" . $row["email"] . "\">E-Mail</a>");
+                    echo("<h4>" . $date . "</h4>");
+                    echo("<a href=\"mailto:" . $row["email"] . "\"><button><i class='fas fa-at'></i> E-Mail</button></a>");
                     echo("<p>" . $row["beschreibung"] . "</p>");
                     echo("</section>");
                 } else {
