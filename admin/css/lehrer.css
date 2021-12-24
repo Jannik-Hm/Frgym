@@ -1,0 +1,118 @@
+html,
+body {
+  font-family: "montserat", sans-serif;
+}
+
+.add-input {
+  margin: 20px 25%;
+}
+
+.add-input form {
+  margin: 8px 10px;
+}
+
+.add-input form label {
+  color: rgb(102, 102, 102);
+  font-size: 16px;
+  padding: 4px 4px;
+}
+
+.add-input form input {
+  color: rgb(102, 102, 102);
+  background: rgb(205, 211, 210);
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #3d859c;
+  overflow: none;
+  font-size: 16px;
+  padding: 4px 4px;
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-radius: 1px;
+}
+
+.add-input form .faecher,
+.add-input form .position {
+  padding: 4px 4px;
+  margin: 8px 10px;
+  position: relative;
+  top: 50px;
+}
+
+.add-input form .faecher ul li,
+.add-input form .position ul li {
+  list-style-type: none;
+}
+
+.add-input form .position ul li {
+  float: left;
+  margin: 0 5px;
+  margin-bottom: 10px;
+  position: relative;
+  /* margin-left: 4%; */
+}
+
+.add-input form .faecher ul ul {
+  float: left;
+  margin: 0 5px;
+  margin-bottom: 10px;
+}
+
+.add-input form .faecher .heading2,
+.add-input form .position .heading2 {
+  font-size: 25px;
+  margin-left: 5%;
+  border-bottom: 2px solid #3d859c;
+}
+
+.add-input form .faecher ul ul .heading {
+  font-size: 20px;
+}
+
+.add-input form .faecher label {
+  margin: 0;
+  padding-top: 4px;
+  padding: 0;
+}
+
+.add-input form .faecher input {
+  color: rgb(102, 102, 102);
+  /* width: 3%; */
+  margin: 0;
+  padding: 0;
+  margin-right: 4px;
+  align-self: none;
+  position: relative;
+}
+
+.add-input form ::placeholder {
+  color: rgb(102, 102, 102);
+  opacity: 1; /* Firefox */
+}
+
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    background-color: rgb(71, 71, 71);
+    color: rgb(226, 226, 226);
+  }
+  .add-input form label {
+    color: rgb(226, 226, 226);
+  }
+  .add-input form ::placeholder {
+    color: rgb(226, 226, 226);
+    opacity: 1; /* Firefox */
+  }
+  .add-input form input {
+    color: rgb(226, 226, 226);
+    background: rgb(122, 133, 131);
+    border-bottom: rgb(122, 133, 131);
+  }
+  .add-input form .faecher .heading2,
+  .add-input form .position .heading2 {
+    border-bottom: 2px solid rgb(122, 133, 131);
+  }
+  .add-input form .faecher input {
+    color: rgb(226, 226, 226);
+  }
+}

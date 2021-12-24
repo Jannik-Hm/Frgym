@@ -1,0 +1,5 @@
+
+AuthUserFile "./.htpasswd"
+AuthName "Realm"
+AuthType Basic
+require valid-user
