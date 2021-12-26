@@ -92,7 +92,7 @@
         $position = $_POST["position"];
         $faecher_array = $_POST["chk_group"];
         $faecher = "";
-        $infotext = $_POST["infotext"];
+        $infotext = $_POST["beschreibung"];
         $geburtstag = $_POST["geburtstag"];
             $servername = "sql150.your-server.de";
             $username = "c0921922321";
