@@ -90,6 +90,12 @@ body {
   opacity: 1; /* Firefox */
 }
 
+.querycheck {
+  color: rgb(102, 102, 102);
+  margin: 20px 25%;
+  background-color: #3d859c;
+}
+
 @media (prefers-color-scheme: dark) {
   html,
   body {
