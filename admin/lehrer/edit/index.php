@@ -6,7 +6,7 @@
             include_once "./../../sites/head.html"
 
         ?>
-        <title>Lehrer hinzufügen - Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
+        <title>Lehrer bearbeiten - Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
         <?php
@@ -143,7 +143,12 @@
             if(isset($_POST["submit"])) {
                 $insert = mysqli_query($conn, "UPDATE lehrer SET vorname='{$vorname}', nachname='{$nachname}', email='{$email}', position=NULLIF('{$position}', ''), faecher='{$faecher}', beschreibung=NULLIF('{$infotext}', ''), datum=NULLIF('{$geburtstag}','') WHERE id='{$id}'");
                 if ($insert) {
-                    echo "<p class=querycheck>Änderung erfolgreich!</p>";
+                    echo "
+                        <div class=querycheck>
+                            <p>Änderung erfolgreich!</p>
+                        </div>
+                        ";
+                    echo '<script type="text/javascript">window.location = "/admin/lehrer/"</script>';
                 }
             } //TODO: Query bearbeiten zum Update
         ?>
