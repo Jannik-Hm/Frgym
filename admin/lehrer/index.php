@@ -12,7 +12,7 @@
             include_once "./../sites/head.html" 
 
         ?>
-        <title>Startseite - Friedrich-Gymnasium Luckenwalde</title>
+        <title>Lehrerliste - Friedrich-Gymnasium Luckenwalde</title>
         <script>
             function searchTable() {
                 // Declare variables
@@ -82,6 +82,8 @@
                     echo('<th>Position</th>');
                     echo('<th>Fächer</th>');
                     echo('<th>Geburtsdatum</th>');
+                    echo('<th class="empty"></th>');
+                    echo('<th class="empty"></th>');
                     echo('</tr>');
                     while($row = $result->fetch_assoc()) {
                         $faecher = "";
