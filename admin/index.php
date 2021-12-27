@@ -8,7 +8,8 @@
     }
 
 ?>
-<html>
+<!DOCTYPE html>
+<html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
     <head>
         <?php
             include_once "./sites/head.html";
