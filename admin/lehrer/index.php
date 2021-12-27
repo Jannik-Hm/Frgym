@@ -96,6 +96,7 @@
                         echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $faecher . "</td>");
                         echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["datum"] . "</td>");
                         echo("<td onclick=\"window.location='/admin/lehrer/edit?id=" .$row["id"] . "'\"><i class='fas fa-edit'></i></td>");
+                        echo("<td onclick=\"window.location='/admin/lehrer/delete.php?id=" .$row["id"] . "'\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
                         echo("</a></tr>");
                     }
                 } else {
