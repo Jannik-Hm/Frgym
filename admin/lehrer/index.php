@@ -1,3 +1,13 @@
+<?php
+
+    session_name("userid_login");
+    session_start();
+
+    if(!isset($_SESSION["user_id"])) {
+        header("Location: /admin/login/");
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
     <head>
@@ -6,7 +16,7 @@
             include_once "./../sites/head.html" 
 
         ?>
-        <title>Startseite - Friedrich-Gymnasium Luckenwalde</title>
+        <title>Lehrerliste - Friedrich-Gymnasium Luckenwalde</title>
         <script>
             function searchTable() {
                 // Declare variables
@@ -58,7 +68,7 @@
             // Check connection
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
-            } 
+            }
 
             if(!isset($_GET["id"])) {
             //output every lehrer 
@@ -72,7 +82,12 @@
                     echo('<table id="lehrerTable">');
                     echo('<tr class="tableHeader">');
                     echo('<th>Name</th>');
+                    echo('<th>Email</th>');
+                    echo('<th>Position</th>');
                     echo('<th>Fächer</th>');
+                    echo('<th>Geburtsdatum</th>');
+                    echo('<th class="empty"></th>');
+                    echo('<th class="empty"></th>');
                     echo('</tr>');
                     while($row = $result->fetch_assoc()) {
                         $faecher = "";
@@ -80,9 +95,14 @@
                             $faecher = $faecher . " & " . $fach;
                         }
                         $faecher = substr($faecher, 3);
-                        echo("<tr onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">");
-                        echo("<td>" . $row["vorname"] . " " . $row["nachname"] . "</td>");
-                        echo("<td>" . $faecher . "</td>");
+                        echo("<tr>");
+                        echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["vorname"] . " " . $row["nachname"] . "</td>");
+                        echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["email"] . "</td>");
+                        echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["position"] . "</td>");
+                        echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $faecher . "</td>");
+                        echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["datum"] . "</td>");
+                        echo("<td onclick=\"window.location='/admin/lehrer/edit?id=" .$row["id"] . "'\"><i class='fas fa-edit'></i></td>");
+                        echo("<td onclick=\"window.location='/admin/lehrer/delete.php?id=" .$row["id"] . "'\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
                         echo("</a></tr>");
                     }
                 } else {

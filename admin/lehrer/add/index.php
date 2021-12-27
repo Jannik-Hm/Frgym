@@ -1,3 +1,13 @@
+<?php
+
+    session_name("userid_login");
+    session_start();
+
+    if(!isset($_SESSION["user_id"])) {
+        header("Location: /admin/login/");
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
     <head>
@@ -92,7 +102,7 @@
         $position = $_POST["position"];
         $faecher_array = $_POST["chk_group"];
         $faecher = "";
-        $infotext = $_POST["infotext"];
+        $infotext = $_POST["beschreibung"];
         $geburtstag = $_POST["geburtstag"];
             $servername = "sql150.your-server.de";
             $username = "c0921922321";
