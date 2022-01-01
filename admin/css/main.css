@@ -8,6 +8,34 @@ body {
   font-family: "montserrat", sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-align: center;
+  display: block;
+}
+
+#adminMain {
+  top: 15%;
+  font-size: 40px;
+  color: #fff;
+  position: relative;
+  display: block;
+}
+
+.line {
+  display: block;
+  width: 80%;
+  height: 1px;
+  border-bottom: 1px solid gray;
+  top: 24%;
+  position: relative;
+  margin: auto;
+}
+
 iframe {
   position: absolute;
   height: calc(100% - 50px);

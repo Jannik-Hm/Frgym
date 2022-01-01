@@ -26,11 +26,12 @@
 
 
             if(isset($_SESSION["user_id"])) {
-                echo("<h1>Willkommen " . $_SESSION["user_id"] . "</h1>");
+                echo("<h1 id=\"adminMain\">Willkommen " . $_SESSION["user_id"] . "</h1>");
             } else {
                 echo("<script>window.location.replace('/admin/login/');</script>");
             }
             // was hierunter? News-Feedeinbindung?
         ?> 
+        <span class="line"></span>
     </body>
 </html>

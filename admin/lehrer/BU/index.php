@@ -1,3 +1,9 @@
+<!-- <?php 
+// if(!isset($_SESSION["user_id"])) {
+//     header("Location: /admin/");
+//     exit();
+// }
+?> -->
 <!DOCTYPE html>
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
     <head>
@@ -99,8 +105,7 @@
                     foreach (explode(";", $row["faecher"]) as $fach) {
                         $faecher = $faecher . " & " . $fach;
                     }
-                    $date = date_diff(date_create($row["datum"]), date_create(date("Y-m-d")));
-                    #$date = explode("-", $row["datum"])[2] . "." . explode("-", $row["datum"])[1] . "." . explode("-", $row["datum"])[0];
+                    $date = explode("-", $row["datum"])[2] . "." . explode("-", $row["datum"])[1] . "." . explode("-", $row["datum"])[0];
                     $faecher = substr($faecher, 3);
                     $faecher = faecherReplace($faecher);
                     echo("<section>");
@@ -108,7 +113,7 @@
                     echo("<h3>" . $row["position"] . "</h3>");
                     echo("<img src=\"./img/" . $row["vorname"] . "_" . $row["nachname"] . ".png\" id=\"lehrerimg\">");
                     echo("<h2>" . $faecher . "</h2>");
-                    echo("<h4>" . $date->format("%y Jahre alt") . "</h4>");
+                    echo("<h4>" . $date . "</h4>");
                     echo("<a href=\"mailto:" . $row["email"] . "\"><button><i class='fas fa-at'></i> E-Mail</button></a>");
                     echo("<p>" . $row["beschreibung"] . "</p>");
                     echo("</section>");
