@@ -1,0 +1,13 @@
+div.news ul li {
+  list-style-type: none;
+  border: 1px white;
+  font-family: "montserrat", sans-serif;
+  align-self: center;
+}
+
+.singlenews {
+  border: 2px white;
+  background-color: rgb(122, 133, 131);
+  width: 50%;
+  align-self: center;
+}
