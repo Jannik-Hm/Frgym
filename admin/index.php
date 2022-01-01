@@ -1,4 +1,15 @@
-<html>
+<?php
+
+    session_name("userid_login");
+    session_start();
+
+    if(!isset($_SESSION["user_id"])) {
+        header("Location: /admin/login/");
+    }
+
+?>
+<!DOCTYPE html>
+<html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
     <head>
         <?php
             include_once "./sites/head.html";
@@ -14,44 +25,13 @@
         <?php 
 
 
-            if(!isset($_SESSION["user_id"])) {
-
-                echo("
-                <form method=\"POST\">
-                    <input type=\"text\" placeholder=\"Loginname*\" name=\"username\" required><br>
-                    <input type=\"password\" width=\"\" placeholder=\"Passwort*\" name=\"password\" required><br>
-                
-                    <input type=\"submit\" name=\"submit\" value=\"Login\">
-                </form>
-                ");
-
-
-                $username = $_POST["username"];
-                $nachname = hash("sha256", $_POST["password"]);
-
-                $servername = "sql150.your-server.de";
-                $username = "c0921922321";
-                $password = "AHWNiBfs2u14AAZg"; //master
-                $dbname = "friedrich_gym";
-                // Create connection
-                $conn = new mysqli($servername, $username, $password, $dbname);
-                // Check connection
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
-
-                if(isset($_POST["submit"])) {
-                    $pw = mysqli_query($conn, "SELECT 'password' FROM users WHERE username='" . $username . "';");
-                    if($pw == $password) {
-                        session_start();
-                        $_SESSION["user_id"] = $username;
-                        $_SESSION["password"] = $password;
-                    }
-                }
+            if(isset($_SESSION["user_id"])) {
+                echo("<h1 id=\"adminMain\">Willkommen " . $_SESSION["vorname"] . " " . $_SESSION["nachname"] . "</h1>");
             } else {
-                echo("<h1>Willkommen " . $_SESSION["user_id"] . "</h1>");
+                echo("<script>window.location.replace('/admin/login/');</script>");
             }
             // was hierunter? News-Feedeinbindung?
         ?> 
+        <span class="line"></span>
     </body>
 </html>
