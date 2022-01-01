@@ -8,6 +8,39 @@ body {
   font-family: "montserrat", sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-align: center;
+  display: block;
+}
+
+#adminMain {
+  top: 15%;
+  font-size: 40px;
+  color: #fff;
+  position: relative;
+  display: block;
+}
+
+.line {
+  display: block;
+  width: 80%;
+  height: 1px;
+  border-bottom: 1px solid gray;
+  top: 24%;
+  position: relative;
+  margin: auto;
+}
+
 iframe {
   position: absolute;
   height: calc(100% - 50px);
@@ -57,6 +90,19 @@ input[type="password"] {
   border-radius: 13px;
 }
 
+textarea {
+  font-family: "montserrat", sans-serif;
+  top: 60px;
+  align-self: center;
+  position: relative;
+  width: 90%;
+  font-size: 15px;
+  color: #000;
+  margin: auto;
+  display: block;
+  border-radius: 13px;
+}
+
 #lehrerTable td,
 #lehrerTable th {
   border: 1px solid #fff;
@@ -89,11 +135,8 @@ input[type="password"] {
 }
 
 #lehrerTable th.empty {
-  /* border: 1px black; */
-  border-right: 1px solid transparent;
-  border-top: 1px solid transparent;
-  /* background-color: black; */
-  background-color: #474747;
+  border: 1px black;
+  background-color: black;
 }
 
 #loginForm input {
