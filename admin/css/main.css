@@ -43,7 +43,8 @@ input[type="text"],
 input[type="email"],
 input[type="number"],
 input[type="date"],
-input[type="submit"] {
+input[type="submit"],
+input[type="password"] {
   top: 60px;
   align-self: center;
   position: relative;
@@ -72,13 +73,48 @@ input[type="submit"] {
 }
 
 #lehrerTable tr:first-child {
-  background-color: lightskyblue;
+  background-color: darkcyan;
 }
 
 #lehrerTable tr:hover {
   background-color: #9b9b9b;
 }
 
+#lehrerTable tr:hover:first-child {
+  background-color: darkcyan;
+}
+
 #lehrerTable td {
   cursor: pointer;
+}
+
+#lehrerTable th.empty {
+  /* border: 1px black; */
+  border-right: 1px solid transparent;
+  border-top: 1px solid transparent;
+  /* background-color: black; */
+  background-color: #474747;
+}
+
+#loginForm input {
+  transition: all 0.5s;
+  top: 200px;
+  font-size: 20px;
+  height: 40px;
+}
+
+#loginForm input[type="submit"] {
+  width: 60%;
+  height: 50px;
+  cursor: pointer;
+}
+
+#loginForm input[type="submit"]:hover {
+  transform: scale(1.05);
+  box-shadow: 5px 5px 5px lightgrey;
+}
+
+#loginForm input[type="text"]:valid,
+#loginForm input[type="password"]:valid {
+  border: 2px solid limegreen;
 }
