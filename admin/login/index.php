@@ -52,6 +52,9 @@
                     if($pw->num_rows > 0) {
                         $_SESSION["user_id"] = $use;
                         $_SESSION["password"] = $pwa;
+                        $row = $pw->fetch_assoc();
+                        $_SESSION["vorname"] = $row["vorname"];
+                        $_SESSION["nachname"] = $row["nachname"];
                         echo("<script>window.location.replace('/admin/');</script>");
                     }
                 }
