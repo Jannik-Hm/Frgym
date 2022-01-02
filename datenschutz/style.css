@@ -1,0 +1,16 @@
+.ds {
+    height: auto;
+    position: inherit;
+    text-align: justify;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding-bottom: calc(0.5% + 4.5vh);
+}
+
+li {
+    color: #fff;
+}
+
+td {
+    color: #fff;
+}
