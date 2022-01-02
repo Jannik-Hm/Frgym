@@ -32,6 +32,9 @@
                     } elseif (!(isset($page))) {
                         $page = 1;
                     }
+                    $lesscharnum = 600;
+                    $lessrownumber = 6;
+                    $rowcharnum = 600;
 
                     $servername = "sql150.your-server.de";
                     $username = "c0921922321";
@@ -62,10 +65,16 @@
                         echo("<li>");
                         echo("<div class='singlenews'>");
                         $title = $news[$i]["titel"];
+                        $lessinhalt = substr($news[$i]["inhalt"],0,$lesscharnum);
                         $inhalt = $news[$i]["inhalt"];
                         $autor = $news[$i]["autor"];
-                        $zeit = $news[$i]["zeit"];
-                        echo("<p>Titel: ".$title.", Inhalt: ".$inhalt.", Autor: ".$autor.", Letzte Bearbeitung: ".$zeit."</p>");
+                        $zeitor1 = explode("-", $news[$i]["zeit"]);
+                        $zeitor2 = explode(" ", $zeitor1[2]);
+                        $zeitor3 = explode(":", $zeitor2[1]);
+                        $zeit = $zeitor2[0] . "." . $zeitor1[1] . "." . $zeitor1[0] . " " . $zeitor3[0] . ":" . $zeitor3[1];
+                        echo("<h1>".$title."<br>
+                            <h5>Veröffentlicht von ".$autor." am ".$zeit."</h5>"."</h1>");
+                        echo("<p>".$lessinhalt."</p>");
                         echo("</div>");
                         echo("</li>");
                     }
