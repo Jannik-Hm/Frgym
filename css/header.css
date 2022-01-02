@@ -92,6 +92,7 @@ footer {
     height: 50px;
     background-color: #2f2f2f;
     border-top: gray;
+    z-index: 1;
 }
 
 footer img, footer p {
@@ -107,7 +108,7 @@ footer img {
 }
 
 footer p {
-    left: 5%;
+    left: 50px;
 }
 
 footer a {
@@ -124,4 +125,10 @@ footer a {
 footer a:hover {
     transform: scale(1.1);
     color: #3d859c;
+}
+
+@media only screen and (max-width: 780px) {
+    footer p {
+        visibility: hidden;
+    }
 }
