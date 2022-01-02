@@ -5,7 +5,7 @@
             include_once "./../../sites/head.html";
         ?>
         <link rel="stylesheet" href="./style.css">
-        <title>Altbau - Rundgang - Friedrich-Gymnasium Luckenwalde</title>
+        <title>Neubau - Rundgang - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
         <?php 
