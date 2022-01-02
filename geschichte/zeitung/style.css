@@ -39,5 +39,6 @@ section img {
 @media only screen and (max-width: 1030px) {
     section img {
         max-width: 10rem;
+        height: auto;
     }
 }
