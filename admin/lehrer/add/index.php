@@ -1,3 +1,13 @@
+<?php
+
+    session_name("userid_login");
+    session_start();
+
+    if(!isset($_SESSION["user_id"])) {
+        header("Location: /admin/login/");
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
     <head>
@@ -33,7 +43,7 @@
                     <br>
                 </div>
                 <div class="faecher">
-                <label class="heading2">Fächer</label>
+                    <label class="heading2">Fächer</label>
                     <ul>
                         <ul>
                             <label class="heading">Sprachwissenschaften</label>
@@ -82,6 +92,7 @@
                 <input type="text" placeholder="Infotext (Optional)" name="beschreibung"><br>
                 <input type="date" placeholder="Geburtstag (Optional)" name="geburtstag" Optional><br>
                 <input type="submit" name="submit" value="Speichern">
+                <div class="page-ending"></div>
             </form>
         </div>
 

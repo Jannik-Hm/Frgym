@@ -4,11 +4,11 @@ body {
 }
 
 .add-input {
-  margin: 20px 25%;
+  margin: 20px 0;
 }
 
 .add-input form {
-  margin: 8px 10px;
+  margin: 8px 0;
 }
 
 .add-input form label {
@@ -29,31 +29,63 @@ body {
   -moz-border-radius: 1px;
   -webkit-border-radius: 1px;
   border-radius: 1px;
+  float: none;
+}
+
+.add-input form input[type="text"],
+.add-input form input[type="email"],
+.add-input form input[type="number"],
+.add-input form input[type="date"],
+.add-input form input[type="submit"] {
+  width: 1000px;
+}
+
+/* .add-input form input[type="submit"] {
+  margin-bottom: 30px;
+} */
+
+.add-input form input.infotext {
+  align-self: center;
+  position: relative;
 }
 
 .add-input form .faecher,
 .add-input form .position {
+  align-self: center;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%);
   padding: 4px 4px;
   margin: 8px 10px;
   position: relative;
+  width: 1000px;
+}
+
+.add-input form .position {
   top: 50px;
+}
+
+.add-input form .faecher {
+  top: 15px;
 }
 
 .add-input form .faecher ul li,
 .add-input form .position ul li {
   list-style-type: none;
+  align-self: center;
 }
 
 .add-input form .position ul li {
-  float: left;
+  display: inline-block;
+  vertical-align: top;
   margin: 0 5px;
   margin-bottom: 10px;
   position: relative;
-  /* margin-left: 4%; */
 }
 
 .add-input form .faecher ul ul {
-  float: left;
+  display: inline-block;
+  vertical-align: top;
   margin: 0 5px;
   margin-bottom: 10px;
 }
@@ -87,13 +119,32 @@ body {
 
 .add-input form ::placeholder {
   color: rgb(102, 102, 102);
-  opacity: 1; /* Firefox */
+  opacity: 1;
 }
 
 .querycheck {
   color: rgb(102, 102, 102);
   margin: 20px 25%;
   background-color: #3d859c;
+}
+
+.page-ending {
+  height: 125px;
+}
+
+@media (max-width: 1100px) {
+  .add-input form input[type="text"],
+  .add-input form input[type="email"],
+  .add-input form input[type="number"],
+  .add-input form input[type="date"],
+  .add-input form input[type="submit"] {
+    width: 95%;
+  }
+
+  .add-input form .faecher,
+  .add-input form .position {
+    width: 95%;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
