@@ -94,9 +94,9 @@
                             $('.readmore".$id."').click(function(){
                             $('.readmorebox".$id."').show();
                             });
-                            $('.readmorebox".$id."').click(function(e){
-                                ('.readmorebox".$id."').hide();
-                            });
+                            // $('.readmorebox".$id."').click(function(e){
+                            //     ('.readmorebox".$id."').hide();
+                            // });
                             $('.popupCloseButton".$id."').click(function(){
                                 $('.readmorebox".$id."').hide();
                             });

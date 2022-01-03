@@ -84,7 +84,7 @@ div[class^="readmorebox"] {
   /* cursor: pointer; */
   display: none;
   height: 100%;
-  position: absolute;
+  position: fixed;
   text-align: center;
   top: 0;
   width: 100%;
@@ -103,10 +103,10 @@ div[class^="readmorebox"] > div {
   max-width: 1000px;
   min-height: 100px;
   vertical-align: middle;
-  width: 95%;
+  width: 85%;
   position: relative;
   border-radius: 8px;
-  padding: 5px 30px;
+  padding: 5px 5%;
   text-align: left;
 }
 div[class^="readmorebox"] [class^="popupCloseButton"] {
