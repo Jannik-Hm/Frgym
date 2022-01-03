@@ -95,7 +95,7 @@
                             $('.readmorebox".$id."').show();
                             });
                             $('.readmorebox".$id."').click(function(e){
-                                if (!document.getElementById('.readmorebox".$id."').contains(e.target)){ ('.readmorebox".$id."').hide(); }
+                                ('.readmorebox".$id."').hide();
                             });
                             $('.popupCloseButton".$id."').click(function(){
                                 $('.readmorebox".$id."').hide();
