@@ -3,22 +3,22 @@ body {
   font-family: "montserat", sans-serif;
 }
 
-.add-input {
-  margin: 20px 25%;
+.add-input-news {
+  margin: 20px 0;
 }
 
-.add-input form {
-  margin: 8px 10px;
+.add-input-news form {
+  margin: 8px 0;
 }
 
-.add-input form label {
+.add-input-news form label {
   color: rgb(102, 102, 102);
   font-size: 16px;
   padding: 4px 4px;
 }
 
-.add-input form input,
-.add-input form textarea {
+.add-input-news form input,
+.add-input-news form textarea {
   color: rgb(102, 102, 102);
   background: rgb(205, 211, 210);
   border: none;
@@ -30,9 +30,10 @@ body {
   -moz-border-radius: 1px;
   -webkit-border-radius: 1px;
   border-radius: 1px;
+  width: 1000px;
 }
 
-.add-input form ::placeholder {
+.add-input-news form ::placeholder {
   color: rgb(102, 102, 102);
   opacity: 1; /* Firefox */
 }
@@ -43,21 +44,52 @@ body {
   background-color: #3d859c;
 }
 
+@media (max-width: 1100px) {
+  .add-input-news form input,
+  .add-input-news form textarea {
+    width: 95%;
+    align-self: center;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%);
+    padding-left: 0px;
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 840px) {
+  .add-input-news {
+    margin-top: 50px;
+  }
+}
+
+@media (max-width: 471px) {
+  .add-input-news {
+    margin-top: 100px;
+  }
+}
+
+@media (max-width: 367px) {
+  .add-input-news {
+    margin-top: 150px;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   html,
   body {
     background-color: rgb(71, 71, 71);
     color: rgb(226, 226, 226);
   }
-  .add-input form label {
+  .add-input-news form label {
     color: rgb(226, 226, 226);
   }
-  .add-input form ::placeholder {
+  .add-input-news form ::placeholder {
     color: rgb(226, 226, 226);
     opacity: 1; /* Firefox */
   }
-  .add-input form input,
-  .add-input form textarea {
+  .add-input-news form input,
+  .add-input-news form textarea {
     color: rgb(226, 226, 226);
     background: rgb(122, 133, 131);
     border-bottom: rgb(122, 133, 131);

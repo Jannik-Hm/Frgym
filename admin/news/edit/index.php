@@ -39,7 +39,7 @@
 
         ?>
 
-        <div class="add-input">
+        <div class="add-input-news">
             <form method="POST">
                 <input type="text" size="50%" placeholder="Titel*" name="titel" value="<?php echo $titel; ?>" required><br>
                 <textarea rows="10" columns="50%" placeholder="Inhalt der Nachricht*" name="inhalt" required><?php echo $inhalt; ?></textarea><br>
