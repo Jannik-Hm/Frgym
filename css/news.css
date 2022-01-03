@@ -73,6 +73,38 @@ a[class^="divrm"] {
   cursor: pointer;
 }
 
+div.pagination {
+  margin-top: 50px;
+  background-color: rgb(122, 133, 131);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%);
+  padding: 0;
+  /* width: 200px; */
+}
+
+div.pagination a {
+  font-family: "montserrat", sans-serif;
+  width: 100px;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  transition: 0.3s linear;
+}
+
+div.pagination a:hover {
+  color: rgb(145, 193, 209);
+}
+
 @media (max-width: 1100px) {
   .singlenews {
     width: 95%;

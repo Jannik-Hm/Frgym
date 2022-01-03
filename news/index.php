@@ -105,9 +105,23 @@
                             });
                         });</script>");
                     }
+                    $article_nums = count($news);
+                    if ($article_nums/$items > 16) {
+                        $pagwidth = 16; // TODO: Add overflow with scrollbar
+                    } else {
+                        $pagwidth = ceil($article_nums/$items);
+                    }
+                    echo ("<div style='width: ".($pagwidth*75+150)."px;' class='pagination'>");
+                    if ($page > 1) {$prevpage = $page-1;}else{$prevpage = $page;}
+                    if ($page < $article_nums/$items) {$nextpage = $page+1;}else{$nextpage = $page;}
+                    echo("<a href='https://frgym.greenygames.de/news/?page=".($prevpage)."&items=".$items."'><i class='fas fa-chevron-left'></i></a>");
+                    for($j=1; $j < $article_nums/$items+1; $j++) {
+                        echo("<a href='https://frgym.greenygames.de/news/?page=".$j."&items=".$items."'>".$j."</a>");
+                    }
+                    echo("<a href='https://frgym.greenygames.de/news/?page=".($nextpage)."&items=".$items."'><i class='fas fa-chevron-right'></i></a>");
+                    echo("</div>");
                 ?>
             </ul>
             <div class="page-ending"></div>
         </div>
     </body>
-</html>
