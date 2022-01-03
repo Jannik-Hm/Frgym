@@ -2,10 +2,12 @@ div.news ul li {
   list-style-type: none;
   border: 1px white;
   font-family: "montserrat", sans-serif;
-  align-self: center;
+  /* align-self: center; */
+  left: 0;
 }
 
 .singlenews {
+  left: 0;
   margin: auto;
   border: 2px white;
   background-color: rgb(122, 133, 131);
@@ -44,9 +46,26 @@ div.news ul li {
   margin-bottom: 10px;
 }
 
+.newspopup h1 {
+  margin-bottom: 3px;
+}
+
+.newspopup h5 {
+  margin-top: 0px;
+  margin-left: 10px;
+  color: rgb(221, 221, 221);
+  margin-bottom: 10px;
+}
+
+.newspopup p {
+  margin-top: 0px;
+  margin-left: 15px;
+}
+
 .singlenews a[class^="readmore"] {
   cursor: pointer;
   color: rgb(221, 221, 221);
+  display: inline-block;
 }
 
 @media (max-width: 1100px) {
@@ -55,5 +74,65 @@ div.news ul li {
     align-self: center;
     padding-left: 0px;
     margin-left: 0px;
+  }
+}
+
+/* Popup box BEGIN */
+div[class^="readmorebox"] {
+  margin-left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  /* cursor: pointer; */
+  display: none;
+  height: 100%;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  /* z-index: 10000; */
+}
+div[class^="readmorebox"] .helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+div[class^="readmorebox"] > div {
+  background-color: rgb(122, 133, 131);
+  box-shadow: 10px 10px 60px #555;
+  display: inline-block;
+  height: auto;
+  max-width: 1000px;
+  min-height: 100px;
+  vertical-align: middle;
+  width: 60%;
+  position: relative;
+  border-radius: 8px;
+  padding: 5px 30px;
+  text-align: left;
+}
+div[class^="readmorebox"] [class^="popupCloseButton"] {
+  background-color: rgb(122, 133, 131);
+  border: 3px solid #999;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: arial;
+  font-weight: bold;
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 25px;
+  line-height: 30px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+div[class^="readmorebox"] [class^="popupCloseButton"]:hover {
+  background-color: #fff;
+}
+/* Popup box END */
+
+@media (max-width: 1000px) {
+  div[class^="readmorebox"] > div {
+    width: 95%;
   }
 }

@@ -64,6 +64,7 @@
                     for ($i=count($news)-1-($items*($page-1)); $i >= 0; $i--) {
                         echo("<li>");
                         echo("<div class='singlenews'>");
+                        $id = $news[$i]["id"];
                         $title = $news[$i]["titel"];
                         $lessinhalt = substr($news[$i]["inhalt"],0,$lesscharnum);
                         $inhalt = $news[$i]["inhalt"];
@@ -77,6 +78,29 @@
                         echo("<p>".$lessinhalt."... <a class='readmore".$id."'>Mehr anzeigen</a></p>");
                         echo("</div>");
                         echo("</li>");
+                        echo("<div style='left: 0;' class='readmorebox".$id."'>
+                                <span class='helper'></span>
+                                <div>
+                                    <div class='popupCloseButton".$id."'>&times;</div>
+                                    <div class='newspopup'>
+                                        <h1>".$title."<br>
+                                            <h5>Veröffentlicht von ".$autor." am ".$zeit."</h5>
+                                        </h1>
+                                        <p>".$inhalt."</p>
+                                    </div>
+                                </div>
+                            </div>");
+                        echo("<script>$(window).load(function () {
+                            $('.readmore".$id."').click(function(){
+                            $('.readmorebox".$id."').show();
+                            });
+                            $('.readmorebox".$id."').click(function(e){
+                                if (!document.getElementById('.readmorebox".$id."').contains(e.target)){ ('.readmorebox".$id."').hide(); }
+                            });
+                            $('.popupCloseButton".$id."').click(function(){
+                                $('.readmorebox".$id."').hide();
+                            });
+                        });</script>");
                     }
                 ?>
             </ul>
