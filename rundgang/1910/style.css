@@ -1,0 +1,26 @@
+section table {
+    text-align: center;
+    color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+section table tr th img {
+    max-width: 50rem;
+}
+
+section p {
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: center;
+}
+
+section div img {
+    margin-top: 20px;    
+}
+
+@media only screen and (max-width: 1030px) {
+    section table tr th img, section div img {
+        max-width: 10rem;
+    }
+}

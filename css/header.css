@@ -82,3 +82,53 @@ nav ul li ul li a:hover {
     z-index: +3;
 }
   
+
+footer {
+    display: block;
+    height: auto;
+    width: 100%;
+    bottom: 0px;
+    position: fixed;
+    height: 50px;
+    background-color: #2f2f2f;
+    border-top: gray;
+    z-index: 1;
+}
+
+footer img, footer p {
+    left: 0;
+    display: inline;
+    position: absolute;
+}
+
+footer img {
+    width: 35px;
+    height: 35px;
+    padding: 7px 10px 8px 10px;
+}
+
+footer p {
+    left: 50px;
+}
+
+footer a {
+    text-align: center;
+    display: inline;
+    position: relative;
+    right: 30px;
+    margin-top: 16px;
+    float: right;
+    padding-right: 20px;
+    transition: all 0.5s;
+}
+
+footer a:hover {
+    transform: scale(1.1);
+    color: #3d859c;
+}
+
+@media only screen and (max-width: 780px) {
+    footer p {
+        visibility: hidden;
+    }
+}

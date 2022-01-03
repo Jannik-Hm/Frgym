@@ -1,3 +1,13 @@
+<?php
+
+    session_name("userid_login");
+    session_start();
+
+    if(!isset($_SESSION["user_id"])) {
+        header("Location: /admin/login/");
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
     <head>
@@ -32,7 +42,6 @@
             if ($insert) {
                 echo '<script type="text/javascript">window.location = "/admin/lehrer/"</script>';
             }
-
         ?>
     </body>
 </html>

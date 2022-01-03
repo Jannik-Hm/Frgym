@@ -1,0 +1,44 @@
+h1 {
+    text-decoration: underline 2px solid #fff;
+}
+
+section a {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    width: 15%;
+    display: block;
+    margin: auto;
+    padding: 10px 10px;
+    margin-top: 10px;
+    transition: all 0.5s;
+    font-size: 17px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #3a3a3a;
+}
+
+section p {
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: justify;
+}
+
+section a:hover {
+    transform: scale(1.1);
+    box-shadow: 4px 3px 4px gray;
+
+}
+
+section img {
+    margin-top: 20px;  
+    border-radius: 30px;  
+}
+
+@media only screen and (max-width: 1030px) {
+    section img {
+        max-width: 10rem;
+        height: auto;
+    }
+}
