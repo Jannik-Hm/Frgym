@@ -74,12 +74,13 @@
                         $zeit = $zeitor2[0] . "." . $zeitor1[1] . "." . $zeitor1[0] . " " . $zeitor3[0] . ":" . $zeitor3[1];
                         echo("<h1>".$title."<br>
                             <h5>Veröffentlicht von ".$autor." am ".$zeit."</h5>"."</h1>");
-                        echo("<p>".$lessinhalt."</p>");
+                        echo("<p>".$lessinhalt."... <a class='readmore".$id."'>Mehr anzeigen</a></p>");
                         echo("</div>");
                         echo("</li>");
                     }
                 ?>
             </ul>
+            <div class="page-ending"></div>
         </div>
     </body>
 </html>

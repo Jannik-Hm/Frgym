@@ -9,9 +9,13 @@ div.news ul li {
   margin: auto;
   border: 2px white;
   background-color: rgb(122, 133, 131);
-  width: 50%;
+  width: 1000px;
   align-self: center;
   border-radius: 15px;
+}
+
+.page-ending {
+  height: 125px;
 }
 
 .singlenews h1,
@@ -38,4 +42,18 @@ div.news ul li {
   margin-left: 10px;
   color: rgb(221, 221, 221);
   margin-bottom: 10px;
+}
+
+.singlenews a[class^="readmore"] {
+  cursor: pointer;
+  color: rgb(221, 221, 221);
+}
+
+@media (max-width: 1100px) {
+  .singlenews {
+    width: 95%;
+    align-self: center;
+    padding-left: 0px;
+    margin-left: 0px;
+  }
 }
