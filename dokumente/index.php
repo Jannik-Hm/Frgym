@@ -1,4 +1,4 @@
-<?php header("Location: https://schulportal.brandenburg.de/webbcloud"); ?>
+<?php header("Location: https://schulportal.brandenburg.de/webbcloud/index.htm?schulnr=120534"); ?>
 <html>
     <head>
         <?php 
