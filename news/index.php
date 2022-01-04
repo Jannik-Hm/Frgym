@@ -36,6 +36,26 @@
                     $lessrownumber = 6;
                     $rowcharnum = 600;
 
+                ?>
+
+                    <form method='POST'>
+                        <div class='newssettings'>
+                        <label>Beiträge pro Seite: <select class='itemsnum' name='itemsnum'>
+                            <option value='8' <?php if ($items==8) {echo("selected"); } ?>>8</option>
+                            <option value='16' <?php if ($items==16) {echo("selected"); } ?>>16</option>
+                            <option value='32' <?php if ($items==32) {echo("selected"); } ?>>32</option>
+                            <option value='64' <?php if ($items==64) {echo("selected"); } ?>>64</option>
+                        </select></label>
+                        <input type='submit' name='submit' value='Anwenden'></input>
+                    </div>
+                </form>
+
+                <?php
+                if(isset($_POST['submit'])) {
+                    $items = $_POST["itemsnum"];
+                    echo("'<script type='text/javascript'>window.location ='/news/?page=".$page."&items=".$items."'</script>'");
+                }
+
                     $servername = "sql150.your-server.de";
                     $username = "c0921922321";
                     $password = "AHWNiBfs2u14AAZg"; //master
@@ -61,7 +81,7 @@
                         }
                     }
 
-                    for ($i=count($news)-1-($items*($page-1)); $i >= 0; $i--) {
+                    for ($i=count($news)-1-($items*($page-1)); $i >= count($news)-($items*($page-1))-$items && $i>=0; $i--) {
                         echo("<li>");
                         $id = $news[$i]["id"];
                         echo("<a class='divrm".$id."'><div class='singlenews'>");
@@ -80,7 +100,7 @@
                         echo("</li>");
                         echo("<div style='left: 0;' class='readmorebox".$id."'>
                                 <span class='helper'></span>
-                                <div>
+                                <div class='scroll'>
                                     <div class='popupCloseButton".$id."'>&times;</div>
                                     <div class='newspopup'>
                                         <h1>".$title."<br>
@@ -125,3 +145,4 @@
             <div class="page-ending"></div>
         </div>
     </body>
+</html>

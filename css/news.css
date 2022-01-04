@@ -16,6 +16,60 @@ div.news ul li {
   border-radius: 15px;
 }
 
+.newssettings {
+  align-self: center;
+  /* vertical-align: center; */
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  width: 1000px;
+  /* left: 0; */
+  margin: auto;
+  padding: 0;
+}
+
+.newssettings label {
+  color: #fff;
+  font-family: "montserat", sans-serif;
+  font-size: 16px;
+}
+
+.newssettings select {
+  margin-left: 10px;
+  top: 0px;
+  text-align: center;
+  cursor: pointer;
+  background-color: rgb(122, 133, 131);
+  align-self: center;
+  width: 50px;
+  border: 0px;
+  box-shadow: none;
+  color: #fff;
+  border-radius: 5px;
+  position: relative;
+  margin: 0;
+  margin-right: 25px;
+  height: 30px;
+}
+.newssettings select option {
+  text-align: center;
+  align-self: center;
+}
+
+.newssettings input[type="submit"] {
+  top: 0px;
+  cursor: pointer;
+  background-color: rgb(122, 133, 131);
+  position: relative;
+  width: 100px;
+  border: 0px;
+  box-shadow: none;
+  color: #fff;
+  border-radius: 5px;
+  height: 30px;
+  margin: 0;
+}
+
 .page-ending {
   height: 50px;
 }
@@ -112,6 +166,10 @@ div.pagination a:hover {
     padding-left: 0px;
     margin-left: 0px;
   }
+
+  .newssettings {
+    width: 95%;
+  }
 }
 
 /* Popup box BEGIN */
@@ -125,7 +183,9 @@ div[class^="readmorebox"] {
   text-align: center;
   top: 0;
   width: 100%;
-  /* z-index: 10000; */
+  z-index: 10000;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 div[class^="readmorebox"] .helper {
   display: inline-block;
@@ -133,6 +193,8 @@ div[class^="readmorebox"] .helper {
   vertical-align: middle;
 }
 div[class^="readmorebox"] > div {
+  margin-top: 25px;
+  margin-bottom:25px;
   background-color: rgb(122, 133, 131);
   box-shadow: 10px 10px 60px #555;
   display: inline-block;
@@ -174,6 +236,4 @@ div[class^="readmorebox"] [class^="popupCloseButton"]:hover {
     width: 75%;
     max-width: 900px;
     vertical-align: middle;
-    margin: 0;
-  }
-} */
+    
