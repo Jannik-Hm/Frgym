@@ -1,4 +1,4 @@
-<?php header("Location: https://https://brandenburg.cloud/"); ?>
+<?php header("Location: https://brandenburg.cloud/"); ?>
 <html>
     <head>
         <?php 
