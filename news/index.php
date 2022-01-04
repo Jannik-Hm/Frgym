@@ -53,7 +53,7 @@
                 <?php
                 if(isset($_POST['submit'])) {
                     $items = $_POST["itemsnum"];
-                    echo("'<script type='text/javascript'>window.location ='/news/?page=".$page."&items=".$items."'</script>'");
+                    echo("'<script type='text/javascript'>window.location ='/news/?page="."1"."&items=".$items."'</script>'");
                 }
 
                     $servername = "sql150.your-server.de";
