@@ -132,13 +132,13 @@
                         $pagwidth = ceil($article_nums/$items);
                     }
                     echo ("<div style='width: ".($pagwidth*75+150)."px;' class='pagination'>");
-                    if ($page > 1) {$prevpage = $page-1;}else{$prevpage = $page;}
-                    if ($page < $article_nums/$items) {$nextpage = $page+1;}else{$nextpage = $page;}
-                    echo("<a href='https://frgym.greenygames.de/news/?page=".($prevpage)."&items=".$items."'><i class='fas fa-chevron-left'></i></a>");
+                    if ($page > 1) {$prevpage = "href='https://frgym.greenygames.de/news/?page=".($page-1)."&items=".$items."'";}else{$prevpage = null;}
+                    if ($page < $article_nums/$items) {$nextpage = "href='https://frgym.greenygames.de/news/?page=".($page+1)."&items=".$items."'";}else{$nextpage = null;}
+                    echo("<a ".($prevpage)."'><i class='fas fa-chevron-left'></i></a>");
                     for($j=1; $j < $article_nums/$items+1; $j++) {
                         echo("<a href='https://frgym.greenygames.de/news/?page=".$j."&items=".$items."'>".$j."</a>");
                     }
-                    echo("<a href='https://frgym.greenygames.de/news/?page=".($nextpage)."&items=".$items."'><i class='fas fa-chevron-right'></i></a>");
+                    echo("<a ".$nextpage."><i class='fas fa-chevron-right'></i></a>");
                     echo("</div>");
                 ?>
             </ul>
