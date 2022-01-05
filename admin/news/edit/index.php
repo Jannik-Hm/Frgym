@@ -48,6 +48,17 @@
             </form>
         </div>
 
+        <div style='left: 0;' class='confirm'>
+            <span class='helper'></span>
+            <div class='scroll'>
+                <div class='confirmation'>
+                    <h1>Änderungen erfolgreich!</h1><br>
+                    <p>Die Neuigkeit wurde erfolgreich aktualisiert.</p><br>
+                    <a href='/admin/news/' class='back'>Zurück zur Übersicht</a>
+                </div>
+            </div>
+        </div>
+
         <?php
         $autor = $_SESSION["vorname"] . " " . $_SESSION["nachname"];
         $titel = $_POST["titel"];
@@ -65,6 +76,9 @@
             }
             if(isset($_POST["submit"])) {
                 $insert = mysqli_query($conn, "INSERT INTO news (titel, inhalt, autor, zeit) VALUES ('{$titel}', '{$inhalt}', '{$autor}', '{$date}')");
+                if ($insert) {
+                    echo("<script>$('.confirm').show();</script>");
+                }
             }
         ?>
     </body>
