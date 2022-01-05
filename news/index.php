@@ -92,9 +92,9 @@
                         $zeitor1 = explode("-", $news[$i]["zeit"]);
                         $zeitor2 = explode(" ", $zeitor1[2]);
                         $zeitor3 = explode(":", $zeitor2[1]);
-                        $zeit = $zeitor2[0] . "." . $zeitor1[1] . "." . $zeitor1[0] . " " . $zeitor3[0] . ":" . $zeitor3[1];
+                        $zeit = $zeitor2[0] . "." . $zeitor1[1] . "." . $zeitor1[0] . " " . $zeitor3[0] . ":" . $zeitor3[1] . " Uhr";
                         echo("<h1>".$title."<br>
-                            <h5>Veröffentlicht von ".$autor." am ".$zeit."</h5>"."</h1>");
+                            <h5><p>Veröffentlicht von ".$autor."</p><p class='time'>am ".$zeit."</p></h5>"."</h1>");
                         echo("<p>".$lessinhalt."... <a class='readmore".$id."'>Mehr anzeigen</a></p>");
                         echo("</div></a>");
                         echo("</li>");
@@ -104,7 +104,7 @@
                                     <div class='popupCloseButton".$id."'>&times;</div>
                                     <div class='newspopup'>
                                         <h1>".$title."<br>
-                                            <h5>Veröffentlicht von ".$autor." am ".$zeit."</h5>
+                                            <h5><p>Veröffentlicht von ".$autor."</p><p class='time'>am ".$zeit."</p></h5>
                                         </h1>
                                         <p>".$inhalt."</p>
                                     </div>
