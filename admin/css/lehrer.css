@@ -1,6 +1,7 @@
 html,
 body {
   font-family: "montserat", sans-serif;
+  text-decoration: none;
 }
 
 .add-input {
@@ -132,6 +133,70 @@ body {
   height: 125px;
 }
 
+/* Popup box BEGIN */
+div.confirm {
+  margin-left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  /* cursor: pointer; */
+  display: none;
+  height: 100%;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+div.confirm .helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+div.confirm > div {
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  background-color: rgb(122, 133, 131);
+  box-shadow: 10px 10px 60px #555;
+  display: inline-block;
+  height: auto;
+  max-width: 900px;
+  min-height: 100px;
+  vertical-align: middle;
+  width: 85%;
+  position: relative;
+  border-radius: 8px;
+  padding: 5px 5%;
+}
+div.confirmation p {
+  color: #fff;
+}
+div.confirmation a {
+  border-radius: 15px;
+  border: 0px;
+  padding: 20px 30px;
+  width: 300px;
+  display: inline-block;
+  margin: auto;
+  margin-bottom: 30px;
+}
+div.confirmation a.repeat {
+  background-color: #40b459;
+  margin-right: 100px;
+}
+div.confirmation a.back {
+  background-color: #39bd60;
+}
+div.confirmation a.abort {
+  margin-right: 100px;
+  background-color: rgb(57, 152, 175);
+}
+div.confirmation a.delete {
+  background-color: rgb(180, 28, 28);
+}
+/* Popup box END */
+
 @media (max-width: 1100px) {
   .add-input form input[type="text"],
   .add-input form input[type="email"],
@@ -144,6 +209,15 @@ body {
   .add-input form .faecher,
   .add-input form .position {
     width: 95%;
+  }
+  div.confirmation a {
+    width: 50%;
+    min-width: 200px;
+  }
+  div.confirmation a.repeat,
+  div.confirmation a.abort {
+    margin-right: auto;
+    display: block;
   }
 }
 

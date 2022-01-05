@@ -125,6 +125,17 @@
             </form>
         </div>
 
+        <div style='left: 0;' class='confirm'>
+            <span class='helper'></span>
+            <div class='scroll'>
+                <div class='confirmation'>
+                    <h1>Änderungen erfolgreich!</h1><br>
+                    <p>Der Lehrer wurde erfolgreich aktualisiert.</p><br>
+                    <a href='/admin/lehrer/' class='back'>Zurück zur Übersicht</a>
+                </div>
+            </div>
+        </div>
+
         <?php
         $vorname = $_POST["vorname"];
         $nachname = $_POST["nachname"];
@@ -154,12 +165,7 @@
             if(isset($_POST["submit"])) {
                 $insert = mysqli_query($conn, "UPDATE lehrer SET vorname='{$vorname}', nachname='{$nachname}', email='{$email}', position=NULLIF('{$position}', ''), faecher='{$faecher}', beschreibung=NULLIF('{$infotext}', ''), datum=NULLIF('{$geburtstag}','') WHERE id='{$id}'");
                 if ($insert) {
-                    echo "
-                        <div class=querycheck>
-                            <p>Änderung erfolgreich!</p>
-                        </div>
-                        ";
-                    echo '<script type="text/javascript">window.location = "/admin/lehrer/"</script>';
+                    echo("<script>$('.confirm').show();</script>");
                 }
             }
         ?>

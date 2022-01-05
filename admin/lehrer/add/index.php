@@ -96,6 +96,18 @@
             </form>
         </div>
 
+        <div style='left: 0;' class='confirm'>
+            <span class='helper'></span>
+            <div class='scroll'>
+                <div class='confirmation'>
+                    <h1>Hinzufügen erfolgreich!</h1><br>
+                    <p>Der Lehrer wurde erfolgreich hinzugefügt.</p><br>
+                    <a href='/admin/lehrer/add/' class='repeat'>Weiteren Lehrer hinzufügen</a>
+                    <a href='/admin/lehrer/' class='back'>Zurück zur Übersicht</a>
+                </div>
+            </div>
+        </div>
+
         <?php
         $vorname = $_POST["vorname"];
         $nachname = $_POST["nachname"];
@@ -124,6 +136,10 @@
             if(isset($_POST["submit"])) {
                 $insert = mysqli_query($conn, "INSERT INTO lehrer (vorname, nachname, email, position, faecher, beschreibung, datum) VALUES ('{$vorname}', '{$nachname}', '{$email}', NULLIF('{$position}', ''), '{$faecher}', NULLIF('{$infotext}', ''), NULLIF('{$geburtstag}',''))");
             }
+
+            if ($insert) {
+                echo("<script>$('.confirm').show();</script>");
+            }
         ?>
     </body>
-</html>
+</ht

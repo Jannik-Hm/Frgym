@@ -102,7 +102,7 @@
                         echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $faecher . "</td>");
                         echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["datum"] . "</td>");
                         echo("<td onclick=\"window.location='/admin/lehrer/edit?id=" .$row["id"] . "'\"><i class='fas fa-edit'></i></td>");
-                        echo("<td onclick=\"window.location='/admin/lehrer/delete.php?id=" .$row["id"] . "'\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
+                        echo("<td onclick=\"$('#confirmdelete').attr('href', '/admin/lehrer/delete.php?id=".$row['id']."');$('.confirm').show()\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
                         echo("</a></tr>");
                     }
                 } else {
@@ -169,5 +169,16 @@
         ?>
         
         </table>
+        <div style='left: 0;' class='confirm'>
+            <span class='helper'></span>
+            <div class='scroll'>
+                <div class='confirmation'>
+                    <h1>Löschung bestätigen</h1><br>
+                    <p>Möchtest du diesen Lehrer wirklich löschen?</p><br>
+                    <a href='/admin/lehrer/' class='abort'>Abbrechen</a>
+                    <?php echo("<a id='confirmdelete' class='delete'>Löschen</a>") ?>
+                </div>
+            </div>
+        </div>
     </body>
-</html>
+</html
