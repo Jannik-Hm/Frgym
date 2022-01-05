@@ -1,3 +1,4 @@
+<?php session_name("userid_login"); session_start(); ?>
 <!DOCTYPE html>
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
     <head>
@@ -27,8 +28,8 @@
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-
-        $sql = "SELECT * FROM news WHERE id = " . $_GET['id'] . ";";
+        $id = $_GET['id'];
+        $sql = "SELECT * FROM news WHERE id = " . $id . ";";
         $result = mysqli_query($conn,$sql);
         $myArray = array();
         if ($result->num_rows > 0) {
@@ -75,7 +76,7 @@
                 die("Connection failed: " . $conn->connect_error);
             }
             if(isset($_POST["submit"])) {
-                $insert = mysqli_query($conn, "INSERT INTO news (titel, inhalt, autor, zeit) VALUES ('{$titel}', '{$inhalt}', '{$autor}', '{$date}')");
+                $insert = mysqli_query($conn, "UPDATE news SET titel='{$titel}', inhalt='{$inhalt}', autor='{$autor}', zeit='{$date}' WHERE id='{$id}'");
                 if ($insert) {
                     echo("<script>$('.confirm').show();</script>");
                 }
