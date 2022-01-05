@@ -102,7 +102,7 @@
                         echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $faecher . "</td>");
                         echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["datum"] . "</td>");
                         echo("<td onclick=\"window.location='/admin/lehrer/edit?id=" .$row["id"] . "'\"><i class='fas fa-edit'></i></td>");
-                        echo("<td onclick=\"$('#confirmdelete').attr('href', '/admin/lehrer/delete.php?id=".$row['id']."');$('.confirm').show()\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
+                        echo("<td onclick=\"$('#confirmdelete').attr('href', '/admin/lehrer/delete.php?id=".$row['id']."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du den Lehrer &#34;".$row["vorname"]." ".$row["nachname"]."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
                         echo("</a></tr>");
                     }
                 } else {
@@ -111,7 +111,7 @@
             } else {
                 
                 $sql = "SELECT * FROM lehrer WHERE id = " . $_GET['id'] . ";";
-                $result = mysqli_query($conn,$sql); 
+                $result = mysqli_query($conn,$sql);
                 $myArray = array();
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
@@ -174,7 +174,7 @@
             <div class='scroll'>
                 <div class='confirmation'>
                     <h1>Löschung bestätigen</h1><br>
-                    <p>Möchtest du diesen Lehrer wirklich löschen?</p><br>
+                    <p id='confirmtext'></p><br>
                     <a href='/admin/lehrer/' class='abort'>Abbrechen</a>
                     <?php echo("<a id='confirmdelete' class='delete'>Löschen</a>") ?>
                 </div>
