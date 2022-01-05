@@ -86,11 +86,11 @@
                         $id = $news[$i]["id"];
                         echo("<a class='divrm".$id."'><div class='singlenews'>");
                         $title = $news[$i]["titel"];
+                        $inhalt = $news[$i]["inhalt"];
                         $lessinhalt = substr($news[$i]["inhalt"],0,$lesscharnum);
                         if (strlen($inhalt) > strlen($lessinhalt)) {
                             $lessinhalt = $lessinhalt . "...";
                         }
-                        $inhalt = $news[$i]["inhalt"];
                         $autor = $news[$i]["autor"];
                         $zeitor1 = explode("-", $news[$i]["zeit"]);
                         $zeitor2 = explode(" ", $zeitor1[2]);
