@@ -155,7 +155,7 @@
                 <div class='confirmation'>
                     <h1>Löschung bestätigen</h1><br>
                     <p id='confirmtext'></p><br>
-                    <a href='/admin/news/' class='abort'>Abbrechen</a>
+                    <a onclick="$('.confirm').hide();" class='abort'>Abbrechen</a>
                     <?php echo("<a id='confirmdelete' class='delete'>Löschen</a>") ?>
                 </div>
             </div>

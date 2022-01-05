@@ -180,6 +180,7 @@ div.confirmation a {
   display: inline-block;
   margin: auto;
   margin-bottom: 30px;
+  cursor: pointer;
 }
 div.confirmation a.repeat {
   background-color: #40b459;
