@@ -1,3 +1,13 @@
+<?php
+
+    session_name("userid_login");
+    session_start();
+
+    if(!isset($_SESSION["user_id"])) {
+        header("Location: /admin/login/");
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
     <head>
@@ -6,7 +16,7 @@
             include_once "./../../sites/head.html"
 
         ?>
-        <title>Lehrer löschen - Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
+        <title>Neuigkeit löschen - Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
         <?php
