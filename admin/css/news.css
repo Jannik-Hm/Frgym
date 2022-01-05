@@ -3,6 +3,17 @@ body {
   font-family: "montserat", sans-serif;
 }
 
+div.adminbtn {
+  margin-bottom: 0;
+  margin-top: 25px;
+  margin-right: 30px;
+  float: right;
+}
+
+div.adminbtn a {
+  cursor: pointer;
+}
+
 .add-input-news {
   margin: 20px 0;
 }
@@ -43,6 +54,287 @@ body {
   margin: 20px 25%;
   background-color: #3d859c;
 }
+
+div.news ul {
+  list-style: none;
+  list-style-position: outside;
+  padding-left: 0;
+  padding-right: 0;
+  justify-content: center;
+  text-align: left;
+}
+
+div.news ul li {
+  width: 100%;
+  list-style: none;
+  list-style-position: outside;
+  font-family: "montserrat", sans-serif;
+  justify-content: center;
+  margin: auto;
+}
+
+.singlenews {
+  left: 0;
+  right: 0;
+  margin: auto;
+  border: 2px white;
+  background-color: rgb(122, 133, 131);
+  width: 1000px;
+  align-self: center;
+  border-radius: 15px;
+}
+
+.newssettings {
+  align-self: center;
+  /* vertical-align: center; */
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  width: 1000px;
+  /* left: 0; */
+  margin: auto;
+  padding: 0;
+}
+
+.newssettings label {
+  color: #fff;
+  font-family: "montserat", sans-serif;
+  font-size: 16px;
+}
+
+.newssettings select {
+  margin-left: 10px;
+  top: 0px;
+  text-align: center;
+  cursor: pointer;
+  background-color: rgb(122, 133, 131);
+  align-self: center;
+  width: 50px;
+  border: 0px;
+  box-shadow: none;
+  color: #fff;
+  border-radius: 5px;
+  position: relative;
+  margin: 0;
+  margin-right: 25px;
+  height: 30px;
+}
+.newssettings select option {
+  text-align: center;
+  align-self: center;
+}
+
+.newssettings input[type="submit"] {
+  top: 0px;
+  cursor: pointer;
+  background-color: rgb(122, 133, 131);
+  position: relative;
+  width: 100px;
+  border: 0px;
+  box-shadow: none;
+  color: #fff;
+  border-radius: 5px;
+  height: 30px;
+  margin: 0;
+}
+
+.page-ending {
+  height: 50px;
+}
+
+.singlenews h1,
+.singlenews h5,
+.singlenews p {
+  text-align: left;
+  padding-left: 20px;
+}
+
+.singlenews h1 {
+  padding-top: 20px;
+  margin-bottom: 3px;
+}
+
+.singlenews p {
+  margin-top: 0px;
+  padding-bottom: 20px;
+  margin-left: 15px;
+  width: 90%;
+  /* display: block; */
+}
+
+.singlenews h5 {
+  margin-top: 0px;
+  margin-left: 10px;
+  /* color: rgb(221, 221, 221); */
+  margin-bottom: 10px;
+}
+
+.singlenews h5 p {
+  margin-top: 0px;
+  margin-bottom: 1px;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 0;
+  left: 0;
+  right: 0;
+  color: rgb(221, 221, 221);
+  display: inline-block;
+}
+
+.singlenews h5 p.time {
+  margin-left: 5px;
+}
+
+.newspopup h1 {
+  margin-bottom: 3px;
+}
+
+.newspopup h5 {
+  margin-top: 0px;
+  margin-left: 10px;
+  color: rgb(221, 221, 221);
+  margin-bottom: 10px;
+}
+
+.newspopup p {
+  margin-top: 0px;
+  margin-left: 15px;
+}
+
+.newspopup h5 {
+  margin-top: 0px;
+  margin-left: 10px;
+  /* color: rgb(221, 221, 221); */
+  margin-bottom: 10px;
+}
+
+.newspopup h5 p {
+  margin-top: 0px;
+  margin-bottom: 1px;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 0;
+  left: 0;
+  right: 0;
+  color: rgb(221, 221, 221);
+  display: inline-block;
+}
+
+.newspopup h5 p.time {
+  margin-left: 5px;
+}
+
+.singlenews a[class^="readmore"] {
+  cursor: pointer;
+  color: rgb(221, 221, 221);
+  display: inline-block;
+}
+
+a[class^="divrm"] {
+  display: block;
+  cursor: pointer;
+}
+
+div.pagination {
+  margin-top: 50px;
+  background-color: rgb(122, 133, 131);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%);
+  padding: 0;
+  border-radius: 15px;
+  /* width: 200px; */
+}
+
+div.pagination a {
+  font-family: "montserrat", sans-serif;
+  width: 100px;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  transition: 0.3s linear;
+}
+
+div.pagination a:hover {
+  color: rgb(145, 193, 209);
+}
+
+@media (max-width: 1100px) {
+  .singlenews {
+    width: 95%;
+  }
+
+  .newssettings {
+    width: 95%;
+  }
+}
+
+/* Popup box BEGIN */
+div[class^="readmorebox"] {
+  margin-left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  /* cursor: pointer; */
+  display: none;
+  height: 100%;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+div[class^="readmorebox"] .helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+div[class^="readmorebox"] > div {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  background-color: rgb(122, 133, 131);
+  box-shadow: 10px 10px 60px #555;
+  display: inline-block;
+  height: auto;
+  max-width: 1000px;
+  min-height: 100px;
+  vertical-align: middle;
+  width: 85%;
+  position: relative;
+  border-radius: 8px;
+  padding: 5px 5%;
+  text-align: left;
+}
+div[class^="readmorebox"] [class^="popupCloseButton"] {
+  background-color: rgb(122, 133, 131);
+  border: 3px solid #999;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: arial;
+  font-weight: bold;
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 25px;
+  line-height: 30px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+div[class^="readmorebox"] [class^="popupCloseButton"]:hover {
+  background-color: #fff;
+}
+/* Popup box END */
 
 @media (max-width: 1100px) {
   .add-input-news form input,
