@@ -156,6 +156,65 @@ section a button i {
     padding-right: 5px;
 }
 
+.parallax {
+    background-image: url("/img/front.jpg");
+    
+    position: relative;
+    height: calc(100% - 100px);
+    top: 50px;
+  
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    opacity: 0.5;
+  }
+
+@media only screen and (max-device-width: 1366px) {
+    .parallax {
+        background-attachment: scroll;
+    }
+}
+
+#mainTop {
+    position: absolute;
+    top: 35%;
+    width: 100%;
+}
+
+#mainTop div {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    padding: 10px 20px;
+    background-color: #3d3d3d;
+    border-radius: 50px;
+}
+
+#upndown {
+    padding-top: 10px;
+    -webkit-animation: mover 1s infinite  alternate;
+    animation: mover 1s infinite  alternate;
+}
+@-webkit-keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-40px); }
+}
+@keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-40px); }
+}
+
+#mainTop h1 {
+    font-size: 50px;
+    margin-bottom: -20px;
+    margin-top: 0.4em;
+}
+
+#mainTop h2 {
+    font-size: 40px;
+}
 
 @media only screen and (max-width: 579px) {
     #untisframe {
