@@ -6,7 +6,7 @@
             include_once "./../sites/head.html"
 
         ?>
-        <title>Email - Friedrich-Gymnasium Luckenwalde</title>
+        <title>E-Mail - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
         <?php 

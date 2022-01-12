@@ -8,7 +8,7 @@
         <title>Untis - Friedrich-Gymnasium Luckenwalde</title>
         <script>
             function detectBrowser() { 
-                var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+                var isSafari = navigator.userAgent.match(/(iPhone|iPod|iPad|blackberry|android|Kindle|htc|lg|midp|mmp|mobile|nokia|opera mini|palm|pocket|psp|sgh|smartphone|symbian|treo mini|Playstation Portable|SonyEricsson|Samsung|MobileExplorer|PalmSource|Benq|Windows Phone|Windows Mobile|IEMobile|Windows CE|Nintendo Wii)/i);
                 if(isSafari) {
                     window.location.replace("https://nessa.webuntis.com/WebUntis/?school=Friedrich-Gym.");
                 }
