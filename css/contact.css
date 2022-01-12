@@ -1,0 +1,98 @@
+.contact-page {
+  /* margin-top: 25px; */
+  position: relative;
+  color: #fff;
+  font-family: "montserrat", sans-serif;
+  justify-content: center;
+  text-align: center;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%);
+  width: 1100px;
+  align-items: center;
+}
+
+.clear-float {
+  clear: both;
+}
+
+.contact-page h1 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.contact-page .adresse {
+  width: 1100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  height: 500px;
+  margin: 0;
+  margin-bottom: 25px;
+}
+
+.contact-page .adresse .adresse-text {
+  /* top: 50%;
+  transform: translateY(-50%);
+  position: absolute; */
+  padding: 15px;
+  border: 2px solid #fff;
+  border-radius: 15px;
+}
+
+.contact-page .adresse i {
+  position: relative;
+}
+
+.contact-page .adresse p {
+  position: relative;
+  margin-top: 25px;
+}
+
+.contact-page i {
+  overflow: hidden;
+}
+
+.contact-page i p {
+  font-family: "montserrat", sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.contact-page .contact {
+  border-top: 2px solid #fff;
+  align-items: center;
+  left: 0;
+  margin-left: 0;
+  padding: 0;
+  padding-top: 25px;
+}
+
+.contact-page .contact div {
+  padding: 10px;
+  margin-bottom: 50px;
+  margin-right: 50px;
+  margin-left: 0;
+  left: 0;
+  display: inline-block;
+  padding: 15px;
+  border: 2px solid #fff;
+  border-radius: 15px;
+}
+
+.contact-page .mapdiv {
+  margin-right: 50px;
+}
+
+.contact-page .map {
+  border: 0px;
+  width: 500px;
+  height: 400px;
+  /* margin: 0;
+  padding: 0; */
+  /* top: 50px; */
+  position: relative;
+  /* display: none; */
+  border-radius: 15px;
+}
