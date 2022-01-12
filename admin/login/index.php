@@ -45,7 +45,7 @@
                 }
 
                 if(isset($_POST["submit"])) {
-                    $sql = "SELECT * FROM users WHERE username=\"" . $use . "\" AND password_hash=\"" . $pwa . "\";";
+                    $sql = str_replace("--", "_", ("SELECT * FROM users WHERE username=\"" . $use . "\" AND password_hash=\"" . $pwa . "\";"));
                     // $pw = mysqli_query($conn, "SELECT * FROM users WHERE username="" . $use . "" AND password_hash="" . $pwa . "";");
                     $pw = mysqli_query($conn, $sql);
                     
