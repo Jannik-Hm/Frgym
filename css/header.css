@@ -112,6 +112,7 @@ footer p {
 }
 
 footer a {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-align: center;
     display: inline;
     position: relative;
@@ -131,4 +132,18 @@ footer a:hover {
     footer p {
         visibility: hidden;
     }
+}
+
+::-webkit-scrollbar {
+    width: 14px;
+}
+ 
+::-webkit-scrollbar-track {
+    background-color: #ccc;
+    border-radius: 100px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 100px;
 }
