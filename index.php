@@ -24,7 +24,10 @@
             </div>
         </section>
         <section style="top: calc(100% - 50px);height: 30%; width: 100%; background-color: black">
-            test
+            <div style="padding-top: 30px;">
+                <p style="border: 1px solid #3d859c; border-radius: 20px; width: fit-content; margin-left: auto; margin-right: auto; padding: 5px 20px; font-size: 25px; ">Adresse</p>
+                <p>Parkstraße 59<br>14943 Luckenwalde<br><br>Telefon:  03371-632569<br>Fax:       03371-641060<br>E-Mail:   s120534@schulen.brandenburg.de</p>
+            </div>
         </section>
     </body>
 </html>
