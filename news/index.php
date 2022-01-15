@@ -98,7 +98,7 @@
                         $zeit = $zeitor2[0] . "." . $zeitor1[1] . "." . $zeitor1[0] . " " . $zeitor3[0] . ":" . $zeitor3[1] . " Uhr";
                         echo("<h1>".$title."<br>
                             <h5><p>Veröffentlicht von ".$autor."</p><p class='time'>am ".$zeit."</p></h5>"."</h1>");
-                        echo("<p>".$lessinhalt." <a class='readmore".$id."'>Mehr anzeigen</a></p>");
+                        echo("<p>".nl2br($lessinhalt)." <a class='readmore".$id."'>Mehr anzeigen</a></p>");
                         echo("</div></a>");
                         echo("</li>");
                         echo("<div style='left: 0;' class='readmorebox".$id."'>
@@ -109,7 +109,7 @@
                                         <h1>".$title."<br>
                                             <h5><p>Veröffentlicht von ".$autor."</p><p class='time'>am ".$zeit."</p></h5>
                                         </h1>
-                                        <p>".$inhalt."</p>
+                                        <p>".nl2br($inhalt)."</p>
                                     </div>
                                 </div>
                             </div>");
