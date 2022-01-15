@@ -8,12 +8,12 @@ html, body {
 }
 
 iframe {
-    position: absolute; 
-    height: calc(100% - 100px); 
-    width:100%; 
-    border:none; 
-    margin: 0px; 
-    padding: 0px; 
+    position: absolute;
+    height: calc(100% - 100px);
+    width: 100%;
+    border: none;
+    margin: 0px;
+    padding: 0px;
     overflow: hidden;
     z-index: +1;
 }
@@ -109,7 +109,7 @@ section {
 }
 
 h1, h2, h3, h4, h5, h6, p {
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: #fff;
 }
 
@@ -134,14 +134,14 @@ a {
 
 section a button {
     transition: 0.5s all;
-     font-size: large;
-     width: 100px;
-     height: 35px;
-     background-color: #3d3d3d;
-     color: white;
-     border: 1px solid #fff;
-     border-radius: 10px;
-     cursor: pointer;
+    font-size: large;
+    width: 100px;
+    height: 35px;
+    background-color: #3d3d3d;
+    color: white;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 section a button:hover {
@@ -156,6 +156,117 @@ section a button i {
     padding-right: 5px;
 }
 
+.parallax {
+    background-image: url("/img/front.jpg");
+
+    position: relative;
+    height: calc(100% - 100px);
+    top: 50px;
+
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    opacity: 0.5;
+}
+
+@media only screen and (max-device-width: 1366px) {
+    .parallax {
+        background-attachment: scroll;
+    }
+}
+
+#mainTop {
+    position: absolute;
+    top: 35%;
+    width: 100%;
+}
+
+#mainTop div {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    padding: 10px 20px;
+    background-color: #3d3d3d;
+    border-radius: 50px;
+}
+
+#upndown {
+    padding-top: 10px;
+    -webkit-animation: mover 1s infinite alternate;
+    animation: mover 1s infinite alternate;
+}
+
+@-webkit-keyframes mover {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-40px);
+    }
+}
+
+@keyframes mover {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-40px);
+    }
+}
+
+#mainTop h1 {
+    font-size: 50px;
+    margin-bottom: -20px;
+    margin-top: 0.4em;
+}
+
+#mainTop h2 {
+    font-size: 40px;
+}
+
+#mainSecond {
+    top: calc(100% - 50px);
+    height: fit-content;
+    width: 100%;
+    background-color: black;
+}
+
+#mainSecond>div {
+    display: flex;
+    align-items: center;
+}
+
+#mainSecond>div>div:nth-child(2) {
+    width: 34%;
+    margin: auto;
+    padding: 30px 0px 30px 0px;
+}
+
+#mainSecond>div>div:nth-child(2)>p:nth-child(1) {
+    border: 1px solid #3d859c;
+    border-radius: 20px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px 70px;
+    font-size: 25px;
+}
+
+#mainSecond>div>div:first-child, #mainSecond>div div:last-child {
+    width: 33%;
+}
+
+#mainSecond>div>div:first-child>img, #mainSecond>div div:last-child>img {
+    width: auto;
+    height: 60%;
+    margin-right: 70px;
+    border: 1px solid black;
+    border-radius: 50px;
+}
 
 @media only screen and (max-width: 579px) {
     #untisframe {
@@ -172,5 +283,11 @@ section a button i {
 
     section {
         top: 110px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    #mainSecond>div>div:first-child, #mainSecond>div div:last-child {
+        display: none;
     }
 }

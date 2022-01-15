@@ -112,6 +112,7 @@ footer p {
 }
 
 footer a {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-align: center;
     display: inline;
     position: relative;
@@ -131,4 +132,23 @@ footer a:hover {
     footer p {
         visibility: hidden;
     }
+}
+
+::-webkit-scrollbar {
+	width:10px;
+	background-color: #424242;
+}
+
+::-webkit-scrollbar-track{
+	background-color:#424242;
+}
+
+::-webkit-scrollbar-thumb{
+	background-color:#8e8e8e;
+	border:2px solid #424242;
+	border-radius:5px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+	background-color:#9b9b9b;
 }
