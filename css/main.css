@@ -92,7 +92,6 @@ input {
 
 section {
     margin: auto;
-    top: 60px;
     text-align: center;
     display: inline-block;
     position: absolute;
@@ -156,11 +155,22 @@ section a button i {
     padding-right: 5px;
 }
 
+.line {
+    display: block;
+    width: 80%;
+    height: 1px;
+    border-bottom: 1px solid gray;
+    top: 24%;
+    position: relative;
+    margin: auto;
+}
+
 .parallax {
     background-image: url("/img/front.jpg");
 
     position: relative;
-    height: calc(100% - 100px);
+    height: 100vh;
+    width: 100%;
     top: 50px;
 
     background-attachment: fixed;
@@ -178,18 +188,25 @@ section a button i {
 }
 
 #mainTop {
-    position: absolute;
-    top: 35%;
+    top: 50px;
+    position: relative;
     width: 100%;
+    height: 100vh;
 }
 
 #mainTop div {
+    top: 35vh;
+    position: relative;
     margin-left: auto;
     margin-right: auto;
     width: fit-content;
     padding: 10px 20px;
     background-color: #3d3d3d;
     border-radius: 50px;
+}
+
+#mainSecond>div>div>p a {
+    text-decoration: underline dotted #3d859c 1px;
 }
 
 #upndown {
@@ -229,10 +246,10 @@ section a button i {
 }
 
 #mainSecond {
-    top: calc(100% - 50px);
     height: fit-content;
     width: 100%;
-    background-color: black;
+    background-color: #1a1a1a;
+    position: relative;
 }
 
 #mainSecond>div {
@@ -263,9 +280,37 @@ section a button i {
 #mainSecond>div>div:first-child>img, #mainSecond>div div:last-child>img {
     width: auto;
     height: 60%;
-    margin-right: 70px;
+    margin: auto 45px;
     border: 1px solid black;
     border-radius: 50px;
+}
+
+#mainThird {
+    height: fit-content; 
+    width: 100%; 
+    background-color: #282828; 
+    display: block; 
+    position: relative; 
+}
+
+#mainThird>div {
+    padding: 60px 0px 0px 0px;
+}
+
+#mainThird>div>p {
+    text-align: justify;
+    padding: 30px 0px;
+    margin: 0px 10vw;
+}
+
+#mainThird>div>p:nth-child(1) {
+    border: 1px solid #3d859c;
+    border-radius: 20px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px 70px;
+    font-size: 25px;
 }
 
 @media only screen and (max-width: 579px) {

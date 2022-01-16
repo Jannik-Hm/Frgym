@@ -1,9 +1,10 @@
 nav {
-    position: absolute;
+    position: fixed;
     width: 100%;
     top: 0%;  
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     z-index: +2;
+    display: block;
 }
 
 nav ul {
@@ -88,7 +89,7 @@ footer {
     height: auto;
     width: 100%;
     bottom: 0px;
-    position: fixed;
+    position: relative;
     height: 50px;
     background-color: #2f2f2f;
     border-top: gray;
@@ -114,7 +115,7 @@ footer p {
 footer a {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-align: center;
-    display: inline;
+    display: block;
     position: relative;
     right: 30px;
     margin-top: 16px;
