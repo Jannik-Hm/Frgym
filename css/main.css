@@ -166,7 +166,7 @@ section a button i {
 }
 
 .parallax {
-    background-image: url("/img/front.jpg");
+    background-image: url("/img/front.webp");
 
     position: relative;
     height: 100vh;
@@ -313,7 +313,65 @@ section a button i {
     font-size: 25px;
 }
 
-@media only screen and (max-width: 579px) {
+#mainFourth {
+    height: fit-content; 
+    width: 100%; 
+    background-color: #1a1a1a; 
+    display: block; 
+    position: relative; 
+}
+
+#mainFourth>div:nth-child(1) {
+    padding-top: 60px;
+}
+
+#mainFourth>div:nth-child(2) {
+    display: flex;
+    padding: 30px 0px 30px 0px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: stretch;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+#mainFourth>div:nth-child(2)>div {
+    background-color: #282828;
+    border-radius: 20px;
+    width: fit-content;
+    padding: 15px;
+    margin: 15px;
+}
+
+#mainFourth>div p {
+    text-align: justify;
+    padding: 30px 0px;
+    margin: 0px 10vw;
+}
+
+#mainFourth>div:nth-child(1)>p:nth-child(1) {
+    border: 1px solid #3d859c;
+    border-radius: 20px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px 70px;
+    font-size: 25px;
+}
+
+#mainFourth>div:nth-child(2)>div>p:nth-child(1) {
+    font-size: 17px;
+    border-bottom: 1px dashed #3d859c;
+    padding: 0px;
+    margin-bottom: 20px;
+    width: fit-content;
+}
+
+#mainFourth>div:nth-child(2)>div>img {
+    border-radius: 10px;
+}
+
+/* @media only screen and (max-width: 579px) {
     #untisframe {
         top: 100px;
     }
@@ -329,7 +387,7 @@ section a button i {
     section {
         top: 110px;
     }
-}
+} */
 
 @media only screen and (max-width: 900px) {
     #mainSecond>div>div:first-child, #mainSecond>div div:last-child {

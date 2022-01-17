@@ -1,3 +1,4 @@
+<?php header("Cache-Control: max-age=30"); ?>
 <!DOCTYPE html>
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
 
@@ -42,8 +43,29 @@
     <section id="mainThird">
         <div>
             <p>Über uns</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore nulla rem iste quaerat iure tenetur repudiandae minima, aliquid in optio eaque soluta voluptatum corrupti ullam. Id, fugit! Assumenda, vel quas.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore nulla rem iste quaerat iure tenetur repudiandae minima, aliquid in optio eaque soluta voluptatum corrupti ullam. Id, fugit! Assumenda, vel quas. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur perspiciatis illo illum expedita iure deleniti sapiente magni necessitatibus quod, maiores, temporibus dolor ipsa, quibusdam corporis culpa impedit aliquam incidunt porro! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt, doloremque corrupti dolorum placeat iste vitae debitis magnam nostrum deserunt, ipsam ratione quae excepturi dolores ducimus officia consequuntur itaque quasi enim. Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, optio? Doloremque nihil odio labore. Minima at ratione itaque cum numquam hic. Facilis unde neque velit inventore harum beatae natus repellat?</p>
         </div>
+        <span class="line"></span>
+    </section>
+    <section id="mainFourth">
+        <div>
+            <p>Was uns auszeichnet</p>
+        </div>
+        <div>
+            <div>
+                <p>DELF</p>
+                <img src="/img/delf-logo.webp" style="height: 100px; max-height: 200px; width: auto;">
+            </div>
+            <div>
+                <p>English</p>
+                <img src="/img/label-english.webp" style="height: 100px; max-height: 200px; width: auto;">
+            </div>
+            <div>
+                <p>Schule ohne Rassismus, mit Courage </p>
+                <img src="/img/schule_or_mc.webp" style="min-height: 100px; max-height: 200px; width: auto;">
+            </div>
+        </div>
+        <span class="line"></span>
     </section>
     <!-- <section style="height: fit-content; width: 100%; background-color: #1a1a1a; display: block; position: relative; margin: 0; padding: 0;">
         <div>
