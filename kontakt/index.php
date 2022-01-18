@@ -48,5 +48,6 @@
         </div>
         <br>
         <div class="page-ending"></div>
+        <?php include_once "./../sites/footer.html" ?>
     </body>
 </html>

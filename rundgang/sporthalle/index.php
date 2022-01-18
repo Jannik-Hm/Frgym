@@ -23,6 +23,10 @@
                 include_once "./sporthalle1.php";
             }
         ?>
+        <?php
 
+        include_once "./../../sites/footer.html"
+
+        ?>
     </body>
 </html>

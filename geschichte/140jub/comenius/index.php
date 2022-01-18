@@ -104,6 +104,7 @@
 			</tbody>
 		</table>
 	</section>
+		<?php include_once "./../../sites/footer.html" ?>
 </body>
 
 </html>

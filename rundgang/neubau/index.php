@@ -23,6 +23,6 @@
                 include_once "./neubau1.php";
             }
         ?>
-
+        <?php include_once "./../../sites/footer.html" ?>
     </body>
 </html>

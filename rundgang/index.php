@@ -22,5 +22,10 @@
                 <a href="./1910/">Schule im Jahr 1910</a>
             </div>
         </section>
+        <?php
+
+            include_once "./../sites/footer.html"
+
+        ?>
     </body>
 </html>

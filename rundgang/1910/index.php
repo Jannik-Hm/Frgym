@@ -45,5 +45,6 @@
                 <p>Ein Gruppenbild des Lehrerkollegiums anno 1918<br>Emil Lehmann, Martin Kreutzberg, Friedrich Fraedricht, Wilhelm Semmchmacher, Dr. Oskar Reich, Prof. Dr. Walter Krassonsky, Dr. Wilhelm Krüger, Dr. Dr. Lenest Vogel, Hans Täger, Stundienrat Albert Belsling, Dr. Friedrich Steuer, Dr. Dr. Will Anderson, Friedrich Müller, Dr. Gotholt<br>Wesenberg, Dombach, Prof. Faber, Siegfried Rothe, Dr. Nils Venslaft</p>
             </div>
         </section>
+        <?php include_once "./../../sites/footer.html" ?>
     </body>
 </html>

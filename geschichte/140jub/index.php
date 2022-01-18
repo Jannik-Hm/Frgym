@@ -30,6 +30,7 @@
     	        <a href="/geschichte/140jub/comenius/">Das Comenius-Projekt</a>
     	    </div>
 		</section>
+		<?php include_once "./../sites/footer.html" ?>
 	</body>
 
 </html>

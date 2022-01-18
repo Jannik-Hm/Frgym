@@ -23,5 +23,6 @@
             <a href="./zeitung/">Zeitungsinterview</a> <br>
             <img src="./aula1910.jpg"> 
         </section>    
+        <?php include_once "./../sites/footer.html" ?>
     </body>
 </html>

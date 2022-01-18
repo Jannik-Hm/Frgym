@@ -22,5 +22,10 @@
 
         ?>
         <iframe src="https://brandenburg.cloud/dashboard" id="untisframe"></iframe>
+        <?php
+
+    include_once "./../sites/footer.html"
+
+        ?>
     </body>
 </html>

@@ -147,5 +147,6 @@
             </ul>
             <div class="page-ending"></div>
         </div>
+        <?php include_once "./../sites/footer.html" ?>
     </body>
 </html>

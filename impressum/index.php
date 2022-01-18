@@ -57,7 +57,7 @@
                 <p>NAME WEBMASTER</p> <!-- WEBMASTER ANGEBEN -->
             </div>
         </section>
-
+        <?php include_once "./../sites/footer.html" ?>
     </body>
 
 </html>

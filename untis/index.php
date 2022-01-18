@@ -22,5 +22,6 @@
 
         ?>
         <iframe src="https://nessa.webuntis.com/WebUntis/?school=Friedrich-Gym." id="untisframe"></iframe>
+            <?php include_once "./../sites/footer.html" ?>
     </body>
 </html>

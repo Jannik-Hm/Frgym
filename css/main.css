@@ -93,8 +93,8 @@ input {
 section {
     margin: auto;
     text-align: center;
-    display: inline-block;
-    position: absolute;
+    display: block;
+    position: relative;
     width: 100%;
 }
 

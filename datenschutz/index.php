@@ -812,6 +812,7 @@
                 </textarea>
         </div>
     </section>
+    <?php include_once "./../sites/footer.html" ?>
 
 </body>
 

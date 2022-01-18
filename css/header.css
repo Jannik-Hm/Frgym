@@ -88,12 +88,12 @@ footer {
     display: block;
     height: auto;
     width: 100%;
-    bottom: 0px;
     position: relative;
+    bottom: 0px;
     height: 50px;
     background-color: #2f2f2f;
     border-top: gray;
-    z-index: 1;
+    z-index: 0;
 }
 
 footer img, footer p {
