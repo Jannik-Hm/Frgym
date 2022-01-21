@@ -67,12 +67,11 @@
         </div>
         <span class="line"></span>
     </section>
-    <!-- <section style="height: fit-content; width: 100%; background-color: #1a1a1a; display: block; position: relative; margin: 0; padding: 0;">
+    <section style="height: fit-content; width: 100%; background-color: #1a1a1a; display: block; position: relative; margin: 0; padding: 0;">
         <div>
             <p>Aktuelles</p>
-            NEWS Embed
         </div>
-    </section> -->
+    </section>
 
     <?php
 
