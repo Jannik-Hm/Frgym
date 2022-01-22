@@ -43,6 +43,7 @@
                     <label class="heading2">Position</label>
                     <ul>
                         <li><label><input type="radio" name="position" <?php if($disabled){echo "disabled";} ?> value="Lehrer*in">Lehrer*in</label></li>
+                        <li><label><input type="radio" name="position" <?php if($disabled){echo "disabled";} ?> value="Referendar*in">Referendar*in</label></li>
                         <li><label><input type="radio" name="position" <?php if($disabled){echo "disabled";} ?> value="Schulleiter*in">Schulleiter*in</label></li>
                         <li><label><input type="radio" name="position" <?php if($disabled){echo "disabled";} ?> value="stellvertretender Schulleiter*in">stellvertretender Schulleiter*in</label></li>
                         <li><label><input type="radio" name="position" <?php if($disabled){echo "disabled";} ?> value="Oberstufenkoordinator*in">Oberstufenkooridnator*in</label></li>
@@ -151,4 +152,4 @@
             }
         ?>
     </body>
-</ht
+</h

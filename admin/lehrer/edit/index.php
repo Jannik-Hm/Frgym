@@ -76,6 +76,7 @@
                     <label class="heading2">Position</label>
                     <ul>
                         <li><label><input type="radio" name="position" value="Lehrer*in" <?php if ($position == 'Lehrer*in') echo "checked"; ?> <?php if($disabled or $ownedit){echo("disabled");} ?>>Lehrer*in</label></li>
+                        <li><label><input type="radio" name="position" value="Referendar*in" <?php if ($position == 'Referendar*in') echo "checked"; ?> <?php if($disabled or $ownedit){echo("disabled");} ?>>Referendar*in</label></li>
                         <li><label><input type="radio" name="position" value="Schulleiter*in" <?php if ($position == 'Schulleiter*in') echo "checked"; ?> <?php if($disabled or $ownedit){echo("disabled");} ?>>Schulleiter*in</label></li>
                         <li><label><input type="radio" name="position" value="stellvertretender Schulleiter*in" <?php if ($position == 'stellvertretender Schulleiter*in') echo "checked"; ?> <?php if($disabled or $ownedit){echo("disabled");} ?>>stellvertretender Schulleiter*in</label></li>
                         <li><label><input type="radio" name="position" value="Oberstufenkoordinator*in" <?php if ($position == 'Oberstufenkoordinator*in') echo "checked"; ?> <?php if($disabled or $ownedit){echo("disabled");} ?>>Oberstufenkooridnator*in</label></li>
