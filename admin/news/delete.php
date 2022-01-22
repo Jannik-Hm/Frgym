@@ -13,7 +13,8 @@
     <head>
         <?php
 
-            include_once "./../../sites/head.html"
+            $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+            include_once "$root/admin/sites/head.html";
 
         ?>
         <title>Neuigkeit löschen - Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
@@ -21,7 +22,16 @@
     <body>
         <?php
 
-            include_once "./../../sites/header.html"
+            include_once "$root/admin/sites/header.html";
+
+            include_once "$root/admin/sites/permissions.php";
+
+            include_once "$root/admin/no-permission.html";
+
+            if($news_all == 0 || ($news_own == 1 && $_SESSION["vorname"] . " " . $_SESSION["nachname"] == $autor)){
+                echo("<script>$('.no_perm').show();</script>");
+                $disabled = true;
+            };
 
         ?>
 
@@ -38,7 +48,7 @@
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $insert = mysqli_query($conn, "DELETE FROM news WHERE id='{$id}'");
+            if ($disabled==false){$insert = mysqli_query($conn, "DELETE FROM news WHERE id='{$id}'");}
             if ($insert) {
                 echo '<script type="text/javascript">window.location = "/admin/news/"</script>';
             }
