@@ -7,17 +7,15 @@
         header("Location: /admin/login/");
     }
 
-    include_once "/admin/sites/permissions.php";
-    if($lehrer_own == 0 && $lehrer_all == 0) {
-        header("Location: /admin/");
-    }
+    $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+
 ?>
 <!DOCTYPE html>
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
     <head>
         <?php 
 
-            include_once "./../sites/head.html" 
+            include_once "$root/admin/sites/head.html";
 
         ?>
         <title>Lehrerliste - Friedrich-Gymnasium Luckenwalde</title>
@@ -48,7 +46,12 @@
     <body>
         <?php 
 
-            include_once "./../sites/header.html" 
+            include_once "$root/admin/sites/header.html";
+
+            include_once "$root/admin/sites/permissions.php";
+            if($lehrer_all == 0){
+                $disabledall = true;
+            };
 
         ?>
 
@@ -105,8 +108,13 @@
                         echo("<td onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["position"] . "</td>");
                         echo("<td onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $faecher . "</td>");
                         echo("<td onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["datum"] . "</td>");
-                        echo("<td onclick=\"window.location='/admin/lehrer/edit?id=" .$row["id"] . "'\"><i class='fas fa-edit'></i></td>");
-                        echo("<td onclick=\"$('#confirmdelete').attr('href', '/admin/lehrer/delete.php?id=".$row['id']."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du den Lehrer &#34;".$row["vorname"]." ".$row["nachname"]."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
+                        if( !( $disabledall ) || ($lehrer_own == 1 && $_SESSION["vorname"] == $row["vorname"] && $_SESSION["nachname"] == $row["nachname"])){
+                            echo("<td onclick=\"window.location='/admin/lehrer/edit?id=" .$row["id"] . "'\"><i class='fas fa-edit'></i></td>");
+                            echo("<td onclick=\"$('#confirmdelete').attr('href', '/admin/lehrer/delete.php?id=".$row['id']."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du den Lehrer &#34;".$row["vorname"]." ".$row["nachname"]."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
+                        }else{
+                            echo("<td></td>");
+                            echo("<td></td>");
+                        }
                         echo("</a></tr>");
                     }
                 } else {
