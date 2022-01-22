@@ -13,8 +13,6 @@
 
     $role = get_role($_SESSION["user_id"]);
 
-    $role ="Lehrer";
-
     $sqlperm = ("SELECT * FROM roles WHERE name='".$role."';");
     $perms = mysqli_query(get_connection(), $sqlperm);
     if($perms->num_rows > 0) {
