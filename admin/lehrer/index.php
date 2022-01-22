@@ -93,8 +93,8 @@
                     echo('<th>Position</th>');
                     echo('<th>Fächer</th>');
                     echo('<th>An der Schule seit</th>');
-                    echo('<th class="empty"></th>');
-                    echo('<th class="empty"></th>');
+                    echo('<th></th>');
+                    if( ! ($disabledall)){ echo('<th></th>'); }
                     echo('</tr>');
                     while($row = $result->fetch_assoc()) {
                         $faecher = "";
@@ -110,9 +110,13 @@
                         echo("<td onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["datum"] . "</td>");
                         if( !( $disabledall ) || ($lehrer_own == 1 && $_SESSION["vorname"] == $row["vorname"] && $_SESSION["nachname"] == $row["nachname"])){
                             echo("<td onclick=\"window.location='/admin/lehrer/edit?id=" .$row["id"] . "'\"><i class='fas fa-edit'></i></td>");
-                            echo("<td onclick=\"$('#confirmdelete').attr('href', '/admin/lehrer/delete.php?id=".$row['id']."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du den Lehrer &#34;".$row["vorname"]." ".$row["nachname"]."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
+                            if( ! ($disabledall)){
+                                echo("<td onclick=\"$('#confirmdelete').attr('href', '/admin/lehrer/delete.php?id=".$row['id']."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du den Lehrer &#34;".$row["vorname"]." ".$row["nachname"]."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
+                            }
+                            // else{
+                                // echo("<td><i class='fas fa-trash red' style='color:#F75140;color:transparent'></i></td>");
+                            // }
                         }else{
-                            echo("<td></td>");
                             echo("<td></td>");
                         }
                         echo("</a></tr>");
