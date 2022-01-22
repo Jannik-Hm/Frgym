@@ -1,10 +1,19 @@
-<?php session_name("userid_login"); session_start(); ?>
+<?php
+    session_name("userid_login");
+    session_start();
+
+    if(!isset($_SESSION["user_id"])) {
+        header("Location: /admin/login/");
+    }
+?>
 <!DOCTYPE html>
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
     <head>
         <?php
 
-            include_once "./../../sites/head.html"
+            $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+
+            include_once "$root/admin/sites/head.html";
 
         ?>
         <title>News bearbeiten - Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
@@ -12,7 +21,11 @@
     <body>
         <?php
 
-            include_once "./../../sites/header.html"
+            include_once "$root/admin/sites/header.html";
+
+            include_once "$root/admin/sites/permissions.php";
+
+            include_once "$root/admin/no-permission.html";
 
         ?>
 
@@ -36,15 +49,24 @@
             $row = $result->fetch_assoc();
             $titel = $row["titel"];
             $inhalt = $row["inhalt"];
+            $autor = $row["autor"];
         }
+
+        if($news_own == 1 && $_SESSION["vorname"] . " " . $_SESSION["nachname"] == $autor){
+            $ownedit = true;
+            $disabled = false;
+        }elseif($news_all == 0){
+            echo("<script>$('.no_perm').show();</script>");
+            $disabled = true;
+        };
 
         ?>
 
         <div class="add-input-news">
             <form method="POST">
-                <input type="text" size="50%" placeholder="Titel*" name="titel" value="<?php echo $titel; ?>" required><br>
-                <textarea rows="10" columns="50%" placeholder="Inhalt der Nachricht*" name="inhalt" required><?php echo $inhalt; ?></textarea><br>
-                <input type="submit" name="submit" value="Senden">
+                <input type="text" size="50%" placeholder="Titel*" name="titel" value="<?php echo $titel; ?>" <?php if($disabled){echo "disabled";} ?> required><br>
+                <textarea rows="10" columns="50%" placeholder="Inhalt der Nachricht*" name="inhalt" <?php if($disabled){echo "disabled";} ?> required><?php echo $inhalt; ?></textarea><br>
+                <input type="submit" name="submit" <?php if($disabled){echo "disabled";} ?> value="Senden">
                 <div class="page-ending"></div>
             </form>
         </div>
@@ -75,7 +97,7 @@
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            if(isset($_POST["submit"])) {
+            if(isset($_POST["submit"]) && $disabled==false) {
                 $insert = mysqli_query($conn, "UPDATE news SET titel='{$titel}', inhalt='{$inhalt}', autor='{$autor}', zeit='{$date}' WHERE id='{$id}'");
                 if ($insert) {
                     echo("<script>$('.confirm').show();</script>");
