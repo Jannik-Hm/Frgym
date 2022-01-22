@@ -36,6 +36,7 @@ iframe {
     border-radius: 15px;
     padding: 0px;
     border-collapse: collapse;
+    margin-bottom: 120px;
 }
 
 input {

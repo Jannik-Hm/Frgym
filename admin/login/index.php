@@ -55,6 +55,7 @@
                         $row = $pw->fetch_assoc();
                         $_SESSION["vorname"] = $row["vorname"];
                         $_SESSION["nachname"] = $row["nachname"];
+                        $_SESSION["role"] = $row["role"];
                         echo("<script>window.location.replace('/admin/');</script>");
                     }
                 }

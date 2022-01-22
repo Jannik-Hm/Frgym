@@ -13,6 +13,25 @@ function get_connection() {
     }
     return $conn;
 }
-            
+
+function get_role($user_id) {
+    $sql = ("SELECT \"role\" FROM users WHERE id=\"".$user_id."\";");
+    $role = mysqli_query(get_connection(), $sql);
+    if($role->num_rows == 1) {
+        $role = $role->fetch_assoc();
+        $role = $role["role"];
+    }
+}
+
+function get_permission($user_id, $permission) {
+    
+    $role = get_role($user_id);
+    $sql = ("SELECT \"$permission\" FROM roles WHERE name=\"$role\";");
+    $perms = mysqli_query(get_connection(), $sql);
+    if($perms->num_rows == 1) {
+        $perms = $perms->fetch_assoc();
+        return $perms[$permission];
+    }
+}
 
 ?>

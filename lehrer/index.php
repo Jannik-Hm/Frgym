@@ -6,7 +6,7 @@
             include_once "./../sites/head.html" 
 
         ?>
-        <title>Startseite - Friedrich-Gymnasium Luckenwalde</title>
+        <title>Lehrer - Friedrich-Gymnasium Luckenwalde</title>
         <script>
             function searchTable() {
                 // Declare variables
@@ -37,7 +37,6 @@
             include_once "./../sites/header.html" 
 
         ?>
-
 
         <!--<div style="border: 1px solid grey; border-radius: 50px; width: 150px; min-height:200px;" class="lehrer">
             <img src="" style="border:1px solid black; border-radius: 15px; width:100px; height:150px; align-self: center;">
@@ -108,7 +107,9 @@
                     echo("<h3>" . $row["position"] . "</h3>");
                     echo("<img src=\"./img/" . $row["vorname"] . "_" . $row["nachname"] . ".png\" id=\"lehrerimg\">");
                     echo("<h2>" . $faecher . "</h2>");
-                    echo("<h4>" . $date->format("%y Jahre alt") . "</h4>");
+                    // if(isset($date)) {
+                        echo("<h4>" . $date->format("Seit %y Jahren dabei") . "</h4>");
+                    // }
                     echo("<a href=\"mailto:" . $row["email"] . "\"><button><i class='fas fa-at'></i> E-Mail</button></a>");
                     echo("<p>" . $row["beschreibung"] . "</p>");
                     echo("</section>");

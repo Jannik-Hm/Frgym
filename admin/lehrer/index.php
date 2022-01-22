@@ -7,6 +7,10 @@
         header("Location: /admin/login/");
     }
 
+    include_once "/admin/sites/permissions.php";
+    if($lehrer_own == 0 && $lehrer_all == 0) {
+        header("Location: /admin/");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
@@ -85,7 +89,7 @@
                     echo('<th>Email</th>');
                     echo('<th>Position</th>');
                     echo('<th>Fächer</th>');
-                    echo('<th>Geburtsdatum</th>');
+                    echo('<th>An der Schule seit</th>');
                     echo('<th class="empty"></th>');
                     echo('<th class="empty"></th>');
                     echo('</tr>');
@@ -96,11 +100,11 @@
                         }
                         $faecher = substr($faecher, 3);
                         echo("<tr>");
-                        echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["vorname"] . " " . $row["nachname"] . "</td>");
-                        echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["email"] . "</td>");
-                        echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["position"] . "</td>");
-                        echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $faecher . "</td>");
-                        echo("<td onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["datum"] . "</td>");
+                        echo("<td onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["vorname"] . " " . $row["nachname"] . "</td>");
+                        echo("<td onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["email"] . "</td>");
+                        echo("<td onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["position"] . "</td>");
+                        echo("<td onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $faecher . "</td>");
+                        echo("<td onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["datum"] . "</td>");
                         echo("<td onclick=\"window.location='/admin/lehrer/edit?id=" .$row["id"] . "'\"><i class='fas fa-edit'></i></td>");
                         echo("<td onclick=\"$('#confirmdelete').attr('href', '/admin/lehrer/delete.php?id=".$row['id']."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du den Lehrer &#34;".$row["vorname"]." ".$row["nachname"]."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
                         echo("</a></tr>");
