@@ -25,3 +25,5 @@
         $lehrer_own = $row["lehrer.own"];
         $lehrer_all = $row["lehrer.all"];
     }
+
+?>
