@@ -9,7 +9,9 @@
 
     $user_id = $_SESSION["user_id"];
 
-    require "./../../sites/credentials.php";
+    $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+
+    require "$root/sites/credentials.php";
 
     $role = get_role($_SESSION["user_id"]);
 
