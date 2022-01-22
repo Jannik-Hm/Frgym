@@ -114,7 +114,7 @@
                         $zeitor3 = explode(":", $zeitor2[1]);
                         $zeit = $zeitor2[0] . "." . $zeitor1[1] . "." . $zeitor1[0] . " " . $zeitor3[0] . ":" . $zeitor3[1] . " Uhr";
                         echo("<div class='adminbtn'>");
-                        if($news_own == 1 && $_SESSION["vorname"] . " " . $_SESSION["nachname"] == $autor){
+                        if($news_all == 1 || ($news_own == 1 && $_SESSION["vorname"] . " " . $_SESSION["nachname"] == $autor)){
                             echo("
                                 <a onclick=\"window.location='/admin/news/edit?id=" .$id. "'\"><i style='margin-right: 30px' class='fas fa-edit'></i></a>
                                 <a onclick=\"$('#confirmdelete').attr('href', '/admin/news/delete.php?id=".$id."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du die Neuigkeit &#34;".$title."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></a>
