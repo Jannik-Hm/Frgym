@@ -21,6 +21,7 @@ function get_role($user_id) {
         $role = $role->fetch_assoc();
         $role = $role["role"];
     }
+    return $role;
 }
 
 function get_permission($user_id, $permission) {
