@@ -15,7 +15,7 @@ function get_connection() {
 }
 
 function get_role($user_id) {
-    $sql = ("SELECT \"role\" FROM users WHERE id=\"".$user_id."\";");
+    $sql = ("SELECT role FROM users WHERE id=\"".$user_id."\";");
     $role = mysqli_query(get_connection(), $sql);
     if($role->num_rows == 1) {
         $role = $role->fetch_assoc();
