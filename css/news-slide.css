@@ -5,7 +5,7 @@ div.newsslidershow div.slider {
   margin: auto;
   font-family: "montserrat", sans-serif;
   width: 1500px;
-  height: 400px;
+  height: 350px;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -14,6 +14,8 @@ div.newsslidershow div.slider div.newsslides {
   width: 500%;
   height: 100%;
   display: flex;
+  border: 2px #fff;
+  border-radius: 15px;
 }
 
 div.newsslidershow div.slider div.newsslides input {
@@ -25,6 +27,8 @@ div.newsslidershow div.slider div.newsslides div[class^="newsslide"] {
   margin-right: 10px;
   width: 20%;
   transition: 2s;
+  border: 2px #fff;
+  border-radius: 15px;
 }
 
 div.newsslidershow div.slider div.newsslides div.newsslide1 {
@@ -40,7 +44,10 @@ div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news {
   background-color: rgb(122, 133, 131);
   /* width: 1000px; */
   align-self: center;
+  border: 2px #fff;
   border-radius: 15px;
+  /* display: block; */
+  cursor: pointer;
 }
 
 div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news h1,
@@ -153,7 +160,7 @@ div.newsslidershow div.slider div.newsslides .navigation-auto {
   display: flex;
   width: 1500px;
   justify-content: center;
-  margin-top: 360px;
+  margin-top: 310px;
 }
 
 div.newsslidershow div.slider div.newsslides .navigation-auto div {
