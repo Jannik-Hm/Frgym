@@ -11,8 +11,8 @@
 </head>
 
 <body>
-    <div class="newsslidershow">
-    <?php
+        <div class="newsslidershow">
+            <?php
                 $lesscharnum = 600;
                 $lessrownumber = 6;
                 $rowcharnum = 600;
@@ -36,7 +36,7 @@
             ?>
             <div class="slider">
                 <div class="newsslides">
-                    <input type="radio" name="radio-btn" id="radio1">
+                    <input type="radio" name="radio-btn" id="radio1" checked>
                     <input type="radio" name="radio-btn" id="radio2">
                     <input type="radio" name="radio-btn" id="radio3">
                     <br>
@@ -44,7 +44,7 @@
                         for ($i=0; $i<count($news); $i++){
                             $id = $news[$i]["id"];
                             echo("<div class='newsslide". ($i+1) ."'>");
-                                echo("<a class='divrm".$i."'><div class='news'>");
+                                echo("<div onclick=\"$('.readmorebox".$i."').show()\" class='news'>");
                                     $title = $news[$i]["titel"];
                                     $inhalt = $news[$i]["inhalt"];
                                     $lessinhalt = substr($news[$i]["inhalt"],0,$lesscharnum);
@@ -58,12 +58,12 @@
                                     $zeit = $zeitor2[0] . "." . $zeitor1[1] . "." . $zeitor1[0] . " " . $zeitor3[0] . ":" . $zeitor3[1] . " Uhr";
                                     echo("<h1>".$title."<br>
                                         <h5><p>Veröffentlicht von ".$autor."</p><p class='time'>am ".$zeit."</p></h5>"."</h1>");
-                                    echo("<p>".nl2br($lessinhalt)." <a class='readmore".$i."'>Mehr anzeigen</a></p>");
-                                echo("</div></a>");
+                                    echo("<p>".nl2br($lessinhalt)." <a onclick=\"$('.readmorebox".$i."').show()\" class='readmore".$i."'>Mehr anzeigen</a></p>");
+                                echo("</div>");
                                 echo("<div style='left: 0;' class='readmorebox".$i."'>
                                     <span class='helper'></span>
                                     <div class='scroll'>
-                                        <div class='popupCloseButton".$i."'>&times;</div>
+                                        <div onclick=\"$('.readmorebox".$i."').hide()\" class='popupCloseButton".$i."'>&times;</div>
                                         <div class='newspopup'>
                                             <h1>".$title."<br>
                                                 <h5><p>Veröffentlicht von ".$autor."</p><p class='time'>am ".$zeit."</p></h5>
@@ -72,17 +72,6 @@
                                         </div>
                                     </div>
                                 </div>");
-                                echo("<script>$(window).load(function () {
-                                    $('.readmore".$i."').click(function(){
-                                    $('.readmorebox".$i."').show();
-                                    });
-                                    $('.divrm".$i."').click(function(){
-                                        $('.readmorebox".$i."').show();
-                                        });
-                                    $('.popupCloseButton".$i."').click(function(){
-                                        $('.readmorebox".$i."').hide();
-                                    });
-                                });</script>");
                             echo("</div>");
                         }
                     ?>
@@ -99,14 +88,14 @@
                 </div>
             </div>
             <script type="text/javascript">
-                var counter = 1;
+                var counter = 2;
                 setInterval(function(){
                 document.getElementById('radio' + counter).checked = true;
                 counter++;
                 if(counter > 3){
                     counter = 1;
                 }
-                }, 5000);
+                }, 10000);
             </script>
         </div>
     </body>
