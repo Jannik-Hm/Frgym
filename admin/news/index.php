@@ -1,9 +1,21 @@
+<?php
+
+    session_name("userid_login");
+    session_start();
+
+    if(!isset($_SESSION["user_id"])) {
+        header("Location: /admin/login/");
+    }
+
+    $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+
+?>
 <!DOCTYPE html>
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
     <head>
         <?php
 
-            include_once "./../sites/head.html"
+            include_once "$root/admin/sites/head.html";
 
         ?>
         <title>News - Friedrich-Gymnasium Luckenwalde</title>
@@ -11,7 +23,12 @@
     <body>
         <?php
 
-            include_once "./../sites/header.html"
+            include_once "$root/admin/sites/header.html";
+
+            include_once "$root/admin/sites/permissions.php";
+            if($news_all == 0){
+                $disabledall = true;
+            };
 
         ?>
 
@@ -96,10 +113,14 @@
                         $zeitor2 = explode(" ", $zeitor1[2]);
                         $zeitor3 = explode(":", $zeitor2[1]);
                         $zeit = $zeitor2[0] . "." . $zeitor1[1] . "." . $zeitor1[0] . " " . $zeitor3[0] . ":" . $zeitor3[1] . " Uhr";
-                        echo("<div class='adminbtn'>
+                        echo("<div class='adminbtn'>");
+                        if($news_own == 1 && $_SESSION["vorname"] . " " . $_SESSION["nachname"] == $autor){
+                            echo("
                                 <a onclick=\"window.location='/admin/news/edit?id=" .$id. "'\"><i style='margin-right: 30px' class='fas fa-edit'></i></a>
                                 <a onclick=\"$('#confirmdelete').attr('href', '/admin/news/delete.php?id=".$id."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du die Neuigkeit &#34;".$title."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></a>
-                            </div>");
+                                ");
+                            }
+                            echo("</div>");
                         echo("<h1>".$title."<br>
                             <h5><p>Veröffentlicht von ".$autor."</p><p class='time'>am ".$zeit."</p></h5>"."</h1>");
                         echo("<p>".nl2br($lessinhalt)." <a class='readmore".$id."'>Mehr anzeigen</a></p>");
