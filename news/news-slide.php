@@ -3,8 +3,8 @@
 
 <head>
     <?php
-
-    include_once "./../sites/head.html"
+    $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+    include_once "$root/sites/head.html"
 
     ?>
     <title>News-Slide - Friedrich-Gymnasium Luckenwalde</title>
@@ -17,7 +17,7 @@
                 $lessrownumber = 6;
                 $rowcharnum = 600;
 
-                require "./../sites/credentials.php";
+                require "$root/sites/credentials.php";
                 $conn = get_connection();
 
                 $sql = "SELECT * FROM news ORDER BY zeit DESC LIMIT 3";
