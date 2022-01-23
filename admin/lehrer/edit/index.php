@@ -32,16 +32,8 @@
 
         <?php
 
-        $servername = "sql150.your-server.de";
-        $username = "c0921922321";
-        $password = "AHWNiBfs2u14AAZg"; //master
-        $dbname = "friedrich_gym";
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        require_once "$root/sites/credentials.php";
+        $conn = get_connection();
 
         $sql = "SELECT * FROM lehrer WHERE id = " . $_GET['id'] . ";";
         $result = mysqli_query($conn,$sql);
@@ -160,7 +152,6 @@
             $infotext = $_POST["beschreibung"];
             $geburtstag = $_POST["geburtstag"];
             $id = $_GET['id'];
-            require_once "$root/sites/credentials.php";
             $conn = get_connection();
             for ($i=0; $i < count($faecher_array); $i++) {
                 $faecher = $faecher.$faecher_array[$i];

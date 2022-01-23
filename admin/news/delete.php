@@ -28,7 +28,20 @@
 
             include_once "$root/admin/no-permission.html";
 
-            if($news_all == 0 || ($news_own == 1 && $_SESSION["vorname"] . " " . $_SESSION["nachname"] == $autor)){
+            $id = $_GET["id"];
+            require_once "$root/sites/credentials.php";
+            $conn = get_connection();
+
+            $sql = "SELECT autor FROM news WHERE id = " . $id . ";";
+            $result = mysqli_query($conn,$sql);
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $autor = $row["autor"];
+            }
+
+            if($news_own == 1 && $autor == $_SESSION["vorname"] . " " . $_SESSION["nachname"]){
+                $disabled = false;
+            }elseif($news_all == 0){
                 echo("<script>$('.no_perm').show();</script>");
                 $disabled = true;
             };
@@ -37,21 +50,11 @@
 
         <?php
 
-            $servername = "sql150.your-server.de";
-            $username = "c0921922321";
-            $password = "AHWNiBfs2u14AAZg"; //master
-            $dbname = "friedrich_gym";
-            $id = $_GET["id"];
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
+            $conn = get_connection();
             if ($disabled==false){$insert = mysqli_query($conn, "DELETE FROM news WHERE id='{$id}'");}
             if ($insert) {
                 echo '<script type="text/javascript">window.location = "/admin/news/"</script>';
             }
         ?>
     </body>
-</html>
+</html

@@ -12,17 +12,18 @@
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
     <head>
         <?php
-            include_once "./sites/head.html";
+            $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+            include_once "$root/admin/sites/head.html";
         ?>
         <title>Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
 
         <?php
-            include_once "./sites/header.html";
+            include_once "$root/admin/sites/header.html";
         ?>
 
-        <?php 
+        <?php
 
 
             if(isset($_SESSION["user_id"])) {

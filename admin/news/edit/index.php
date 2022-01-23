@@ -31,16 +31,8 @@
 
         <?php
 
-        $servername = "sql150.your-server.de";
-        $username = "c0921922321";
-        $password = "AHWNiBfs2u14AAZg"; //master
-        $dbname = "friedrich_gym";
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        require_once "$root/sites/credentials.php";
+        $conn = get_connection();
         $id = $_GET['id'];
         $sql = "SELECT * FROM news WHERE id = " . $id . ";";
         $result = mysqli_query($conn,$sql);
@@ -87,16 +79,7 @@
         $titel = $_POST["titel"];
         $inhalt = $_POST["inhalt"];
         $date = date("Y-m-d H:i");
-            $servername = "sql150.your-server.de";
-            $username = "c0921922321";
-            $password = "AHWNiBfs2u14AAZg"; //master
-            $dbname = "friedrich_gym";
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
+        $conn = get_connection();
             if(isset($_POST["submit"]) && $disabled==false) {
                 $insert = mysqli_query($conn, "UPDATE news SET titel='{$titel}', inhalt='{$inhalt}', autor='{$autor}', zeit='{$date}' WHERE id='{$id}'");
                 if ($insert) {

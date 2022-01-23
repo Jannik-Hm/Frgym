@@ -5,18 +5,19 @@
         session_name("userid_login");
         session_start();
     }
+    $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 ?>
 <html>
     <head>
         <?php
-            include_once "./../sites/head.html";
+            include_once "$root/admin/sites/head.html";
         ?>
         <title>Login - Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
 
         <?php
-            include_once "./../sites/header.html";
+            include_once "$root/admin/sites/header.html";
         ?>
         <form method=POST id="loginForm">
             <input type="text" placeholder=" Loginname*" name="username" required><br>
@@ -33,16 +34,8 @@
                 $use = $_POST["username"];
                 $pwa = hash("sha256", $_POST["password"]);
 
-                $servername = "sql150.your-server.de";
-                $username = "c0921922321";
-                $password = "AHWNiBfs2u14AAZg"; //master
-                $dbname = "friedrich_gym";
-                // Create connection
-                $conn = new mysqli($servername, $username, $password, $dbname);
-                // Check connection
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
+                require_once "$root/sites/credentials.php";
+                $conn = get_connection();
 
                 if(isset($_POST["submit"])) {
                     $sql = str_replace("--", "_", ("SELECT * FROM users WHERE username=\"" . $use . "\" AND password_hash=\"" . $pwa . "\";"));
