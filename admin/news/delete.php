@@ -22,8 +22,6 @@
     <body>
         <?php
 
-            include_once "$root/admin/sites/header.html";
-
             include_once "$root/admin/sites/permissions.php";
 
             include_once "$root/admin/no-permission.html";

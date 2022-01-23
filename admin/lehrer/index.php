@@ -173,6 +173,7 @@
                 $faecher = str_replace("WW", "Wirtschaftswissenschaften", $faecher);
                 return $faecher;
             }
+        include_once "$root/sites/footer.html"
 
         ?>
         

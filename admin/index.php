@@ -32,7 +32,8 @@
                 echo("<script>window.location.replace('/admin/login/');</script>");
             }
             // was hierunter? News-Feedeinbindung?
-        ?> 
+            include_once "$root/sites/footer.html"
+        ?>
         <span class="line"></span>
     </body>
 </html>

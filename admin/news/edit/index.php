@@ -86,6 +86,7 @@
                     echo("<script>$('.confirm').show();</script>");
                 }
             }
+            include_once "$root/sites/footer.html"
         ?>
     </body>
 </html>

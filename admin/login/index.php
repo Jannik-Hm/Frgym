@@ -25,7 +25,7 @@
                 
             <input type="submit" name="submit" value="Login">
         </form>
-        <?php 
+        <?php
 
 
             if(!isset($_SESSION["user_id"])) {
@@ -57,6 +57,7 @@
                 echo("<script>window.location.replace('/admin/');</script>");
             }
             // was hierunter? News-Feedeinbindung?
+            include_once "$root/sites/footer.html"
         ?> 
     </body>
 </html>
