@@ -44,7 +44,7 @@
                         for ($i=0; $i<count($news); $i++){
                             $id = $news[$i]["id"];
                             echo("<div class='newsslide". ($i+1) ."'>");
-                                echo("<div onclick=\"$('.readmorebox".$i."').show()\" class='news'>");
+                                echo("<div onclick=\"event.stopPropagation();$('.readmorebox".$i."').show()\" class='news'>");
                                     $title = $news[$i]["titel"];
                                     $inhalt = $news[$i]["inhalt"];
                                     $lessinhalt = substr($news[$i]["inhalt"],0,$lesscharnum);
@@ -58,12 +58,12 @@
                                     $zeit = $zeitor2[0] . "." . $zeitor1[1] . "." . $zeitor1[0] . " " . $zeitor3[0] . ":" . $zeitor3[1] . " Uhr";
                                     echo("<h1>".$title."<br>
                                         <h5><p>Veröffentlicht von ".$autor."</p><p class='time'>am ".$zeit."</p></h5>"."</h1>");
-                                    echo("<p>".nl2br($lessinhalt)." <a onclick=\"$('.readmorebox".$i."').show()\" class='readmore".$i."'>Mehr anzeigen</a></p>");
+                                    echo("<p>".nl2br($lessinhalt)." <a onclick=\"event.stopPropagation();$('.readmorebox".$i."').show()\" class='readmore".$i."'>Mehr anzeigen</a></p>");
                                 echo("</div>");
-                                echo("<div style='left: 0;' class='readmorebox".$i."'>
+                                echo("<div onclick=\"event.stopPropagation();$('.readmorebox".$i."').hide()\" style='left: 0;' class='readmorebox".$i."'>
                                     <span class='helper'></span>
-                                    <div class='scroll'>
-                                        <div onclick=\"$('.readmorebox".$i."').hide()\" class='popupCloseButton".$i."'>&times;</div>
+                                    <div onclick=\"event.stopPropagation();\" class='scroll'>
+                                        <div onclick=\"event.stopPropagation();$('.readmorebox".$i."').hide()\" class='popupCloseButton".$i."'>&times;</div>
                                         <div class='newspopup'>
                                             <h1>".$title."<br>
                                                 <h5><p>Veröffentlicht von ".$autor."</p><p class='time'>am ".$zeit."</p></h5>
