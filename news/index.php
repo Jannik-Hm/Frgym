@@ -3,7 +3,8 @@
     <head>
         <?php
 
-            include_once "./../sites/head.html"
+            $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+            include_once "$root/sites/head.html"
 
         ?>
         <title>News - Friedrich-Gymnasium Luckenwalde</title>
@@ -11,7 +12,7 @@
     <body>
         <?php
 
-            include_once "./../sites/header.html"
+            include_once "$root/sites/header.html"
 
         ?>
 
@@ -51,21 +52,13 @@
                 </form>
 
                 <?php
-                if(isset($_POST['submit'])) {
-                    $items = $_POST["itemsnum"];
-                    echo("'<script type='text/javascript'>window.location ='/news/?page="."1"."&items=".$items."'</script>'");
-                }
-
-                    $servername = "sql150.your-server.de";
-                    $username = "c0921922321";
-                    $password = "AHWNiBfs2u14AAZg"; //master
-                    $dbname = "friedrich_gym";
-                    // Create connection
-                    $conn = new mysqli($servername, $username, $password, $dbname);
-                    // Check connection
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
+                    if(isset($_POST['submit'])) {
+                        $items = $_POST["itemsnum"];
+                        echo("'<script type='text/javascript'>window.location ='/news/?page="."1"."&items=".$items."'</script>'");
                     }
+
+                    require "$root/sites/credentials.php";
+                    $conn = get_connection();
 
                     $sql = "SELECT * FROM news";
                     $result = mysqli_query($conn,$sql);
@@ -133,6 +126,6 @@
             </ul>
             <div class="page-ending"></div>
         </div>
-        <?php include_once "./../sites/footer.html" ?>
+        <?php include_once "$root/sites/footer.html" ?>
     </body>
 </html>
