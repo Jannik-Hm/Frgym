@@ -134,7 +134,7 @@
                 </div>
                 <input type="text" placeholder="Infotext (Optional)" name="beschreibung" value="<?php echo $infotext; ?>" <?php if($disabled){echo "disabled";} ?>><br>
                 <input type="date" placeholder="Geburtstag (Optional)" name="geburtstag" value="<?php echo $date; ?>" Optional <?php if($disabled){echo "disabled";} ?>><br>
-                <input type="submit" name="submit" <?php if($disabled){echo "disabled";} ?> value="Speichern">
+                <input style="cursor: pointer;" type="submit" name="submit" <?php if($disabled){echo "disabled";} ?> value="Speichern">
                 <div class="page-ending"></div>
             </form>
         </div>
@@ -151,25 +151,17 @@
         </div>
 
         <?php
-        $vorname = $_POST["vorname"];
-        $nachname = $_POST["nachname"];
-        $email = $_POST["email"];
-        $position = $_POST["position"];
-        $faecher_array = $_POST["chk_group"];
-        $faecher = "";
-        $infotext = $_POST["beschreibung"];
-        $geburtstag = $_POST["geburtstag"];
-        $id = $_GET['id'];
-            $servername = "sql150.your-server.de";
-            $username = "c0921922321";
-            $password = "AHWNiBfs2u14AAZg"; //master
-            $dbname = "friedrich_gym";
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
+            $vorname = $_POST["vorname"];
+            $nachname = $_POST["nachname"];
+            $email = $_POST["email"];
+            $position = $_POST["position"];
+            $faecher_array = $_POST["chk_group"];
+            $faecher = "";
+            $infotext = $_POST["beschreibung"];
+            $geburtstag = $_POST["geburtstag"];
+            $id = $_GET['id'];
+            require_once "$root/sites/credentials.php";
+            $conn = get_connection();
             for ($i=0; $i < count($faecher_array); $i++) {
                 $faecher = $faecher.$faecher_array[$i];
                 if ($i < count($faecher_array)-1) {
