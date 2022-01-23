@@ -84,7 +84,7 @@
                     for ($i=count($news)-1-($items*($page-1)); $i >= count($news)-($items*($page-1))-$items && $i>=0; $i--) {
                         echo("<li>");
                         $id = $news[$i]["id"];
-                        echo("<a class='divrm".$id."'><div class='singlenews'>");
+                        echo("<div onclick=\"event.stopPropagation();$('.readmorebox".$id."').show()\" class='singlenews'>");
                         $title = $news[$i]["titel"];
                         $inhalt = $news[$i]["inhalt"];
                         $lessinhalt = substr($news[$i]["inhalt"],0,$lesscharnum);
@@ -98,13 +98,13 @@
                         $zeit = $zeitor2[0] . "." . $zeitor1[1] . "." . $zeitor1[0] . " " . $zeitor3[0] . ":" . $zeitor3[1] . " Uhr";
                         echo("<h1>".$title."<br>
                             <h5><p>Veröffentlicht von ".$autor."</p><p class='time'>am ".$zeit."</p></h5>"."</h1>");
-                        echo("<p>".nl2br($lessinhalt)." <a class='readmore".$id."'>Mehr anzeigen</a></p>");
+                        echo("<p>".nl2br($lessinhalt)." <a onclick=\"event.stopPropagation();$('.readmorebox".$id."').show()\" class='readmore".$id."'>Mehr anzeigen</a></p>");
                         echo("</div></a>");
                         echo("</li>");
-                        echo("<div style='left: 0;' class='readmorebox".$id."'>
+                        echo("<div onclick=\"event.stopPropagation();$('.readmorebox".$id."').hide()\" style='left: 0;' class='readmorebox".$id."'>
                                 <span class='helper'></span>
-                                <div class='scroll'>
-                                    <div class='popupCloseButton".$id."'>&times;</div>
+                                <div onclick=\"event.stopPropagation();\" class='scroll'>
+                                    <div onclick=\"event.stopPropagation();$('.readmorebox".$id."').hide()\" class='popupCloseButton".$id."'>&times;</div>
                                     <div class='newspopup'>
                                         <h1>".$title."<br>
                                             <h5><p>Veröffentlicht von ".$autor."</p><p class='time'>am ".$zeit."</p></h5>
@@ -113,20 +113,6 @@
                                     </div>
                                 </div>
                             </div>");
-                        echo("<script>$(window).load(function () {
-                            $('.readmore".$id."').click(function(){
-                            $('.readmorebox".$id."').show();
-                            });
-                            $('.divrm".$id."').click(function(){
-                                $('.readmorebox".$id."').show();
-                                });
-                            // $('.readmorebox".$id."').click(function(e){
-                            //     ('.readmorebox".$id."').hide();
-                            // });
-                            $('.popupCloseButton".$id."').click(function(){
-                                $('.readmorebox".$id."').hide();
-                            });
-                        });</script>");
                     }
                     $article_nums = count($news);
                     if ($article_nums/$items > 16) {
