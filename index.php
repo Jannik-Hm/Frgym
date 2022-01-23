@@ -68,7 +68,7 @@
         </div>
         <span class="line"></span>
     </section>
-    <section style="height: fit-content; width: 100%; background-color: #1a1a1a; display: block; position: relative; margin: 0; padding: 0; padding-bottom: 50px;">
+    <section style="height: fit-content; width: 100%; background-color: #282828; display: block; position: relative; margin: 0; padding: 0; padding-bottom: 50px;">
         <div>
             <p>Aktuelles</p>
             <?php
