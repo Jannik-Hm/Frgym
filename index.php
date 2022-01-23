@@ -4,8 +4,9 @@
 
 <head>
     <?php
+    $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 
-    include_once "./sites/head.html"
+    include_once "$root/sites/head.html"
 
     ?>
     <title>Startseite - Friedrich-Gymnasium Luckenwalde</title>
@@ -14,7 +15,7 @@
 <body>
     <?php
 
-    include_once "./sites/header.html"
+    include_once "$root/sites/header.html"
 
     ?>
 
@@ -67,15 +68,21 @@
         </div>
         <span class="line"></span>
     </section>
-    <section style="height: fit-content; width: 100%; background-color: #1a1a1a; display: block; position: relative; margin: 0; padding: 0;">
+    <section style="height: fit-content; width: 100%; background-color: #1a1a1a; display: block; position: relative; margin: 0; padding: 0; padding-bottom: 50px;">
         <div>
             <p>Aktuelles</p>
+            <?php
+                include "$root/news/news-slide.php";
+            ?>
         </div>
+    </section>
+
+    <section class="page-ending">
     </section>
 
     <?php
 
-    include_once "./sites/footer.html"
+    include_once "$root/sites/footer.html"
 
     ?>
 </body>
