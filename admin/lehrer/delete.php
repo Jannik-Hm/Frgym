@@ -36,17 +36,9 @@
 
         <?php
 
-            $servername = "sql150.your-server.de";
-            $username = "c0921922321";
-            $password = "AHWNiBfs2u14AAZg"; //master
-            $dbname = "friedrich_gym";
             $id = $_GET["id"];
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
+            require_once "$root/sites/credentials.php";
+            $conn = get_connection();
             if ($disabled==false){$insert = mysqli_query($conn, "DELETE FROM lehrer WHERE id='{$id}'");}
             if ($insert) {
                 echo '<script type="text/javascript">window.location = "/admin/lehrer/"</script>';
