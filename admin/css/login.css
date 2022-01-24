@@ -1,0 +1,73 @@
+.loginwelcome {
+  margin-top: 75px;
+  position: relative;
+  margin-bottom: 0px;
+  padding-right: 5%;
+  padding-left: 5%;
+  color: rgb(235, 235, 235);
+}
+
+.loginform {
+  position: relative;
+}
+
+#loginForm input {
+  border: none;
+  transition: all 0.5s;
+  font-size: 24px;
+  height: 40px;
+  border-radius: 10px;
+  color: rgb(219, 219, 219);
+}
+
+#loginForm input[type="text"],
+#loginForm input[type="password"] {
+  width: 800px;
+  height: 45px;
+  padding: 20px 10px;
+  background: rgb(122, 133, 131);
+  outline: none;
+}
+
+#loginForm ::placeholder {
+  color: rgb(182, 182, 182);
+  opacity: 1;
+}
+
+#loginForm input[type="submit"] {
+  margin-top: 15px;
+  width: 400px;
+  height: 50px;
+  cursor: pointer;
+  background: rgb(122, 133, 131);
+  color: rgb(219, 219, 219);
+}
+
+#loginForm input[type="submit"]:hover {
+  transform: scale(1.05);
+  box-shadow: 5px 5px 5px lightgrey;
+}
+
+#loginForm input[type="text"]:valid,
+#loginForm input[type="password"]:valid {
+  border: 2px solid limegreen;
+}
+
+@media (max-width: 900px) {
+  #loginForm input[type="text"],
+  #loginForm input[type="password"] {
+    width: 90%;
+  }
+  #loginForm input[type="submit"] {
+    width: 60%;
+  }
+}
+
+@media (max-width: 350px) {
+  #loginForm input[type="submit"] {
+    width: 70%;
+  }
+  .loginwelcome {
+    display: none;
+  }
+}

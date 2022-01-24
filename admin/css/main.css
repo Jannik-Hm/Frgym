@@ -13,7 +13,12 @@ a {
   color: #fff;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-align: center;
   display: block;
 }
@@ -135,25 +140,27 @@ textarea {
   background-color: black;
 }
 
-#loginForm input {
-  transition: all 0.5s;
-  top: 200px;
-  font-size: 20px;
-  height: 40px;
-}
-
-#loginForm input[type="submit"] {
-  width: 60%;
+.page-beginning {
   height: 50px;
-  cursor: pointer;
 }
 
-#loginForm input[type="submit"]:hover {
-  transform: scale(1.05);
-  box-shadow: 5px 5px 5px lightgrey;
+@media (max-width: 841px) {
+  .page-beginning {
+    height: 100px;
+  }
 }
-
-#loginForm input[type="text"]:valid,
-#loginForm input[type="password"]:valid {
-  border: 2px solid limegreen;
+@media (max-width: 471px) {
+  .page-beginning {
+    height: 150px;
+  }
+}
+@media (max-width: 471px) {
+  .page-beginning {
+    height: 150px;
+  }
+}
+@media (max-width: 367px) {
+  .page-beginning {
+    height: 200px;
+  }
 }
