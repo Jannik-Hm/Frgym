@@ -19,12 +19,18 @@
         <?php
             include_once "$root/admin/sites/header.html";
         ?>
-        <form method=POST id="loginForm">
-            <input type="text" placeholder=" Loginname*" name="username" required><br>
-            <input type="password" width="" placeholder=" Passwort*" name="password" required><br>
-                
-            <input type="submit" name="submit" value="Login">
-        </form>
+        <div class="page-beginning"></div>
+        <div class="loginwelcome">
+            <h1>Willkommen zur Frgym&nbsp;Admin&nbsp;Seite!</h1>
+        </div>
+        <div class="loginform">
+            <form method=POST id="loginForm">
+                <input type="text" placeholder=" Loginname*" name="username" required><br>
+                <input type="password" width="" placeholder=" Passwort*" name="password" required><br>
+
+                <input type="submit" name="submit" value="Login">
+            </form>
+        </div>
         <?php
 
 
