@@ -1,7 +1,7 @@
 div.news ul {
   list-style: none;
   list-style-position: outside;
-  padding-left:0;
+  padding-left: 0;
   padding-right: 0;
   justify-content: center;
   text-align: left;
@@ -13,7 +13,7 @@ div.news ul li {
   list-style-position: outside;
   font-family: "montserrat", sans-serif;
   justify-content: center;
-  margin:auto;
+  margin: auto;
 }
 
 .singlenews {
@@ -125,7 +125,7 @@ div.news ul li {
   left: 0;
   right: 0;
   color: rgb(221, 221, 221);
-  display:inline-block;
+  display: inline-block;
 }
 
 .singlenews h5 p.time {
@@ -164,7 +164,7 @@ div.news ul li {
   left: 0;
   right: 0;
   color: rgb(221, 221, 221);
-  display:inline-block;
+  display: inline-block;
 }
 
 .newspopup h5 p.time {
@@ -242,7 +242,7 @@ div[class^="readmorebox"] .helper {
 }
 div[class^="readmorebox"] > div {
   margin-top: 25px;
-  margin-bottom:25px;
+  margin-bottom: 25px;
   background-color: rgb(122, 133, 131);
   box-shadow: 10px 10px 60px #555;
   display: inline-block;
@@ -278,9 +278,23 @@ div[class^="readmorebox"] [class^="popupCloseButton"]:hover {
 }
 /* Popup box END */
 
-/* @media (max-width: 1100px) {
-  div[class^="readmorebox"] > div,
-  div[class^="readmorebox"] .helper {
-    width: 75%;
-    max-width: 900px;
-    vertical-align: middle;
+@media (max-width: 841px) {
+  .page-beginning {
+    height: 100px;
+  }
+}
+@media (max-width: 471px) {
+  .page-beginning {
+    height: 150px;
+  }
+}
+@media (max-width: 471px) {
+  .page-beginning {
+    height: 150px;
+  }
+}
+@media (max-width: 367px) {
+  .page-beginning {
+    height: 200px;
+  }
+}
