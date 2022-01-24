@@ -124,7 +124,7 @@
                         </ul>
                     </ul>
                 </div>
-                <input type="text" placeholder="Infotext (Optional)" name="beschreibung" value="<?php echo $infotext; ?>" <?php if($disabled){echo "disabled";} ?>><br>
+                <textarea rows="10" columns="50%" placeholder="Infotext (Optional)" name="beschreibung" <?php if($disabled){echo "disabled";} ?>><?php echo $infotext; ?></textarea><br>
                 <input type="date" placeholder="Geburtstag (Optional)" name="geburtstag" value="<?php echo $date; ?>" Optional <?php if($disabled){echo "disabled";} ?>><br>
                 <input style="cursor: pointer;" type="submit" name="submit" <?php if($disabled){echo "disabled";} ?> value="Speichern">
                 <div class="page-ending"></div>

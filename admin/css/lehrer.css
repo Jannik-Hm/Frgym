@@ -118,6 +118,21 @@ body {
   position: relative;
 }
 
+.add-input form textarea {
+  color: rgb(102, 102, 102);
+  background: rgb(205, 211, 210);
+  border: none;
+  outline: none;
+  overflow: none;
+  font-size: 16px;
+  padding: 4px 4px;
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-radius: 1px;
+  width: 1000px;
+  resize: none;
+}
+
 .add-input form ::placeholder {
   color: rgb(102, 102, 102);
   opacity: 1;
@@ -235,7 +250,8 @@ div.confirmation a.delete {
     color: rgb(226, 226, 226);
     opacity: 1; /* Firefox */
   }
-  .add-input form input {
+  .add-input form input,
+  .add-input form textarea {
     color: rgb(226, 226, 226);
     background: rgb(122, 133, 131);
     border-bottom: rgb(122, 133, 131);

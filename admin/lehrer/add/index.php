@@ -99,7 +99,7 @@
                         </ul>
                     </ul>
                 </div>
-                <input type="text" placeholder="Infotext (Optional)" <?php if($disabled){echo "disabled";} ?> name="beschreibung"><br>
+                <textarea rows="10" columns="50%" placeholder="Infotext (Optional)" name="beschreibung" <?php if($disabled){echo "disabled";} ?>></textarea><br>
                 <input type="date" placeholder="Geburtstag (Optional)" <?php if($disabled){echo "disabled";} ?> name="geburtstag" Optional><br>
                 <input type="submit" name="submit" <?php if($disabled){echo "disabled";} ?> value="Speichern">
                 <div class="page-ending"></div>
@@ -144,5 +144,6 @@
             }
         include_once "$root/sites/footer.html"
         ?>
+        <div class="page-ending"></div>
     </body>
 </html>
