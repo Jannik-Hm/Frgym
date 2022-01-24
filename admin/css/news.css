@@ -44,6 +44,10 @@ div.adminbtn a {
   width: 1000px;
 }
 
+.add-input-news form textarea {
+  resize: none;
+}
+
 .add-input-news form ::placeholder {
   color: rgb(102, 102, 102);
   opacity: 1; /* Firefox */
