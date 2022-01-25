@@ -36,7 +36,7 @@
             ?>
             <div class="slider">
                 <div class="newsslides">
-                    <input type="radio" name="radio-btn" id="radio1" checked>
+                    <input type="radio" name="radio-btn" id="radio1">
                     <input type="radio" name="radio-btn" id="radio2">
                     <input type="radio" name="radio-btn" id="radio3">
                     <br>
@@ -87,15 +87,55 @@
                     <label for="radio3" class="manual-btn"></label>
                 </div>
             </div>
-            <script type="text/javascript">
-                var counter = 2;
-                setInterval(function(){
-                document.getElementById('radio' + counter).checked = true;
-                counter++;
-                if(counter > 3){
-                    counter = 1;
-                }
-                }, 10000);
+            <script>
+                $(document).ready(function () {
+                    $("#radio1").click(function () {
+                        var timer1 = 0;
+                        var interval1 = setInterval(function() {
+                            if (document.getElementById('radio1').checked) {
+                                timer1++;
+                                if(timer1 == 20){
+                                    document.getElementById('radio2').click();
+                                    clearInterval(interval1);
+                                }
+                            }else{
+                                clearInterval(interval1);
+                            }
+                        }, 500);
+                        return;
+                    });
+                    $("#radio2").click(function () {
+                        var timer2 = 0;
+                        var interval2 = setInterval(function() {
+                            if (document.getElementById('radio2').checked) {
+                                timer2++;
+                                if(timer2 == 20){
+                                    document.getElementById('radio3').click();
+                                    clearInterval(interval2);
+                                }
+                            }else{
+                                clearInterval(interval2);
+                            }
+                        }, 500);
+                        return;
+                    });
+                    $("#radio3").click(function () {
+                        var timer3 = 0;
+                        var interval3 = setInterval(function() {
+                            if (document.getElementById('radio3').checked) {
+                                timer3++;
+                                if(timer3 == 20){
+                                    document.getElementById('radio1').click();
+                                    clearInterval(interval3);
+                                }
+                            }else{
+                                clearInterval(interval3);
+                            }
+                        }, 500);
+                        return;
+                    });
+                    document.getElementById('radio1').click();
+                });
             </script>
         </div>
     </body>
