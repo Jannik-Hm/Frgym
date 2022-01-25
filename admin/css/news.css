@@ -41,7 +41,7 @@ div.adminbtn a {
   -moz-border-radius: 1px;
   -webkit-border-radius: 1px;
   border-radius: 1px;
-  width: 1000px;
+  width: clamp(300px, 95%, 1000px);
 }
 
 .add-input-news form textarea {
@@ -340,19 +340,6 @@ div[class^="readmorebox"] [class^="popupCloseButton"]:hover {
   background-color: #fff;
 }
 /* Popup box END */
-
-@media (max-width: 1100px) {
-  .add-input-news form input,
-  .add-input-news form textarea {
-    width: 95%;
-    align-self: center;
-    left: 50%;
-    right: 50%;
-    transform: translate(-50%);
-    padding-left: 0px;
-    margin-left: 0px;
-  }
-}
 
 @media (max-width: 840px) {
   .add-input-news {
