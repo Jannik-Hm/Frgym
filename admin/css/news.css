@@ -84,7 +84,7 @@ div.news ul li {
   margin: auto;
   border: 2px white;
   background-color: rgb(122, 133, 131);
-  width: 1000px;
+  width: clamp(350px, 95%, 1000px);
   align-self: center;
   border-radius: 15px;
 }
@@ -95,7 +95,7 @@ div.news ul li {
   text-align: center;
   justify-content: center;
   display: flex;
-  width: 1000px;
+  width: clamp(350px, 95%, 1000px);
   /* left: 0; */
   margin: auto;
   padding: 0;
@@ -273,16 +273,6 @@ div.pagination a:hover {
   color: rgb(145, 193, 209);
 }
 
-@media (max-width: 1100px) {
-  .singlenews {
-    width: 95%;
-  }
-
-  .newssettings {
-    width: 95%;
-  }
-}
-
 /* Popup box BEGIN */
 div[class^="readmorebox"] {
   margin-left: 0;
@@ -310,10 +300,9 @@ div[class^="readmorebox"] > div {
   box-shadow: 10px 10px 60px #555;
   display: inline-block;
   height: auto;
-  max-width: 1000px;
+  width: clamp(300px, 85%, 1000px);
   min-height: 100px;
   vertical-align: middle;
-  width: 85%;
   position: relative;
   border-radius: 8px;
   padding: 5px 5%;
