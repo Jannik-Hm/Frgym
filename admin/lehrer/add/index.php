@@ -68,7 +68,7 @@
                         </ul>
                         <ul>
                             <label class="heading">Naturwissenschaften</label>
-                            <li><label><input type="checkbox" name="chk_group[]" <?php if($disabled){echo "disabled";} ?> value="MA">Mathe</label></li>
+                            <li><label><input type="checkbox" name="chk_group[]" <?php if($disabled){echo "disabled";} ?> value="MA">Mathematik</label></li>
                             <li><label><input type="checkbox" name="chk_group[]" <?php if($disabled){echo "disabled";} ?> value="BI">Biologie</label></li>
                             <li><label><input type="checkbox" name="chk_group[]" <?php if($disabled){echo "disabled";} ?> value="CH">Chemie</label></li>
                             <li><label><input type="checkbox" name="chk_group[]" <?php if($disabled){echo "disabled";} ?> value="PH">Physik</label></li>

@@ -93,7 +93,7 @@
                         </ul>
                         <ul>
                             <label class="heading">Naturwissenschaften</label>
-                            <li><label><input type="checkbox" name="chk_group[]" value="MA" <?php foreach ($faecher as $fach) if ($fach == "MA") echo "checked" ; ?> <?php if($disabled){echo "disabled";} ?>>Mathe</label></li>
+                            <li><label><input type="checkbox" name="chk_group[]" value="MA" <?php foreach ($faecher as $fach) if ($fach == "MA") echo "checked" ; ?> <?php if($disabled){echo "disabled";} ?>>Mathematik</label></li>
                             <li><label><input type="checkbox" name="chk_group[]" value="BI" <?php foreach ($faecher as $fach) if ($fach == "BI") echo "checked" ; ?> <?php if($disabled){echo "disabled";} ?>>Biologie</label></li>
                             <li><label><input type="checkbox" name="chk_group[]" value="CH" <?php foreach ($faecher as $fach) if ($fach == "CH") echo "checked" ; ?> <?php if($disabled){echo "disabled";} ?>>Chemie</label></li>
                             <li><label><input type="checkbox" name="chk_group[]" value="PH" <?php foreach ($faecher as $fach) if ($fach == "PH") echo "checked" ; ?> <?php if($disabled){echo "disabled";} ?>>Physik</label></li>
@@ -169,5 +169,6 @@
             }
             include_once "$root/sites/footer.html"
         ?>
+        <div class="page-ending"></div>
     </body>
 </html>
