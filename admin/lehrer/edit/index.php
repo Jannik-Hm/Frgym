@@ -31,8 +31,6 @@
             include_once "$root/admin/no-permission.html";
         ?>
 
-        <div class="page-beginning"></div>
-
         <?php
 
         require_once "$root/sites/credentials.php";
@@ -61,10 +59,11 @@
         };
 
         ?>
+        <div class="page-beginning"></div>
 
         <div class="add-input">
             <form method="POST">
-                <input type="text" width="" placeholder="Vorname*" name="vorname" value="<?php echo $vorname; ?>"  <?php if($disabled or $ownedit){echo("disabled");} ?> required><br>
+                <input id="first" type="text" width="" placeholder="Vorname*" name="vorname" value="<?php echo $vorname; ?>"  <?php if($disabled or $ownedit){echo("disabled");} ?> required><br>
                 <input type="text" placeholder="Nachname*" name="nachname" value="<?php echo $nachname; ?>" <?php if($disabled or $ownedit){echo("disabled");} ?> required><br>
                 <input type="email" placeholder="Email*" name="email" value="<?php echo $email; ?>" <?php if($disabled or $ownedit){echo("disabled");} ?> required><br>
                 <div class="position">
