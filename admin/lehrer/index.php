@@ -193,4 +193,4 @@
         </div>
         <?php include_once "$root/sites/footer.html" ?>
     </body>
-</html
+</html>
