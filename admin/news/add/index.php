@@ -20,6 +20,7 @@
         <title>News hinzufügen - Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
+        <div class="bodyDiv">
         <?php
 
             include_once "$root/admin/sites/header.html";
@@ -33,6 +34,8 @@
             };
 
         ?>
+
+        <div class="page-beginning"></div>
 
         <div class="add-input-news">
             <form method="POST">
@@ -69,7 +72,9 @@
             if ($insert) {
                 echo("<script>$('.confirm').show();</script>");
             }
-            include_once "$root/sites/footer.html"
         ?>
+        <div class="page-ending"></div>
+        </div>
+        <?php include_once "$root/sites/footer.html" ?>
     </body>
 </html>

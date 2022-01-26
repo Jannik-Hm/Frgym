@@ -21,6 +21,7 @@
         <title>News - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
+        <div class="bodyDiv">
         <?php
 
             include_once "$root/admin/sites/header.html";
@@ -32,9 +33,7 @@
 
         ?>
 
-        <br>
-        <br>
-        <br>
+        <div class="page-beginning"></div>
         <div class="news">
             <ul style="list-style-type: none;">
 
@@ -161,8 +160,7 @@
         </div>
             <div class="page-ending"></div>
         </div>
-        <?php
-            include_once "$root/sites/footer.html"
-        ?>
+        </div>
+        <?php include_once "$root/sites/footer.html" ?>
     </body>
 </html>

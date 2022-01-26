@@ -19,6 +19,7 @@
         <title>News bearbeiten - Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
+        <div class="bodyDiv">
         <?php
 
             include_once "$root/admin/sites/header.html";
@@ -28,6 +29,7 @@
             include_once "$root/admin/no-permission.html";
 
         ?>
+        <div class="page-beginning"></div>
 
         <?php
 
@@ -86,7 +88,9 @@
                     echo("<script>$('.confirm').show();</script>");
                 }
             }
-            include_once "$root/sites/footer.html"
         ?>
+        <div class="page-ending"></div>
+        </div>
+        <?php include_once "$root/sites/footer.html" ?>
     </body>
 </html>
