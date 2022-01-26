@@ -1,0 +1,56 @@
+#adminMain {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  font-size: 40px;
+  color: #fff;
+  position: relative;
+  display: block;
+  padding: 0 10px;
+}
+
+#adminMain span {
+  display: inline-block;
+}
+
+.adminwelcomeinfo {
+  margin-top: 50px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 0 5%;
+}
+
+.adminwelcomeinfo div {
+  margin-bottom: 25px;
+  background-color: rgb(122, 133, 131);
+  width: clamp(230px, 50%, 400px);
+  vertical-align: middle;
+  text-align: center;
+  border-radius: 15px;
+  font-size: 20px;
+}
+
+.adminwelcomeinfo div p {
+  padding-left: 15px;
+  padding-right: 15px;
+  vertical-align: middle;
+}
+
+.adminwelcomeinfo .today {
+  margin-right: 50px;
+}
+
+.adminwelcomeinfo .lastlogin {
+  margin-left: 50px;
+}
+
+@media (max-width: 600px) {
+  .adminwelcomeinfo {
+    flex-direction: column;
+  }
+  .adminwelcomeinfo .today,
+  .adminwelcomeinfo .lastlogin {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

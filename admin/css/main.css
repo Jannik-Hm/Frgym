@@ -8,6 +8,10 @@ body {
   font-family: "montserrat", sans-serif;
 }
 
+.bodyDiv {
+  min-height: calc(100vh - 50px);
+}
+
 a {
   text-decoration: none;
   color: #fff;
@@ -20,14 +24,6 @@ h4,
 h5,
 h6 {
   text-align: center;
-  display: block;
-}
-
-#adminMain {
-  top: 15%;
-  font-size: 40px;
-  color: #fff;
-  position: relative;
   display: block;
 }
 
@@ -62,7 +58,6 @@ iframe {
   align-content: center;
   align-items: center;
   position: relative;
-  top: 75px;
   text-align: center;
   margin: auto;
   color: #fff;
@@ -71,6 +66,7 @@ iframe {
   padding: 0px;
   border-collapse: collapse;
   margin-bottom: 120px;
+  margin-top: 10px;
 }
 
 input[type="text"],
@@ -79,7 +75,6 @@ input[type="number"],
 input[type="date"],
 input[type="submit"],
 input[type="password"] {
-  top: 60px;
   align-self: center;
   position: relative;
   width: 90%;
@@ -89,11 +84,11 @@ input[type="password"] {
   margin: auto;
   display: block;
   border-radius: 13px;
+  margin-top: 10px;
 }
 
 textarea {
   font-family: "montserrat", sans-serif;
-  top: 60px;
   align-self: center;
   position: relative;
   width: 90%;
@@ -102,6 +97,7 @@ textarea {
   margin: auto;
   display: block;
   border-radius: 13px;
+  margin-top: 10px;
 }
 
 #lehrerTable td,
