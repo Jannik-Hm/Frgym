@@ -15,6 +15,7 @@
         <title>Login - Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
+        <div class="bodyDiv">
 
         <?php
             include_once "$root/admin/sites/header.html";
@@ -30,6 +31,8 @@
 
                 <input type="submit" name="submit" value="Login">
             </form>
+            <div id="wronginput"><p>Fehler bei der Anmeldung!</p></div>
+            <script>$('#wronginput').hide()</script>
         </div>
         <?php
 
@@ -60,13 +63,17 @@
                         $date = date("Y-m-d H:i");
                         $lastlogin = mysqli_query($conn, "UPDATE users SET lastlogin='{$date}' WHERE id='{$row["id"]}';");
                         echo("<script>window.location.replace('/admin/');</script>");
+                    }else{
+                        echo("<script>$('#wronginput').show()</script>");
                     }
                 }
             } else {
                 echo("<script>window.location.replace('/admin/');</script>");
             }
             // was hierunter? News-Feedeinbindung?
-            include_once "$root/sites/footer.html"
-        ?> 
+        ?>
+        <div class="page-ending"></div>
+        </div>
+        <?php include_once "$root/sites/footer.html" ?>
     </body>
 </html>
