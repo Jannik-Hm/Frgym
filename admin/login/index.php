@@ -56,6 +56,9 @@
                         $_SESSION["vorname"] = $row["vorname"];
                         $_SESSION["nachname"] = $row["nachname"];
                         $_SESSION["role"] = $row["role"];
+                        $_SESSION["lastlogin"] = $row["lastlogin"];
+                        $date = date("Y-m-d H:i");
+                        $lastlogin = mysqli_query($conn, "UPDATE users SET lastlogin='{$date}' WHERE id='{$row["id"]}';");
                         echo("<script>window.location.replace('/admin/');</script>");
                     }
                 }
