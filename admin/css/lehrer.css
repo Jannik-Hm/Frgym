@@ -5,11 +5,11 @@ body {
 }
 
 .add-input {
-  margin: 20px 0;
+  margin: 0;
 }
 
 .add-input form {
-  margin: 8px 0;
+  margin: 0;
 }
 
 .add-input form label {
@@ -31,6 +31,11 @@ body {
   -webkit-border-radius: 1px;
   border-radius: 1px;
   float: none;
+  margin: auto;
+}
+
+.add-input form input#first {
+  margin-top: 25px;
 }
 
 .add-input form input[type="text"],
@@ -61,14 +66,6 @@ body {
   margin: 8px 10px;
   position: relative;
   width: clamp(360px, 95%, 1000px);
-}
-
-.add-input form .position {
-  top: 50px;
-}
-
-.add-input form .faecher {
-  top: 15px;
 }
 
 .add-input form .faecher ul li,

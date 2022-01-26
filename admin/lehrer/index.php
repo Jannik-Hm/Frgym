@@ -44,6 +44,7 @@
         </script>
     </head>
     <body>
+        <div class="bodyDiv">
         <?php 
 
             include_once "$root/admin/sites/header.html";
@@ -62,7 +63,7 @@
             <p>Fächer(kürzel)</p>
         </div>-->
 
-        
+        <div class="page-beginning"></div>
 
         <?php
 
@@ -173,7 +174,6 @@
                 $faecher = str_replace("WW", "Wirtschaftswissenschaften", $faecher);
                 return $faecher;
             }
-        include_once "$root/sites/footer.html"
 
         ?>
         
@@ -189,5 +189,8 @@
                 </div>
             </div>
         </div>
+        <!-- <div class="page-ending"></div> -->
+        </div>
+        <?php include_once "$root/sites/footer.html" ?>
     </body>
 </html
