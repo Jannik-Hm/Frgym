@@ -82,10 +82,6 @@ div.news ul li {
   margin: 0;
 }
 
-.page-beginning {
-  height: 50px;
-}
-
 .page-ending {
   height: 50px;
 }
@@ -192,6 +188,7 @@ div.pagination {
   padding: 0;
   border-radius: 15px;
   /* width: 200px; */
+  margin-bottom: 50px;
 }
 
 div.pagination a {
@@ -277,24 +274,3 @@ div[class^="readmorebox"] [class^="popupCloseButton"]:hover {
   background-color: #fff;
 }
 /* Popup box END */
-
-@media (max-width: 841px) {
-  .page-beginning {
-    height: 100px;
-  }
-}
-@media (max-width: 471px) {
-  .page-beginning {
-    height: 150px;
-  }
-}
-@media (max-width: 471px) {
-  .page-beginning {
-    height: 150px;
-  }
-}
-@media (max-width: 367px) {
-  .page-beginning {
-    height: 200px;
-  }
-}
