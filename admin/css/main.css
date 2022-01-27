@@ -52,23 +52,6 @@ iframe {
   top: 50px;
 }
 
-#lehrerTable {
-  width: 75%;
-  align-self: center;
-  align-content: center;
-  align-items: center;
-  position: relative;
-  text-align: center;
-  margin: auto;
-  color: #fff;
-  border: 1px solid black;
-  border-radius: 15px;
-  padding: 0px;
-  border-collapse: collapse;
-  margin-bottom: 120px;
-  margin-top: 20px;
-}
-
 input[type="text"],
 input[type="email"],
 input[type="number"],
@@ -98,77 +81,4 @@ textarea {
   display: block;
   border-radius: 13px;
   margin-top: 10px;
-}
-
-#lehrerTable td,
-#lehrerTable th {
-  border: 1px solid #fff;
-  border-collapse: collapse;
-  padding: 8px;
-}
-
-#lehrerTable tr:nth-child(even) {
-  background-color: #5a5a5a;
-}
-
-#lehrerTable tr:nth-child(odd) {
-  background-color: #3d3d3d;
-}
-
-#lehrerTable tr:first-child {
-  background-color: darkcyan;
-}
-
-#lehrerTable tr:hover {
-  background-color: #9b9b9b;
-}
-
-#lehrerTable tr:hover:first-child {
-  background-color: darkcyan;
-}
-
-#lehrerTable td {
-  cursor: pointer;
-}
-
-#lehrerTable th.empty {
-  border: 1px black;
-  background-color: black;
-}
-
-#lehrerTable th {
-  border-top: none;
-}
-#lehrerTable tr td:first-child {
-  border-left: none;
-}
-#lehrerTable tr td:last-child {
-  border-right: none;
-}
-#lehrerTable tr.tableHeader th:first-child {
-  border-top-left-radius: 15px;
-  border-left: none;
-  border-top: none;
-}
-#lehrerTable tr.tableHeader th:last-child {
-  border-top-right-radius: 15px;
-  border-right: none;
-  border-top: none;
-}
-#lehrerTable tr:last-child td:first-child {
-  border-bottom-left-radius: 15px;
-  border-bottom: none;
-  border-left: none;
-}
-#lehrerTable tr:last-child td:last-child {
-  border-bottom-right-radius: 15px;
-  border-bottom: none;
-  border-right: none;
-}
-#lehrerTable tr:last-child td {
-  border-bottom: none;
-}
-
-#lehrerTable {
-  border: none;
 }
