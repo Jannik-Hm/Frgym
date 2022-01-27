@@ -1,26 +1,29 @@
-<nav>
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/admin/">Startseite-Admin</a></li>
-        <li class="drop-menu">
-            <a href="#" style="padding-left: 93px; padding-right: 86px;"> Lehrer <i class="fa fa-angle-down"></i></a>
-            <ul>
-                <li><a href="/admin/lehrer/">Liste</a></li>
-                <li><a href="/admin/lehrer/add/">Hinzufügen</a></li>
-            </ul>
-        </li>
-        <li class="drop-menu">
-            <a href="#" style="padding-left: 100px; padding-right: 85px;"> News <i class="fa fa-angle-down"></i></a>
-            <ul>
-                <li><a href="/admin/news/">News-Blog</a></li>
-                <li><a href="/admin/news/add/">Hinzufügen</a></li>
-            </ul>
-        </li>
-        <li><a href="/admin/dokumente/">Dokumente</a></li>
-    </ul>
-</nav>
-<script src="/js/index.js"></script>
-<script src="/js/jquery.min.js"></script>
+<div class="bodyDiv">
+    <nav class="adminheader">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/admin/">Startseite-Admin</a></li>
+            <li class="drop-menu">
+                <a href="#" style="padding-left: 93px; padding-right: 86px;"> Lehrer <i class="fa fa-angle-down"></i></a>
+                <ul>
+                    <li><a href="/admin/lehrer/">Liste</a></li>
+                    <li><a href="/admin/lehrer/add/">Hinzufügen</a></li>
+                </ul>
+            </li>
+            <li class="drop-menu">
+                <a href="#" style="padding-left: 100px; padding-right: 85px;"> News <i class="fa fa-angle-down"></i></a>
+                <ul>
+                    <li><a href="/admin/news/">News-Blog</a></li>
+                    <li><a href="/admin/news/add/">Hinzufügen</a></li>
+                </ul>
+            </li>
+            <li><a href="/admin/dokumente/">Dokumente</a></li>
+        </ul>
+    </nav>
+    <script src="/js/index.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <div id="page-beginning"></div>
+<script>document.getElementById('page-beginning').style.height = $('.adminheader').outerHeight()+"px"</script>
 
 <!-- <footer>
     <picture>

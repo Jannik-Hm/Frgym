@@ -172,28 +172,3 @@ textarea {
 #lehrerTable {
   border: none;
 }
-
-.page-beginning {
-  height: 50px;
-}
-
-@media (max-width: 841px) {
-  .page-beginning {
-    height: 100px;
-  }
-}
-@media (max-width: 471px) {
-  .page-beginning {
-    height: 150px;
-  }
-}
-@media (max-width: 471px) {
-  .page-beginning {
-    height: 150px;
-  }
-}
-@media (max-width: 367px) {
-  .page-beginning {
-    height: 200px;
-  }
-}
