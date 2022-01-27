@@ -67,9 +67,11 @@
             </div>
             <span class="line"></span>
         </section>
-        <section style="height: fit-content; width: 100%; background-color: #282828; display: block; position: relative; margin: 0; padding: 0; padding-bottom: 50px;">
+        <section id="mainNews">
             <div>
                 <p>Aktuelles</p>
+            </div>
+            <div>
                 <?php
                     include "$root/news/news-slide.php";
                 ?>
