@@ -27,28 +27,6 @@ iframe {
   top: 50px;
 }
 
-#lehrerTable {
-  width: 75%;
-  align-self: center;
-  align-content: center;
-  align-items: center;
-  position: relative;
-  /* top: 75px; */
-  text-align: center;
-  margin: auto;
-  color: #fff;
-  border: 1px solid black;
-  border-radius: 15px;
-  padding: 0px;
-  border-collapse: collapse;
-  margin-bottom: 70px;
-  margin-top: 25px;
-}
-
-#lehrerTableSearch {
-  margin-top: 15px;
-}
-
 input {
   /* top: 60px; */
   align-self: center;
@@ -62,61 +40,12 @@ input {
   border-radius: 13px;
 }
 
-#lehrerTable td,
-#lehrerTable th {
-  border: 1px solid #fff;
-  border-collapse: collapse;
-  padding: 8px;
-  color: #fff;
-  font: 16px "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
-}
-
-#lehrerTable th {
-  font-size: 20px;
-}
-
-#lehrerTable tr:nth-child(even) {
-  transition: 0.25s all;
-  background-color: #5a5a5a;
-}
-
-#lehrerTable tr:nth-child(odd) {
-  transition: 0.25s all;
-  background-color: #3d3d3d;
-}
-
-#lehrerTable tr:first-child {
-  background-color: darkcyan;
-}
-
-#lehrerTable tr:hover {
-  background-color: #686868;
-}
-
-#lehrerTable tr:hover:first-child {
-  background-color: darkcyan;
-}
-
-#lehrerTable td {
-  cursor: pointer;
-}
-
 section {
   margin: auto;
   text-align: center;
   display: block;
   position: relative;
   width: 100%;
-}
-
-#lehrerimg {
-  max-width: 350px;
-  max-height: 450px;
-  min-width: 100px;
-  min-height: 128.57;
-  border: 1px solid #fff;
-  border-radius: 30px;
 }
 
 h1,
