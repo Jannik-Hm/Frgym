@@ -32,7 +32,6 @@
         </script>
     </head>
     <body>
-        <div class="bodyDiv">
             <?php
 
                 include_once "./../sites/header.html"
@@ -152,7 +151,6 @@
             ?>
 
             </table>
-        </div>
         <?php include_once "./../sites/footer.html" ?>
     </body>
 </html>

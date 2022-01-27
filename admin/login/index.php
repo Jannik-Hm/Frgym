@@ -15,12 +15,9 @@
         <title>Login - Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
-        <div class="bodyDiv">
-
         <?php
             include_once "$root/admin/sites/header.html";
         ?>
-        <div class="page-beginning"></div>
         <div class="loginwelcome">
             <h1>Willkommen zur Frgym&nbsp;Admin&nbsp;Seite!</h1>
         </div>
@@ -72,8 +69,6 @@
             }
             // was hierunter? News-Feedeinbindung?
         ?>
-        <div class="page-ending"></div>
-        </div>
         <?php include_once "$root/sites/footer.html" ?>
     </body>
 </html>

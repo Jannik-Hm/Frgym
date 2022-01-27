@@ -33,7 +33,7 @@ iframe {
   align-content: center;
   align-items: center;
   position: relative;
-  top: 75px;
+  /* top: 75px; */
   text-align: center;
   margin: auto;
   color: #fff;
@@ -41,11 +41,16 @@ iframe {
   border-radius: 15px;
   padding: 0px;
   border-collapse: collapse;
-  margin-bottom: 120px;
+  margin-bottom: 70px;
+  margin-top: 25px;
+}
+
+#lehrerTableSearch {
+  margin-top: 15px;
 }
 
 input {
-  top: 60px;
+  /* top: 60px; */
   align-self: center;
   position: relative;
   width: 90%;

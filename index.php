@@ -13,7 +13,6 @@
 </head>
 
 <body>
-    <div class="bodyDiv">
         <?php
 
         include_once "$root/sites/header.html"
@@ -76,10 +75,6 @@
                 ?>
             </div>
         </section>
-
-        <section class="page-ending">
-        </section>
-    </div>
 
     <?php
 

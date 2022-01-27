@@ -10,13 +10,11 @@
         <title>News - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
-        <div class=bodyDiv>
             <?php
 
                 include_once "$root/sites/header.html"
 
             ?>
-            <div class="page-beginning"></div>
             <div class="news">
                 <ul style="list-style-type: none;">
 
@@ -123,8 +121,6 @@
                     ?>
                 </ul>
             </div>
-            <div class="page-ending"></div>
-        </div>
         <?php include_once "$root/sites/footer.html" ?>
     </body>
 </html>

@@ -6,16 +6,14 @@
             include_once "./../sites/head.html"
 
         ?>
-        <title>News - Friedrich-Gymnasium Luckenwalde</title>
+        <title>Kontakt - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
-        <div class="bodyDiv">
             <?php
 
                 include_once "./../sites/header.html"
 
             ?>
-            <div class="page-beginning"></div>
             <div class="contact-page">
                 <h1>Kontakt</h1>
                 <div class="adresse">
@@ -48,8 +46,6 @@
                 </div>
             </div>
             <br>
-            <div class="page-ending"></div>
-        </div>
         <?php include_once "./../sites/footer.html" ?>
     </body>
 </html>
