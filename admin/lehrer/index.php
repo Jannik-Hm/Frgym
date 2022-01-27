@@ -81,13 +81,13 @@
                     echo('<input type="text" id="lehrerTableSearch" onkeyup="searchTable();" placeholder=" Suche nach Namen...">');
                     echo('<table id="lehrerTable">');
                     echo('<tr class="tableHeader">');
-                    echo('<th>Name</th>');
-                    echo('<th>Email</th>');
-                    echo('<th>Position</th>');
-                    echo('<th>Fächer</th>');
-                    echo('<th>An der Schule seit</th>');
-                    echo('<th></th>');
-                    if( ! ($disabledall)){ echo('<th></th>'); }
+                    echo('<th class="name">Name</th>');
+                    echo('<th class="email">Email</th>');
+                    echo('<th class="position">Position</th>');
+                    echo('<th class="faecher">Fächer</th>');
+                    echo('<th class="date">An der Schule seit</th>');
+                    echo('<th class="editrow"></th>');
+                    if( ! ($disabledall)){ echo('<th class="deleterow"></th>'); }
                     echo('</tr>');
                     while($row = $result->fetch_assoc()) {
                         $faecher = "";
@@ -95,16 +95,20 @@
                             $faecher = $faecher . " & " . $fach;
                         }
                         $faecher = substr($faecher, 3);
+                        if(isset($row["datum"])){
+                            $datear = explode("-", $row["datum"]);
+                            $date = $datear[2].".".$datear[1].".".$datear[0];
+                        }else{$date = "";}
                         echo("<tr>");
-                        echo("<td onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["vorname"] . " " . $row["nachname"] . "</td>");
-                        echo("<td onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["email"] . "</td>");
-                        echo("<td onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["position"] . "</td>");
-                        echo("<td onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $faecher . "</td>");
-                        echo("<td onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["datum"] . "</td>");
+                        echo("<td class='name' onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["vorname"] . " " . $row["nachname"] . "</td>");
+                        echo("<td class='email' onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["email"] . "</td>");
+                        echo("<td class='position' onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["position"] . "</td>");
+                        echo("<td class='faecher' onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $faecher . "</td>");
+                        echo("<td class='date' onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $date . "</td>");
                         if( !( $disabledall ) || ($lehrer_own == 1 && $_SESSION["vorname"] == $row["vorname"] && $_SESSION["nachname"] == $row["nachname"])){
-                            echo("<td onclick=\"window.location='/admin/lehrer/edit?id=" .$row["id"] . "'\"><i class='fas fa-edit'></i></td>");
+                            echo("<td class='editrow' onclick=\"window.location='/admin/lehrer/edit?id=" .$row["id"] . "'\"><i class='fas fa-edit'></i></td>");
                             if( ! ($disabledall)){
-                                echo("<td onclick=\"$('#confirmdelete').attr('href', '/admin/lehrer/delete.php?id=".$row['id']."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du den Lehrer &#34;".$row["vorname"]." ".$row["nachname"]."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
+                                echo("<td class='deleterow' onclick=\"$('#confirmdelete').attr('href', '/admin/lehrer/delete.php?id=".$row['id']."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du den Lehrer &#34;".$row["vorname"]." ".$row["nachname"]."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
                             }
                             // else{
                                 // echo("<td><i class='fas fa-trash red' style='color:#F75140;color:transparent'></i></td>");
@@ -184,8 +188,14 @@
                 <div class='confirmation'>
                     <h1>Löschung bestätigen</h1><br>
                     <p id='confirmtext'></p><br>
-                    <a onclick="$('.confirm').hide();" class='abort'>Abbrechen</a>
-                    <?php echo("<a id='confirmdelete' class='delete'>Löschen</a>") ?>
+                    <div id="abortfirst">
+                        <a onclick="$('.confirm').hide();" class='abort'>Abbrechen</a>
+                        <a id='confirmdelete' class='delete'>Löschen</a>
+                    </div>
+                    <div id="deletefirst">
+                        <a id='confirmdelete' class='delete'>Löschen</a>
+                        <a onclick="$('.confirm').hide();" class='abort'>Abbrechen</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -193,4 +203,3 @@
         </div>
         <?php include_once "$root/sites/footer.html" ?>
     </body>
-</html>

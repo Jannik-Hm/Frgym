@@ -207,12 +207,17 @@ div.confirmation a.abort {
 div.confirmation a.delete {
   background-color: rgb(180, 28, 28);
 }
+div.confirmation div#deletefirst a {
+  display: none;
+}
 /* Popup box END */
 
 /* Lehrertable */
 
 #lehrerTable {
-  width: 75%;
+  width: clamp(250px, 90%, 1700px);
+  padding-left: 5%;
+  padding-right: 5%;
   align-self: center;
   align-content: center;
   align-items: center;
@@ -297,13 +302,41 @@ div.confirmation a.delete {
   border-bottom: none;
 }
 
+@media (max-width: 1200px) {
+  #lehrerTable .email {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  #lehrerTable .date {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  #lehrerTable .position {
+    display: none;
+  }
+}
+
+@media (max-width: 390px) {
+  #lehrerTable .faecher {
+    display: none;
+  }
+}
+
+/* Lehrertable End */
+
 @media (max-width: 1100px) {
   div.confirmation a {
     width: 50%;
     min-width: 200px;
   }
-  div.confirmation a.repeat,
-  div.confirmation a.abort {
+  div.confirmation div#abortfirst {
+    display: none;
+  }
+  div.confirmation div#deletefirst a {
     margin-right: auto;
     display: block;
   }
