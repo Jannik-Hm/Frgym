@@ -35,6 +35,70 @@
   opacity: 1; /* Firefox */
 }
 
+#lehrerFaecherFilterShow {
+  background: rgb(122, 133, 131);
+  color: rgb(226, 226, 226);
+  padding: 8px 16px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  align-self: center;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+}
+
+#lehrerFaecherFilter {
+  align-self: center;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%);
+  padding: 4px 4px;
+  margin: 8px 10px;
+  position: relative;
+  width: clamp(360px, 95%, 1000px);
+  color: #fff;
+  font-family: "montserrat", sans-serif;
+}
+
+#lehrerFaecherFilter .heading2 {
+  font-size: 25px;
+  margin-left: 5%;
+  border-bottom: 2px solid #3d859c;
+}
+
+#lehrerFaecherFilter ul li {
+  list-style-type: none;
+  align-self: center;
+}
+
+#lehrerFaecherFilter ul ul {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 5px;
+  margin-bottom: 10px;
+}
+
+#lehrerFaecherFilter ul ul .heading {
+  font-size: 20px;
+}
+
+#lehrerFaecherFilter label {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+#lehrerFaecherFilter input[type="checkbox"] {
+  color: rgb(102, 102, 102);
+  margin: 0;
+  padding: 0;
+  margin-right: 4px;
+  align-self: none;
+  position: relative;
+}
+
 #lehrerTable td,
 #lehrerTable th {
   border: 1px solid #fff;
