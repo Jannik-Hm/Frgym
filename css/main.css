@@ -27,7 +27,12 @@ iframe {
   top: 50px;
 }
 
-input {
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+input[type="submit"],
+input[type="password"] {
   /* top: 60px; */
   align-self: center;
   position: relative;
