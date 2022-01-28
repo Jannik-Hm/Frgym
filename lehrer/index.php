@@ -67,7 +67,7 @@
                     $myArray = array();
                     if ($result->num_rows > 0) {
 
-                        echo('<input type="text" id="lehrerTableSearch" onkeyup="searchTable();" placeholder=" Suche nach Namen...">');
+                        echo('<input type="text" id="lehrerTableSearch" onkeyup="searchTable();" placeholder="Suche nach Namen...">');
                         include_once ("./faecherfilter.php");
                         echo('<table id="lehrerTable">');
                         echo('<tr class="tableHeader">');
