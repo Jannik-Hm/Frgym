@@ -22,6 +22,13 @@
             filterFaecher(filteredFaecher);
         }
     };
+    function resetFilter(array) {
+        for(let i = 0; i < array.length; i++){
+            document.getElementById(array[i]).checked = false;
+        }
+        array.length = 0;
+        filterFaecher(array);
+    };
     function filterFaecher(faecher) {
                 // Declare variables
                 var input, table, tr, td, i, txtValue;
@@ -96,6 +103,7 @@
             <label class="heading">Sonstige</label>
             <li><label><input onclick="addFach('SP')" type="checkbox" name="chk_group[]" id="SP">Sport</label></li>
         </ul>
+        <ul><button id="resetFilter" style="cursor: pointer;" onclick="resetFilter(filteredFaecher)">Filter zurücksetzen</button></ul>
     </ul>
 </div>
 <script>$("#lehrerFaecherFilter").hide()</script>

@@ -49,6 +49,16 @@
   border-radius: 10px;
 }
 
+#lehrerFaecherFilter #resetFilter {
+  background: rgb(122, 133, 131);
+  color: rgb(226, 226, 226);
+  padding: 8px 16px;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
 #lehrerFaecherFilter {
   align-self: center;
   left: 50%;
@@ -60,6 +70,8 @@
   width: clamp(360px, 95%, 1000px);
   color: #fff;
   font-family: "montserrat", sans-serif;
+  padding-right: 5%;
+  align-items: center;
 }
 
 #lehrerFaecherFilter .heading2 {
@@ -78,6 +90,7 @@
   vertical-align: top;
   margin: 0 5px;
   margin-bottom: 10px;
+  width: clamp(150px, 50%, 250px);
 }
 
 #lehrerFaecherFilter ul ul .heading {
@@ -97,6 +110,12 @@
   margin-right: 4px;
   align-self: none;
   position: relative;
+  cursor: pointer;
+}
+
+#lehrerFaecherFilter ul ul li label {
+  margin-top: 4px;
+  cursor: pointer;
 }
 
 #lehrerTable td,
