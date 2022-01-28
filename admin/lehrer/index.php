@@ -44,8 +44,7 @@
         </script>
     </head>
     <body>
-        <div class="bodyDiv">
-        <?php 
+        <?php
 
             include_once "$root/admin/sites/header.html";
 
@@ -63,8 +62,6 @@
             <p>Fächer(kürzel)</p>
         </div>-->
 
-        <div class="page-beginning"></div>
-
         <?php
 
             require_once "$root/sites/credentials.php";
@@ -78,7 +75,7 @@
                 $myArray = array();
                 if ($result->num_rows > 0) {
 
-                    echo('<input type="text" id="lehrerTableSearch" onkeyup="searchTable();" placeholder=" Suche nach Namen...">');
+                    echo('<input type="text" id="lehrerTableSearch" onkeyup="searchTable();" placeholder="Suche nach Namen...">');
                     echo('<table id="lehrerTable">');
                     echo('<tr class="tableHeader">');
                     echo('<th class="name">Name</th>');
@@ -198,8 +195,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- <div class="page-ending"></div> -->
         </div>
         <?php include_once "$root/sites/footer.html" ?>
     </body>
