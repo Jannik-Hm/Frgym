@@ -1,5 +1,5 @@
 #lehrerTable {
-  width: 75%;
+  width: clamp(250px, 90%, 1100px);
   align-self: center;
   align-content: center;
   align-items: center;
@@ -17,7 +17,22 @@
 }
 
 #lehrerTableSearch {
+  background: rgb(122, 133, 131);
+  color: rgb(226, 226, 226);
+  padding: 8px 16px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  display: block;
+  width: clamp(250px, calc(90% - 32px), 1100px);
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 15px;
+}
+
+#lehrerTableSearch::placeholder {
+  color: rgb(226, 226, 226);
+  opacity: 1; /* Firefox */
 }
 
 #lehrerTable td,
