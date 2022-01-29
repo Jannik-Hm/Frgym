@@ -106,7 +106,17 @@
                         echo("<section>");
                         echo("<h1>" . $row["vorname"] . " " . $row["nachname"] . "</h1>");
                         echo("<h3>" . $row["position"] . "</h3>");
-                        echo("<img src=\"./img/" . $row["vorname"] . "_" . $row["nachname"] . ".png\" id=\"lehrerimg\">");
+                        $imgpath = "./../files/site-ressources/lehrer-bilder/" . strtolower(str_replace(" ","_",$row["vorname"])."_".str_replace(" ","_",$row["nachname"])).".";
+                        if (file_exists($imgpath."jpg")) {
+                            $imgpath = $imgpath."jpg";
+                        }elseif (file_exists($imgpath."jpeg")) {
+                            $imgpath = $imgpath."jpeg";
+                        }elseif (file_exists($imgpath."png")) {
+                            $imgpath = $imgpath."png";
+                        }else{
+                            $imgpath = $imgpath."error";
+                        }
+                        echo("<img src='".$imgpath."' id=\"lehrerimg\">");
                         echo("<h2>" . $faecher . "</h2>");
                         // if(isset($date)) {
                             echo("<h4>" . $date->format("Seit %y Jahren dabei") . "</h4>");
@@ -126,7 +136,7 @@
                     $faecher = str_replace("CH", "Chemie", $faecher);
                     $faecher = str_replace("DS", "Darstellendes Spiel", $faecher);
                     $faecher = str_replace("RE", "Evangelischer Religionsunterricht", $faecher);
-                    $faecher = str_replace("FR", "Franzöisch", $faecher);
+                    $faecher = str_replace("FR", "Französisch", $faecher);
                     $faecher = str_replace("EK", "Erdkunde", $faecher);
                     $faecher = str_replace("GE", "Geschichte", $faecher);
                     $faecher = str_replace("EG", "Gesellschaftswissenschaften", $faecher);
