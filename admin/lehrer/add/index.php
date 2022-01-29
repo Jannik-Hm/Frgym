@@ -103,11 +103,14 @@
                     </div>
                     <textarea rows="10" columns="50%" placeholder="Infotext (Optional)" name="beschreibung" <?php if($disabled){echo "disabled";} ?>></textarea><br>
                     <input type="date" placeholder="Geburtstag (Optional)" <?php if($disabled){echo "disabled";} ?> name="geburtstag" Optional><br>
-                    <input type="file" name="pictureUpload" id="pictureUpload"/>
+                    <input type="file" name="pictureUpload" id="pictureUpload" accept=".jpg,.jpeg,.png"/>
                     <label for="pictureUpload" id="file">Bild auswählen...</label><br>
                     <div id="preview"></div><br>
-                    <label style="display:none" for="pictureUpload" id="changepic">Bild ersetzen</label>
-                    <label style="display:none" id="rmpic">Bild entfernen</label>
+                    <div id="invalidfiletype" style="display:none"><p>Nur .jpg, .jpeg und .png Dateien sind erlaubt!</p></div><br>
+                    <div id="previewbuttons" style="display: none">
+                        <label for="pictureUpload" id="changepic">Bild ersetzen</label>
+                        <label id="rmpic" onclick="rmimage();">Bild entfernen</label>
+                    </div>
                     <input style="cursor: pointer;" type="submit" name="submit" <?php if($disabled){echo "disabled";} ?> value="Speichern">
                     <div class="page-ending"></div>
                 </form>
@@ -126,21 +129,42 @@
             </div>
 
             <script>
+                function checkextension() {
+
+
+                }
                 function imagePreview(fileInput) {
                     if (fileInput.files && fileInput.files[0]) {
-                        document.getElementById('file').innerHTML = "Bild ausgewählt";
-                        document.getElementById('file').style.cursor = "default";
-                        document.getElementById('file').htmlFor = "";
+                        var filebutton = document.getElementById('file');
+                        filebutton.innerHTML = "Bild ausgewählt!";
+                        filebutton.style.cursor = "default";
+                        filebutton.htmlFor = "";
                         var fileReader = new FileReader();
                         fileReader.onload = function (event) {
                             $('#preview').html('<img src="'+event.target.result+'" width="300" height="auto"/>');
                         };
-                        var changepic = document.getElementById('changepic');
-                        changepic.style.display = "inline-block";
-                        var rmpic = document.getElementById('rmpic');
-                        rmpic.style.display = "inline-block";
+                        document.getElementById('previewbuttons').style.display = "";
                         fileReader.readAsDataURL(fileInput.files[0]);
+                        var fileName = fileInput.value; //Check of Extension
+                        var extension = fileName.substring(fileName.lastIndexOf('.') + 1);
+                        if ((extension == "jpg" || extension == "jpeg" || extension == "png")){
+                            document.getElementById('invalidfiletype').style.display = "none";
+                            document.getElementById('preview').style.display = "";
+                        }else{
+                            document.getElementById('invalidfiletype').style.display = "";
+                            document.getElementById('preview').style.display = "none";
+                        }
                     }
+                };
+                function rmimage() {
+                    var filebutton = document.getElementById('file');
+                    filebutton.innerHTML = "Bild auswählen...";
+                    filebutton.style.cursor = "pointer";
+                    filebutton.htmlFor = "pictureUpload";
+                    document.getElementById('pictureUpload').value = '';
+                    document.getElementById('preview').style.display = "none";
+                    document.getElementById('previewbuttons').style.display = "none";
+                    document.getElementById('invalidfiletype').style.display = "none";
                 }
                 $("#pictureUpload").change(function () {
                     imagePreview(this);
@@ -194,11 +218,10 @@
                         }
 
                         // Allow certain file formats
-                        // if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-                        // && $imageFileType != "gif" ) {
-                        //     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-                        //     $uploadOk = 0;
-                        // }
+                        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                            $uploadOk = 0;
+                        }
                         // Check if $uploadOk is set to 0 by an error
                         if ($uploadOk == 0) {
                             echo "Sorry, your file was not uploaded.";

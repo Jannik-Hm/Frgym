@@ -49,6 +49,11 @@ label#file {
   width: clamp(360px, 95%, 1000px);
 }
 
+.add-input form label#changepic,
+.add-input form label#rmpic {
+  width: clamp(150px, 95%, 400px);
+}
+
 /* .add-input form input[type="submit"] {
   margin-bottom: 30px;
 } */
@@ -67,6 +72,65 @@ label#file {
   text-align: center;
   position: relative;
   cursor: pointer;
+}
+
+.add-input form div#preview {
+  display: flex;
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  justify-content: center;
+  align-content: center;
+}
+
+.add-input form div#preview img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.add-input form div#invalidfiletype {
+  display: flex;
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+.add-input form div#invalidfiletype p {
+  color: rgb(228, 76, 76);
+}
+
+.add-input form div#previewbuttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.add-input form label#changepic,
+.add-input form label#rmpic {
+  background: rgb(122, 133, 131);
+  border: none;
+  height: fit-content;
+  padding: 8px auto;
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  /* display: inline-block; */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.add-input form label#changepic {
+  margin-right: 25px;
+}
+
+.add-input form label#rmpic {
+  margin-left: 25px;
 }
 
 .add-input form input.infotext {
