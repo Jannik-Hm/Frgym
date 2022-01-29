@@ -103,8 +103,11 @@
                     </div>
                     <textarea rows="10" columns="50%" placeholder="Infotext (Optional)" name="beschreibung" <?php if($disabled){echo "disabled";} ?>></textarea><br>
                     <input type="date" placeholder="Geburtstag (Optional)" <?php if($disabled){echo "disabled";} ?> name="geburtstag" Optional><br>
-                    <label id="file"><input type="file" name="pictureUpload" id="pictureUpload"/>Bild auswählen...</label><br>
-                    <div id="preview"></div>
+                    <input type="file" name="pictureUpload" id="pictureUpload"/>
+                    <label for="pictureUpload" id="file">Bild auswählen...</label><br>
+                    <div id="preview"></div><br>
+                    <label style="display:none" for="pictureUpload" id="changepic">Bild ersetzen</label>
+                    <label style="display:none" id="rmpic">Bild entfernen</label>
                     <input style="cursor: pointer;" type="submit" name="submit" <?php if($disabled){echo "disabled";} ?> value="Speichern">
                     <div class="page-ending"></div>
                 </form>
@@ -125,10 +128,17 @@
             <script>
                 function imagePreview(fileInput) {
                     if (fileInput.files && fileInput.files[0]) {
+                        document.getElementById('file').innerHTML = "Bild ausgewählt";
+                        document.getElementById('file').style.cursor = "default";
+                        document.getElementById('file').htmlFor = "";
                         var fileReader = new FileReader();
                         fileReader.onload = function (event) {
                             $('#preview').html('<img src="'+event.target.result+'" width="300" height="auto"/>');
                         };
+                        var changepic = document.getElementById('changepic');
+                        changepic.style.display = "inline-block";
+                        var rmpic = document.getElementById('rmpic');
+                        rmpic.style.display = "inline-block";
                         fileReader.readAsDataURL(fileInput.files[0]);
                     }
                 }

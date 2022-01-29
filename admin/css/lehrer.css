@@ -53,6 +53,10 @@ label#file {
   margin-bottom: 30px;
 } */
 
+.add-input form input[type="file"] {
+  display: none;
+}
+
 .add-input form label#file {
   /* display: none; */
   background: rgb(122, 133, 131);
