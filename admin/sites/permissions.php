@@ -1,7 +1,7 @@
 <?php
 
-    session_name("userid_login");
-    session_start();
+    // session_name("userid_login");
+    // session_start();
 
     if(!isset($_SESSION["user_id"])) {
         header("Location: /admin/login/");
