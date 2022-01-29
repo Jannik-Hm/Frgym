@@ -37,7 +37,7 @@
             <div class="page-beginning"></div>
 
             <div class="add-input">
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     <input id="first" type="text" width="" placeholder="Vorname*" name="vorname" <?php if($disabled){echo "disabled";} ?> required><br>
                     <input type="text" placeholder="Nachname*" name="nachname" <?php if($disabled){echo "disabled";} ?> required><br>
                     <input type="email" placeholder="Email*" name="email" <?php if($disabled){echo "disabled";} ?> required><br>
@@ -103,6 +103,7 @@
                     </div>
                     <textarea rows="10" columns="50%" placeholder="Infotext (Optional)" name="beschreibung" <?php if($disabled){echo "disabled";} ?>></textarea><br>
                     <input type="date" placeholder="Geburtstag (Optional)" <?php if($disabled){echo "disabled";} ?> name="geburtstag" Optional><br>
+                    <label id="file"><input type="file" name="pictureUpload" id="pictureUpload"/>Bild auswählen...</label><br>
                     <input style="cursor: pointer;" type="submit" name="submit" <?php if($disabled){echo "disabled";} ?> value="Speichern">
                     <div class="page-ending"></div>
                 </form>
@@ -121,20 +122,23 @@
             </div>
 
             <?php
-            $vorname = $_POST["vorname"];
-            $nachname = $_POST["nachname"];
-            $email = $_POST["email"];
-            $position = $_POST["position"];
-            $faecher_array = $_POST["chk_group"];
-            $faecher = "";
-            $infotext = $_POST["beschreibung"];
-            $geburtstag = $_POST["geburtstag"];
+            if(isset($_POST["submit"])) {
+                $vorname = $_POST["vorname"];
+                $nachname = $_POST["nachname"];
+                $email = $_POST["email"];
+                $position = $_POST["position"];
+                $faecher_array = $_POST["chk_group"];
+                $faecher = "";
+                $infotext = $_POST["beschreibung"];
+                $geburtstag = $_POST["geburtstag"];
                 require_once "$root/sites/credentials.php";
                 $conn = get_connection();
-                for ($i=0; $i < count($faecher_array); $i++) {
-                    $faecher = $faecher.$faecher_array[$i];
-                    if ($i < count($faecher_array)-1) {
-                        $faecher = $faecher.";";
+                if(isset($faecher_array)){
+                    for ($i=0; $i < count($faecher_array); $i++) {
+                        $faecher = $faecher.$faecher_array[$i];
+                        if ($i < count($faecher_array)-1) {
+                            $faecher = $faecher.";";
+                        }
                     }
                 }
                 if(isset($_POST["submit"]) && $lehrer_all == 1) {
@@ -143,7 +147,46 @@
 
                 if ($insert) {
                     echo("<script>$('.confirm').show();</script>");
+                    if(!($_FILES["pictureUpload"]["error"] == 4)) {
+                        $target_dir = "/usr/www/users/greenyr/frgym/new/files/site-ressources/lehrer-bilder/";
+                        $extension = strtolower(pathinfo(basename($_FILES["pictureUpload"]["name"]),PATHINFO_EXTENSION));
+                        $lehrername = strtolower(str_replace(" ","_",$_POST["vorname"])."_".str_replace(" ","_",$_POST["nachname"]));
+                        $targetfilename = $lehrername.".".$extension;
+                        $target_file = $target_dir . $targetfilename;
+                        $uploadOk = 1;
+                        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+                        echo $target_dir;
+                        echo $lehrername;
+                        echo $extension;
+                        echo $imageFileType;
+
+                        // Check file size
+                        if ($_FILES["pictureUpload"]["size"] > 10000000) {
+                            echo "Sorry, your file is too large.";
+                            $uploadOk = 0;
+                        }
+
+                        // Allow certain file formats
+                        // if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                        // && $imageFileType != "gif" ) {
+                        //     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                        //     $uploadOk = 0;
+                        // }
+                        // Check if $uploadOk is set to 0 by an error
+                        if ($uploadOk == 0) {
+                            echo "Sorry, your file was not uploaded.";
+                        // if everything is ok, try to upload file
+                        } else {
+                            if (move_uploaded_file($_FILES["pictureUpload"]["tmp_name"], $target_file)) {
+                                echo "The file ". htmlspecialchars( basename( $_FILES["pictureUpload"]["name"])). " has been uploaded.";
+                            } else {
+                                echo "Sorry, there was an error uploading your file.";
+                            }
+                        }
+                    }
                 }
+            }
             ?>
             <div class="page-ending"></div>
         </div>

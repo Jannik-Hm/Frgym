@@ -18,7 +18,8 @@ body {
   padding: 4px 4px;
 }
 
-.add-input form input {
+.add-input form input,
+label#file {
   color: rgb(102, 102, 102);
   background: rgb(205, 211, 210);
   border: none;
@@ -42,6 +43,7 @@ body {
 .add-input form input[type="email"],
 .add-input form input[type="number"],
 .add-input form input[type="date"],
+.add-input form label#file,
 .add-input form input[type="submit"],
 .add-input form textarea {
   width: clamp(360px, 95%, 1000px);
@@ -50,6 +52,18 @@ body {
 /* .add-input form input[type="submit"] {
   margin-bottom: 30px;
 } */
+
+.add-input form label#file {
+  /* display: none; */
+  background: rgb(122, 133, 131);
+  border: none;
+  height: fit-content;
+  padding: 8px auto;
+  align-self: center;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+}
 
 .add-input form input.infotext {
   align-self: center;
@@ -129,7 +143,8 @@ body {
   resize: none;
 }
 
-.add-input form ::placeholder {
+.add-input form ::placeholder,
+.add-input form label#file {
   color: rgb(102, 102, 102);
   opacity: 1;
 }
@@ -369,7 +384,8 @@ div.confirmation div#deletefirst a {
   .add-input form label {
     color: rgb(226, 226, 226);
   }
-  .add-input form ::placeholder {
+  .add-input form ::placeholder,
+  .add-input form label#file {
     color: rgb(226, 226, 226);
     opacity: 1; /* Firefox */
   }

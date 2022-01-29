@@ -52,6 +52,7 @@ input[type="text"],
 input[type="email"],
 input[type="number"],
 input[type="date"],
+label#file,
 input[type="submit"],
 input[type="password"] {
   align-self: center;
