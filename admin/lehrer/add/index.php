@@ -104,6 +104,7 @@
                     <textarea rows="10" columns="50%" placeholder="Infotext (Optional)" name="beschreibung" <?php if($disabled){echo "disabled";} ?>></textarea><br>
                     <input type="date" placeholder="Geburtstag (Optional)" <?php if($disabled){echo "disabled";} ?> name="geburtstag" Optional><br>
                     <label id="file"><input type="file" name="pictureUpload" id="pictureUpload"/>Bild auswählen...</label><br>
+                    <div id="preview"></div>
                     <input style="cursor: pointer;" type="submit" name="submit" <?php if($disabled){echo "disabled";} ?> value="Speichern">
                     <div class="page-ending"></div>
                 </form>
@@ -120,6 +121,21 @@
                     </div>
                 </div>
             </div>
+
+            <script>
+                function imagePreview(fileInput) {
+                    if (fileInput.files && fileInput.files[0]) {
+                        var fileReader = new FileReader();
+                        fileReader.onload = function (event) {
+                            $('#preview').html('<img src="'+event.target.result+'" width="300" height="auto"/>');
+                        };
+                        fileReader.readAsDataURL(fileInput.files[0]);
+                    }
+                }
+                $("#pictureUpload").change(function () {
+                    imagePreview(this);
+                });
+            </script>
 
             <?php
             if(isset($_POST["submit"])) {
