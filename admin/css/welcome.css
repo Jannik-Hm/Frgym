@@ -2,7 +2,6 @@
   margin-top: 100px;
   margin-bottom: 100px;
   font-size: 40px;
-  color: #fff;
   position: relative;
   display: block;
   padding: 0 10px;
@@ -52,5 +51,27 @@
   .adminwelcomeinfo .lastlogin {
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+/* colors */
+
+#adminMain,
+.adminwelcomeinfo {
+  color: rgb(102, 102, 102);
+}
+
+.adminwelcomeinfo div {
+  background: rgb(205, 211, 210);
+}
+
+@media (prefers-color-scheme: dark) {
+  #adminMain,
+  .adminwelcomeinfo {
+    color: rgb(226, 226, 226);
+  }
+
+  .adminwelcomeinfo div {
+    background-color: rgb(122, 133, 131);
   }
 }
