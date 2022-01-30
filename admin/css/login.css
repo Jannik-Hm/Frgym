@@ -4,7 +4,6 @@
   margin-bottom: 0px;
   padding-right: 5%;
   padding-left: 5%;
-  color: rgb(235, 235, 235);
 }
 
 .loginform {
@@ -18,7 +17,6 @@
   font-size: 24px;
   height: 40px;
   border-radius: 10px;
-  color: rgb(219, 219, 219);
 }
 
 #loginForm input[type="text"],
@@ -26,13 +24,7 @@
   width: 800px;
   height: 45px;
   padding: 20px 10px;
-  background: rgb(122, 133, 131);
   outline: none;
-}
-
-#loginForm ::placeholder {
-  color: rgb(182, 182, 182);
-  opacity: 1;
 }
 
 #loginForm input[type="submit"] {
@@ -40,8 +32,6 @@
   width: 400px;
   height: 50px;
   cursor: pointer;
-  background: rgb(122, 133, 131);
-  color: rgb(219, 219, 219);
 }
 
 #loginForm input[type="submit"]:hover {
@@ -76,5 +66,40 @@
   }
   .loginwelcome {
     display: none;
+  }
+}
+
+/* Colors */
+
+.loginwelcome,
+#loginForm input,
+#loginForm ::placeholder {
+  color: rgb(102, 102, 102);
+  opacity: 1;
+}
+
+#loginForm input[type="text"],
+#loginForm input[type="password"],
+#loginForm input[type="submit"] {
+  background: rgb(205, 211, 210);
+}
+
+.loginform #wronginput {
+  color: rgb(233, 94, 75);
+}
+
+@media (prefers-color-scheme: dark) {
+  .loginwelcome,
+  #loginForm input {
+    color: rgb(235, 235, 235);
+  }
+  #loginForm input[type="text"],
+  #loginForm input[type="password"],
+  #loginForm input[type="submit"] {
+    background: rgb(122, 133, 131);
+  }
+  #loginForm ::placeholder {
+    color: rgb(182, 182, 182);
+    opacity: 1;
   }
 }
