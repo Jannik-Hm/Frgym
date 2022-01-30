@@ -164,6 +164,10 @@ label#file {
   position: relative;
 }
 
+.add-input form .position ul li input[type="radio"] {
+  margin-right: 2px;
+}
+
 .add-input form .faecher ul ul {
   display: inline-block;
   vertical-align: top;
