@@ -1,7 +1,5 @@
 div.no_perm {
   margin-left: 0;
-  background: rgba(0, 0, 0, 0.8);
-  /* cursor: pointer; */
   display: none;
   height: 100%;
   position: fixed;
@@ -21,7 +19,6 @@ div.no_perm > div {
   text-align: center;
   margin-top: 25px;
   margin-bottom: 25px;
-  background-color: rgb(122, 133, 131);
   box-shadow: 10px 10px 60px #555;
   display: inline-block;
   height: auto;
@@ -33,9 +30,6 @@ div.no_perm > div {
   border-radius: 8px;
   padding: 5px 5%;
 }
-div.no_permission p {
-  color: #fff;
-}
 div.no_permission a {
   border-radius: 15px;
   border: 0px;
@@ -46,6 +40,31 @@ div.no_permission a {
   margin-bottom: 30px;
   cursor: pointer;
 }
+
+/* colors */
+
+div.no_perm {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+div.no_perm > div {
+  background: rgb(205, 211, 210);
+}
+
+div.no_permission {
+  color: rgb(102, 102, 102);
+}
+
 div.no_permission a.back {
   background-color: #39bd60;
+}
+
+@media (prefers-color-scheme: dark) {
+  div.no_perm > div {
+    background-color: rgb(122, 133, 131);
+  }
+
+  div.no_permission {
+    color: rgb(226, 226, 226);
+  }
 }
