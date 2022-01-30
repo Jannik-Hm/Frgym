@@ -97,11 +97,11 @@
                             $date = $datear[2].".".$datear[1].".".$datear[0];
                         }else{$date = "";}
                         echo("<tr>");
-                        echo("<td class='name' onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["vorname"] . " " . $row["nachname"] . "</td>");
-                        echo("<td class='email' onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["email"] . "</td>");
-                        echo("<td class='position' onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $row["position"] . "</td>");
-                        echo("<td class='faecher' onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $faecher . "</td>");
-                        echo("<td class='date' onclick=\"window.location='/admin/lehrer/?id=" . $row["id"] . "'\">" . $date . "</td>");
+                        echo("<td class='name' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["vorname"] . " " . $row["nachname"] . "</td>");
+                        echo("<td class='email' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["email"] . "</td>");
+                        echo("<td class='position' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["position"] . "</td>");
+                        echo("<td class='faecher' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $faecher . "</td>");
+                        echo("<td class='date' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $date . "</td>");
                         if( !( $disabledall ) || ($lehrer_own == 1 && $_SESSION["vorname"] == $row["vorname"] && $_SESSION["nachname"] == $row["nachname"])){
                             echo("<td class='editrow' onclick=\"window.location='/admin/lehrer/edit?id=" .$row["id"] . "'\"><i class='fas fa-edit'></i></td>");
                             if( ! ($disabledall)){
@@ -198,3 +198,4 @@
         </div>
         <?php include_once "$root/sites/footer.html" ?>
     </body>
+</html>
