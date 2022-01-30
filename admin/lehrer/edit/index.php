@@ -62,7 +62,7 @@
         <div class="page-beginning"></div>
 
         <div class="add-input">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <input id="first" type="text" width="" placeholder="Vorname*" name="vorname" value="<?php echo $vorname; ?>"  <?php if($disabled or $ownedit){echo("disabled");} ?> required><br>
                 <input type="text" placeholder="Nachname*" name="nachname" value="<?php echo $nachname; ?>" <?php if($disabled or $ownedit){echo("disabled");} ?> required><br>
                 <input type="email" placeholder="Email*" name="email" value="<?php echo $email; ?>" <?php if($disabled or $ownedit){echo("disabled");} ?> required><br>
@@ -128,6 +128,33 @@
                 </div>
                 <textarea rows="10" columns="50%" placeholder="Infotext (Optional)" name="beschreibung" <?php if($disabled){echo "disabled";} ?>><?php echo $infotext; ?></textarea><br>
                 <input type="date" placeholder="Geburtstag (Optional)" name="geburtstag" value="<?php echo $date; ?>" Optional <?php if($disabled){echo "disabled";} ?>><br>
+                <input type="file" name="pictureUpload" id="pictureUpload" accept=".jpg,.jpeg,.png"/>
+                    <label for="pictureUpload" id="file">Bild auswählen...</label><br>
+                    <div id="preview">
+                        <?php
+                            $file_exists = false;
+                            $phppath = "$root/files/site-ressources/lehrer-bilder/" . strtolower(str_replace(" ","_",$vorname)."_".str_replace(" ","_",$nachname)).".";
+                            $imgpath = "/files/site-ressources/lehrer-bilder/" . strtolower(str_replace(" ","_",$vorname)."_".str_replace(" ","_",$nachname)).".";
+                            if (file_exists($phppath."jpg")) {
+                                $imgpath = $imgpath."jpg";
+                                $file_exists = true;
+                            }elseif (file_exists($phpath."jpeg")) {
+                                $imgpath = $imgpath."jpeg";
+                                $file_exists = true;
+                            }elseif (file_exists($phppath."png")) {
+                                $imgpath = $imgpath."png";
+                                $file_exists = true;
+                            }
+                            if($file_exists){echo('<img src="'.$imgpath.'" width="300" height="auto"/>');}
+                        ?>
+                        <input type="hidden" id="deletefile" name="deletefile" value="" />
+                    </div><br>
+                    <div id="invalidfiletype" style="display:none"><p>Nur .jpg, .jpeg und .png Dateien sind erlaubt!</p></div><br>
+                    <div id="previewbuttons" style="display: none">
+                        <label for="pictureUpload" id="changepic">Bild ersetzen</label>
+                        <label id="rmpic" onclick="rmimage();">Bild entfernen</label>
+                    </div>
+                    <?php if($file_exists){echo("<script>document.getElementById('previewbuttons').style.display = '';</script>");} ?>
                 <input style="cursor: pointer;" type="submit" name="submit" <?php if($disabled){echo "disabled";} ?> value="Speichern">
                 <div class="page-ending"></div>
             </form>
@@ -144,7 +171,48 @@
             </div>
         </div>
 
+        <script>
+                function imagePreview(fileInput) {
+                    if (fileInput.files && fileInput.files[0]) {
+                        var filebutton = document.getElementById('file');
+                        filebutton.innerHTML = "Bild ausgewählt!";
+                        document.getElementById('deletefile').value = 'false';
+                        filebutton.style.cursor = "default";
+                        filebutton.htmlFor = "";
+                        var fileReader = new FileReader();
+                        fileReader.onload = function (event) {
+                            $('#preview').html('<img src="'+event.target.result+'" width="300" height="auto"/>');
+                        };
+                        document.getElementById('previewbuttons').style.display = "";
+                        fileReader.readAsDataURL(fileInput.files[0]);
+                        var fileName = fileInput.value; //Check of Extension
+                        var extension = fileName.substring(fileName.lastIndexOf('.') + 1);
+                        if ((extension == "jpg" || extension == "jpeg" || extension == "png")){
+                            document.getElementById('invalidfiletype').style.display = "none";
+                            document.getElementById('preview').style.display = "";
+                        }else{
+                            document.getElementById('invalidfiletype').style.display = "";
+                            document.getElementById('preview').style.display = "none";
+                        }
+                    }
+                };
+                function rmimage() { // TODO: Delete Picture button not removing picture from server and fix img replacing
+                    var filebutton = document.getElementById('file');
+                    filebutton.innerHTML = "Bild auswählen...";
+                    filebutton.style.cursor = "pointer";
+                    filebutton.htmlFor = "pictureUpload";
+                    document.getElementById('deletefile').value = 'true';
+                    document.getElementById('preview').style.display = "none";
+                    document.getElementById('previewbuttons').style.display = "none";
+                    document.getElementById('invalidfiletype').style.display = "none";
+                }
+                $("#pictureUpload").change(function () {
+                    imagePreview(this);
+                });
+            </script>
+
         <?php
+            if(isset($_POST["submit"])) {
             $vorname = $_POST["vorname"];
             $nachname = $_POST["nachname"];
             $email = $_POST["email"];
@@ -168,7 +236,51 @@
             }
             if ($insert) {
                 echo("<script>$('.confirm').show();</script>");
+                if($_POST['deletefile'] == 'true' && $file_exists){ //delete File if delete is true
+                    unlink($root.$imgpath);
+                } elseif ($_FILES["pictureUpload"]["error"] != 4) {
+                    $target_dir = "/usr/www/users/greenyr/frgym/new/files/site-ressources/lehrer-bilder/";
+                    $extension = strtolower(pathinfo(basename($_FILES["pictureUpload"]["name"]),PATHINFO_EXTENSION));
+                    $lehrername = strtolower(str_replace(" ","_",$_POST["vorname"])."_".str_replace(" ","_",$_POST["nachname"]));
+                    $targetfilename = $lehrername.".".$extension;
+                    $target_file = $target_dir . $targetfilename;
+                    $uploadOk = 1;
+                    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+                    echo $target_dir;
+                    echo $lehrername;
+                    echo $extension;
+                    echo $imageFileType;
+
+                    if(file_exists($root.$imgpath)) {
+                        unlink($root.$imgpath);
+                    }
+
+                    // Check file size
+                    if ($_FILES["pictureUpload"]["size"] > 10000000) {
+                        // echo "Sorry, your file is too large.";
+                        $uploadOk = 0;
+                    }
+
+                    // Allow certain file formats
+                    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                        // echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                        $uploadOk = 0;
+                    }
+                    // Check if $uploadOk is set to 0 by an error
+                    if ($uploadOk == 0) {
+                        // echo "Sorry, your file was not uploaded.";
+                    // if everything is ok, try to upload file
+                    } else {
+                        if (move_uploaded_file($_FILES["pictureUpload"]["tmp_name"], $target_file)) {
+                            // echo "The file ". htmlspecialchars( basename( $_FILES["pictureUpload"]["name"])). " has been uploaded.";
+                        } else {
+                            // echo "Sorry, there was an error uploading your file.";
+                        }
+                    }
+                }
             }
+        }
         ?>
         <div class="page-ending"></div>
         </div>
