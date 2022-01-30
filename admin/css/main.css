@@ -6,6 +6,7 @@ body {
   margin: 0px 0px 0px 0px;
   z-index: 0;
   font-family: "montserrat", sans-serif;
+  text-decoration: none;
 }
 
 .bodyDiv {
@@ -37,17 +38,6 @@ h6 {
   margin: auto;
 }
 
-iframe {
-  position: absolute;
-  height: calc(100% - 50px);
-  width: 100%;
-  border: none;
-  margin: 0px;
-  padding: 0px;
-  overflow: hidden;
-  z-index: +1;
-}
-
 input[type="text"],
 input[type="email"],
 input[type="number"],
@@ -60,10 +50,8 @@ input[type="password"] {
   width: 90%;
   height: 30px;
   font-size: 15px;
-  color: #000;
-  margin: auto;
   display: block;
-  border-radius: 13px;
+  margin: auto;
   margin-top: 20px;
 }
 
@@ -73,9 +61,7 @@ textarea {
   position: relative;
   width: 90%;
   font-size: 15px;
-  color: #000;
-  margin: auto;
   display: block;
-  border-radius: 13px;
+  margin: auto;
   margin-top: 10px;
 }
