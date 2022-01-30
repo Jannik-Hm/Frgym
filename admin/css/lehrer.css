@@ -1,9 +1,3 @@
-html,
-body {
-  font-family: "montserat", sans-serif;
-  text-decoration: none;
-}
-
 .add-input {
   margin: 0;
 }
@@ -13,15 +7,12 @@ body {
 }
 
 .add-input form label {
-  color: rgb(102, 102, 102);
   font-size: 16px;
   padding: 4px 4px;
 }
 
 .add-input form input,
 label#file {
-  color: rgb(102, 102, 102);
-  background: rgb(205, 211, 210);
   border: none;
   outline: none;
   border-bottom: 2px solid #3d859c;
@@ -54,17 +45,11 @@ label#file {
   width: clamp(150px, 95%, 400px);
 }
 
-/* .add-input form input[type="submit"] {
-  margin-bottom: 30px;
-} */
-
 .add-input form input[type="file"] {
   display: none;
 }
 
 .add-input form label#file {
-  /* display: none; */
-  background: rgb(122, 133, 131);
   border: none;
   height: fit-content;
   padding: 8px auto;
@@ -100,10 +85,6 @@ label#file {
   text-align: center;
 }
 
-.add-input form div#invalidfiletype p {
-  color: rgb(228, 76, 76);
-}
-
 .add-input form div#previewbuttons {
   display: flex;
   flex-direction: row;
@@ -113,7 +94,6 @@ label#file {
 
 .add-input form label#changepic,
 .add-input form label#rmpic {
-  background: rgb(122, 133, 131);
   border: none;
   height: fit-content;
   padding: 8px auto;
@@ -193,7 +173,6 @@ label#file {
 }
 
 .add-input form .faecher input {
-  color: rgb(102, 102, 102);
   margin: 0;
   padding: 0;
   margin-right: 4px;
@@ -202,8 +181,6 @@ label#file {
 }
 
 .add-input form textarea {
-  color: rgb(102, 102, 102);
-  background: rgb(205, 211, 210);
   border: none;
   outline: none;
   overflow: none;
@@ -215,16 +192,8 @@ label#file {
   resize: none;
 }
 
-.add-input form ::placeholder,
-.add-input form label#file {
-  color: rgb(102, 102, 102);
-  opacity: 1;
-}
-
 .querycheck {
-  color: rgb(102, 102, 102);
   margin: 20px 25%;
-  background-color: #3d859c;
 }
 
 .page-ending {
@@ -255,7 +224,6 @@ div.confirm > div {
   text-align: center;
   margin-top: 25px;
   margin-bottom: 25px;
-  background-color: rgb(122, 133, 131);
   box-shadow: 10px 10px 60px #555;
   display: inline-block;
   height: auto;
@@ -267,9 +235,6 @@ div.confirm > div {
   border-radius: 8px;
   padding: 5px 5%;
 }
-div.confirmation p {
-  color: #fff;
-}
 div.confirmation a {
   border-radius: 15px;
   border: 0px;
@@ -280,20 +245,11 @@ div.confirmation a {
   margin-bottom: 30px;
   cursor: pointer;
 }
-div.confirmation a.repeat {
-  background-color: #40b459;
-  margin-right: 100px;
-}
-div.confirmation a.back {
-  background-color: #39bd60;
-}
+div.confirmation a.repeat,
 div.confirmation a.abort {
   margin-right: 100px;
-  background-color: rgb(57, 152, 175);
 }
-div.confirmation a.delete {
-  background-color: rgb(180, 28, 28);
-}
+
 div.confirmation div#deletefirst a {
   display: none;
 }
@@ -302,21 +258,15 @@ div.confirmation div#deletefirst a {
 /* Lehrertable */
 
 #lehrerTableSearch {
-  background: rgb(122, 133, 131);
-  color: rgb(226, 226, 226);
   padding: 8px 16px;
   border: none;
+  border-bottom: 2px solid #3d859c;
   outline: none;
   border-radius: 10px;
   display: block;
   width: clamp(250px, calc(90% - 32px), 1700px);
   margin-left: auto;
   margin-right: auto;
-}
-
-#lehrerTableSearch::placeholder {
-  color: rgb(226, 226, 226);
-  opacity: 1; /* Firefox */
 }
 
 #lehrerTable {
@@ -329,7 +279,6 @@ div.confirmation div#deletefirst a {
   position: relative;
   text-align: center;
   margin: auto;
-  color: #fff;
   border: none;
   border-radius: 15px;
   padding: 0px;
@@ -345,33 +294,8 @@ div.confirmation div#deletefirst a {
   padding: 8px;
 }
 
-#lehrerTable tr:nth-child(even) {
-  background-color: #5a5a5a;
-}
-
-#lehrerTable tr:nth-child(odd) {
-  background-color: #3d3d3d;
-}
-
-#lehrerTable tr:first-child {
-  background-color: darkcyan;
-}
-
-#lehrerTable tr:hover {
-  background-color: #9b9b9b;
-}
-
-#lehrerTable tr:hover:first-child {
-  background-color: darkcyan;
-}
-
 #lehrerTable td {
   cursor: pointer;
-}
-
-#lehrerTable th.empty {
-  border: 1px black;
-  background-color: black;
 }
 
 #lehrerTable th {
@@ -447,31 +371,114 @@ div.confirmation div#deletefirst a {
   }
 }
 
+/* Colors */
+
+.add-input form label,
+.add-input form input,
+.add-input form .faecher input,
+.add-input form textarea,
+.add-input form ::placeholder,
+.add-input form label#file,
+.add-input form label#changepic,
+.add-input form label#rmpic,
+.querycheck,
+div.confirm > div,
+#lehrerTableSearch::placeholder,
+#lehrerTable tr {
+  color: rgb(102, 102, 102);
+  opacity: 1;
+}
+
+.querycheck {
+  background-color: #3d859c;
+}
+
+.add-input form input,
+.add-input form label#file,
+.add-input form textarea,
+.add-input form label#changepic,
+.add-input form label#rmpic,
+div.confirm > div,
+#lehrerTableSearch,
+#lehrerTable tr:nth-child(even) {
+  background: rgb(205, 211, 210);
+}
+#lehrerTable tr:nth-child(odd) {
+  background-color: rgb(209, 223, 221);
+}
+
+.add-input form div#invalidfiletype p {
+  color: rgb(228, 76, 76);
+}
+
+div.confirmation a.repeat {
+  background-color: #40b459;
+}
+div.confirmation a.back {
+  background-color: #39bd60;
+}
+div.confirmation a.abort {
+  background-color: rgb(57, 152, 175);
+}
+div.confirmation a.delete {
+  background-color: rgb(180, 28, 28);
+}
+
+#lehrerTable,
+#lehrerTable th {
+  color: #fff;
+}
+
+#lehrerTable tr:hover {
+  background-color: #d6d6d6;
+}
+#lehrerTable tr:first-child,
+#lehrerTable tr:hover:first-child {
+  background-color: darkcyan;
+}
+
 @media (prefers-color-scheme: dark) {
   html,
   body {
     background-color: rgb(71, 71, 71);
     color: rgb(226, 226, 226);
   }
-  .add-input form label {
-    color: rgb(226, 226, 226);
-  }
+  .add-input form input,
   .add-input form ::placeholder,
-  .add-input form label#file {
+  .add-input form textarea,
+  .add-input form label,
+  div.confirm > div,
+  #lehrerTableSearch::placeholder,
+  #lehrerTable tr {
     color: rgb(226, 226, 226);
     opacity: 1; /* Firefox */
   }
   .add-input form input,
-  .add-input form textarea {
-    color: rgb(226, 226, 226);
+  .add-input form textarea,
+  .add-input form label#file,
+  .add-input form label#changepic,
+  .add-input form label#rmpic,
+  div.confirm > div,
+  #lehrerTableSearch {
     background: rgb(122, 133, 131);
-    border-bottom: rgb(122, 133, 131);
+    border-bottom: none;
+  }
+  #lehrerTable tr:nth-child(even) {
+    background-color: #5a5a5a;
+  }
+
+  #lehrerTable tr:nth-child(odd) {
+    background-color: #3d3d3d;
+  }
+  #lehrerTable tr:hover {
+    background-color: #686868;
+  }
+  #lehrerTable tr:first-child,
+  #lehrerTable tr:hover:first-child {
+    background-color: darkcyan;
   }
   .add-input form .faecher .heading2,
   .add-input form .position .heading2 {
     border-bottom: 2px solid rgb(122, 133, 131);
-  }
-  .add-input form .faecher input {
-    color: rgb(226, 226, 226);
   }
 }
