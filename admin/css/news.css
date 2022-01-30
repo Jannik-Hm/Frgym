@@ -23,15 +23,12 @@ div.adminbtn a {
 }
 
 .add-input-news form label {
-  color: rgb(102, 102, 102);
   font-size: 16px;
   padding: 4px 4px;
 }
 
 .add-input-news form input,
 .add-input-news form textarea {
-  color: rgb(102, 102, 102);
-  background: rgb(205, 211, 210);
   border: none;
   outline: none;
   border-bottom: 2px solid #3d859c;
@@ -48,15 +45,8 @@ div.adminbtn a {
   resize: none;
 }
 
-.add-input-news form ::placeholder {
-  color: rgb(102, 102, 102);
-  opacity: 1; /* Firefox */
-}
-
 .querycheck {
-  color: rgb(102, 102, 102);
   margin: 20px 25%;
-  background-color: #3d859c;
 }
 
 div.news ul {
@@ -83,7 +73,6 @@ div.news ul li {
   right: 0;
   margin: auto;
   border: 2px white;
-  background-color: rgb(122, 133, 131);
   width: clamp(350px, 95%, 1000px);
   align-self: center;
   border-radius: 15px;
@@ -102,7 +91,6 @@ div.news ul li {
 }
 
 .newssettings label {
-  color: #fff;
   font-family: "montserat", sans-serif;
   font-size: 16px;
 }
@@ -112,12 +100,10 @@ div.news ul li {
   top: 0px;
   text-align: center;
   cursor: pointer;
-  background-color: rgb(122, 133, 131);
   align-self: center;
   width: 50px;
   border: 0px;
   box-shadow: none;
-  color: #fff;
   border-radius: 5px;
   position: relative;
   margin: 0;
@@ -132,12 +118,10 @@ div.news ul li {
 .newssettings input[type="submit"] {
   top: 0px;
   cursor: pointer;
-  background-color: rgb(122, 133, 131);
   position: relative;
   width: 100px;
   border: 0px;
   box-shadow: none;
-  color: #fff;
   border-radius: 5px;
   height: 30px;
   margin: 0;
@@ -170,7 +154,6 @@ div.news ul li {
 .singlenews h5 {
   margin-top: 0px;
   margin-left: 10px;
-  /* color: rgb(221, 221, 221); */
   margin-bottom: 10px;
 }
 
@@ -182,7 +165,6 @@ div.news ul li {
   padding: 0;
   left: 0;
   right: 0;
-  color: rgb(221, 221, 221);
   display: inline-block;
 }
 
@@ -197,20 +179,12 @@ div.news ul li {
 .newspopup h5 {
   margin-top: 0px;
   margin-left: 10px;
-  color: rgb(221, 221, 221);
   margin-bottom: 10px;
 }
 
 .newspopup p {
   margin-top: 0px;
   margin-left: 15px;
-}
-
-.newspopup h5 {
-  margin-top: 0px;
-  margin-left: 10px;
-  /* color: rgb(221, 221, 221); */
-  margin-bottom: 10px;
 }
 
 .newspopup h5 p {
@@ -221,7 +195,6 @@ div.news ul li {
   padding: 0;
   left: 0;
   right: 0;
-  color: rgb(221, 221, 221);
   display: inline-block;
 }
 
@@ -231,7 +204,6 @@ div.news ul li {
 
 .singlenews a[class^="readmore"] {
   cursor: pointer;
-  color: rgb(221, 221, 221);
   display: inline-block;
 }
 
@@ -242,7 +214,6 @@ a[class^="divrm"] {
 
 div.pagination {
   margin-top: 50px;
-  background-color: rgb(122, 133, 131);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -263,14 +234,9 @@ div.pagination a {
   height: 80px;
   line-height: 80px;
   text-align: center;
-  color: #fff;
   font-size: 16px;
   font-weight: 700;
   transition: 0.3s linear;
-}
-
-div.pagination a:hover {
-  color: rgb(145, 193, 209);
 }
 
 /* Popup box BEGIN */
@@ -296,7 +262,6 @@ div[class^="readmorebox"] .helper {
 div[class^="readmorebox"] > div {
   margin-top: 25px;
   margin-bottom: 25px;
-  background-color: rgb(122, 133, 131);
   box-shadow: 10px 10px 60px #555;
   display: inline-block;
   height: auto;
@@ -309,7 +274,6 @@ div[class^="readmorebox"] > div {
   text-align: left;
 }
 div[class^="readmorebox"] [class^="popupCloseButton"] {
-  background-color: rgb(122, 133, 131);
   border: 3px solid #999;
   border-radius: 50px;
   cursor: pointer;
@@ -325,27 +289,53 @@ div[class^="readmorebox"] [class^="popupCloseButton"] {
   height: 30px;
   text-align: center;
 }
+/* Popup box END */
+
+/* colors */
+
 div[class^="readmorebox"] [class^="popupCloseButton"]:hover {
   background-color: #fff;
 }
-/* Popup box END */
-
-@media (max-width: 840px) {
-  .add-input-news {
-    margin-top: 50px;
-  }
+.newssettings label,
+div.pagination a {
+  color: #fff;
 }
 
-@media (max-width: 471px) {
-  .add-input-news {
-    margin-top: 100px;
-  }
+.add-input-news form label,
+.add-input-news form input,
+.add-input-news form textarea,
+.add-input-news form ::placeholder,
+.querycheck,
+.fa-edit {
+  color: rgb(102, 102, 102);
+  opacity: 1; /* Firefox */
 }
 
-@media (max-width: 367px) {
-  .add-input-news {
-    margin-top: 150px;
-  }
+.add-input-news form input,
+.add-input-news form textarea,
+.newssettings select,
+.newssettings input[type="submit"],
+.singlenews,
+.newssettings select,
+div.pagination,
+div[class^="readmorebox"] > div,
+div[class^="readmorebox"] [class^="popupCloseButton"] {
+  background: rgb(205, 211, 210);
+}
+
+.querycheck {
+  background-color: #3d859c;
+}
+
+.singlenews h5 p,
+.newspopup h5,
+.newspopup h5 p,
+.singlenews a[class^="readmore"] {
+  color: rgb(129, 129, 129);
+}
+
+div.pagination a:hover {
+  color: rgb(145, 193, 209);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -354,17 +344,36 @@ div[class^="readmorebox"] [class^="popupCloseButton"]:hover {
     background-color: rgb(71, 71, 71);
     color: rgb(226, 226, 226);
   }
-  .add-input-news form label {
-    color: rgb(226, 226, 226);
-  }
-  .add-input-news form ::placeholder {
+  .add-input-news form label,
+  .add-input-news form input,
+  .add-input-news form textarea,
+  .add-input-news form ::placeholder,
+  .querycheck,
+  .newssettings select,
+  .newssettings input[type="submit"],
+  .fa-edit {
     color: rgb(226, 226, 226);
     opacity: 1; /* Firefox */
   }
   .add-input-news form input,
   .add-input-news form textarea {
-    color: rgb(226, 226, 226);
+    border-bottom: none;
+  }
+  .add-input-news form input,
+  .add-input-news form textarea,
+  .newssettings select,
+  .newssettings input[type="submit"],
+  .singlenews,
+  .newssettings select,
+  div.pagination,
+  div[class^="readmorebox"] > div,
+  div[class^="readmorebox"] [class^="popupCloseButton"] {
     background: rgb(122, 133, 131);
-    border-bottom: rgb(122, 133, 131);
+  }
+  .singlenews h5 p,
+  .newspopup h5,
+  .newspopup h5 p,
+  .singlenews a[class^="readmore"] {
+    color: rgb(221, 221, 221);
   }
 }
