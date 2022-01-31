@@ -107,8 +107,8 @@
                         echo("<div class='adminbtn'>");
                         if($news_all == 1 || ($news_own == 1 && $_SESSION["vorname"] . " " . $_SESSION["nachname"] == $autor)){
                             echo("
-                                <a onclick=\"event.stopPropagation();window.location='/admin/news/edit?id=" .$id. "'\"><i style='margin-right: 30px' class='fas fa-edit'></i></a>
-                                <a onclick=\"event.stopPropagation();$('#confirmdelete').attr('href', '/admin/news/delete.php?id=".$id."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du die Neuigkeit &#34;".$title."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></a>
+                                <a title='Bearbeiten' onclick=\"event.stopPropagation();window.location='/admin/news/edit?id=" .$id. "'\"><i style='margin-right: 30px' class='fas fa-edit'></i></a>
+                                <a title='Löschen' onclick=\"event.stopPropagation();$('#confirmdelete').attr('href', '/admin/news/delete.php?id=".$id."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du die Neuigkeit &#34;".$title."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></a>
                                 ");
                             }
                         echo("</div>");
