@@ -19,7 +19,7 @@
             <!-- TODO: Add Back/Directory up button -->
         <?php
             if(isset($_GET["dir"])){
-                $dir = $_GET["dir"];
+                $dir = "/".$_GET["dir"];
             }else{
                 $dir = "/";
             }
