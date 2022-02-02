@@ -17,7 +17,7 @@
         ?>
         <section>
             <!-- TODO: Add Back/Directory up button -->
-        <?php
+            <?php
             if(isset($_GET["dir"])){
                 $dir = "/".$_GET["dir"];
             }else{
@@ -26,11 +26,13 @@
             $root = realpath($_SERVER["DOCUMENT_ROOT"]);
             $path = "$root/files/document-page".$dir;
             $files = array_diff(scandir($path), array('.', '..'));
+            $dirup = pathinfo($path, PATHINFO_DIRNAME)."<br>"; // Path of one directory up for Back button
+            echo $dirup;
             foreach($files as $i){
                 if (is_dir($path."/".$i)) { // Check if object is a directory
-                    echo($i."folder"); // Add href link or onclick redirect to directory
+                    echo($i."folder"); // TODO: Add href link or onclick redirect to directory
                 }elseif (is_file($path."/".$i)){ // Check if object is a file
-                    echo($i); // Add href link or onclick redirect to online preview
+                    echo($i); // TODO: Add href link or onclick redirect to online preview
                 }else {
                     echo("unknown type");
                 }
