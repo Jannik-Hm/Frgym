@@ -16,6 +16,7 @@
 
         ?>
         <section>
+            <!-- TODO: Add Back/Directory up button -->
             <?php
             if(isset($_GET["dir"])){
                 $dir = "/".$_GET["dir"];
@@ -28,7 +29,6 @@
             $files = array_diff(scandir($path), array('.', '..'));
             $dirup = pathinfo($dir, PATHINFO_DIRNAME); // Path of one directory up for Back button
             echo("<ul style='list-style-type: none;'>");
-            // TODO: Style Back/Directory up button
             echo("<li><div onclick='window.location=\"".$scriptpath."?dir=".$dirup."\"' class='dirup'>
                 <p>Zurück</p>
             </div></li>");
@@ -61,3 +61,4 @@
         </section>
         <?php include_once "$root/sites/footer.html" ?>
     </body>
+</html>
