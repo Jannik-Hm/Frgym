@@ -4,7 +4,8 @@
             <li><a href="/">Home</a></li>
             <li><a href="/admin/">Startseite-Admin</a></li>
             <li class="drop-menu">
-                <a href="#" style="padding-left: 93px; padding-right: 86px;"> Lehrer <i class="fa fa-angle-down"></i></a>
+                <a href="#" style="padding-left: 93px; padding-right: 86px;"> Lehrer <i
+                        class="fa fa-angle-down"></i></a>
                 <ul>
                     <li><a href="/admin/lehrer/">Liste</a></li>
                     <li><a href="/admin/lehrer/add/">Hinzufügen</a></li>
@@ -18,14 +19,33 @@
                 </ul>
             </li>
             <li><a href="/admin/dokumente/">Dokumente</a></li>
+            <li style="display: inline; float: right;" id="logout-btn">
+                <a onclick="logout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket" style="color: lightcoral;"></i>
+                </a>
+            </li>
         </ul>
     </nav>
     <script src="/js/index.js"></script>
     <script src="/js/jquery.min.js"></script>
     <div id="page-beginning"></div>
-<script>document.getElementById('page-beginning').style.height = $('.adminheader').outerHeight()+"px"</script>
+    <script>
+        document.getElementById('page-beginning').style.height = $('.adminheader').outerHeight() + "px";
 
-<!-- <footer>
+        console.log(document.cookie);
+        if (location.href.match("/admin/login/")) {
+            document.getElementById('logout-btn').style.display = 'none';
+        }
+    </script>
+    <script>
+        function logout() {
+            if (document.cookie.includes("userid_login=")) {
+                document.cookie = "userid_login=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                location.href = "/admin/login/";
+            }
+        }
+    </script>
+    <!-- <footer>
     <picture>
         <img src="/img/favicon_dark.ico">
     </picture>
