@@ -16,21 +16,24 @@
 
         ?>
         <section>
-            <!-- TODO: Add Back/Directory up button -->
             <?php
             if(isset($_GET["dir"])){
                 $dir = "/".$_GET["dir"];
             }else{
                 $dir = "/";
             }
+            if(strlen($dir) >= 2 && substr($dir, -1)  == "/"){
+                $dir = substr($dir, 0, -1);
+            }
             $scriptpath = "https://".$_SERVER['SERVER_NAME'].str_replace("?".$_SERVER['QUERY_STRING'],'', $_SERVER['REQUEST_URI']);
             $root = realpath($_SERVER["DOCUMENT_ROOT"]);
             $path = "$root/files/document-page".$dir;
             $files = array_diff(scandir($path), array('.', '..'));
             $dirup = pathinfo($dir, PATHINFO_DIRNAME); // Path of one directory up for Back button
-            echo("<ul style='list-style-type: none;'>");
+            echo("<ul class='docs-list' style='list-style-type: none'>");
+            // TODO: Style Back/Directory up button
             echo("<li><div onclick='window.location=\"".$scriptpath."?dir=".$dirup."\"' class='dirup'>
-                <p>Zurück</p>
+                <p><i class='fas fa-chevron-left' style='margin-right: 5px;'></i>Zurück</p>
             </div></li>");
             foreach($files as $i){
                 echo('<span class="line"></span>');
@@ -50,6 +53,7 @@
                     }
                     echo("<li><div onclick='".$previewaction."' class='file'>
                         <p>".pathinfo($i, PATHINFO_FILENAME)."</p>
+                        <p class='editdate'>Hochgeladen am: ".date("d.m.Y H:i:s", filemtime($path."/".$i))."</p>
                     </div></li>");
                     // TODO: Add href link or onclick redirect to online preview
                 }else {

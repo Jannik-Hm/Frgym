@@ -1,0 +1,25 @@
+.docs-list {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.docs-list li {
+  text-align: left;
+  padding-left: 2%;
+  padding-right: 2%;
+  cursor: pointer;
+}
+
+.docs-list li p {
+  display: inline-block;
+}
+
+.docs-list li p.editdate {
+  float: right;
+}
+
+.docs-list .line {
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
