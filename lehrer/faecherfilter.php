@@ -57,7 +57,7 @@
                 }
             };
 </script>
-<button id="lehrerFaecherFilterShow" style="cursor: pointer;" onclick="hidebutton();">Nach Fächern Filtern<i id="showmorearrow" style="margin-left: 6px;" class="fas fa-chevron-down"></i></button>
+<button id="lehrerFaecherFilterShow" style="cursor: pointer;" onclick="hidebutton();"><i class="fas fa-filter" style="margin-right: 7px"></i>Nach Fächern Filtern<i id="showmorearrow" style="margin-left: 6px;" class="fas fa-chevron-down"></i></button>
 <div id="lehrerFaecherFilter">
     <label class="heading2">Fächer</label>
     <ul>
