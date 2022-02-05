@@ -39,21 +39,44 @@
                 echo('<span class="line"></span>');
                 if (is_dir($path."/".$i)) { // Check if object is a directory
                     echo("<li><div class='folder'>
+                        <p><i class='far fa-folder'></i></p>
                         <p>".$i."folder"."</p>
                     </div></li>");
                     // TODO: Add href link or onclick redirect to directory
                 }elseif (is_file($path."/".$i)){ // Check if object is a file
                     $extension = pathinfo($i, PATHINFO_EXTENSION);
                     if ($extension=="jpg" || $extension=="jpeg" || $extension=="png"){
+                        $icon = "far fa-file-image";
                         $is_image = true; // TODO: Create Image preview popup
                         $previewaction = '$("#preview'.pathinfo($i, PATHINFO_FILENAME).').show()"';
+                        // echo("<div onclick=\"event.stopPropagation();$('.img".$i."').hide()\" style='left: 0;' class='img".$i."'>
+                        //     <span class='helper'></span>
+                        //         <div onclick=\"event.stopPropagation();\" class='scroll'>
+                        //             <div onclick=\"event.stopPropagation();$('.readmorebox".$i."').hide()\" class='popupCloseButton".$i."'>&times;</div>
+                        //             <div class='imgpreview'>
+                        //                 <h1>".$title."<br>
+                        //                 <h5><p>Veröffentlicht von ".$autor."</p><p class='time'>am ".$zeit."</p></h5>
+                        //                 </h1>
+                        //             <p>".nl2br($inhalt)."</p>
+                        //         </div>
+                        //     </div>
+                        // </div>");
+                    } else if ($extension == "pdf") {
+                        $icon = "far fa-file-pdf";
+                        $is_image = false; // TODO: Create redirect to online file preview
+                        $previewaction = '';
                     } else {
+                        $icon = "far fa-file-alt";
                         $is_image = false; // TODO: Create redirect to online file preview
                         $previewaction = '';
                     }
                     echo("<li><div onclick='".$previewaction."' class='file'>
+                        <p><i class='".$icon."'></i></p>
                         <p>".pathinfo($i, PATHINFO_FILENAME)."</p>
-                        <p class='editdate'>Hochgeladen am: ".date("d.m.Y H:i:s", filemtime($path."/".$i))."</p>
+                        <div class='floatright'>
+                            <p class='download' title='Herunterladen'><i class='far fa-save'></i></p>
+                            <p class='editdate'>Hochgeladen am: ".date("d.m.Y H:i:s", filemtime($path."/".$i))."</p>
+                        </div>
                     </div></li>");
                     // TODO: Add href link or onclick redirect to online preview
                 }else {

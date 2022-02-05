@@ -10,12 +10,40 @@
   cursor: pointer;
 }
 
-.docs-list li p {
+.docs-list li div.file,
+.docs-list li div.folder,
+.docs-list li div.dirup {
+  width: 100%;
   display: inline-block;
 }
 
-.docs-list li p.editdate {
+.docs-list li p {
+  margin-right: auto;
+  padding-right: auto;
+}
+
+.docs-list li p,
+.docs-list li div,
+.docs-list li div p {
+  display: inline-block;
+}
+
+.docs-list li p i.far {
+  margin-right: 7px;
+}
+
+.docs-list li .floatright {
+  margin-left: auto;
+  padding-left: auto;
   float: right;
+}
+
+.docs-list li .floatright p.download {
+  margin-right: 20px;
+}
+
+.docs-list li .floatright p.download i:hover {
+  color: #4ba7c5;
 }
 
 .docs-list .line {
@@ -23,3 +51,61 @@
   margin-right: 0;
   width: 100%;
 }
+
+/* Popup box BEGIN */
+div[class^="readmorebox"] {
+  margin-left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  /* cursor: pointer; */
+  display: none;
+  height: 100%;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+div[class^="readmorebox"] .helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+div[class^="readmorebox"] > div {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  background-color: rgb(122, 133, 131);
+  box-shadow: 10px 10px 60px #555;
+  display: inline-block;
+  height: auto;
+  max-width: 1000px;
+  min-height: 100px;
+  vertical-align: middle;
+  width: 85%;
+  position: relative;
+  border-radius: 8px;
+  padding: 5px 5%;
+  text-align: left;
+}
+div[class^="readmorebox"] [class^="popupCloseButton"] {
+  background-color: rgb(122, 133, 131);
+  border: 3px solid #999;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: arial;
+  font-weight: bold;
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 25px;
+  line-height: 30px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+div[class^="readmorebox"] [class^="popupCloseButton"]:hover {
+  background-color: #fff;
+}
+/* Popup box END */
