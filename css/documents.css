@@ -78,14 +78,14 @@ div[class^="img"] > div {
   background-color: rgb(122, 133, 131);
   box-shadow: 10px 10px 60px #555;
   display: inline-block;
-  height: auto;
-  max-width: 1000px;
-  min-height: 100px;
+  /* max-width: 1000px;
+  min-height: 100px; */
   vertical-align: middle;
-  width: 85%;
+  height: fit-content;
+  width: fit-content;
   position: relative;
   border-radius: 8px;
-  padding: 5px 5%;
+  padding: 0;
   text-align: left;
 }
 div[class^="img"] [class^="popupCloseButton"] {
@@ -107,5 +107,8 @@ div[class^="img"] [class^="popupCloseButton"] {
 }
 div[class^="img"] [class^="popupCloseButton"]:hover {
   background-color: #fff;
+}
+div.img img {
+  border-radius: 10px;
 }
 /* Popup box END */

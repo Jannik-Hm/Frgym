@@ -57,8 +57,8 @@
                     if ($extension=="jpg" || $extension=="jpeg" || $extension=="png"){
                         $icon = "far fa-file-image";
                         $is_image = true; // TODO: Create Image preview popup
-                        $previewaction = 'window.location="'.$pathworoot."/".$i.'"';
-                        // $previewaction = 'document.getElementById("imgpreviewsrc").src="'.$pathworoot."/".$i.'";$(".img").show();';
+                        // $previewaction = 'window.location="'.$pathworoot."/".$i.'"';
+                        $previewaction = 'document.getElementById("imgpreviewsrc").src="'.$pathworoot."/".$i.'";$(".img").show();';
                     } else if ($extension == "pdf") {
                         $icon = "far fa-file-pdf";
                         $is_image = false; // TODO: Create redirect to online file preview
@@ -83,10 +83,8 @@
             }
             echo("<div onclick=\"event.stopPropagation();$('.img').hide()\" style='left: 0;' class='img'>
                 <span class='helper'></span>
-                <div onclick=\"event.stopPropagation();\" class='scroll'>
-                    <div class='imgpreview' style='display: flex;height: fit-content; width: fit-content'>
-                        <img id='imgpreviewsrc' style='margin: auto'>
-                    </div>
+                <div>
+                    <img id='imgpreviewsrc' style='margin: auto'>
                     <div onclick=\"event.stopPropagation();$('.img').hide()\" class='popupCloseButton'>&times;</div>
                 </div>
             </div>");
