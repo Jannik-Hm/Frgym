@@ -32,21 +32,15 @@
                 $dirpath = "https://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']."?dir=";
             }
             $root = realpath($_SERVER["DOCUMENT_ROOT"]);
-            $path = "$root/files/document-page".$dir;
+            $pathworoot = "/files/document-page";
+            $path = $root.$pathworoot.$dir;
             $files = array_diff(scandir($path), array('.', '..'));
-            if(pathinfo($dir, PATHINFO_DIRNAME) != "/"){
-                if(substr(pathinfo($dir, PATHINFO_DIRNAME), -1) != "/"){ $slash="/"; }
-                $uripath = "?dir=".$slash.pathinfo($dir, PATHINFO_DIRNAME); // Path of one directory up for Back button
-            }else {
-                $uripath = "";
-            }
             echo("<ul class='docs-list' style='list-style-type: none'>");
             // TODO: Style Back/Directory up button
             if($dir != ""){
-                if(substr(pathinfo($dir, PATHINFO_DIRNAME), 0, 1) == "/"){ echo(substr($dir, 0, -1)); }
-                echo(",".$dir);
-                echo($uripath);
-                echo("<li><div onclick='window.location=\"".$scriptpath.$uripath."\"' class='dirup'>
+                if(substr(pathinfo($dir, PATHINFO_DIRNAME), 0, 1) == "/"){ $dir = (ltrim(pathinfo($dir, PATHINFO_DIRNAME), "/")); }
+                if($dir != ""){$dir="?dir=".$dir;}
+                echo("<li><div onclick='window.location=\"".$scriptpath.$dir."\"' class='dirup'>
                     <p><i class='fas fa-chevron-left' style='margin-right: 5px;'></i>Zurück</p>
                 </div></li>");
             }else{$hidefirstline = "<style>span.line:first-child { display: none; } </style>";}
@@ -63,16 +57,8 @@
                     if ($extension=="jpg" || $extension=="jpeg" || $extension=="png"){
                         $icon = "far fa-file-image";
                         $is_image = true; // TODO: Create Image preview popup
-                        $previewaction = '$("#preview'.pathinfo($i, PATHINFO_FILENAME).').show()"';
-                        echo("<div onclick=\"event.stopPropagation();$('.img".$i."').hide()\" style='left: 0;' class='img".$i."'>
-                            <span class='helper'></span>
-                                <div onclick=\"event.stopPropagation();\" class='scroll'>
-                                    <div onclick=\"event.stopPropagation();$('.readmorebox".$i."').hide()\" class='popupCloseButton".$i."'>&times;</div>
-                                    <div class='imgpreview'>
-                                        <img src=".$path."/".$i.">
-                                </div>
-                            </div>
-                        </div>");
+                        $previewaction = 'window.location="'.$pathworoot."/".$i.'"';
+                        // $previewaction = 'document.getElementById("imgpreviewsrc").src="'.$pathworoot."/".$i.'";$(".img").show();';
                     } else if ($extension == "pdf") {
                         $icon = "far fa-file-pdf";
                         $is_image = false; // TODO: Create redirect to online file preview
@@ -86,7 +72,7 @@
                         <p><i class='".$icon."'></i></p>
                         <p>".pathinfo($i, PATHINFO_FILENAME)."</p>
                         <div class='floatright'>
-                            <p class='download' title='Herunterladen'><i class='far fa-save'></i></p>
+                            <a href='".$pathworoot."/".$i."' onclick=\"event.stopPropagation();\" download><p class='download' title='Herunterladen'><i class='far fa-save'></i></p></a>
                             <p class='editdate'>Hochgeladen am: ".date("d.m.Y H:i:s", filemtime($path."/".$i))."</p>
                         </div>
                     </div></li>");
@@ -95,6 +81,15 @@
                     echo("unknown type");
                 }
             }
+            echo("<div onclick=\"event.stopPropagation();$('.img').hide()\" style='left: 0;' class='img'>
+                <span class='helper'></span>
+                <div onclick=\"event.stopPropagation();\" class='scroll'>
+                    <div class='imgpreview' style='display: flex;height: fit-content; width: fit-content'>
+                        <img id='imgpreviewsrc' style='margin: auto'>
+                    </div>
+                    <div onclick=\"event.stopPropagation();$('.img').hide()\" class='popupCloseButton'>&times;</div>
+                </div>
+            </div>");
             echo($hidefirstline);
             echo("</ul>");
         ?>  <!-- TODO: Add buttons for files and folders -->
