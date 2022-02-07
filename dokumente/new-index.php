@@ -84,7 +84,7 @@
             echo("<div onclick=\"event.stopPropagation();$('.img').hide()\" style='left: 0;' class='img'>
                 <span class='helper'></span>
                 <div>
-                    <img id='imgpreviewsrc' style='margin: auto'>
+                    <img onclick=\"event.stopPropagation();\" id='imgpreviewsrc' style='margin: auto'>
                     <div onclick=\"event.stopPropagation();$('.img').hide()\" class='popupCloseButton'>&times;</div>
                 </div>
             </div>");
