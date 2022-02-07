@@ -32,8 +32,8 @@
                 $dirpath = "https://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']."?dir=";
             }
             $root = realpath($_SERVER["DOCUMENT_ROOT"]);
-            $pathworoot = "/files/document-page";
-            $path = $root.$pathworoot.$dir;
+            $pathworoot = "/files/document-page".$dir;
+            $path = $root.$pathworoot;
             $files = array_diff(scandir($path), array('.', '..'));
             echo("<ul class='docs-list' style='list-style-type: none'>");
             // TODO: Style Back/Directory up button
@@ -62,7 +62,7 @@
                     } else if ($extension == "pdf") {
                         $icon = "far fa-file-pdf";
                         $is_image = false; // TODO: Create redirect to online file preview
-                        $previewaction = '';
+                        $previewaction = 'window.location="'."https://".$_SERVER['SERVER_NAME'].$pathworoot."/".$i.'"';
                     } else {
                         $icon = "far fa-file-alt";
                         $is_image = false; // TODO: Create redirect to online file preview
