@@ -7,7 +7,7 @@
             include_once "$root/sites/head.html"
 
         ?>
-        <title>News - Friedrich-Gymnasium Luckenwalde</title>
+        <title>Dokumente - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
         <?php
@@ -40,7 +40,7 @@
             if($dir != ""){
                 if(substr(pathinfo($dir, PATHINFO_DIRNAME), 0, 1) == "/"){ $dir = (ltrim(pathinfo($dir, PATHINFO_DIRNAME), "/")); }
                 if($dir != ""){$dir="?dir=".$dir;}
-                echo("<li><div onclick='window.location=\"".$scriptpath.$dir."\"' class='dirup'>
+                echo("<li><div onclick='window.location=\"".$scriptpath.$dir."\";' class='dirup'>
                     <p><i class='fas fa-chevron-left' style='margin-right: 5px;'></i>Zurück</p>
                 </div></li>");
             }else{$hidefirstline = "<style>span.line:first-child { display: none; } </style>";}
