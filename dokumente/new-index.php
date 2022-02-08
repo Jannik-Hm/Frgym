@@ -22,9 +22,6 @@
             }else{
                 $dir = "";
             }
-            if(substr($dir, -1)  == "/"){
-                $dir = substr($dir, 0, -1);
-            }
             $scriptpath = "https://".$_SERVER['SERVER_NAME'].str_replace("?".$_SERVER['QUERY_STRING'],'', $_SERVER['REQUEST_URI']);
             if($_SERVER['QUERY_STRING'] != ""){
                 $dirpath = "https://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']."/";
@@ -36,7 +33,6 @@
             $path = $root.$pathworoot;
             $files = array_diff(scandir($path), array('.', '..'));
             echo("<ul class='docs-list' style='list-style-type: none'>");
-            // TODO: Style Back/Directory up button
             if($dir != ""){
                 if(substr(pathinfo($dir, PATHINFO_DIRNAME), 0, 1) == "/"){ $dir = (ltrim(pathinfo($dir, PATHINFO_DIRNAME), "/")); }
                 if($dir != ""){$dir="?dir=".$dir;}
@@ -47,25 +43,23 @@
             foreach($files as $i){
                 echo('<span class="line"></span>');
                 if (is_dir($path."/".$i)) { // Check if object is a directory
-                    echo("<li><div onclick='window.location=\"".$dirpath.$i."\"' class='folder'>
+                    echo("<li><div onclick='window.location.href=\"".$dirpath.$i."\";' class='folder'>
                         <p><i class='far fa-folder'></i></p>
                         <p>".$i."folder"."</p>
                     </div></li>");
-                    // TODO: Add href link or onclick redirect to directory
                 }elseif (is_file($path."/".$i)){ // Check if object is a file
                     $extension = pathinfo($i, PATHINFO_EXTENSION);
                     if ($extension=="jpg" || $extension=="jpeg" || $extension=="png"){
                         $icon = "far fa-file-image";
-                        $is_image = true; // TODO: Create Image preview popup
-                        // $previewaction = 'window.location="'.$pathworoot."/".$i.'"';
+                        $is_image = true;
                         $previewaction = 'document.getElementById("imgpreviewsrc").src="'.$pathworoot."/".$i.'";$(".img").show();';
                     } else if ($extension == "pdf") {
                         $icon = "far fa-file-pdf";
-                        $is_image = false; // TODO: Create redirect to online file preview
+                        $is_image = false;
                         $previewaction = 'window.location="'."https://".$_SERVER['SERVER_NAME'].$pathworoot."/".$i.'"';
                     } else {
                         $icon = "far fa-file-alt";
-                        $is_image = false; // TODO: Create redirect to online file preview
+                        $is_image = false;
                         $previewaction = '';
                     }
                     echo("<li><div onclick='".$previewaction."' class='file'>
@@ -76,7 +70,6 @@
                             <p class='editdate'>Hochgeladen am: ".date("d.m.Y H:i:s", filemtime($path."/".$i))."</p>
                         </div>
                     </div></li>");
-                    // TODO: Add href link or onclick redirect to online preview
                 }else {
                     echo("unknown type");
                 }
@@ -90,7 +83,7 @@
             </div>");
             echo($hidefirstline);
             echo("</ul>");
-        ?>  <!-- TODO: Add buttons for files and folders -->
+        ?>
         </section>
         <?php include_once "$root/sites/footer.html" ?>
     </body>

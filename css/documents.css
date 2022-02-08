@@ -26,6 +26,9 @@
 .docs-list li div,
 .docs-list li div p {
   display: inline-block;
+  /* white-space: nowrap;
+  overflow: hidden;
+  height: 50px; */
 }
 
 .docs-list li p i.far {
@@ -56,7 +59,7 @@
 div[class^="img"] {
   margin-left: 0;
   background: rgba(0, 0, 0, 0.4);
-  /* cursor: pointer; */
+  cursor: pointer;
   display: none;
   height: 100%;
   position: fixed;
@@ -64,8 +67,6 @@ div[class^="img"] {
   top: 0;
   width: 100%;
   z-index: 10000;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
 }
 div[class^="img"] .helper {
   display: inline-block;
@@ -75,18 +76,14 @@ div[class^="img"] .helper {
 div[class^="img"] > div {
   margin-top: 25px;
   margin-bottom: 25px;
-  background-color: rgb(122, 133, 131);
-  box-shadow: 10px 10px 60px #555;
+  background-color: transparent;
   display: inline-block;
-  /* max-width: 1000px;
-  min-height: 100px; */
   vertical-align: middle;
   height: fit-content;
+  max-height: 90%;
   width: fit-content;
+  max-width: calc(95% - 35px);
   position: relative;
-  border-radius: 8px;
-  padding: 0;
-  text-align: left;
 }
 div[class^="img"] [class^="popupCloseButton"] {
   background-color: rgb(122, 133, 131);
@@ -109,6 +106,10 @@ div[class^="img"] [class^="popupCloseButton"]:hover {
   background-color: #fff;
 }
 div.img img {
-  border-radius: 10px;
+  cursor: auto;
+  border-radius: 8px;
+  box-shadow: 10px 10px 60px #555;
+  width: 100%;
+  height: 100%;
 }
 /* Popup box END */
