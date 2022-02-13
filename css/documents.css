@@ -17,6 +17,10 @@
   display: inline-block;
 }
 
+.docs-list li div.file .filename {
+  padding-right: 30px;
+}
+
 .docs-list li p {
   margin-right: auto;
   padding-right: auto;
@@ -26,9 +30,9 @@
 .docs-list li div,
 .docs-list li div p {
   display: inline-block;
-  /* white-space: nowrap;
+  white-space: nowrap;
   overflow: hidden;
-  height: 50px; */
+  height: 50px;
 }
 
 .docs-list li p i.far {
