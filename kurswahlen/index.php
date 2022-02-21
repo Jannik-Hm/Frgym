@@ -9,23 +9,12 @@
     include_once "$root/sites/head.html"
 
     ?>
-    <script>
-        function showFile(x) {
-            var div;
-            div = document.getElementById(x);
-            if (div.style.display === "none") {
-                div.style.display = "block";
-            } else {
-                div.style.display = "none";
-            }
-        }
-    </script>
     <title>Kurswahlen - Friedrich-Gymnasium Luckenwalde</title>
 </head>
 
 <body>
     <style>
-        button {
+        input {
             padding: 5px 10px;
             margin-bottom: 10px;
             border: 2px solid cornflowerblue;
@@ -34,10 +23,12 @@
             background-color: silver;
             transition: all 1s;
         }
-        button:hover {
+
+        input:hover {
             transform: scale(1.1);
             box-shadow: 5px 5px 5px darkgray;
         }
+
         .kWa:nth-of-type(2) {
             background-color: #363636;
         }
@@ -57,8 +48,8 @@
                 if ($fi != '.' && $fi != '..') {
                     echo ('<div class="kWa" style="width: 100%; height: fit-content; padding: 10px 0px; display: flex; flex-direction: column; align-content: center; justify-content: space-evenly; align-items: center;">');
                     echo ('<h1 style="padding: 0px; margin: 0px">' . str_replace(".pdf", "", $fi) . '</h1>');
-                    echo ('<button onclick="showFile(' . $i . ')">Zeigen/Verstecken</button>');
-                    echo ('<div id="' . $i . '"style="width: 100%; display: none">');
+                    echo ('<input type="button" id="btnSlideToggle' . $i . '" value="Zeigen/Verstecken" />');
+                    echo ('<div id="divSlideToggle' . $i . '"style="width: 100%; display: none">');
                     echo ('<div style="margin-left: auto; margin-right: auto; width: 90%">');
                     if ($i == 1 || $i == 2) {
                         echo ('<h3>Kurswahl in der Sekundarstufe I</h3>
@@ -131,6 +122,17 @@
                 <div id="0"style="width: 100%; display: none">
                 </div>
             </div> -->
+            <script>
+                $("#btnSlideToggle1").click(function() {
+                    $("#divSlideToggle1").slideToggle();
+                });
+                $("#btnSlideToggle2").click(function() {
+                    $("#divSlideToggle2").slideToggle();
+                });
+                $("#btnSlideToggle3").click(function() {
+                    $("#divSlideToggle3").slideToggle();
+                });
+            </script>
         </div>
     </section>
 
