@@ -3,7 +3,6 @@
     function headerheight() {
         var interval1 = setInterval(function() {
             if (document.getElementById('page-beginning').style.height != $('.header').outerHeight()+"px") {
-                console.log($('.header').outerHeight()+"px");
                 document.getElementById('page-beginning').style.height = $('.header').outerHeight()+"px";
             }else{
                 clearInterval(interval1);
@@ -13,6 +12,7 @@
     headerheight();
     window.onresize = function(e) {
         headerheight();
+        if (typeof onresizefunc == "function") { onresizefunc() };
     }
 
 </script>
