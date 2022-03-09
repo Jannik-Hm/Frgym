@@ -17,7 +17,10 @@
             include_once "$root/sites/header.html"
 
         ?>
-        <section>
+        <section id="previewiframe" style="display: none">
+            <iframe title="Dateivorschau" src="" id="filepreviewiframe" width="100%" style="height: 1000px; display: block"></iframe>
+        </section>
+        <section id="files">
             <table id="fileTable">
             <tr style="display: none">
                 <td></td>
@@ -74,7 +77,8 @@
                                 } else if ($extension == "pdf") {
                                     $icon = "far fa-file-pdf";
                                     $is_image = false;
-                                    $previewaction = 'window.location="'."https://".$_SERVER['SERVER_NAME'].$pathworoot."/".$i.'"';
+                                    // $previewaction = 'window.location="'."https://".$_SERVER['SERVER_NAME'].$pathworoot."/".$i.'"';
+                                    $previewaction = '$("#filepreviewiframe").attr("src", "'.$pathworoot."/".$i.'"); $("#filepreviewiframe").attr("title", "'.$i.'"); $("#files").hide(); $("#previewiframe").show()';
                                 } else {
                                     $icon = "far fa-file-alt";
                                     $is_image = false;
