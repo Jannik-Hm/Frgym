@@ -7,12 +7,12 @@
             }else{
                 clearInterval(interval1);
             }
+            if (typeof onresizefunc == "function") { onresizefunc() };
         }, 50);
     }
     headerheight();
     window.onresize = function(e) {
         headerheight();
-        if (typeof onresizefunc == "function") { onresizefunc() };
     }
 
 </script>
