@@ -19,6 +19,8 @@
         ?>
         <section id="previewiframe" style="display: none">
             <iframe title="Dateivorschau" src="" id="filepreviewiframe" width="100%" style="height: 1000px; display: block"></iframe>
+            <!-- TODO: Back / Hide Button or iframe as popup? -->
+            <!-- <button onclick="$('#previewiframe').hide(); $('#files').show()></button>" -->
         </section>
         <section id="files">
             <table id="fileTable">
@@ -87,7 +89,7 @@
                                 echo("<tr onclick='".$previewaction."' class='file'>
                                     <td class='filename'>
                                         <p><i class='".$icon."'></i>
-                                        ".pathinfo($i, PATHINFO_FILENAME)."</p>
+                                        <span class='file_name_span'>".pathinfo($i, PATHINFO_FILENAME)."</span></p>
                                     </td>
                                     <td class='floatright' nowrap='nowrap'>
                                         <p><a class='downloadlink' href='".$pathworoot."/".$i."' onclick=\"event.stopPropagation();\" download><i class='far fa-save download' title='Herunterladen'></i></a>
@@ -111,10 +113,11 @@
                     listfiles($dir, $scriptpath);
                 ?>
                 <script>function onresizefunc() {
-                    if ( $(".filename").outerWidth()+30+320 > $("#fileTable").width() ) { $(".editdate").hide(); } else { $(".editdate").show(); }
+                    if ($(".filename").width()>=7/8*$(".file_name_span").width()) { $(".editdate").show(); } else { $(".editdate").hide(); }
+                    // if ( $(".filename").outerWidth()+30+320 > $("#fileTable").width() ) { $(".editdate").hide(); } else { $(".editdate").show(); }
                 }</script>
             </table>
         </section>
         <?php include_once "$root/sites/footer.html" ?>
     </body>
-</html>
+</html

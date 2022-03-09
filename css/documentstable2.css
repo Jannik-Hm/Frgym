@@ -5,7 +5,7 @@
   margin-left: auto;
   margin-right: auto;
   border-collapse: collapse;
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 #fileTable tr {
@@ -24,6 +24,18 @@
   padding-left: 15px;
 }
 
+#fileTable tr td:nth-child(1) {
+  overflow: hidden;
+  min-width: 100px;
+  max-width: 50vw;
+  /* min-width: 150px; */
+  /* white-space: nowrap; */
+}
+
+#fileTable tr td:nth-child(2) {
+  width: fit-content;
+}
+
 #fileTable tr td:first-child i {
   padding-right: 10px;
 }
@@ -31,7 +43,6 @@
 #fileTable tr td.floatright {
   text-align: right;
   padding-right: 15px;
-  width: fit-content;
 }
 
 #fileTable tr td.floatright .downloadlink {
