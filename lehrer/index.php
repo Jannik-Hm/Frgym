@@ -95,32 +95,42 @@
                     $myArray = array();
                     if ($result->num_rows > 0) {
                         $row = $result->fetch_assoc();
-                        $faecher = "";
-                        foreach (explode(";", $row["faecher"]) as $fach) {
-                            $faecher = $faecher . " & " . $fach;
-                        }
-                        $date = date_diff(date_create($row["datum"]), date_create(date("Y-m-d")));
-                        #$date = explode("-", $row["datum"])[2] . "." . explode("-", $row["datum"])[1] . "." . explode("-", $row["datum"])[0];
-                        $faecher = substr($faecher, 3);
+                        $faecherlist = explode(";", $row["faecher"]);
+                        for ($i=0; $i<count($faecherlist);$i++){
+                            if($i==0){
+                                $faecher = $faecherlist[$i];
+                            }elseif($i<(count($faecherlist)-1)){
+                                $faecher = $faecher . ", " . $faecherlist[$i];
+                            }else{
+                                $faecher = $faecher . " & " . $faecherlist[$i];
+                            }
+                        };
                         $faecher = faecherReplace($faecher);
+                        if(isset($row["datum"])){
+                            $date = date_diff(date_create($row["datum"]), date_create(date("Y-m-d")));
+                        }
+                        #$date = explode("-", $row["datum"])[2] . "." . explode("-", $row["datum"])[1] . "." . explode("-", $row["datum"])[0];
                         echo("<section>");
                         echo("<h1>" . $row["vorname"] . " " . $row["nachname"] . "</h1>");
                         echo("<h3>" . $row["position"] . "</h3>");
-                        $imgpath = "./../files/site-ressources/lehrer-bilder/" . strtolower(str_replace(" ","_",$row["vorname"])."_".str_replace(" ","_",$row["nachname"])).".";
+                        $imgdir = "./../files/site-ressources/lehrer-bilder/";
+                        $imgpath = $imgdir . strtolower(str_replace(" ","_",$row["vorname"])."_".str_replace(" ","_",$row["nachname"])).".";
                         if (file_exists($imgpath."jpg")) {
                             $imgpath = $imgpath."jpg";
                         }elseif (file_exists($imgpath."jpeg")) {
                             $imgpath = $imgpath."jpeg";
                         }elseif (file_exists($imgpath."png")) {
                             $imgpath = $imgpath."png";
+                        }elseif (file_exists($imgpath."webp")) {
+                            $imgpath = $imgpath."webp";
                         }else{
-                            $imgpath = $imgpath."error";
+                            $imgpath = $imgdir."placeholder.webp";
                         }
                         echo("<img src='".$imgpath."' id=\"lehrerimg\">");
                         echo("<h2>" . $faecher . "</h2>");
-                        // if(isset($date)) {
+                        if(isset($date)) {
                             echo("<h4>" . $date->format("Seit %y Jahren dabei") . "</h4>");
-                        // }
+                        }
                         echo("<a href=\"mailto:" . $row["email"] . "\"><button><i class='fas fa-at'></i> E-Mail</button></a>");
                         echo("<p>" . $row["beschreibung"] . "</p>");
                         echo("</section>");
