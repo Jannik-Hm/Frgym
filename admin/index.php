@@ -36,19 +36,9 @@
                 // was hierunter? News-Feedeinbindung?
             ?>
             <span class="line"></span>
-            <?php
-                $lastlogin = $_SESSION["lastlogin"];
-                $lastlogingzeitor1 = explode("-", $lastlogin);
-                $lastlogingzeitor2 = explode(" ", $lastlogingzeitor1[2]);
-                $lastlogingzeitor3 = explode(":", $lastlogingzeitor2[1]);
-                $lastlogin = $lastlogingzeitor2[0] . "." . $lastlogingzeitor1[1] . "." . $lastlogingzeitor1[0] . "&nbsp;" . $lastlogingzeitor3[0] . ":" . $lastlogingzeitor3[1] . "&nbsp;Uhr";
-                $today = date("Y-m-d");
-                $todayor1 = explode("-", $today);
-                $today = $todayor1[2].".".$todayor1[1].".".$todayor1[0];
-            ?>
             <div class="adminwelcomeinfo">
-                <div class="today"><p><b>Heute:</b> <?php echo($today); ?></p></div>
-                <div class="lastlogin"><p><b>Letzter Login:</b> <?php echo($lastlogin); ?></p></div>
+                <div class="today"><p><b>Heute:</b> <?php echo(date("d.m.Y")); ?></p></div>
+                <div class="lastlogin"><p><b>Letzter Login:</b> <?php echo(date_format(date_create($_SESSION["lastlogin"]), "d.m.Y H:i")); ?></p></div>
             </div>
             <div class="page-ending"></div>
         </div>

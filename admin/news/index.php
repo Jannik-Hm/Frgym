@@ -100,10 +100,7 @@
                             $lessinhalt = $lessinhalt . "...";
                         }
                         $autor = $news[$i]["autor"];
-                        $zeitor1 = explode("-", $news[$i]["zeit"]);
-                        $zeitor2 = explode(" ", $zeitor1[2]);
-                        $zeitor3 = explode(":", $zeitor2[1]);
-                        $zeit = $zeitor2[0] . "." . $zeitor1[1] . "." . $zeitor1[0] . " " . $zeitor3[0] . ":" . $zeitor3[1] . " Uhr";
+                        $zeit = date_format(date_create($news[$i]["zeit"]), "d.m.Y H:i") . " Uhr";
                         echo("<div class='adminbtn'>");
                         if($news_all == 1 || ($news_own == 1 && $_SESSION["vorname"] . " " . $_SESSION["nachname"] == $autor)){
                             echo("

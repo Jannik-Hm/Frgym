@@ -124,7 +124,7 @@ div.news ul li {
   display: inline-block;
 }
 
-.singlenews h5 p.time {
+.singlenews h5 .time {
   margin-left: 5px;
 }
 
@@ -163,7 +163,7 @@ div.news ul li {
   display: inline-block;
 }
 
-.newspopup h5 p.time {
+.newspopup h5 .time {
   margin-left: 5px;
 }
 

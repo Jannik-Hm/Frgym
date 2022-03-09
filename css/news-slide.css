@@ -105,7 +105,18 @@ div.newsslidershow
   div[class^="newsslide"]
   .news
   h5
-  p.time {
+  p
+  span {
+  display: inline-block;
+}
+
+div.newsslidershow
+  div.slider
+  div.newsslides
+  div[class^="newsslide"]
+  .news
+  h5
+  .time {
   margin-left: 5px;
   margin-right: 5px;
 }

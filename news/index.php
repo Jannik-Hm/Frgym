@@ -81,12 +81,9 @@
                                 $lessinhalt = $lessinhalt . "...";
                             }
                             $autor = $news[$i]["autor"];
-                            $zeitor1 = explode("-", $news[$i]["zeit"]);
-                            $zeitor2 = explode(" ", $zeitor1[2]);
-                            $zeitor3 = explode(":", $zeitor2[1]);
-                            $zeit = $zeitor2[0] . "." . $zeitor1[1] . "." . $zeitor1[0] . " " . $zeitor3[0] . ":" . $zeitor3[1] . " Uhr";
+                            $zeit = date_format(date_create($news[$i]["zeit"]), "d.m.Y H:i") . " Uhr";
                             echo("<h1>".$title."<br>
-                                <h5><p>Veröffentlicht von ".$autor."</p><p class='time'>am ".$zeit."</p></h5>"."</h1>");
+                                <h5><p><span style='display: inline-block'>Veröffentlicht von ".$autor."</span><span class='time' style='display: inline-block'>am ".$zeit."</span></p></h5>"."</h1>");
                             echo("<p>".nl2br($lessinhalt)." <a onclick=\"event.stopPropagation();$('.readmorebox".$id."').show()\" class='readmore".$id."'>Mehr anzeigen</a></p>");
                             echo("</div></a>");
                             echo("</li>");
