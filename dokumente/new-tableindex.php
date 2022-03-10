@@ -85,8 +85,9 @@
                                     $icon = "far fa-file-alt";
                                     $is_image = false;
                                     $previewaction = '';
+                                    $style = "cursor: default;";
                                 }
-                                echo("<tr onclick='".$previewaction."' class='file'>
+                                echo("<tr onclick='".$previewaction."' class='file' style='".$style."'>
                                     <td class='filename'>
                                         <p><i class='".$icon."'></i>
                                         <span class='file_name_span'>".pathinfo($i, PATHINFO_FILENAME)."</span></p>
