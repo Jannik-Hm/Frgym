@@ -18,9 +18,16 @@
 
         ?>
         <section id="previewiframe" style="display: none">
-            <iframe title="Dateivorschau" src="" id="filepreviewiframe" width="100%" style="height: 1000px; display: block"></iframe>
+            <!-- <iframe title="Dateivorschau" src="" id="filepreviewiframe" width="100%" style="height: 1000px; display: block"></iframe> -->
             <!-- TODO: Back / Hide Button or iframe as popup? -->
-            <!-- <button onclick="$('#previewiframe').hide(); $('#files').show()></button>" -->
+            <!-- <button onclick="$('#previewiframe').hide(); ></button>" -->
+            <div onclick="event.stopPropagation();$('.filepreview').hide();$('#files').show()" style='left: 0;' class='filepreview'>
+                <span class='helper'></span>
+                <div>
+                    <iframe title="Dateivorschau" src="" onclick="event.stopPropagation();" id="filepreviewiframe" style="margin:auto; display:block"></iframe>
+                    <div onclick="event.stopPropagation();$('.filepreview').hide();$('#files').show()" class='popupCloseButton'>&times;</div>
+                </div>
+            </div>
         </section>
         <section id="files">
             <table id="fileTable">
@@ -66,7 +73,7 @@
                                     <td colspan='2'>
                                     <p>
                                     <i class='far fa-folder'></i>
-                                    ".$i."
+                                    <span class='file_name_span'>".$i."</span>
                                     </p>
                                     </td>
                                     </tr>");
@@ -80,7 +87,7 @@
                                     $icon = "far fa-file-pdf";
                                     $is_image = false;
                                     // $previewaction = 'window.location="'."https://".$_SERVER['SERVER_NAME'].$pathworoot."/".$i.'"';
-                                    $previewaction = '$("#filepreviewiframe").attr("src", "'.$pathworoot."/".$i.'"); $("#filepreviewiframe").attr("title", "'.$i.'"); $("#files").hide(); $("#previewiframe").show()';
+                                    $previewaction = '$("#filepreviewiframe").attr("src", "'.$pathworoot."/".$i.'"); $("#filepreviewiframe").attr("title", "'.$i.'"); $("#files").hide(); $("#previewiframe").show();$(".filepreview").show()';
                                 } else {
                                     $icon = "far fa-file-alt";
                                     $is_image = false;
@@ -115,6 +122,7 @@
                 ?>
                 <script>function onresizefunc() {
                     if ($(".filename").width()>=7/8*$(".file_name_span").width()) { $(".editdate").show(); } else { $(".editdate").hide(); }
+                    // if (1/2*$(window).width()>$(".file_name_span").width()) { $(".editdate").show(); } else { $(".editdate").hide(); } // TODO: implement this
                     // if ( $(".filename").outerWidth()+30+320 > $("#fileTable").width() ) { $(".editdate").hide(); } else { $(".editdate").show(); }
                 }</script>
             </table>

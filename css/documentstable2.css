@@ -64,7 +64,8 @@
 }
 
 /* Popup box BEGIN */
-div[class^="img"] {
+div[class^="img"],
+div.filepreview {
   margin-left: 0;
   background: rgba(0, 0, 0, 0.4);
   cursor: pointer;
@@ -76,12 +77,14 @@ div[class^="img"] {
   width: 100%;
   z-index: 10000;
 }
-div[class^="img"] .helper {
+div[class^="img"] .helper,
+div.filepreview .helper {
   display: inline-block;
   height: 100%;
   vertical-align: middle;
 }
-div[class^="img"] > div {
+div[class^="img"] > div,
+div.filepreview > div {
   margin-top: 25px;
   margin-bottom: 25px;
   background-color: transparent;
@@ -93,7 +96,8 @@ div[class^="img"] > div {
   max-width: calc(95% - 35px);
   position: relative;
 }
-div[class^="img"] [class^="popupCloseButton"] {
+div[class^="img"] [class^="popupCloseButton"],
+div.filepreview [class^="popupCloseButton"] {
   background-color: rgb(122, 133, 131);
   border: 3px solid #999;
   border-radius: 50px;
@@ -110,7 +114,8 @@ div[class^="img"] [class^="popupCloseButton"] {
   height: 30px;
   text-align: center;
 }
-div[class^="img"] [class^="popupCloseButton"]:hover {
+div[class^="img"] [class^="popupCloseButton"]:hover,
+div.filepreview [class^="popupCloseButton"]:hover {
   background-color: #fff;
 }
 div.img img {
@@ -119,5 +124,14 @@ div.img img {
   box-shadow: 10px 10px 60px #555;
   width: 100%;
   height: 100%;
+}
+div.filepreview div iframe {
+  position: relative;
+  cursor: auto;
+  border-radius: 8px;
+  box-shadow: 10px 10px 60px #555;
+  width: 85vw;
+  height: 80vh;
+  z-index: +0;
 }
 /* Popup box END */
