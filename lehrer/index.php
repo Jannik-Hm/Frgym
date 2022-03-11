@@ -131,7 +131,7 @@
                         if(isset($date)) {
                             echo("<h4>" . $date->format("Seit %y Jahren dabei") . "</h4>");
                         }
-                        echo("<a href=\"mailto:" . $row["email"] . "\"><button><i class='fas fa-at'></i> E-Mail</button></a>");
+                        echo("<a href=\"mailto:" . $row["email"] . "\"><button class='email-btn'><i class='fas fa-at'></i> E-Mail</button></a>");
                         echo("<p>" . $row["beschreibung"] . "</p>");
                         echo("</section>");
                     } else {

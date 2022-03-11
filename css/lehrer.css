@@ -203,3 +203,9 @@
 #lehrerTable {
   border: none;
 }
+
+.email-btn {
+  width: fit-content;
+  height: fit-content;
+  padding: 10px 20px;
+}
