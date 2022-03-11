@@ -2,12 +2,12 @@
 <script defer>
     function headerheight() {
         var interval1 = setInterval(function() {
+            if (typeof onresizefunc == "function") { onresizefunc() };
             if (document.getElementById('page-beginning').style.height != $('.header').outerHeight()+"px") {
                 document.getElementById('page-beginning').style.height = $('.header').outerHeight()+"px";
             }else{
                 clearInterval(interval1);
             }
-            if (typeof onresizefunc == "function") { onresizefunc() };
         }, 50);
     }
     headerheight();
