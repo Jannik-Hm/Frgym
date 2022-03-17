@@ -23,7 +23,7 @@
         ?>
         <style>
             form {display: flex; justify-content: center; margin: auto; width: 90%; flex-wrap: nowrap; align-items: center;}
-            #drop_zone {cursor: pointer; border: none; width: 90%;  padding: 15px 0;  margin: 15px auto;  border-radius: 15px;background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='15' ry='15' stroke='%23333' stroke-width='5' stroke-dasharray='6%2c 14' stroke-dashoffset='14' stroke-linecap='square'/%3e%3c/svg%3e");}
+            #drop_zone {cursor: pointer; border: none; width: 90%;  padding: 15px 0;  margin: 15px auto;  border-radius: 15px; background-color: #514f4f ;background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='15' ry='15' stroke='%23333' stroke-width='5' stroke-dasharray='6%2c 14' stroke-dashoffset='14' stroke-linecap='square'/%3e%3c/svg%3e");}
         </style>
         <section>
         <iframe name="formreloadblock" style="display:none;"></iframe>
@@ -31,6 +31,10 @@
             <input type="file" name="file-input" id="file-input" multiple>
             <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" style="">
                 <p>Datei hochladen</p>
+            </div>
+            <div id="submitbtn" onclick='$("#file_upload").submit()' style="display:none">
+                <p>
+                </p>
             </div>
             <script>
                 const dropzone = $('#drop_zone')
@@ -69,6 +73,8 @@
                         }
                         $("#drop_zone p").html(filenames_string);
                         // TODO: change dropzone background to signalise files were added and add icons
+                        $("#submitbtn").html($("#file-input")[0].files.length+" Datei/en freigeben");
+                        $("#submitbtn").show();
                     }
 
                     // catch file drop and add it to input
@@ -98,10 +104,11 @@
                         ev.preventDefault();
                     }
             </script>
-            <input type="submit" name="submit" style="width: 200px; margin-left: 20px; height: auto" value="Datei freigeben">
+            <!-- <input type="submit" name="submit" style="width: 200px; margin-left: 20px; height: auto" value="Datei freigeben"> -->
+            <!-- TODO: add upload button with "onclick='$("#file_upload").submit()'" -->
         </form>
         <?php
-            if(isset($_POST["submit"])){ echo($_POST["test"]); echo(basename($_FILES["file-input"]["name"])); }
+            if(isset($_POST["submit"])){ echo("test"); echo($_POST["test"]); echo(basename($_FILES["file-input"]["name"])); }
         ?>
         <div id="testoutput"></div>
         </section>
