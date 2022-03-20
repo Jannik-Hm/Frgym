@@ -46,7 +46,7 @@
             }
         ?>
         </section>
-        <?php include "$root/admin/scripts/list-files.php" ?>
+        <?php $GLOBALS["admin"] = true; include "$root/admin/scripts/list-files.php" ?>
         <?php include_once "$root/sites/footer.html" ?>
     </body>
 </html>

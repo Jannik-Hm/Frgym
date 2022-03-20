@@ -97,7 +97,7 @@
     </form>';
     }
 
-    function uploadfile($dir, $accepted_files, $inputname, $admin) {
+    function uploadfile($dir, $accepted_files, $inputname) {
         $target_dir = "/usr/www/users/greenyr/frgym/new/files/".$dir;
         $max_filesize = 10000000;
 

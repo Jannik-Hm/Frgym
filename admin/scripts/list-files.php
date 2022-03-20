@@ -82,8 +82,13 @@
                                 <span class='file_name_span'>".pathinfo($i, PATHINFO_FILENAME)."</span></p>
                             </td>
                             <td class='floatright' nowrap='nowrap'>
-                                <p><a class='downloadlink' href='".$pathworoot."/".$i."' onclick=\"event.stopPropagation();\" download><i class='far fa-save download' title='Herunterladen'></i></a>
-                                <span class='editdate'>Hochgeladen am: ".date("d.m.Y H:i:s", filemtime($path."/".$i))."</span></p>
+                                <p>
+                                    <a class='downloadlink' href='".$pathworoot."/".$i."' onclick=\"event.stopPropagation();\" download><i class='far fa-save download' title='Herunterladen'></i></a>");
+                                if ($GLOBALS["admin"] == true) {
+                                    echo("<a onclick='event.stopPropagation()'title='Datei löschen'><i class='fas fa-trash red' style='color:#F75140; margin-right: 5px;'></i></a>");
+                                }
+                        echo("      <span class='editdate'>Hochgeladen am: ".date("d.m.Y H:i:s", filemtime($path."/".$i))."</span>
+                                </p>
                             </td>
                         </tr>");
                     }else {
