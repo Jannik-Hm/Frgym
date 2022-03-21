@@ -130,6 +130,7 @@
             // if everything is ok, try to upload file
             } else {
                 if (move_uploaded_file($_FILES[$inputname]["tmp_name"], $target_file)) {
+                    echo("<script>window.location.href = window.location.pathname;</script>");
                     return true;
                 } else {
                     return false;
@@ -139,3 +140,4 @@
 
     }
 
+?>
