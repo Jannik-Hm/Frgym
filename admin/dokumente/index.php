@@ -34,6 +34,7 @@
             #drop_zone .popupCloseButton {position: absolute; right: -15px; top: -15px; display: inline-block; font-weight: bold; font-size: 25px; line-height: 30px; width: 30px; height: 30px; text-align: center; background-color: rgb(122, 133, 131); border-radius: 50px; border: 3px solid #999; color: #414141;}
             #drop_zone .popupCloseButton:hover {background-color: #fff;}
             #submitbtn {cursor: pointer; display: block; background: rgb(122, 133, 131); color: rgb(226, 226, 226); margin-left: 25px; padding: 15px 25px; border-radius: 15px; border: none; width: auto; height: auto}
+            .fa-trash {cursor: pointer};
         </style>
         <section>
 
