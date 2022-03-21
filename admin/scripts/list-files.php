@@ -48,14 +48,26 @@
                 foreach($files as $i){
                     // echo('<span class="line"></span>');
                     if (is_dir($path."/".$i)) { // Check if object is a directory
-                        echo("<tr onclick='window.location.href=\"".$dirpath.$i."\";' class='folder' title='Ordner öffnen'>
-                            <td colspan='2'>
+                        echo("<tr onclick='window.location.href=\"".$dirpath.$i."\";' class='folder' title='Ordner öffnen'>");
+                        if($GLOBALS["admin"] == true) {
+                            echo("<td>");
+                        } else {
+                            echo("<td colspan='2'>");
+                        }
+                        echo("
                             <p>
                             <i class='far fa-folder'></i>
                             <span class='file_name_span'>".$i."</span>
                             </p>
+                            </td>");
+                        if ($GLOBALS["admin"] == true){
+                        echo("  <td class='floatright' nowrap='nowrap'>
+                                <p>
+                                <a onclick='event.stopPropagation();$(\".confirm\").show();$(\"#confirmdelete\").attr(\"href\",\"/admin/scripts/delete-file.php?path=".str_replace("/files/","", $pathworoot)."/".$i."\")' title='Ordner löschen'><i class='fas fa-trash red' style='color:#F75140; margin-right: 5px;'></i></a>
+                                </p>
                             </td>
                             </tr>");
+                        }
                     }elseif (is_file($path."/".$i)){ // Check if object is a file
                         $extension = pathinfo($i, PATHINFO_EXTENSION);
                         if ($extension=="jpg" || $extension=="jpeg" || $extension=="png"){
@@ -85,7 +97,7 @@
                                 <p>
                                     <a class='downloadlink' href='".$pathworoot."/".$i."' onclick=\"event.stopPropagation();\" download><i class='far fa-save download' title='Herunterladen'></i></a>");
                                 if ($GLOBALS["admin"] == true) {
-                                    echo("<a onclick='event.stopPropagation()'title='Datei löschen'><i class='fas fa-trash red' style='color:#F75140; margin-right: 5px;'></i></a>");
+                                    echo("<a onclick='event.stopPropagation();$(\".confirm\").show();$(\"#confirmdelete\").attr(\"href\",\"/admin/scripts/delete-file.php?path=".str_replace("/files/","", $pathworoot)."/".$i."\")'title='Datei löschen'><i class='fas fa-trash red' style='color:#F75140; margin-right: 5px;'></i></a>");
                                 }
                         echo("      <span class='editdate'>Hochgeladen am: ".date("d.m.Y H:i:s", filemtime($path."/".$i))."</span>
                                 </p>
@@ -107,7 +119,25 @@
             }
             listfiles($dir, $scriptpath);
         ?>
-        <script>function onresizefunc() {
+        <div style='left: 0;' class='confirm'>
+            <span class='helper'></span>
+            <div class='scroll'>
+                <div class='confirmation'>
+                    <h1>Löschung bestätigen</h1><br>
+                    <p id='confirmtext'></p><br>
+                    <div id="abortfirst">
+                        <a onclick="$('.confirm').hide();" class='abort'>Abbrechen</a>
+                        <a id='confirmdelete' class='delete'>Löschen</a>
+                    </div>
+                    <div id="deletefirst">
+                        <a id='confirmdelete' class='delete'>Löschen</a>
+                        <a onclick="$('.confirm').hide();" class='abort'>Abbrechen</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function onresizefunc() {
             if ($(".filename").width()>=7/8*$(".file_name_span").width() && $(window).width() > 500) { $(".editdate").show(); } else { $(".editdate").hide(); }
             // if (!$(".editdate").is("hidden")) {
             //     if ($(".filename").outerWidth()+$(".floatright").outerWidth() <= 0.9 * $(window).width()) {
