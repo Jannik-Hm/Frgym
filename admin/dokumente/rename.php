@@ -34,7 +34,7 @@
 
     if(isset($_POST["submit"])){
         $filelocation = "$root/files/";
-        $newname = $_POST["newfilename"];
+        $newname = trim($_POST["newfilename"]);
         if(pathinfo($oldname, PATHINFO_EXTENSION) != null){
             $newname = $newname.".".pathinfo($oldname, PATHINFO_EXTENSION);
         }
