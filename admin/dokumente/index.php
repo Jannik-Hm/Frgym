@@ -1,13 +1,13 @@
 <?php
-        session_name("userid_login");
-        session_start();
+        $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+        require_once "$root/admin/scripts/admin-scripts.php";
+        setsession();
         ?>
 <!DOCTYPE html>
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
     <head>
         <?php
 
-            $root = realpath($_SERVER["DOCUMENT_ROOT"]);
             include_once "$root/admin/sites/head.html"
 
         ?>
@@ -26,7 +26,7 @@
 
         ?>
 
-        <style>
+<style>
             section {font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;color: #fff;}
             form {display: flex; justify-content: center; margin: auto; width: 90%; flex-wrap: nowrap; align-items: center;}
             #drop_zone {cursor: pointer; text-align: center; border: none; width: 100%;  padding: 15px 0;  margin: 15px auto;  border-radius: 15px; background-color: #514f4f ;background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='15' ry='15' stroke='%23333' stroke-width='5' stroke-dasharray='6%2c 14' stroke-dashoffset='14' stroke-linecap='square'/%3e%3c/svg%3e"); position: relative}
@@ -38,9 +38,10 @@
         </style>
         <section>
 
-        <?php
+            <?php
             include_once "$root/admin/scripts/file-upload.php";
             dropzone("file-input");
+            // TODO: Add option to create directory
         ?>
 
             <?php
@@ -52,4 +53,4 @@
         <?php $GLOBALS["admin"] = true; include "$root/admin/scripts/list-files.php" ?>
         <?php include_once "$root/sites/footer.html" ?>
     </body>
-</html>
+</html>
