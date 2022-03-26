@@ -41,6 +41,7 @@
             <?php
             include_once "$root/admin/scripts/file-upload.php";
             dropzone("file-input");
+            // createdir($pathworoot);
             // TODO: Add option to create directory
         ?>
 
@@ -53,4 +54,4 @@
         <?php $GLOBALS["admin"] = true; include "$root/admin/scripts/list-files.php" ?>
         <?php include_once "$root/sites/footer.html" ?>
     </body>
-</html>
+</html>

@@ -97,6 +97,25 @@
     </form>';
     }
 
+    function createdir($dir) {
+        echo("<section>");
+        echo("<div onclick=\"$('#createfolder').show();\"><p>Ordner erstellen</p></div>");
+        // TODO: form with dir name
+        echo("
+        <form id='createfolder' method='POST' style='display:none'>
+            <input type='text' id='dirname' name='dirname'>
+            <input type='submit' name='submit'>
+        </form>
+        ");
+        if(isset($_POST["submit"])){
+            $dirname = $_POST["dirname"];
+            echo(realpath($_SERVER["DOCUMENT_ROOT"]).$dir."/".$dirname);
+            // mkdir($root.$dir."/".$dirname);
+            echo("<script>$('#createfolder').hide();</script>");
+        }
+        echo("</section>");
+    }
+
     function uploadfile($dir, $accepted_files, $inputname) {
         $target_dir = "/usr/www/users/greenyr/frgym/new/files/".$dir;
         $max_filesize = 10000000;
