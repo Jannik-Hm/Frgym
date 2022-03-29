@@ -98,20 +98,23 @@
     }
 
     function createdir($dir) {
-        echo("<section>");
-        echo("<div onclick=\"$('#createfolder').show();\"><p>Ordner erstellen</p></div>");
+        echo('<link rel="stylesheet" href="/admin/css/form.css">');
+        echo("<section style=''>");
+        echo("<div class='showform' onclick=\"$('#createfolder').show();\"><p>Ordner erstellen</p></div>");
         // TODO: form with dir name
         echo("
-        <form id='createfolder' method='POST' style='display:none'>
+        <form id='createfolder' method='POST' style='display:none; width: 90%'>
             <input type='text' id='dirname' name='dirname'>
-            <input type='submit' name='submit'>
+            <input style='margin-left: 50px; width: 250px' type='submit' name='submitdir' value='Ordner erstellen'>
         </form>
         ");
-        if(isset($_POST["submit"])){
+        if(isset($_POST["submitdir"])){
             $dirname = $_POST["dirname"];
-            echo(realpath($_SERVER["DOCUMENT_ROOT"]).$dir."/".$dirname);
-            // mkdir($root.$dir."/".$dirname);
+            // echo(realpath($_SERVER["DOCUMENT_ROOT"]).$dir."/".$dirname);
+            mkdir(realpath($_SERVER["DOCUMENT_ROOT"]).$dir."/".$dirname);
             echo("<script>$('#createfolder').hide();</script>");
+            // echo("<script>window.location.reload();</script>");
+            echo("<script>window.location.href = '".$_SERVER['REQUEST_URI']."';</script>");
         }
         echo("</section>");
     }
@@ -149,7 +152,7 @@
             // if everything is ok, try to upload file
             } else {
                 if (move_uploaded_file($_FILES[$inputname]["tmp_name"], $target_file)) {
-                    echo("<script>window.location.href = window.location.pathname;</script>");
+                    echo("<script>window.location.href = '".$_SERVER['REQUEST_URI']."';</script>");
                     return true;
                 } else {
                     return false;
