@@ -1,0 +1,33 @@
+.showform {
+  margin-left: 5%;
+  background: rgb(122, 133, 131);
+  border-radius: 15px;
+  height: 40px;
+  width: 200px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+}
+
+.showform p {
+  vertical-align: center;
+  margin: auto;
+}
+
+input[type="text"],
+input[type="submit"] {
+  background: rgb(122, 133, 131);
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  height: 30px;
+  color: #fff;
+}
+
+input[type="submit"] {
+  cursor: pointer;
+}
+
+input[type="text"] {
+  padding-left: 10px;
+}
