@@ -1,15 +1,16 @@
 <?php
 
-    function dropzone($inputname, $accepted_files, $uploaddir, $filenameoverride = null) {
+    function dropzone($inputname, $accepted_files, $uploaddir, $filenameoverride = null, $multiplebool = true) {
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         verifylogin();
         $accept_string = "";
         foreach($accepted_files as $accepted_type) {
             $accept_string = $accept_string.".".$accepted_type.",";
         }
+        if($filenameoverride == null && $multiplebool){$multiple = "multiple";$multiplearray="[]";}else{$multiple="";$multiplearray="";}
         echo("<section>");
         echo '<form id="file_upload" enctype="multipart/form-data" method="POST">
-        <input type="file" name="'.$inputname.'" id="'.$inputname.'" accept="'.$accept_string.'" multiple hidden>
+        <input type="file" name="'.$inputname.$multiplearray.'" id="'.$inputname.'" accept="'.$accept_string.'" '.$multiple.' hidden>
         <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" style="">
             <div style="display: none" onclick="event.stopPropagation();resetupload();" class="popupCloseButton">&times;</div>
             <p>Datei hochladen</p>
@@ -134,42 +135,51 @@
         $target_dir = "/usr/www/users/greenyr/frgym/new/files/".$dir;
         $max_filesize = 10000000;
 
+        if($filenameoverride == null){
+            $fileCount = count($_FILES[$inputname]['name']);
+        }else{
+            $fileCount = 1;
+        }
         if(!($_FILES[$inputname]["error"] == 4)) {
-            if($dir != ""){$target_dir=$target_dir."/";}
-            $extension = strtolower(pathinfo(basename($_FILES[$inputname]["name"]),PATHINFO_EXTENSION));
-            $targetfilename = basename($_FILES[$inputname]["name"]);
-            if($filenameoverride != null){
-                $targetfilename = $filenameoverride.".".$extension;
-            }
-            $target_file = $target_dir . $targetfilename;
-            $FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-            $uploadOk = 1;
-
-            // Check file size
-            if ($_FILES[$inputname]["size"] > $max_filesize) {
-                // echo "Sorry, your file is too large.";
-                $uploadOk = 0;
-            }
-
-            // Allow certain file formats
-            foreach($accepted_files as $accepted_type) {
-                if ($FileType != $accepted_type){
-                    $uploadOk = 0;
-                }else{
-                    $uploadOk = 1;
-                    break;
+            if(substr($dir, -1) != "/"){$target_dir=$target_dir."/";}
+            for($i = 0; $i < $fileCount; $i++){
+                $extension = strtolower(pathinfo(basename($_FILES[$inputname]["name"][$i]),PATHINFO_EXTENSION));
+                $targetfilename = basename($_FILES[$inputname]["name"][$i]);
+                if($filenameoverride != null){
+                    $targetfilename = $filenameoverride.".".$extension;
                 }
-            }
-            // Check if $uploadOk is set to 0 by an error
-            if ($uploadOk == 0) {
-                return false;
-            // if everything is ok, try to upload file
-            } else {
-                if (move_uploaded_file($_FILES[$inputname]["tmp_name"], $target_file)) {
-                    echo("<script>window.location.href = '".$_SERVER['REQUEST_URI']."';</script>");
-                    return true;
-                } else {
+                $target_file = $target_dir . $targetfilename;
+                $FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                $uploadOk = 1;
+
+                // Check file size
+                if ($_FILES[$inputname]["size"][$i] > $max_filesize) {
+                    // echo "Sorry, your file is too large.";
+                    $uploadOk = 0;
+                }
+
+                // Allow certain file formats
+                foreach($accepted_files as $accepted_type) {
+                    if ($FileType != $accepted_type){
+                        $uploadOk = 0;
+                    }else{
+                        $uploadOk = 1;
+                        break;
+                    }
+                }
+                // Check if $uploadOk is set to 0 by an error
+                if ($uploadOk == 0) {
                     return false;
+                // if everything is ok, try to upload file
+                } else {
+                    if (move_uploaded_file($_FILES[$inputname]["tmp_name"][$i], $target_file)) {
+                        if($i == $fileCount - 1){
+                            echo("<script>window.location.href = '".$_SERVER['REQUEST_URI']."';</script>");
+                            return true;
+                        }
+                    } else {
+                        return false;
+                    }
                 }
             }
         }
