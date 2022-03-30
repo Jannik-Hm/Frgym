@@ -63,7 +63,7 @@
                         if ($GLOBALS["admin"] == true){
                         echo("  <td class='floatright' nowrap='nowrap'>
                                 <p>
-                                <a onclick='event.stopPropagation();window.location.href=\"/admin/dokumente/rename.php?path=".str_replace("/files/","", $pathworoot)."/".$i."\"'title='Ordnername bearbeiten'><i class='fas fa-edit' style='cursor: pointer; margin-right: 5px;'></i></a>
+                                <a onclick='event.stopPropagation();' href='/admin/dokumente/rename.php?path=".str_replace("/files/","", $pathworoot)."/".$i."' title='Ordnername bearbeiten'><i class='fas fa-edit' style='cursor: pointer; margin-right: 5px;'></i></a>
                                 <a onclick='event.stopPropagation();$(\".confirm\").show();$(\"#confirmdelete\").attr(\"href\",\"/admin/scripts/delete-file.php?path=".str_replace("/files/","", $pathworoot)."/".$i."\")' title='Ordner löschen'><i class='fas fa-trash red' style='color:#F75140; margin-right: 5px;'></i></a>
                                 </p>
                             </td>
@@ -98,15 +98,15 @@
                                 <p>
                                     <a class='downloadlink' href='".$pathworoot."/".$i."' onclick=\"event.stopPropagation();\" download><i class='far fa-save download' title='Herunterladen'></i></a>");
                                 if ($GLOBALS["admin"] == true) {
-                                    echo("<a onclick='event.stopPropagation();window.location.href=\"/admin/dokumente/rename.php?path=".str_replace("/files/","", $pathworoot)."/".$i."\"'title='Dateiname bearbeiten'><i class='fas fa-edit' style='cursor: pointer; margin-right: 5px;'></i></a>");
-                                    echo("<a onclick='event.stopPropagation();$(\".confirm\").show();$(\"#confirmdelete\").attr(\"href\",\"/admin/scripts/delete-file.php?path=".str_replace("/files/","", $pathworoot)."/".$i."\")'title='Datei löschen'><i class='fas fa-trash red' style='color:#F75140; margin-right: 5px;'></i></a>");
+                                    echo("<a onclick='event.stopPropagation();' href='/admin/dokumente/rename.php?path=".str_replace("/files/","", $pathworoot)."/".$i."' title='Dateiname bearbeiten'><i class='fas fa-edit' style='cursor: pointer; margin-right: 5px;'></i></a>");
+                                    echo("<a onclick='event.stopPropagation();$(\".confirm\").show();$(\"#confirmdelete\").attr(\"href\",\"/admin/scripts/delete-file.php?path=".str_replace("/files/","", $pathworoot)."/".$i."\")' title='Datei löschen'><i class='fas fa-trash red' style='color:#F75140; margin-right: 5px;'></i></a>");
                                 }
                         echo("      <span class='editdate'>Hochgeladen am: ".date("d.m.Y H:i:s", filemtime($path."/".$i))."</span>
                                 </p>
                             </td>
                         </tr>");
                     }else {
-                        echo("unknown type");
+                        // echo("unknown type");
                     }
                 }
                 echo("<div onclick=\"event.stopPropagation();$('.img').hide()\" style='left: 0;' class='img'>
