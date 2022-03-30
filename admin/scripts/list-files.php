@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="/css/documentstable2.css">
 <section id="previewiframe" style="display: none">
+    <link rel="stylesheet" href="/css/documentstable2.css">
     <div onclick="event.stopPropagation();$('.filepreview').hide()" style='left: 0;' class='filepreview'>
         <span class='helper'></span>
         <div>
@@ -32,7 +32,8 @@
                 }else{
                     $dirpath = "https://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']."?dir=";
                 }
-                $pathworoot = "/files/document-page".$dir;
+                // $pathworoot = "/files/document-page".$dir;
+                $pathworoot = $GLOBALS["rootdir"].$dir;
                 $path = $root.$pathworoot;
                 $files = array_diff(scandir($path), array('.', '..'));
                 // echo("<ul class='docs-list' style='list-style-type: none'>");
@@ -71,7 +72,7 @@
                         }
                     }elseif (is_file($path."/".$i)){ // Check if object is a file
                         $extension = pathinfo($i, PATHINFO_EXTENSION);
-                        if ($extension=="jpg" || $extension=="jpeg" || $extension=="png"){
+                        if ($extension=="jpg" || $extension=="jpeg" || $extension=="png" || $extension=="webp"){
                             $icon = "far fa-file-image";
                             $is_image = true;
                             $previewaction = 'document.getElementById("imgpreviewsrc").src="'.$pathworoot."/".$i.'";$(".img").show();';

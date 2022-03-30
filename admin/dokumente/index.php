@@ -23,6 +23,7 @@
                 $dir = "";
             }
             $pathworoot = "/files/document-page".$dir;
+            require_once "$root/admin/scripts/file-upload.php";
 
         ?>
 
@@ -36,23 +37,11 @@
             #submitbtn {cursor: pointer; display: block; background: rgb(122, 133, 131); color: rgb(226, 226, 226); margin-left: 25px; padding: 15px 25px; border-radius: 15px; border: none; width: auto; height: auto}
             .fa-trash {cursor: pointer};
         </style>
-        <section>
 
-            <?php
-            include_once "$root/admin/scripts/file-upload.php";
-            dropzone("file-input");
-        ?>
-
-            <?php
-            if(isset($_POST["submit"])){
-                uploadfile("document-page/".$dir, array("jpg", "jpeg", "png", "pdf", "webp"), "file-input");
-            }
-        ?>
-        </section>
         <?php
+            dropzone("file-input", array("jpg", "jpeg", "png", "pdf", "webp"), "document-page/".$dir);
             createdir($pathworoot);
-            // TODO: Add option to create directory
-            $GLOBALS["admin"] = true; include "$root/admin/scripts/list-files.php"
+            list_files("/files/document-page", true);
         ?>
         <?php include_once "$root/sites/footer.html" ?>
     </body>

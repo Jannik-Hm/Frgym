@@ -4,9 +4,14 @@
     require_once "$root/admin/scripts/admin-scripts.php";
     verifylogin();
 
-    function dropzone($inputname) {
+    function dropzone($inputname, $accepted_files, $uploaddir) {
+        $accept_string = "";
+        foreach($accepted_files as $accepted_type) {
+            $accept_string = $accept_string.".".$accepted_type.",";
+        }
+        echo("<section>");
         echo '<form id="file_upload" enctype="multipart/form-data" method="POST">
-        <input type="file" name="'.$inputname.'" id="'.$inputname.'" multiple hidden>
+        <input type="file" name="'.$inputname.'" id="'.$inputname.'" accept="'.$accept_string.'" multiple hidden>
         <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" style="">
             <div style="display: none" onclick="event.stopPropagation();resetupload();" class="popupCloseButton">&times;</div>
             <p>Datei hochladen</p>
@@ -15,7 +20,7 @@
             <p>
             </p>
         </div> -->
-        <input id="submitbtn" type="submit" name="submit" style="display:none">
+        <input id="submitbtn" type="submit" name="submitdrop" style="display:none">
         <script>
             const dropzone = $("#drop_zone")
                 // click input file field
@@ -95,11 +100,15 @@
         <!-- <input type="submit" name="submit" style="width: 200px; margin-left: 20px; height: auto" value="Datei freigeben"> -->
         <!-- TODO: add upload button with "onclick=\'$("#file_upload").submit()\'" -->
     </form>';
+    if(isset($_POST["submitdrop"])){
+        uploadfile($uploaddir, $accepted_files, $inputname);
+    }
+    echo("</section>");
     }
 
     function createdir($dir) {
-        echo('<link rel="stylesheet" href="/admin/css/form.css">');
         echo("<section style=''>");
+        echo('<link rel="stylesheet" href="/admin/css/form.css">');
         echo("<div class='showform' onclick=\"$('#createfolder').show();\"><p>Ordner erstellen</p></div>");
         // TODO: form with dir name
         echo("
@@ -160,6 +169,13 @@
             }
         }
 
+    }
+
+    function list_files($rootdir, $admin = false){
+        $GLOBALS["rootdir"] = $rootdir;
+        $GLOBALS["admin"] = $admin;
+        // if($admin){$GLOBALS["admin"]= true;}
+        include realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/list-files.php";
     }
 
 ?>
