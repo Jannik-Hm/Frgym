@@ -39,7 +39,7 @@
         </style>
 
         <?php
-            dropzone("file-input", array("jpg", "jpeg", "png", "pdf", "webp"), "document-page/".$dir);
+            dropzone("file-input", array("jpg", "jpeg", "png", "webp", "pdf", "docx", "doc"), "document-page/".$dir);
             createdir($pathworoot);
             list_files("/files/document-page", true);
         ?>
