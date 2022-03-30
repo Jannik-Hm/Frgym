@@ -121,24 +121,29 @@
                 echo("</ul>");
             }
             listfiles($dir, $scriptpath);
-        ?>
-        <div style='left: 0;' class='confirm'>
-            <span class='helper'></span>
-            <div class='scroll'>
-                <div class='confirmation'>
-                    <h1>Löschung bestätigen</h1><br>
-                    <p id='confirmtext'></p><br>
-                    <div id="abortfirst">
-                        <a onclick="$('.confirm').hide();" class='abort'>Abbrechen</a>
-                        <a id='confirmdelete' class='delete'>Löschen</a>
-                    </div>
-                    <div id="deletefirst">
-                        <a id='confirmdelete' class='delete'>Löschen</a>
-                        <a onclick="$('.confirm').hide();" class='abort'>Abbrechen</a>
+            if($GLOBALS["admin"] == true) {
+                echo("
+                <div style='left: 0;' class='confirm'>
+                    <span class='helper'></span>
+                    <div class='scroll'>
+                        <div class='confirmation'>
+                            <h1>Löschung bestätigen</h1><br>
+                            <p id='confirmtext'></p><br>
+                            <div id=\"abortfirst\">
+                                <a onclick=\"$('.confirm').hide();\" class='abort'>Abbrechen</a>
+                                <a id='confirmdelete' class='delete'>Löschen</a>
+                            </div>
+                            <div id=\"deletefirst\">
+                                <a id='confirmdelete' class='delete'>Löschen</a>
+                                <a onclick=\"$('.confirm').hide();\" class='abort'>Abbrechen</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+                ");
+            }
+        ?>
+
         <script>
             function onresizefunc() {
             if ($(".filename").width()>=7/8*$(".file_name_span").width() && $(window).width() > 500) { $(".editdate").show(); } else { $(".editdate").hide(); }

@@ -1,10 +1,8 @@
 <?php
 
-    $root = realpath($_SERVER["DOCUMENT_ROOT"]);
-    require_once "$root/admin/scripts/admin-scripts.php";
-    verifylogin();
-
     function dropzone($inputname, $accepted_files, $uploaddir) {
+        require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+        verifylogin();
         $accept_string = "";
         foreach($accepted_files as $accepted_type) {
             $accept_string = $accept_string.".".$accepted_type.",";
@@ -107,6 +105,8 @@
     }
 
     function createdir($dir) {
+        require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+        verifylogin();
         echo("<section style=''>");
         echo('<link rel="stylesheet" href="/admin/css/form.css">');
         echo("<div class='showform' onclick=\"$('#createfolder').show();\"><p>Ordner erstellen</p></div>");
@@ -129,6 +129,8 @@
     }
 
     function uploadfile($dir, $accepted_files, $inputname) {
+        require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+        verifylogin();
         $target_dir = "/usr/www/users/greenyr/frgym/new/files/".$dir;
         $max_filesize = 10000000;
 
@@ -172,6 +174,10 @@
     }
 
     function list_files($rootdir, $admin = false){
+        if($admin){
+            require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+            verifylogin();
+        }
         $GLOBALS["rootdir"] = $rootdir;
         $GLOBALS["admin"] = $admin;
         // if($admin){$GLOBALS["admin"]= true;}
