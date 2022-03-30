@@ -1,6 +1,6 @@
 <?php
 
-    function dropzone($inputname, $accepted_files, $uploaddir) {
+    function dropzone($inputname, $accepted_files, $uploaddir, $filenameoverride = null) {
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         verifylogin();
         $accept_string = "";
@@ -99,7 +99,7 @@
         <!-- TODO: add upload button with "onclick=\'$("#file_upload").submit()\'" -->
     </form>';
     if(isset($_POST["submitdrop"])){
-        uploadfile($uploaddir, $accepted_files, $inputname);
+        uploadfile($uploaddir, $accepted_files, $inputname, $filenameoverride);
     }
     echo("</section>");
     }
@@ -128,7 +128,7 @@
         echo("</section>");
     }
 
-    function uploadfile($dir, $accepted_files, $inputname) {
+    function uploadfile($dir, $accepted_files, $inputname, $filenameoverride = null) {
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         verifylogin();
         $target_dir = "/usr/www/users/greenyr/frgym/new/files/".$dir;
@@ -138,6 +138,9 @@
             if($dir != ""){$target_dir=$target_dir."/";}
             $extension = strtolower(pathinfo(basename($_FILES[$inputname]["name"]),PATHINFO_EXTENSION));
             $targetfilename = basename($_FILES[$inputname]["name"]);
+            if($filenameoverride != null){
+                $targetfilename = $filenameoverride.".".$extension;
+            }
             $target_file = $target_dir . $targetfilename;
             $FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
             $uploadOk = 1;
