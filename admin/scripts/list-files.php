@@ -86,8 +86,8 @@
                         } else {
                             $icon = "far fa-file-alt";
                             $is_image = false;
-                            $previewaction = '';
-                            $style = "cursor: default;";
+                            $previewaction = 'window.location.href = "'.$pathworoot."/".$i.'"';
+                            $style = "cursor: pointer;";
                             $title = null;
                         }
                         echo("<tr onclick='".$previewaction."' class='file' style='".$style."' title='".$title."'>
