@@ -3,6 +3,12 @@
     function dropzone($inputname, $accepted_files, $uploaddir, $filenameoverride = null, $multiplebool = true) {
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         verifylogin();
+        checkperm("docs");
+        if(($GLOBALS["disabled"])){
+            $disabled="disabled";
+        }else{
+            $disabled="";
+        }
         $accept_string = "";
         foreach($accepted_files as $accepted_type) {
             $accept_string = $accept_string.".".$accepted_type.",";
@@ -10,7 +16,7 @@
         if($filenameoverride == null && $multiplebool){$multiple = "multiple";$multiplearray="[]";}else{$multiple="";$multiplearray="";}
         echo("<section>");
         echo '<form id="file_upload" enctype="multipart/form-data" method="POST">
-        <input type="file" name="'.$inputname.$multiplearray.'" id="'.$inputname.'" accept="'.$accept_string.'" '.$multiple.' hidden>
+        <input type="file" name="'.$inputname.$multiplearray.'" id="'.$inputname.'" accept="'.$accept_string.'" '.$multiple.' '.$disabled.' hidden>
         <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" style="">
             <div style="display: none" onclick="event.stopPropagation();resetupload();" class="popupCloseButton">&times;</div>
             <p>Datei hochladen</p>
@@ -108,17 +114,23 @@
     function createdir($dir) {
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         verifylogin();
+        checkperm("docs");
         echo("<section style=''>");
         echo('<link rel="stylesheet" href="/admin/css/form.css">');
         echo("<div class='showform' onclick=\"$('#createfolder').show();\"><p>Ordner erstellen</p></div>");
         // TODO: form with dir name
+        if(($GLOBALS["disabled"])){
+            $disabled="disabled";
+        }else{
+            $disabled="";
+        }
         echo("
         <form id='createfolder' method='POST' style='display:none; width: 90%'>
-            <input type='text' id='dirname' name='dirname'>
-            <input style='margin-left: 50px; width: 250px' type='submit' name='submitdir' value='Ordner erstellen'>
+            <input type='text' id='dirname' name='dirname' ".$disabled.">
+            <input style='margin-left: 50px; width: 250px' type='submit' name='submitdir' value='Ordner erstellen' ".$disabled.">
         </form>
         ");
-        if(isset($_POST["submitdir"])){
+        if(isset($_POST["submitdir"]) && !($GLOBALS["disabled"])){
             $dirname = $_POST["dirname"];
             // echo(realpath($_SERVER["DOCUMENT_ROOT"]).$dir."/".$dirname);
             mkdir(realpath($_SERVER["DOCUMENT_ROOT"]).$dir."/".$dirname);
@@ -132,53 +144,56 @@
     function uploadfile($dir, $accepted_files, $inputname, $filenameoverride = null) {
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         verifylogin();
-        $target_dir = "/usr/www/users/greenyr/frgym/new/files/".$dir;
-        $max_filesize = 10000000;
-
-        if($filenameoverride == null){
-            $fileCount = count($_FILES[$inputname]['name']);
-        }else{
-            $fileCount = 1;
-        }
-        if(!($_FILES[$inputname]["error"] == 4)) {
-            if(substr($dir, -1) != "/"){$target_dir=$target_dir."/";}
-            for($i = 0; $i < $fileCount; $i++){
-                $extension = strtolower(pathinfo(basename($_FILES[$inputname]["name"][$i]),PATHINFO_EXTENSION));
-                $targetfilename = basename($_FILES[$inputname]["name"][$i]);
-                if($filenameoverride != null){
-                    $targetfilename = $filenameoverride.".".$extension;
-                }
-                $target_file = $target_dir . $targetfilename;
-                $FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                $uploadOk = 1;
-
-                // Check file size
-                if ($_FILES[$inputname]["size"][$i] > $max_filesize) {
-                    // echo "Sorry, your file is too large.";
-                    $uploadOk = 0;
-                }
-
-                // Allow certain file formats
-                foreach($accepted_files as $accepted_type) {
-                    if ($FileType != $accepted_type){
-                        $uploadOk = 0;
-                    }else{
-                        $uploadOk = 1;
-                        break;
+        checkperm("docs");
+        if(!($GLOBALS["disabled"])){
+            $target_dir = "/usr/www/users/greenyr/frgym/new/files/".$dir;
+            $max_filesize = 10000000;
+    
+            if($filenameoverride == null){
+                $fileCount = count($_FILES[$inputname]['name']);
+            }else{
+                $fileCount = 1;
+            }
+            if(!($_FILES[$inputname]["error"] == 4)) {
+                if(substr($dir, -1) != "/"){$target_dir=$target_dir."/";}
+                for($i = 0; $i < $fileCount; $i++){
+                    $extension = strtolower(pathinfo(basename($_FILES[$inputname]["name"][$i]),PATHINFO_EXTENSION));
+                    $targetfilename = basename($_FILES[$inputname]["name"][$i]);
+                    if($filenameoverride != null){
+                        $targetfilename = $filenameoverride.".".$extension;
                     }
-                }
-                // Check if $uploadOk is set to 0 by an error
-                if ($uploadOk == 0) {
-                    return false;
-                // if everything is ok, try to upload file
-                } else {
-                    if (move_uploaded_file($_FILES[$inputname]["tmp_name"][$i], $target_file)) {
-                        if($i == $fileCount - 1){
-                            echo("<script>window.location.href = '".$_SERVER['REQUEST_URI']."';</script>");
-                            return true;
+                    $target_file = $target_dir . $targetfilename;
+                    $FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                    $uploadOk = 1;
+    
+                    // Check file size
+                    if ($_FILES[$inputname]["size"][$i] > $max_filesize) {
+                        // echo "Sorry, your file is too large.";
+                        $uploadOk = 0;
+                    }
+    
+                    // Allow certain file formats
+                    foreach($accepted_files as $accepted_type) {
+                        if ($FileType != $accepted_type){
+                            $uploadOk = 0;
+                        }else{
+                            $uploadOk = 1;
+                            break;
                         }
-                    } else {
+                    }
+                    // Check if $uploadOk is set to 0 by an error
+                    if ($uploadOk == 0) {
                         return false;
+                    // if everything is ok, try to upload file
+                    } else {
+                        if (move_uploaded_file($_FILES[$inputname]["tmp_name"][$i], $target_file)) {
+                            if($i == $fileCount - 1){
+                                echo("<script>window.location.href = '".$_SERVER['REQUEST_URI']."';</script>");
+                                return true;
+                            }
+                        } else {
+                            return false;
+                        }
                     }
                 }
             }
@@ -190,9 +205,12 @@
         if($admin){
             require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
             verifylogin();
+            checkperm("docs");
+        }
+        if(!($GLOBALS["disabled"])){
+            $GLOBALS["admin"] = $admin;
         }
         $GLOBALS["rootdir"] = $rootdir;
-        $GLOBALS["admin"] = $admin;
         // if($admin){$GLOBALS["admin"]= true;}
         include realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/list-files.php";
     }
