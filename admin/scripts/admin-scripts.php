@@ -15,6 +15,41 @@
         }
     }
 
+    function getperm() {
+        verifylogin();
+
+        $user_id = $_SESSION["user_id"];
+
+        $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+
+        require_once "$root/sites/credentials.php";
+
+        $role = get_role($_SESSION["user_id"]);
+
+        $sqlperm = ("SELECT * FROM roles WHERE name='".$role."';");
+        $perms = mysqli_query(get_connection(), $sqlperm);
+        if($perms->num_rows > 0) {
+            $row = $perms->fetch_assoc();
+            $GLOBALS["docs"] = $row["docs"];
+            $GLOBALS["news.own"] = $row["news.own"];
+            $GLOBALS["news.all"] = $row["news.all"];
+            $GLOBALS["lehrer.own"] = $row["lehrer.own"];
+            $GLOBALS["lehrer.all"] = $row["lehrer.all"];
+        }
+        if($GLOBALS["included-noperm"] == false){
+            include_once "$root/admin/no-permission.html";
+            $GLOBALS["included-noperm"] = true;
+        }
+    }
+
+    function checkperm($permneeded) {
+        getperm();
+        if($GLOBALS[$permneeded] == 0){
+            echo("<script>$('.no_perm').show();</script>");
+            $GLOBALS["disabled"] = true;
+        }
+    }
+
     function confirmation($heading, $text, $left, $leftlink, $right = null, $rightlink = null){
         echo("<div style='left: 0;' class='confirm'>
         <span class='helper'></span>
