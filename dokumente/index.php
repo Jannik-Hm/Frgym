@@ -1,19 +1,23 @@
-<?php header("Location: https://schulportal.brandenburg.de/webbcloud/index.htm?schulnr=120534"); ?>
-<html>
+<!DOCTYPE html>
+<html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
     <head>
-        <?php 
+        <?php
 
-            include_once "./../sites/head.html"
+            $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+            include_once "$root/sites/head.html"
 
         ?>
-        <title>Untis - Friedrich-Gymnasium Luckenwalde</title>
+        <title>Dokumente - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
-        <?php 
+        <?php
 
-            include_once "./../sites/header.html"
+            include_once "$root/sites/header.html";
+
+            require_once "$root/admin/scripts/file-upload.php";
+            list_files("/files/document-page");
 
         ?>
-        <?php include_once "./../sites/footer.html" ?>
+        <?php include_once "$root/sites/footer.html" ?>
     </body>
 </html>
