@@ -29,7 +29,6 @@
             include_once "$root/admin/no-permission.html";
 
         ?>
-        <div class="page-beginning"></div>
 
         <?php
 

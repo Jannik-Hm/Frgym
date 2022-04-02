@@ -33,7 +33,6 @@
 
         ?>
 
-        <div class="page-beginning"></div>
         <div class="news">
             <ul style="list-style-type: none;">
 

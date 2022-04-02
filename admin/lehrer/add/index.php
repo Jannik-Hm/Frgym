@@ -34,7 +34,6 @@
                 };
 
             ?>
-            <div class="page-beginning"></div>
 
             <div class="add-input">
                 <form method="POST" enctype="multipart/form-data">

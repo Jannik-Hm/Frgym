@@ -21,12 +21,6 @@
         <div class="bodyDiv">
             <?php
                 include_once "$root/admin/sites/header.html";
-            ?>
-
-            <div class="page-beginning"></div>
-
-            <?php
-
 
                 if(isset($_SESSION["user_id"])) {
                     echo("<h1 id=\"adminMain\"><span>Willkommen</span> <span>" . $_SESSION["vorname"] . " " . $_SESSION["nachname"] . "</span></h1>");
