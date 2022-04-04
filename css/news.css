@@ -217,6 +217,88 @@ div.pagination a:hover {
   }
 }
 
+div.adminbtn {
+  margin-bottom: 0;
+  margin-top: 25px;
+  margin-right: 30px;
+  float: right;
+}
+
+div.adminbtn a {
+  cursor: pointer;
+}
+
+div.confirm {
+  margin-left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  /* cursor: pointer; */
+  display: none;
+  height: 100%;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+div.confirm .helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+div.confirm > div {
+  color: rgb(226, 226, 226);
+  opacity: 1;
+  background: rgb(122, 133, 131);
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  box-shadow: 10px 10px 60px #555;
+  display: inline-block;
+  height: auto;
+  max-width: 900px;
+  min-height: 100px;
+  vertical-align: middle;
+  width: 85%;
+  position: relative;
+  border-radius: 8px;
+  padding: 5px 5%;
+}
+div.confirmation a {
+  border-radius: 15px;
+  border: 0px;
+  padding: 20px 30px;
+  width: 300px;
+  display: inline-block;
+  margin: auto;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+div.confirmation a.repeat,
+div.confirmation a.abort {
+  margin-right: 100px;
+}
+
+div.confirmation div#deletefirst a {
+  display: none;
+}
+
+div.confirmation a.repeat {
+  background-color: #40b459;
+}
+div.confirmation a.back {
+  background-color: #39bd60;
+}
+div.confirmation a.abort {
+  background-color: rgb(57, 152, 175);
+}
+div.confirmation a.delete {
+  background-color: rgb(180, 28, 28);
+}
+
+/* Popup box END */
+
 /* Popup box BEGIN */
 div[class^="readmorebox"] {
   margin-left: 0;
