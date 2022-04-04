@@ -224,7 +224,7 @@
         }
         $GLOBALS["rootdir"] = $rootdir;
         // if($admin){$GLOBALS["admin"]= true;}
-        include realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/list-files.php";
+        include realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/list-files.php";
     }
 
 ?>
