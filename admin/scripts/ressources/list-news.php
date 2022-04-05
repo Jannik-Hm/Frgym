@@ -14,9 +14,7 @@
                 } elseif (!(isset($page))) {
                     $page = 1;
                 }
-                $lesscharnum = 600;
-                $lessrownumber = 6;
-                $rowcharnum = 600;
+                $lesscharnum = 700;
 
             ?>
 
@@ -58,43 +56,56 @@
                 for ($i=count($news)-1-($items*($page-1)); $i >= count($news)-($items*($page-1))-$items && $i>=0; $i--) {
                     echo("<li>");
                     $id = $news[$i]["id"];
-                    echo("<div onclick=\"event.stopPropagation();$('.readmorebox".$id."').show()\" class='singlenews'>");
-                    $title = $news[$i]["titel"];
-                    $inhalt = $news[$i]["inhalt"];
-                    $lessinhalt = substr($news[$i]["inhalt"],0,$lesscharnum);
-                    if (strlen($inhalt) > strlen($lessinhalt)) {
-                        $lessinhalt = $lessinhalt . "...";
-                    }
                     $autor = $news[$i]["autor"];
-                    $zeit = date_format(date_create($news[$i]["zeit"]), "d.m.Y H:i") . " Uhr";
+                    echo("<div onclick=\"event.stopPropagation();$('.readmorebox').show();$('#popupinhalt').html(fullinhalt".$id.".valueOf());$('#popupautor').html(autor".$id.".valueOf());$('#popuptitle').html(titel".$id.".valueOf());$('#popupzeit').html(zeit".$id.".valueOf());\" class='singlenews'>");
                     if($GLOBALS["admin"]==true){
                         echo("<div class='adminbtn'>");
                         if($GLOBALS["news.all"] == 1 || ($GLOBALS["news.own"] == 1 && $_SESSION["vorname"] . " " . $_SESSION["nachname"] == $autor)){
                             echo("
-                                <a title='Bearbeiten' onclick=\"event.stopPropagation();window.location='/admin/news/edit?id=" .$id. "'\"><i style='margin-right: 30px' class='fas fa-edit'></i></a>
-                                <a title='Löschen' onclick=\"event.stopPropagation();$('#confirmdelete').attr('href', '/admin/news/delete.php?id=".$id."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du die Neuigkeit &#34;".$title."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></a>
+                            <a title='Bearbeiten' onclick=\"event.stopPropagation();window.location='/admin/news/edit?id=" .$id. "'\"><i style='margin-right: 30px' class='fas fa-edit'></i></a>
+                            <a title='Löschen' onclick=\"event.stopPropagation();$('#confirmdelete').attr('href', '/admin/news/delete.php?id=".$id."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du die Neuigkeit &#34;".$title."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></a>
                                 ");
                             }
                         echo("</div>");
                     }
-                    echo("<h1>".$title."<br>
-                        <h5><p><span style='display: inline-block'>Veröffentlicht von ".$autor."</span><span class='time' style='display: inline-block'>am ".$zeit."</span></p></h5>"."</h1>");
-                    echo("<p>".nl2br($lessinhalt)." <a onclick=\"event.stopPropagation();$('.readmorebox".$id."').show()\" class='readmore".$id."'>Mehr anzeigen</a></p>");
+                    echo("<h1><span id='title".$id."'></span><br>
+                    <h5><p><span style='display: inline-block'>Veröffentlicht von <span id='autor".$id."'></span></span><span class='time' style='display: inline-block'>am <span id='zeit".$id."'></span></span></p></h5>"."</h1>");
+                    echo("<p><span id='lessinhalt".$id."'></span> <a onclick=\"event.stopPropagation();$('.readmorebox".$id."').show()\" class='readmore".$id."'>Mehr anzeigen</a></p>");
                     echo("</div></a>");
                     echo("</li>");
-                    echo("<div onclick=\"event.stopPropagation();$('.readmorebox".$id."').hide()\" style='left: 0;' class='readmorebox".$id."'>
-                            <span class='helper'></span>
-                            <div onclick=\"event.stopPropagation();\" class='scroll'>
-                                <div onclick=\"event.stopPropagation();$('.readmorebox".$id."').hide()\" class='popupCloseButton".$id."'>&times;</div>
-                                <div class='newspopup'>
-                                    <h1>".$title."<br>
-                                        <h5><p>Veröffentlicht von ".$autor."</p><p class='time'>am ".$zeit."</p></h5>
-                                    </h1>
-                                    <p>".nl2br($inhalt)."</p>
-                                </div>
-                            </div>
-                        </div>");
+                    echo("
+                    <script>
+                        var inhalt = ".json_encode($news[$i]["inhalt"]).";
+                        var lessinhalt = inhalt.substring(0, ".json_encode($lesscharnum).");
+                        if(inhalt.length > lessinhalt.length){
+                            lessinhalt = lessinhalt.trim();
+                            while (lessinhalt[lessinhalt.length-1] === '.') lessinhalt = lessinhalt.slice(0,-1);
+                            lessinhalt = lessinhalt + '&hellip;';
+                        }
+                        lessinhalt".$id." = nl2br(lessinhalt);
+                        var fullinhalt".$id." = nl2br(inhalt);
+                        var autor".$id." = ".json_encode($news[$i]["autor"]).";
+                        var titel".$id." = ".json_encode($news[$i]["titel"]).";
+                        var zeit".$id." = ".json_encode(date_format(date_create($news[$i]["zeit"]), "d.m.Y H:i") . " Uhr").";
+                        $('#lessinhalt".$id."').html(lessinhalt".$id.".valueOf());
+                        $('#title".$id."').html(titel".$id.".valueOf());
+                        $('#autor".$id."').html(autor".$id.".valueOf());
+                        $('#zeit".$id."').html(zeit".$id.".valueOf());
+                    </script>
+                    ");
                 }
+                echo("<div onclick=\"event.stopPropagation();$('.readmorebox').hide()\" style='left: 0;' class='readmorebox'>
+                    <span class='helper'></span>
+                    <div onclick=\"event.stopPropagation();\" class='scroll'>
+                        <div onclick=\"event.stopPropagation();$('.readmorebox').hide()\" class='popupCloseButton'>&times;</div>
+                        <div class='newspopup'>
+                            <h1><span id='popuptitle'></span><br>
+                                <h5><p>Veröffentlicht von <span id='popupautor'></span></p><p class='time'>am <span id='popupzeit'></span></p></h5>
+                            </h1>
+                            <p><span id='popupinhalt'></span></p>
+                        </div>
+                    </div>
+                </div>");
                 $article_nums = count($news);
                 if ($article_nums/$items > 16) {
                     $pagwidth = 16; // TODO: Add overflow with scrollbar
