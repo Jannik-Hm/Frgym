@@ -33,7 +33,7 @@
             <?php
                 if(isset($_POST['submit'])) {
                     $items = $_POST["itemsnum"];
-                    echo("'<script type='text/javascript'>window.location ='".str_replace("??","?",str_replace($_SERVER["QUERY_STRING"], "", $_SERVER["REQUEST_URI"])."?page="."1"."&items=".$items)."'</script>'");
+                    echo("'<script type='text/javascript'>window.location ='".forwardwithoutquery("?page="."1"."&items=".$items)."'</script>'");
                 }
 
                 require_once realpath($_SERVER["DOCUMENT_ROOT"])."/sites/credentials.php";
@@ -63,7 +63,7 @@
                         if($GLOBALS["news.all"] == 1 || ($GLOBALS["news.own"] == 1 && $_SESSION["vorname"] . " " . $_SESSION["nachname"] == $autor)){
                             echo("
                             <a title='Bearbeiten' onclick=\"event.stopPropagation();window.location='/admin/news/edit?id=" .$id. "'\"><i style='margin-right: 30px' class='fas fa-edit'></i></a>
-                            <a title='Löschen' onclick=\"event.stopPropagation();$('#confirmdelete').attr('href', '/admin/news/delete.php?id=".$id."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du die Neuigkeit &#34;".$title."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></a>
+                            <a title='Löschen' onclick=\"event.stopPropagation();$('#confirmdelete').attr('href', '/admin/news/delete.php?id=".$id."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du die Neuigkeit &#34;'+titel".$id."+'&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></a>
                                 ");
                             }
                         echo("</div>");
@@ -113,11 +113,11 @@
                     $pagwidth = ceil($article_nums/$items);
                 }
                 echo ("<div style='width: ".($pagwidth*75+150)."px;' class='pagination'>");
-                if ($page > 1) {$prevpage = "href='https://".$_SERVER["HTTP_HOST"] . str_replace("??","?",str_replace($_SERVER["QUERY_STRING"], "", $_SERVER["REQUEST_URI"])."?page=".($page-1)."&items=".$items)."'";}else{$prevpage = null;}
-                if ($page < $article_nums/$items) {$nextpage = "href='https://".$_SERVER["HTTP_HOST"] . str_replace("??","?",str_replace($_SERVER["QUERY_STRING"], "", $_SERVER["REQUEST_URI"])."?page=".($page+1)."&items=".$items)."'";}else{$nextpage = null;}
+                if ($page > 1) {$prevpage = "href='".forwardwithoutquery("?page=".($page-1)."&items=".$items)."'";}else{$prevpage = null;}
+                if ($page < $article_nums/$items) {$nextpage = "href='".forwardwithoutquery("?page=".($page+1)."&items=".$items)."'";}else{$nextpage = null;}
                 echo("<a ".($prevpage)."'><i class='fas fa-chevron-left'></i></a>");
                 for($j=1; $j < $article_nums/$items+1; $j++) {
-                    echo("<a href='https://".$_SERVER["HTTP_HOST"] . str_replace("??","?",str_replace($_SERVER["QUERY_STRING"], "", $_SERVER["REQUEST_URI"])."?page=".$j."&items=".$items)."'>".$j."</a>");
+                    echo("<a href='".forwardwithoutquery("?page=".$j."&items=".$items)."'>".$j."</a>");
                 }
                 echo("<a ".$nextpage."><i class='fas fa-chevron-right'></i></a>");
                 echo("</div>");
