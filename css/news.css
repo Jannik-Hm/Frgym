@@ -82,19 +82,21 @@ div.news ul li {
   margin: 0;
 }
 
-.page-ending {
+/* .page-ending {
   height: 50px;
-}
+} */
 
 .singlenews h1,
 .singlenews h5,
 .singlenews p {
   padding-left: 20px;
+  text-align: left;
 }
 
 .singlenews h1 {
   padding-top: 20px;
   margin-bottom: 3px;
+  font-size: 35px;
 }
 
 .singlenews p {
@@ -217,14 +219,14 @@ div.pagination a:hover {
   }
 }
 
-div.adminbtn {
+.singlenews div.adminbtn {
   margin-bottom: 0;
   margin-top: 25px;
   margin-right: 30px;
   float: right;
 }
 
-div.adminbtn a {
+.singlenews div.adminbtn a {
   cursor: pointer;
 }
 
@@ -274,6 +276,7 @@ div.confirmation a {
   margin: auto;
   margin-bottom: 30px;
   cursor: pointer;
+  font-family: "montserrat", sans-serif;
 }
 div.confirmation a.repeat,
 div.confirmation a.abort {
