@@ -15,6 +15,7 @@
                     $page = 1;
                 }
                 $lesscharnum = 700;
+                require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
 
             ?>
 
@@ -124,13 +125,13 @@
                 if($GLOBALS["admin"]==true){
                     echo("
                     <div style='left: 0;' class='confirm'>
-                    <span class='helper'></span>
-                    <div class='scroll'>
-                        <div class='confirmation'>
-                            <h1>Löschung bestätigen</h1><br>
-                            <p id='confirmtext'></p><br>
-                            <a onclick=\"$('.confirm').hide();\" class='abort'>Abbrechen</a>
-                            <a id='confirmdelete' class='delete'>Löschen</a>
+                        <span class='helper'></span>
+                        <div class='scroll'>
+                            <div class='confirmation'>
+                                <h1>Löschung bestätigen</h1><br>
+                                <p id='confirmtext'></p><br>
+                                <a onclick=\"$('.confirm').hide();\" class='abort'>Abbrechen</a>
+                                <a id='confirmdelete' class='delete'>Löschen</a>
                             </div>
                         </div>
                     </div>
