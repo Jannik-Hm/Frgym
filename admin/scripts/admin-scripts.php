@@ -15,6 +15,11 @@
         }
     }
 
+    function getsqlconnection() {
+        require_once realpath($_SERVER["DOCUMENT_ROOT"])."/sites/credentials.php";
+        return get_connection();
+    }
+
     function getperm() {
         verifylogin();
 
