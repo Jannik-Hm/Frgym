@@ -7,7 +7,6 @@
             $lesscharnum = 700;
         ?>
 
-
         <div class="newsslidershow">
 
             <?php
@@ -116,3 +115,4 @@
             </script>
         </div>
     </div>
+</section>
