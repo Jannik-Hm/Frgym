@@ -73,7 +73,7 @@
             </div>
             <div>
                 <?php
-                    include "$root/news/news-slide.php";
+                    include "$root/admin/scripts/ressources/list-news-slide.php";
                 ?>
             </div>
         </section>
