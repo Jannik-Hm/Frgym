@@ -1,5 +1,5 @@
 <section id="previewiframe" style="display: none">
-    <link rel="stylesheet" href="/css/documentstable2.css">
+    <link rel="stylesheet" href="/css/documents.css">
     <div onclick="event.stopPropagation();$('.filepreview').hide()" style='left: 0;' class='filepreview'>
         <span class='helper'></span>
         <div>
