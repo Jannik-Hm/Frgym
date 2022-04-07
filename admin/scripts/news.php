@@ -14,7 +14,7 @@
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         verifylogin();
         getperm();
-        if(isset($_GET["id"])){
+        if($edit && isset($_GET["id"])){
             $conn = getsqlconnection();
             $id = $_GET['id'];
             $sql = "SELECT * FROM news WHERE id = " . $id . ";";
@@ -25,6 +25,8 @@
                 $GLOBALS["inhalt"] = $row["inhalt"];
                 $GLOBALS["autor"] = $row["autor"];
             }
+        }elseif($edit && ! isset($id)){
+            $edit = false;
         }
         function disable_news_editor(){
             echo("<script>$('.no_perm').show();</script>");
@@ -32,15 +34,10 @@
         }
         if($GLOBALS["news.own"] == 1 || $GLOBALS["news.all"] == 1){
             $GLOBAS["disabled"] = false;
-            if($edit && $GLOBALS["news.all"] == 1){
-                $GLOBALS["edit"] = $edit;
-            }elseif($edit && $GLOBALS["news.own"] == 1){
-                if($GLOBALS["autor"] == $_SESSION["vorname"] . " " . $_SESSION["nachname"]){
-                    $GLOBALS["ownedit"] = $edit;
-                }else{
-                    disable_news_editor();
-                }
+            if($edit && ($GLOBALS["news.all"] == 1 || ($GLOBALS["news.own"] == 1 && $GLOBALS["autor"] == $_SESSION["vorname"] . " " . $_SESSION["nachname"]))){
+                $GLOBALS["edit"] = true;
             }elseif(! $edit){
+                $GLOBALS["edit"] = false;
             }else{
                 disable_news_editor();
             }
