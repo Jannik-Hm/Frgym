@@ -47,4 +47,23 @@
         include realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/news-editor.php";
     }
 
+    function delete_news($id){
+        require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+        verifylogin();
+        getperm();
+        $conn = getsqlconnection();
+        $sql = "SELECT autor FROM news WHERE id = " . $id . ";";
+        $result = mysqli_query($conn,$sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $autor = $row["autor"];
+        }
+        if($GLOBALS["news.all"] == 1 || ($GLOBALS["news.own"] == 1 && $autor == $_SESSION["vorname"] . " " . $_SESSION["nachname"])){
+            $insert = mysqli_query($conn, "DELETE FROM news WHERE id='{$id}'");
+            if ($insert) {echo '<script type="text/javascript">window.location = "/admin/news/"</script>';}
+        }else{
+            echo("<script>$('.no_perm').show();</script>");
+        }
+    }
+
 ?>
