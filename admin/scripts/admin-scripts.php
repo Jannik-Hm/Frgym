@@ -6,9 +6,7 @@
     }
 
     function verifylogin() {
-
         if(!isset($_SESSION["user_id"])) {
-            // header("Location: /admin/login/");
             echo "<script>window.location.replace('/admin/login/')</script>";
         }else{
             return true;
