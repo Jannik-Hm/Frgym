@@ -193,69 +193,6 @@ label#file {
   resize: none;
 }
 
-.querycheck {
-  margin: 20px 25%;
-}
-
-.page-ending {
-  height: 125px;
-}
-
-/* Popup box BEGIN */
-div.confirm {
-  margin-left: 0;
-  background: rgba(0, 0, 0, 0.8);
-  /* cursor: pointer; */
-  display: none;
-  height: 100%;
-  position: fixed;
-  text-align: center;
-  top: 0;
-  width: 100%;
-  z-index: 10000;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-}
-div.confirm .helper {
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-}
-div.confirm > div {
-  text-align: center;
-  margin-top: 25px;
-  margin-bottom: 25px;
-  box-shadow: 10px 10px 60px #555;
-  display: inline-block;
-  height: auto;
-  max-width: 900px;
-  min-height: 100px;
-  vertical-align: middle;
-  width: 85%;
-  position: relative;
-  border-radius: 8px;
-  padding: 5px 5%;
-}
-div.confirmation a {
-  border-radius: 15px;
-  border: 0px;
-  padding: 20px 30px;
-  width: 300px;
-  display: inline-block;
-  margin: auto;
-  margin-bottom: 30px;
-  cursor: pointer;
-}
-div.confirmation a.repeat,
-div.confirmation a.abort {
-  margin-right: 100px;
-}
-
-div.confirmation div#deletefirst a {
-  display: none;
-}
-/* Popup box END */
-
 /* Lehrertable */
 
 #lehrerTableSearch {
@@ -358,20 +295,6 @@ div.confirmation div#deletefirst a {
 
 /* Lehrertable End */
 
-@media (max-width: 1100px) {
-  div.confirmation a {
-    width: 50%;
-    min-width: 200px;
-  }
-  div.confirmation div#abortfirst {
-    display: none;
-  }
-  div.confirmation div#deletefirst a {
-    margin-right: auto;
-    display: block;
-  }
-}
-
 /* Colors */
 
 .add-input form label,
@@ -379,16 +302,10 @@ div.confirmation div#deletefirst a {
 .add-input form .faecher input,
 .add-input form textarea,
 .add-input form ::placeholder,
-.querycheck,
-div.confirm > div,
 #lehrerTableSearch::placeholder,
 #lehrerTable tr {
   color: rgb(102, 102, 102);
   opacity: 1;
-}
-
-.querycheck {
-  background-color: #3d859c;
 }
 
 .add-input form input,
@@ -396,7 +313,6 @@ div.confirm > div,
 .add-input form textarea,
 .add-input form label#changepic,
 .add-input form label#rmpic,
-div.confirm > div,
 #lehrerTableSearch,
 #lehrerTable tr:nth-child(even) {
   background: rgb(205, 211, 210);
@@ -407,19 +323,6 @@ div.confirm > div,
 
 .add-input form div#invalidfiletype p {
   color: rgb(228, 76, 76);
-}
-
-div.confirmation a.repeat {
-  background-color: #40b459;
-}
-div.confirmation a.back {
-  background-color: #39bd60;
-}
-div.confirmation a.abort {
-  background-color: rgb(57, 152, 175);
-}
-div.confirmation a.delete {
-  background-color: rgb(180, 28, 28);
 }
 
 #lehrerTable,
@@ -436,17 +339,12 @@ div.confirmation a.delete {
 }
 
 @media (prefers-color-scheme: dark) {
-  html,
-  body {
-    background-color: rgb(71, 71, 71);
-    color: rgb(226, 226, 226);
-  }
   .add-input form input,
   .add-input form ::placeholder,
   .add-input form textarea,
   .add-input form label,
-  div.confirm > div,
   #lehrerTableSearch::placeholder,
+  #lehrerTableSearch,
   #lehrerTable tr {
     color: rgb(226, 226, 226);
     opacity: 1; /* Firefox */
@@ -456,7 +354,6 @@ div.confirmation a.delete {
   .add-input form label#file,
   .add-input form label#changepic,
   .add-input form label#rmpic,
-  div.confirm > div,
   #lehrerTableSearch {
     background: rgb(122, 133, 131);
     border-bottom: none;

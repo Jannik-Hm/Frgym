@@ -65,3 +65,13 @@ textarea {
   margin: auto;
   margin-top: 10px;
 }
+
+/* Colors */
+
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    background-color: rgb(71, 71, 71);
+    color: rgb(226, 226, 226);
+  }
+}
