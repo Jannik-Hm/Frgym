@@ -154,23 +154,10 @@
         ?>
         
         </table>
-        <div style='left: 0;' class='confirm'>
-            <span class='helper'></span>
-            <div class='scroll'>
-                <div class='confirmation'>
-                    <h1>Löschung bestätigen</h1><br>
-                    <p id='confirmtext'></p><br>
-                    <div id="abortfirst">
-                        <a onclick="$('.confirm').hide();" class='abort'>Abbrechen</a>
-                        <a id='confirmdelete' class='delete'>Löschen</a>
-                    </div>
-                    <div id="deletefirst">
-                        <a id='confirmdelete' class='delete'>Löschen</a>
-                        <a onclick="$('.confirm').hide();" class='abort'>Abbrechen</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php
+            require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+            deleteconfirm("Löschung bestätigen", "confirmtext", "Abbrechen", "Löschen", "confirmdelete");
+        ?>
         <?php include_once "$root/sites/footer.html" ?>
     </body>
 </html>

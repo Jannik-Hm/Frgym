@@ -105,7 +105,16 @@
         </form>
     </div>
 
-    <div style='left: 0;' class='confirm'>
+    <?php
+        require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+        if($GLOBALS["edit"]){
+            confirmation("Änderungen erfolgreich!", "Der Lehrer wurde erfolgreich aktualisiert.", "Zurück zur Übersicht", "/admin/lehrer/");
+        }else{
+            confirmation("Hinzufügen erfolgreich!", "Der Lehrer wurde erfolgreich hinzugefügt.", "Weiteren Lehrer hinzufügen", "/admin/lehrer/add/", "Zurück zur Übersicht", "/admin/lehrer/");
+        }
+    ?>
+
+    <!-- <div style='left: 0;' class='confirm'>
         <span class='helper'></span>
         <div class='scroll'>
             <div class='confirmation'>
@@ -114,7 +123,7 @@
                 <a href='/admin/lehrer/' class='back'>Zurück zur Übersicht</a>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <script>
             function imagePreview(fileInput) {

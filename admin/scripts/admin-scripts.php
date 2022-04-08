@@ -54,12 +54,13 @@
     }
 
     function confirmation($heading, $text, $left, $leftlink, $right = null, $rightlink = null){
+        echo('<link rel="stylesheet" href="/admin/css/confirm.css">');
         echo("<div style='left: 0;' class='confirm'>
         <span class='helper'></span>
         <div class='scroll'>
             <div class='confirmation'>
                 <h1>".$heading."</h1><br>
-                <p>".$text."</p><br>
+                <p id='confirmtext'>".$text."</p><br>
                 <a href='".$leftlink."' class='repeat'>".$left."</a>");
                 if($right != null && $rightlink != null){
                     echo("<a href='".$rightlink."' class='back'>".$right."</a>");
@@ -67,6 +68,27 @@
                     echo("<style>div.confirmation a.repeat{margin-right:0}</style>");
                 }
                 echo("
+            </div>
+        </div>
+    </div>");
+    }
+
+    function deleteconfirm($heading, $textid, $abort, $delete, $deleteid){
+        echo('<link rel="stylesheet" href="/admin/css/confirm.css">');
+        echo("<div style='left: 0;' class='confirm'>
+        <span class='helper'></span>
+        <div class='scroll'>
+            <div class='confirmation'>
+                <h1>".$heading."</h1><br>
+                <p id='".$textid."'></p><br>
+                <div id='abortfirst'>
+                    <a onclick=\"$('.confirm').hide();\" class='abort'>".$abort."</a>
+                    <a id='".$deleteid."' class='delete'>".$delete."</a>
+                </div>
+                <div id='deletefirst'>
+                    <a id='".$deleteid."' class='delete'>".$delete."</a>
+                    <a onclick=\"$('.confirm').hide();\" class='abort'>".$abort."</a>
+                </div>
             </div>
         </div>
     </div>");

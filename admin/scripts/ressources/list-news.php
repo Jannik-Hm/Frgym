@@ -123,19 +123,20 @@
                 echo("<a ".$nextpage."><i class='fas fa-chevron-right'></i></a>");
                 echo("</div>");
                 if($GLOBALS["admin"]==true){
-                    echo("
-                    <div style='left: 0;' class='confirm'>
-                        <span class='helper'></span>
-                        <div class='scroll'>
-                            <div class='confirmation'>
-                                <h1>Löschung bestätigen</h1><br>
-                                <p id='confirmtext'></p><br>
-                                <a onclick=\"$('.confirm').hide();\" class='abort'>Abbrechen</a>
-                                <a id='confirmdelete' class='delete'>Löschen</a>
-                            </div>
-                        </div>
-                    </div>
-                    ");
+                    // echo("
+                    // <div style='left: 0;' class='confirm'>
+                    //     <span class='helper'></span>
+                    //     <div class='scroll'>
+                    //         <div class='confirmation'>
+                    //             <h1>Löschung bestätigen</h1><br>
+                    //             <p id='confirmtext'></p><br>
+                    //             <a onclick=\"$('.confirm').hide();\" class='abort'>Abbrechen</a>
+                    //             <a id='confirmdelete' class='delete'>Löschen</a>
+                    //         </div>
+                    //     </div>
+                    // </div>
+                    // ");
+                    deleteconfirm("Löschung bestätigen", "confirmtext", "Abbrechen", "Löschen", "confirmdelete");
                 }
             ?>
         </ul>

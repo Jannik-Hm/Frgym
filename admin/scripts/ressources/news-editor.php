@@ -16,7 +16,6 @@
             <input type="text" size="50%" placeholder="Titel*" name="titel" <?php if($edit)echo 'value="'.$titel.'"'; ?> <?php if($disabled){echo "disabled";} ?> required><br>
             <textarea rows="10" columns="50%" placeholder="Inhalt der Nachricht*" name="inhalt" <?php if($disabled){echo "disabled";} ?> required><?php if($edit)echo $inhalt; ?></textarea><br>
             <input type="submit" name="submit" <?php if($disabled){echo "disabled";} ?> value="Senden">
-            <div class="page-ending"></div>
         </form>
     </div>
 
