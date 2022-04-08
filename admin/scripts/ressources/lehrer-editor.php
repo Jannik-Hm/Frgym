@@ -1,4 +1,5 @@
 <section>
+    <link rel="stylesheet" href="/admin/css/lehrer.css">
     <?php
         $root = realpath($_SERVER["DOCUMENT_ROOT"]);
         require_once "$root/admin/scripts/file-upload.php";
@@ -10,19 +11,14 @@
         $edit = $GLOABLS["edit"];
         $id = $GLOBALS["id"];
         $faecher = $GLOBALS["faecher"];
-        $date = $GLOBALS["date"];
-        $vorname = $GLOBALS["vorname"];
-        $nachname = $GLOBALS["nachname"];
         $position = $GLOBALS["position"];
-        $email = $GLOBALS["email"];
-        $infotext = $GLOBALS["infotext"];
     ?>
 
     <div class="add-input">
         <form method="POST" enctype="multipart/form-data">
-            <input id="first" type="text" width="" placeholder="Vorname*" name="vorname" value="<?php echo $vorname; ?>"  <?php if($disabled or $ownedit){echo("disabled");} ?> required><br>
-            <input type="text" placeholder="Nachname*" name="nachname" value="<?php echo $nachname; ?>" <?php if($disabled or $ownedit){echo("disabled");} ?> required><br>
-            <input type="email" placeholder="Email*" name="email" value="<?php echo $email; ?>" <?php if($disabled or $ownedit){echo("disabled");} ?> required><br>
+            <input id="first" type="text" width="" placeholder="Vorname*" name="vorname" value="<?php echo $GLOBALS["vorname"]; ?>"  <?php if($disabled or $ownedit){echo("disabled");} ?> required><br>
+            <input type="text" placeholder="Nachname*" name="nachname" value="<?php echo $GLOBALS["nachname"]; ?>" <?php if($disabled or $ownedit){echo("disabled");} ?> required><br>
+            <input type="email" placeholder="Email*" name="email" value="<?php echo $GLOBALS["email"]; ?>" <?php if($disabled or $ownedit){echo("disabled");} ?> required><br>
             <div class="position">
                 <label class="heading2">Position</label>
                 <ul>
@@ -83,14 +79,14 @@
                     </ul>
                 </ul>
             </div>
-            <textarea rows="10" columns="50%" placeholder="Infotext (Optional)" name="beschreibung" <?php if($disabled){echo "disabled";} ?>><?php echo $infotext; ?></textarea><br>
-            <input type="date" placeholder="Geburtstag (Optional)" name="geburtstag" value="<?php echo $date; ?>" Optional <?php if($disabled){echo "disabled";} ?>><br>
+            <textarea rows="10" columns="50%" placeholder="Infotext (Optional)" name="beschreibung" <?php if($disabled){echo "disabled";} ?>><?php echo $GLOBALS["infotext"]; ?></textarea><br>
+            <input type="date" placeholder="Geburtstag (Optional)" name="geburtstag" value="<?php echo $GLOBALS["date"]; ?>" Optional <?php if($disabled){echo "disabled";} ?>><br>
             <?php dropzone("pictureUpload", array("jpg","jpeg","png", "webp"), "site-ressources/lehrer-bilder/", strtolower(str_replace(" ","_",$_POST["vorname"])."_".str_replace(" ","_",$_POST["nachname"])), false, false); ?>
             <style>#drop_zone{width: 90%}</style>
             <div id="preview">
                 <?php
                     $file_exists = false;
-                    $imgpath = "/files/site-ressources/lehrer-bilder/" . strtolower(str_replace(" ","_",$vorname)."_".str_replace(" ","_",$nachname)).".";
+                    $imgpath = "/files/site-ressources/lehrer-bilder/" . strtolower(str_replace(" ","_",$GLOBALS["vorname"])."_".str_replace(" ","_",$GLOBALS["nachname"])).".";
                     $phppath = $root.$imgpath;
                     foreach(array("jpg","jpeg","png", "webp") as $extens){
                         if (file_exists($phppath.$extens)) {
