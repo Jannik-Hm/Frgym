@@ -18,6 +18,7 @@
             include_once "$root/admin/sites/head.html";
 
         ?>
+        <link rel="stylesheet" href="/admin/css/lehrer.css">
         <title>Lehrerliste - Friedrich-Gymnasium Luckenwalde</title>
         <script>
             function searchTable() {
