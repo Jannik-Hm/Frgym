@@ -65,7 +65,7 @@
                         echo("  <td class='floatright' nowrap='nowrap'>
                                 <p>
                                 <a onclick='event.stopPropagation();' href='/admin/dokumente/rename.php?path=".str_replace("/files/","", $pathworoot)."/".$i."' title='Ordnername bearbeiten'><i class='fas fa-edit' style='cursor: pointer; margin-right: 5px;'></i></a>
-                                <a onclick='event.stopPropagation();$(\".confirm\").show();$(\"#confirmdelete\").attr(\"href\",\"/admin/scripts/delete-file.php?path=".str_replace("/files/","", $pathworoot)."/".$i."\")' title='Ordner löschen'><i class='fas fa-trash red' style='color:#F75140; margin-right: 5px;'></i></a>
+                                <a onclick=\"event.stopPropagation();$('.confirm').show();$('#confirmdelete').attr('href','/admin/scripts/delete-file.php?path=".str_replace("/files/","", $pathworoot)."/".$i."');$('#confirmtext').html('Möchtest du den Ordner &#34;".$i."&#34; wirklich löschen?')\" title='Ordner löschen'><i class='fas fa-trash red' style='color:#F75140; margin-right: 5px;'></i></a>
                                 </p>
                             </td>
                             </tr>");
@@ -100,7 +100,7 @@
                                     <a class='downloadlink' href='".$pathworoot."/".$i."' onclick=\"event.stopPropagation();\" download><i class='far fa-save download' title='Herunterladen'></i></a>");
                                 if ($GLOBALS["admin"] == true) {
                                     echo("<a onclick='event.stopPropagation();' href='/admin/dokumente/rename.php?path=".str_replace("/files/","", $pathworoot)."/".$i."' title='Dateiname bearbeiten'><i class='fas fa-edit' style='cursor: pointer; margin-right: 5px;'></i></a>");
-                                    echo("<a onclick='event.stopPropagation();$(\".confirm\").show();$(\"#confirmdelete\").attr(\"href\",\"/admin/scripts/delete-file.php?path=".str_replace("/files/","", $pathworoot)."/".$i."\")' title='Datei löschen'><i class='fas fa-trash red' style='color:#F75140; margin-right: 5px;'></i></a>");
+                                    echo("<a onclick=\"event.stopPropagation();$('.confirm').show();$('#confirmdelete').attr('href','/admin/scripts/delete-file.php?path=".str_replace("/files/","", $pathworoot)."/".$i."');$('#confirmtext').html('Möchtest du die Datei &#34;".substr($i,0,20).(strlen($i)>20 ? "&hellip;":"")."&#34; wirklich löschen?')\" title='Datei löschen'><i class='fas fa-trash red' style='color:#F75140; margin-right: 5px;'></i></a>");
                                 }
                         echo("      <span class='editdate'>Hochgeladen am: ".date("d.m.Y H:i:s", filemtime($path."/".$i))."</span>
                                 </p>
@@ -122,25 +122,8 @@
             }
             listfiles($dir, $scriptpath);
             if($GLOBALS["admin"] == true) {
-                echo("
-                <div style='left: 0;' class='confirm'>
-                    <span class='helper'></span>
-                    <div class='scroll'>
-                        <div class='confirmation'>
-                            <h1>Löschung bestätigen</h1><br>
-                            <p id='confirmtext'></p><br>
-                            <div id=\"abortfirst\">
-                                <a onclick=\"$('.confirm').hide();\" class='abort'>Abbrechen</a>
-                                <a id='confirmdelete' class='delete'>Löschen</a>
-                            </div>
-                            <div id=\"deletefirst\">
-                                <a id='confirmdelete' class='delete'>Löschen</a>
-                                <a onclick=\"$('.confirm').hide();\" class='abort'>Abbrechen</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                ");
+                require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+                deleteconfirm("Löschung bestätigen", "confirmtext", "Abbrechen", "Löschen", "confirmdelete");
             }
         ?>
 
