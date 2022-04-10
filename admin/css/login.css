@@ -21,7 +21,7 @@
 
 #loginForm input[type="text"],
 #loginForm input[type="password"] {
-  width: 800px;
+  width: clamp(200px,90%,800px);
   height: 45px;
   padding: 20px 10px;
   outline: none;
@@ -29,7 +29,7 @@
 
 #loginForm input[type="submit"] {
   margin-top: 15px;
-  width: 400px;
+  width: clamp(150px,70%,400px);
   height: 50px;
   cursor: pointer;
 }
@@ -50,20 +50,7 @@
   color: rgb(233, 94, 75);
 }
 
-@media (max-width: 900px) {
-  #loginForm input[type="text"],
-  #loginForm input[type="password"] {
-    width: 90%;
-  }
-  #loginForm input[type="submit"] {
-    width: 60%;
-  }
-}
-
 @media (max-width: 350px) {
-  #loginForm input[type="submit"] {
-    width: 70%;
-  }
   .loginwelcome {
     display: none;
   }
