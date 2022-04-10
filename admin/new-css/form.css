@@ -1,0 +1,68 @@
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+label#file,
+input[type="submit"],
+input[type="password"] {
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    align-self: center;
+    position: relative;
+    width: 90%;
+    height: 30px;
+    font-size: 15px;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    padding-left: 10px;
+}
+
+input[type="submit"] {
+    cursor: pointer;
+}
+
+textarea {
+    font-family: "montserrat", sans-serif;
+    align-self: center;
+    position: relative;
+    width: 90%;
+    font-size: 15px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    resize: none;
+}
+
+.showform {
+    margin-left: 5%;
+    background: rgb(122, 133, 131);
+    border-radius: 15px;
+    height: 40px;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+}
+
+.showform p {
+    vertical-align: center;
+    margin: auto;
+}
+
+/* Colors */
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+label#file,
+input[type="submit"],
+input[type="password"] {
+    background: rgb(122, 133, 131);
+    color: #fff;
+}

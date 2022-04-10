@@ -1,0 +1,70 @@
+div.no_perm {
+  margin-left: 0;
+  display: none;
+  height: 100%;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+div.no_perm .helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+div.no_perm > div {
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  box-shadow: 10px 10px 60px #555;
+  display: inline-block;
+  height: auto;
+  max-width: 900px;
+  min-height: 100px;
+  vertical-align: middle;
+  width: 85%;
+  position: relative;
+  border-radius: 8px;
+  padding: 5px 5%;
+}
+div.no_permission a {
+  border-radius: 15px;
+  border: 0px;
+  padding: 20px 30px;
+  width: 300px;
+  display: inline-block;
+  margin: auto;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+/* colors */
+
+div.no_perm {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+div.no_perm > div {
+  background: rgb(205, 211, 210);
+}
+
+div.no_permission {
+  color: rgb(102, 102, 102);
+}
+
+div.no_permission a.back {
+  background-color: #39bd60;
+}
+
+@media (prefers-color-scheme: dark) {
+  div.no_perm > div {
+    background-color: rgb(122, 133, 131);
+  }
+
+  div.no_permission {
+    color: rgb(226, 226, 226);
+  }
+}
