@@ -1,0 +1,140 @@
+.contact-page {
+  /* margin-top: 25px; */
+  position: relative;
+  color: #fff;
+  font-family: "montserrat", sans-serif;
+  justify-content: center;
+  text-align: center;
+  align-self: center;
+  /* left: 50%;
+  right: 50%;
+  transform: translate(-50%); */
+  margin-left: auto;
+  margin-right: auto;
+  width: 1100px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.clear-float {
+  clear: both;
+}
+
+.contact-page h1 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.contact-page .adresse {
+  width: 1100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  height: 500px;
+  margin: 0;
+  margin-bottom: 25px;
+}
+
+.contact-page .adresse .adresse-text {
+  /* top: 50%;
+  transform: translateY(-50%);
+  position: absolute; */
+  padding: 15px;
+  border: 2px solid #fff;
+  border-radius: 15px;
+}
+
+.contact-page .adresse i {
+  position: relative;
+}
+
+.contact-page .adresse p {
+  position: relative;
+  margin-top: 25px;
+}
+
+.contact-page i {
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline;
+}
+
+.contact-page i p,
+.contact-page .adresse i p {
+  font-family: "montserrat", sans-serif;
+  font-weight: normal;
+  font-size: 18px;
+  margin-left: 10px;
+  display: inline;
+}
+
+.contact-page .contact {
+  border-top: 2px solid #fff;
+  align-items: center;
+  left: 0;
+  margin-left: 0;
+  padding: 0;
+  padding-top: 25px;
+}
+
+.contact-page .contact div {
+  padding: 10px;
+  margin-bottom: 50px;
+  margin-left: 25px;
+  margin-right: 25px;
+  left: 0;
+  display: inline-block;
+  padding: 15px;
+  border: 2px solid #fff;
+  border-radius: 15px;
+}
+
+.contact-page .contact div.left,
+.contact-page .contact div.right {
+  display: inline-block;
+  margin: 25px;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  border: none;
+  height: 100px;
+  width: 90px;
+}
+
+.contact-page .contact div.left p,
+.contact-page .contact div.right p {
+  font-size: 15px;
+  margin-top: 5px;
+}
+
+.contact-page .mapdiv {
+  margin-right: 50px;
+}
+
+.contact-page .map {
+  border: 0px;
+  width: 500px;
+  height: 400px;
+  /* margin: 0;
+  padding: 0; */
+  /* top: 50px; */
+  position: relative;
+  /* display: none; */
+  border-radius: 15px;
+}
+
+@media (max-width: 1200px) {
+  .contact-page {
+    width: 95%;
+  }
+  .contact-page .adresse {
+    width: 95%;
+  }
+  .contact-page .mapdiv {
+    width: 95%;
+  }
+  .contact-page .map {
+    width: 100%;
+  }
+}

@@ -1,0 +1,148 @@
+#fileTable {
+  margin-top: 20px;
+  width: 90%;
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+#fileTable tr {
+  border-bottom: 1px solid gray;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#fileTable tr td {
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#fileTable tr td:first-child {
+  padding-left: 15px;
+}
+
+#fileTable tr td:nth-child(1) {
+  overflow: hidden;
+  min-width: 100px;
+  max-width: 50vw;
+  /* min-width: 150px; */
+  white-space: nowrap;
+}
+
+#fileTable tr td:nth-child(1) p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#fileTable tr td:nth-child(2) {
+  width: fit-content;
+  /* max-width: fit-content; */
+  overflow: hidden;
+  white-space: nowrap;
+  /* align-content: right; */
+}
+
+#fileTable tr td:nth-child(2) p {
+  padding-left: 10px;
+  /* max-width: fit-content; */
+  /* margin-right: 0; */
+  /* right: 0; */
+}
+
+#fileTable tr td:nth-child(2) p {
+  display: block;
+}
+
+#fileTable tr td:first-child i {
+  padding-right: 10px;
+}
+
+#fileTable tr td.floatright {
+  text-align: right;
+  padding-right: 15px;
+}
+
+#fileTable tr td.floatright .downloadlink {
+  margin-right: 10px;
+}
+
+#fileTable tr td.floatright .download:hover {
+  color: #4ba7c5;
+}
+
+/* Popup box BEGIN */
+div[class^="img"],
+div.filepreview {
+  margin-left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  display: none;
+  height: 100%;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
+}
+div[class^="img"] .helper,
+div.filepreview .helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+div[class^="img"] > div,
+div.filepreview > div {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  background-color: transparent;
+  display: inline-block;
+  vertical-align: middle;
+  height: fit-content;
+  max-height: 90%;
+  width: fit-content;
+  max-width: calc(95% - 35px);
+  position: relative;
+}
+div[class^="img"] [class^="popupCloseButton"],
+div.filepreview [class^="popupCloseButton"] {
+  background-color: rgb(122, 133, 131);
+  border: 3px solid #999;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: arial;
+  font-weight: bold;
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 25px;
+  line-height: 30px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+div[class^="img"] [class^="popupCloseButton"]:hover,
+div.filepreview [class^="popupCloseButton"]:hover {
+  background-color: #fff;
+}
+div.img img {
+  cursor: auto;
+  border-radius: 8px;
+  box-shadow: 10px 10px 60px #555;
+  width: 100%;
+  height: 100%;
+}
+div.filepreview div iframe {
+  position: relative;
+  cursor: auto;
+  border-radius: 8px;
+  box-shadow: 10px 10px 60px #555;
+  width: 85vw;
+  height: 80vh;
+  z-index: +0;
+}
+/* Popup box END */

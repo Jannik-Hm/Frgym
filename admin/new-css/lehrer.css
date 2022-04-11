@@ -1,0 +1,487 @@
+/* Lehrer Editor */
+
+.add-input {
+    margin: 0;
+  }
+  
+  .add-input form {
+    margin: 0;
+    margin-bottom: 50px;
+  }
+  
+  .add-input form label {
+    font-size: 16px;
+    padding: 4px 4px;
+  }
+  
+  .add-input form input,
+  label#file {
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #3d859c;
+    overflow: none;
+    font-size: 16px;
+    padding: 4px 4px;
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+    float: none;
+    margin: auto;
+  }
+  
+  .add-input form input#first {
+    margin-top: 25px;
+  }
+  
+  .add-input form input[type="text"],
+  .add-input form input[type="email"],
+  .add-input form input[type="number"],
+  .add-input form input[type="date"],
+  .add-input form label#file,
+  .add-input form input[type="submit"],
+  .add-input form textarea {
+    width: clamp(360px, 95%, 1000px);
+  }
+  
+  .add-input form label#changepic,
+  .add-input form label#rmpic {
+    width: clamp(150px, 95%, 400px);
+  }
+  
+  .add-input form input[type="file"] {
+    display: none;
+  }
+  
+  .add-input form label#file {
+    border: none;
+    height: fit-content;
+    padding: 8px auto;
+    align-self: center;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .add-input form div#preview {
+    display: flex;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    justify-content: center;
+    align-content: center;
+  }
+  
+  .add-input form div#preview img {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .add-input form div#invalidfiletype {
+    display: flex;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+  }
+  
+  .add-input form div#previewbuttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+  
+  .add-input form label#changepic,
+  .add-input form label#rmpic {
+    border: none;
+    height: fit-content;
+    padding: 8px auto;
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    /* display: inline-block; */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .add-input form label#changepic {
+    margin-right: 25px;
+  }
+  
+  .add-input form label#rmpic {
+    margin-left: 25px;
+  }
+  
+  .add-input form input.infotext {
+    align-self: center;
+    position: relative;
+  }
+  
+  .add-input form .faecher,
+  .add-input form .position {
+    align-self: center;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%);
+    padding: 4px 4px;
+    margin: 8px 10px;
+    position: relative;
+    width: clamp(360px, 95%, 1000px);
+  }
+  
+  .add-input form .faecher ul li,
+  .add-input form .position ul li {
+    list-style-type: none;
+    align-self: center;
+  }
+  
+  .add-input form .position ul li {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 5px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  
+  .add-input form .position ul li input[type="radio"] {
+    margin-right: 2px;
+  }
+  
+  .add-input form .faecher ul ul {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 5px;
+    margin-bottom: 10px;
+  }
+  
+  .add-input form .faecher .heading2,
+  .add-input form .position .heading2 {
+    font-size: 25px;
+    margin-left: 5%;
+    border-bottom: 2px solid #3d859c;
+  }
+  
+  .add-input form .faecher ul ul .heading {
+    font-size: 20px;
+  }
+  
+  .add-input form .faecher label {
+    margin: 0;
+    padding-top: 4px;
+    padding: 0;
+  }
+  
+  .add-input form .faecher input {
+    margin: 0;
+    padding: 0;
+    margin-right: 4px;
+    align-self: none;
+    position: relative;
+  }
+  
+  .add-input form textarea {
+    border: none;
+    outline: none;
+    overflow: none;
+    font-size: 16px;
+    padding: 4px 4px;
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+    resize: none;
+  }
+
+/* Lehrer Editor END */
+
+
+
+/* Lehrertable */
+
+/* Search */
+#lehrerTableSearch {
+    padding: 8px 16px;
+    border: none;
+    border-bottom: 2px solid #3d859c;
+    outline: none;
+    border-radius: 10px;
+    display: block;
+    width: clamp(250px, calc(90% - 32px), 1700px);
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Faecherfilter */
+  #lehrerFaecherFilterShow {
+    background: rgb(122, 133, 131);
+    color: rgb(226, 226, 226);
+    padding: 8px 16px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    align-self: center;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+  }
+  
+  #lehrerFaecherFilter #resetFilter {
+    background: rgb(122, 133, 131);
+    color: rgb(226, 226, 226);
+    padding: 8px 16px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    margin-top: 15px;
+  }
+  
+  #lehrerFaecherFilter {
+    align-self: center;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%);
+    padding: 4px 4px;
+    margin: 8px 10px;
+    position: relative;
+    width: clamp(360px, 95%, 1000px);
+    color: #fff;
+    font-family: "montserrat", sans-serif;
+    padding-right: 5%;
+    align-items: center;
+  }
+  
+  #lehrerFaecherFilter .heading2 {
+    font-size: 25px;
+    margin-left: 5%;
+    border-bottom: 2px solid #3d859c;
+  }
+  
+  #lehrerFaecherFilter ul li {
+    list-style-type: none;
+    align-self: center;
+  }
+  
+  #lehrerFaecherFilter ul ul {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 5px;
+    margin-bottom: 10px;
+    width: clamp(150px, 50%, 250px);
+  }
+  
+  #lehrerFaecherFilter ul ul .heading {
+    font-size: 20px;
+  }
+  
+  #lehrerFaecherFilter label {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #lehrerFaecherFilter input[type="checkbox"] {
+    color: rgb(102, 102, 102);
+    margin: 0;
+    padding: 0;
+    margin-right: 4px;
+    align-self: none;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  #lehrerFaecherFilter ul ul li label {
+    margin-top: 4px;
+    cursor: pointer;
+  }
+
+  /* Table */
+  #lehrerTable {
+    width: clamp(250px, 90%, 1700px);
+    padding-left: 5%;
+    padding-right: 5%;
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
+    margin: auto;
+    border: none;
+    border-radius: 15px;
+    padding: 0px;
+    border-collapse: collapse;
+    margin-bottom: 70px;
+    margin-top: 20px;
+  }
+
+  #lehrerTable td,
+#lehrerTable th {
+  border: 1px solid #fff;
+  border-collapse: collapse;
+  padding: 8px;
+}
+
+#lehrerTable td {
+    cursor: pointer;
+  }
+  #lehrerTable th {
+    border-top: none;
+    font-size: 20px;
+  }
+
+  #lehrerTable tr td:first-child {
+    border-left: none;
+  }
+  #lehrerTable tr td:last-child {
+    border-right: none;
+  }
+  #lehrerTable tr.tableHeader th:first-child {
+    border-top-left-radius: 15px;
+    border-left: none;
+    border-top: none;
+  }
+  #lehrerTable tr.tableHeader th:last-child {
+    border-top-right-radius: 15px;
+    border-right: none;
+    border-top: none;
+  }
+  #lehrerTable tr:last-child td:first-child {
+    border-bottom-left-radius: 15px;
+    border-bottom: none;
+    border-left: none;
+  }
+  #lehrerTable tr:last-child td:last-child {
+    border-bottom-right-radius: 15px;
+    border-bottom: none;
+    border-right: none;
+  }
+  #lehrerTable tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Admin rows */
+  @media (max-width: 1200px) {
+    #lehrerTable .email {
+      display: none;
+    }
+  }
+  @media (max-width: 900px) {
+    #lehrerTable .date {
+      display: none;
+    }
+  }
+  @media (max-width: 700px) {
+    #lehrerTable .position {
+      display: none;
+    }
+  }
+  @media (max-width: 390px) {
+    #lehrerTable .faecher {
+      display: none;
+    }
+  }
+
+
+  /* Profile */
+  #lehrerimg {
+    max-width: 350px;
+    max-height: 450px;
+    min-width: 100px;
+    min-height: 128.57;
+    border: 1px solid #fff;
+    border-radius: 30px;
+  }
+  .email-btn {
+    width: fit-content;
+    height: fit-content;
+    padding: 10px 20px;
+  }
+
+/* Lehrertable END */
+
+/* Colors */
+
+.add-input form label,
+.add-input form input,
+.add-input form .faecher input,
+.add-input form textarea,
+.add-input form ::placeholder,
+#lehrerTableSearch::placeholder,
+#lehrerTable tr {
+  color: rgb(102, 102, 102);
+  opacity: 1;
+}
+
+.add-input form input,
+.add-input form label#file,
+.add-input form textarea,
+.add-input form label#changepic,
+.add-input form label#rmpic,
+#lehrerTableSearch,
+#lehrerTable tr:nth-child(even) {
+  background: rgb(205, 211, 210);
+}
+#lehrerTable tr:nth-child(odd) {
+  background-color: rgb(209, 223, 221);
+}
+
+.add-input form div#invalidfiletype p {
+  color: rgb(228, 76, 76);
+}
+
+#lehrerTable,
+#lehrerTable th {
+  color: #fff;
+}
+
+#lehrerTable tr:hover {
+  background-color: #d6d6d6;
+}
+#lehrerTable tr:first-child,
+#lehrerTable tr:hover:first-child {
+  background-color: darkcyan;
+}
+
+@media (prefers-color-scheme: dark) {
+  .add-input form input,
+  .add-input form ::placeholder,
+  .add-input form textarea,
+  .add-input form label,
+  #lehrerTableSearch::placeholder,
+  #lehrerTableSearch,
+  #lehrerTable tr {
+    color: rgb(226, 226, 226);
+    opacity: 1; /* Firefox */
+  }
+  .add-input form input,
+  .add-input form textarea,
+  .add-input form label#file,
+  .add-input form label#changepic,
+  .add-input form label#rmpic,
+  #lehrerTableSearch {
+    background: rgb(122, 133, 131);
+    border-bottom: none;
+  }
+  #lehrerTable tr:nth-child(even) {
+    background-color: #5a5a5a;
+  }
+
+  #lehrerTable tr:nth-child(odd) {
+    background-color: #3d3d3d;
+  }
+  #lehrerTable tr:hover {
+    background-color: #686868;
+  }
+  #lehrerTable tr:first-child,
+  #lehrerTable tr:hover:first-child {
+    background-color: darkcyan;
+  }
+  .add-input form .faecher .heading2,
+  .add-input form .position .heading2 {
+    border-bottom: 2px solid rgb(122, 133, 131);
+  }
+}

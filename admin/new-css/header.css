@@ -1,0 +1,154 @@
+nav {
+    position: fixed;
+    width: 100%;
+    top: 0%;  
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    z-index: +2;
+    display: block;
+}
+
+nav ul {
+    background: #3d859c;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    position: relative;
+    display: inline-block;
+    margin-right: -4px;
+    text-align: center;
+}
+
+nav ul li:first-child a {
+    background: #3d859c;
+    width: 49px;
+    padding: 15px 10px;
+}
+
+nav ul li:last-child {
+    margin: 0;
+}
+
+nav ul li a {
+    display: block;
+    background: #3d859c;
+    padding: 15px 20px;
+    color: #fff;
+    font-size: 17px;
+    text-decoration: none;
+    transition: 0.2s linear;
+}
+
+nav ul li a:hover {
+    background: #91c1d1;
+}
+
+nav ul li ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 240px;
+    border-bottom: 4px solid #3b606d;
+}
+
+nav ul li ul li {
+    display: block;
+    width: 100%;
+    margin: 0;
+    text-align: left;
+}
+
+nav ul li ul li a {
+    display: block;
+    background: #3a3a3a;
+    padding: 15px 10px;
+}
+
+nav ul li ul li a:first-child {
+    background: #3a3a3a;
+    width: auto;
+    border-left: 4px solid transparent;
+    padding: 15px 10px;
+    font-size: 17px;
+}
+
+nav ul li ul li a:hover {
+    background: #333333;
+    border-left: 4px solid #477f92;
+}
+
+.drop-menu li {
+    z-index: +3;
+}
+  
+
+footer {
+    display: block;
+    width: 100%;
+    position: relative;
+    bottom: 0px;
+    height: 50px;
+    background-color: #2f2f2f;
+    border-top: gray;
+    z-index: 0;
+}
+
+footer img, footer p {
+    left: 0;
+    display: inline;
+    position: absolute;
+}
+
+footer img {
+    width: 35px;
+    height: 35px;
+    padding: 7px 10px 8px 10px;
+}
+
+footer p {
+    left: 50px;
+}
+
+footer a {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    display: block;
+    position: relative;
+    right: 30px;
+    margin-top: 16px;
+    float: right;
+    padding-right: 20px;
+    transition: all 0.5s;
+}
+
+footer a:hover {
+    transform: scale(1.1);
+    color: #3d859c;
+}
+
+@media only screen and (max-width: 780px) {
+    footer p {
+        visibility: hidden;
+    }
+}
+
+::-webkit-scrollbar {
+	width:10px;
+	background-color: #424242;
+}
+
+::-webkit-scrollbar-track{
+	background-color:#424242;
+}
+
+::-webkit-scrollbar-thumb{
+	background-color:#8e8e8e;
+	border:2px solid #424242;
+	border-radius:5px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+	background-color:#9b9b9b;
+}
