@@ -1,5 +1,6 @@
 <section>
     <link rel="stylesheet" href="/new-css/news.css">
+    <link rel="stylesheet" href="/new-css/form.css">
     <?php
 
     $titel = $GLOBALS["titel"];

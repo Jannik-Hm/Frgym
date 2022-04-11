@@ -1,5 +1,6 @@
 <section>
     <link rel="stylesheet" href="/new-css/lehrer.css">
+    <link rel="stylesheet" href="/new-css/form.css">
     <?php
         $root = realpath($_SERVER["DOCUMENT_ROOT"]);
         require_once "$root/admin/scripts/file-upload.php";
