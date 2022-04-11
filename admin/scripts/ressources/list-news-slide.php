@@ -1,7 +1,7 @@
 <!-- Newsslider -->
 <section>
-    <link rel="stylesheet" href="/css/news.css">
-    <link rel="stylesheet" href="/css/news-slide.css">
+    <link rel="stylesheet" href="/new-css/news.css">
+    <link rel="stylesheet" href="/new-css/news-slide.css">
     <div class="news">
         <?php
             $lesscharnum = 700;

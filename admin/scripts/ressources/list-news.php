@@ -1,5 +1,5 @@
 <section>
-    <link rel="stylesheet" href="/css/news.css">
+    <link rel="stylesheet" href="/new-css/news.css">
     <div class="news">
         <ul style="list-style-type: none;">
 

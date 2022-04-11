@@ -127,7 +127,7 @@
         verifylogin();
         checkperm("docs");
         echo("<section style=''>");
-        echo('<link rel="stylesheet" href="/admin/css/form.css">');
+        echo('<link rel="stylesheet" href="/new-css/form.css">');
         echo("<div class='showform' onclick=\"$('#createfolder').show();\"><p>Ordner erstellen</p></div>");
         // TODO: form with dir name
         if(($GLOBALS["disabled"])){

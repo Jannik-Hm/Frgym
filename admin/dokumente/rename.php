@@ -12,7 +12,7 @@
             include_once "$root/admin/sites/head.html";
 
         ?>
-        <link rel="stylesheet" href="/admin/css/form.css">
+        <link rel="stylesheet" href="/new-css/form.css">
         <title>Dokumente - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>

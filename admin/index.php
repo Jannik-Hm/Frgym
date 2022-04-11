@@ -15,6 +15,7 @@
             $root = realpath($_SERVER["DOCUMENT_ROOT"]);
             include_once "$root/admin/sites/head.html";
         ?>
+        <link rel="stylesheet" href="/new-css/welcome.css">
         <title>Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>

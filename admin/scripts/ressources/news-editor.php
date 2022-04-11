@@ -1,5 +1,5 @@
 <section>
-    <link rel="stylesheet" href="/admin/css/news.css">
+    <link rel="stylesheet" href="/new-css/news.css">
     <?php
 
     $titel = $GLOBALS["titel"];

@@ -1,5 +1,5 @@
 <section>
-    <link rel="stylesheet" href="/admin/css/lehrer.css">
+    <link rel="stylesheet" href="/new-css/lehrer.css">
     <?php
         $root = realpath($_SERVER["DOCUMENT_ROOT"]);
         require_once "$root/admin/scripts/file-upload.php";

@@ -54,7 +54,7 @@
     }
 
     function confirmation($heading, $text, $left, $leftlink, $right = null, $rightlink = null){
-        echo('<link rel="stylesheet" href="/admin/css/confirm.css">');
+        echo('<link rel="stylesheet" href="/new-css/confirm.css">');
         echo("<div style='left: 0;' class='confirm'>
         <span class='helper'></span>
         <div class='scroll'>
@@ -74,7 +74,7 @@
     }
 
     function deleteconfirm($heading, $textid, $abort, $delete, $deleteid){
-        echo('<link rel="stylesheet" href="/admin/css/confirm.css">');
+        echo('<link rel="stylesheet" href="/new-css/confirm.css">');
         echo("<div style='left: 0;' class='confirm'>
         <span class='helper'></span>
         <div class='scroll'>

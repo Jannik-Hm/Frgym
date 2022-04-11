@@ -12,6 +12,8 @@
         <?php
             include_once "$root/admin/sites/head.html";
         ?>
+        <link rel="stylesheet" href="/new-css/login.css">
+        <link rel="stylesheet" href="/new-css/form.css">
         <title>Login - Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
     </head>
     <body>
