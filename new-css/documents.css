@@ -146,3 +146,13 @@ div.filepreview div iframe {
   z-index: +0;
 }
 /* Popup box END */
+
+/* Colors */
+
+@media (prefers-color-scheme: light) {
+  #fileTable p {
+    color: #000;
+  }
+}
+
+/* TODO: Add Dropzone CSS with lightmode */
