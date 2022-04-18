@@ -306,6 +306,7 @@ div.newsslidershow div.slider {
   padding-left: 0;
   padding-right: 0;
   margin: auto;
+  margin-top: 35px;
   font-family: "montserrat", sans-serif;
   width: 1500px;
   height: 350px;
@@ -361,13 +362,14 @@ div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news p {
 }
 
 div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news h1 {
+  margin-top: 0px;
   padding-top: 20px;
   margin-bottom: 3px;
 }
 
 div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news p {
   margin-top: 0px;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
   margin-left: auto;
   margin-right: auto;
   padding-left: 15px;
