@@ -82,12 +82,13 @@
                             $is_image = false;
                             // $previewaction = 'window.location="'."https://".$_SERVER['SERVER_NAME'].$pathworoot."/".$i.'"';
                             // $previewaction = '$("#filepreviewiframe").attr("src", "'.$pathworoot."/".$i.'"); $("#filepreviewiframe").attr("title", "'.$i.'"); $("#previewiframe").show();$(".filepreview").show()';
-                            $previewaction = '$("#filepreviewiframe").attr("src", ( /^((?!chrome|android).)*safari/i.test(navigator.userAgent) == true ) ? "https://drive.google.com/viewerng/viewer?embedded=true&url="+encodeURIComponent("https://'.$_SERVER['SERVER_NAME']."/".$pathworoot."/".$i.'") : "'.$pathworoot."/".$i.'" ); $("#filepreviewiframe").attr("title", "'.$i.'"); $("#previewiframe").show();$(".filepreview").show()';
+                            $previewaction = '$("#filepreviewiframe").attr("src", ( /^((?!chrome|android).)*safari/i.test(navigator.userAgent) == true ) ? "https://drive.google.com/viewerng/viewer?embedded=true&url="+encodeURIComponent("https://'.$_SERVER['SERVER_NAME'].$pathworoot."/".$i.'") : "'.$pathworoot."/".$i.'" ); $("#filepreviewiframe").attr("title", "'.$i.'"); $("#previewiframe").show();$(".filepreview").show()';
                             $title = "PDF öffnen";
                         } else {
                             $icon = "far fa-file-alt";
                             $is_image = false;
                             $previewaction = 'window.location.href = "'.$pathworoot."/".$i.'"';
+                            $previewaction = '$("#filepreviewiframe").attr("src", "https://drive.google.com/viewerng/viewer?embedded=true&url="+encodeURIComponent("https://'.$_SERVER['SERVER_NAME'].$pathworoot."/".$i.'")); $("#filepreviewiframe").attr("title", "'.$i.'"); $("#previewiframe").show();$(".filepreview").show()';
                             $style = "cursor: pointer;";
                             $title = null;
                         }
