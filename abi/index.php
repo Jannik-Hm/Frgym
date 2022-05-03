@@ -23,7 +23,7 @@
             <?php
 
             $directory = "$root/img/jahrgangsbilder/";
-            $files = scandir($directory);
+            $files = scandir($directory, SCANDIR_SORT_DESCENDING);
 
             foreach ($files as $fi) {
                 if ($fi != '.' && $fi != '..') {
