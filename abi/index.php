@@ -28,13 +28,12 @@
             foreach ($files as $fi) {
                 if ($fi != '.' && $fi != '..') {
                     echo ('<div style="padding: 2vh; border: 1px solid #fff; border-radius: 20px; margin: 2vh 2vh;">');
-                    echo ('<img src="/img/jahrgangsbilder/' . $fi . '" style="border: 1px solid #fff; border-radius: 10px;">');
+                    echo ('<img src="/img/jahrgangsbilder/' . $fi . '" style="border: 1px solid #fff; border-radius: 10px; height: 25vh;">');
                     echo ('<h2 style="font-size: 2vh; font-weight: lighter; margin-top: 1vh; margin-bottom: 0px;">Jahrgang</h2>');
                     echo ('<h1 style="font-size: 7vh; font-weight: bolder; margin-top: 1vh; margin-bottom: 1vh;">' . str_split($fi, 4)[0] . '</h1>');
                     echo ('</div>');
                 }
             }
-
 
             ?>
         </div>
