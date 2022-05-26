@@ -3,10 +3,10 @@
         var item = document.getElementById('lehrerFaecherFilter');
         var icon = document.getElementById('showmorearrow');
         if(item.style.display == "none"){
-            $('#lehrerFaecherFilter').show();
+            $('#lehrerFaecherFilter').slideToggle();
             icon.style.transform = "rotate(180deg)";
         }else{
-            $('#lehrerFaecherFilter').hide();
+            $('#lehrerFaecherFilter').slideToggle();
             icon.style.transform = "rotate(0deg)";
         }
     }
