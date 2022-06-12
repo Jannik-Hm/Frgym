@@ -312,7 +312,7 @@ iframe {
 
 section {
     margin: auto;
-    /* text-align: center; */
+    text-align: center;
     display: block;
     position: relative;
     width: 100%;

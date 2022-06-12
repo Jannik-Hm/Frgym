@@ -1,4 +1,4 @@
-<section>
+<section style="text-align: left">
     <link rel="stylesheet" href="/new-css/lehrer.css">
     <link rel="stylesheet" href="/new-css/form.css">
     <?php
