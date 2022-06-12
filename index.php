@@ -15,7 +15,8 @@
 <body>
         <?php
 
-        include_once "$root/sites/header.html"
+        include_once "$root/sites/header.html";
+        include_once "$root/sites/WIP.html";
 
         ?>
         <section id="mainTop" class="parallax">
