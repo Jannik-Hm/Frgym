@@ -3,7 +3,7 @@
     <head>
         <?php 
 
-            include_once "./../sites/head.html" 
+            include_once realpath($_SERVER["DOCUMENT_ROOT"])."/sites/head.html"
 
         ?>
         <title>Lehrer - Friedrich-Gymnasium Luckenwalde</title>
@@ -34,7 +34,7 @@
     <body>
             <?php
 
-                include_once "./../sites/header.html"
+                include_once realpath($_SERVER["DOCUMENT_ROOT"])."/sites/header.html"
 
             ?>
 
@@ -47,17 +47,8 @@
 
 
             <?php
-
-                $servername = "sql150.your-server.de";
-                $username = "c0921922321";
-                $password = "AHWNiBfs2u14AAZg"; //master
-                $dbname = "friedrich_gym";
-                // Create connection
-                $conn = new mysqli($servername, $username, $password, $dbname);
-                // Check connection
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
+                require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+                $conn = get_connection();
 
                 if(!isset($_GET["id"])) {
                 //output every lehrer 
@@ -113,7 +104,7 @@
                         echo("<section>");
                         echo("<h1>" . $row["vorname"] . " " . $row["nachname"] . "</h1>");
                         echo("<h3>" . $row["position"] . "</h3>");
-                        $imgdir = "./../files/site-ressources/lehrer-bilder/";
+                        $imgdir = realpath($_SERVER["DOCUMENT_ROOT"])."/files/site-ressources/lehrer-bilder/";
                         $imgpath = $imgdir . strtolower(str_replace(" ","_",$row["vorname"])."_".str_replace(" ","_",$row["nachname"])).".";
                         if (file_exists($imgpath."jpg")) {
                             $imgpath = $imgpath."jpg";
@@ -172,6 +163,6 @@
             ?>
 
             </table>
-        <?php include_once "./../sites/footer.html" ?>
+        <?php include_once realpath($_SERVER["DOCUMENT_ROOT"])."/sites/footer.html" ?>
     </body>
 </html>

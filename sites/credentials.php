@@ -1,7 +1,7 @@
 <?php 
 
 function get_connection() {
-    include($_SERVER["DOCUMENT_ROOT"]."/variables.php");
+    include(realpath($_SERVER["DOCUMENT_ROOT"])."/variables.php");
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
     // Check connection
