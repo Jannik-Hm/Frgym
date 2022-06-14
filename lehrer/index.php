@@ -48,7 +48,7 @@
 
             <?php
                 require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
-                $conn = get_connection();
+                $conn = getsqlconnection();
 
                 if(!isset($_GET["id"])) {
                 //output every lehrer 
