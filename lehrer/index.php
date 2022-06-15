@@ -104,7 +104,7 @@
                         echo("<section>");
                         echo("<h1>" . $row["vorname"] . " " . $row["nachname"] . "</h1>");
                         echo("<h3>" . $row["position"] . "</h3>");
-                        $imgdir = realpath($_SERVER["DOCUMENT_ROOT"])."/files/site-ressources/lehrer-bilder/";
+                        $imgdir = "/files/site-ressources/lehrer-bilder/";
                         $imgpath = $imgdir . strtolower(str_replace(" ","_",$row["vorname"])."_".str_replace(" ","_",$row["nachname"])).".";
                         if (file_exists($imgpath."jpg")) {
                             $imgpath = $imgpath."jpg";
