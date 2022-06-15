@@ -30,6 +30,7 @@
                 }
             }
         </script>
+        <link rel="stylesheet" href="/new-css/form.css">
     </head>
     <body>
             <?php
