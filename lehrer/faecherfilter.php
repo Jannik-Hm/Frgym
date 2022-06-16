@@ -63,7 +63,7 @@
     <ul>
         <ul>
             <label class="heading">Sprachwissenschaften</label>
-            <li><label><input onclick="addFach('DE')" type="checkbox" id="DE">Deutsch</label></li>
+            <li><label class="chkbx_label"><span class="chkbx"></span><input onclick="addFach('DE')" type="checkbox" id="DE">Deutsch</label></li>
             <li><label><input onclick="addFach('EN')" type="checkbox" id="EN">Englisch</label></li>
             <li><label><input onclick="addFach('FR')" type="checkbox" id="FR">Französisch</label></li>
             <li><label><input onclick="addFach('PO')" type="checkbox" id="PO">Polnisch</label></li>

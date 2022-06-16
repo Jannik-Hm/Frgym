@@ -18,6 +18,68 @@ input[type="password"] {
     margin-top: 20px;
 }
 
+.chkbx_label {
+    display: block;
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 7px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.chkbx_label input[type="checkbox"] {
+    display: none;
+}
+
+.chkbx_label .chkbx {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #eee;
+}
+
+/* TODO: fix hover and checked action */
+
+/* On mouse-over, add a grey background color */
+.chkbx_label:hover input[type="checkbox"] ~ .chkbx {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.chkbx_label input[type="checkbox"]:checked ~ .chkbx {
+    background-color: #2196F3;
+}
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+.chkbx_label .chkbx:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+  /* Show the checkmark when checked */
+.chkbx_label input[type="checkbox"]:checked ~ .chkbx:after {
+    display: block;
+}
+
+  /* Style the checkmark/indicator */
+.chkbx_label .chkbx:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
 input[type="text"] {
     padding-left: 10px;
 }
