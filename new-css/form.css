@@ -41,6 +41,7 @@ input[type="password"] {
     height: 15px;
     width: 15px;
     background-color: #eee;
+    border-radius: 3px;
 }
 
 /* TODO: fix hover and checked action */
@@ -52,7 +53,7 @@ input[type="password"] {
 
 /* When the checkbox is checked, add a blue background */
 .chkbx_label input[type="checkbox"]:checked ~ .chkbx {
-    background-color: #2196F3;
+    background-color: #4ba5c2;
 }
 
   /* Create the checkmark/indicator (hidden when not checked) */
@@ -69,10 +70,10 @@ input[type="password"] {
 
   /* Style the checkmark/indicator */
 .chkbx_label .chkbx:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
+    left: 4.5px;
+    top: 2px;
+    width: 3px;
+    height: 6px;
     border: solid white;
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);
