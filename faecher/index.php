@@ -29,18 +29,18 @@
                     <ul class="faecherlist">
                         <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Mathematik.svg" class="fachimg"><br><span>Mathematik</span></div></li></a> <!-- https://de.wikipedia.org/wiki/Datei:Math.svg -->
                         <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Biologie.svg" class="fachimg"><br><span>Biologie</span></div></li></a> <!-- https://www.labbe.de/blog/Ruth-Patrick -->
-                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Chemie.svg" class="fachimg"><br><span>Chemie</span></div></li></a> <!-- https://svgsilh.com/de/image/1073363.html -->
-                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Physik.svg" class="fachimg"><br><span>Physik</span></div></li></a> <!-- https://svgsilh.com/de/image/148441.html -->
-                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Informatik.svg" class="fachimg"><br><span>Informatik</span></div></li></a> <!-- https://www.svgrepo.com/svg/28224/programming -->
-                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Naturwissenschaften.svg" class="fachimg"><br><span>Naturwissenschaften</span></div></li></a> <!-- https://svgsilh.com/image/2099128.html -->
+                        <a><li class="fach"><div><picture><source srcset="/files/site-ressources/faecher-icons/Chemie-Dark.svg" media="(prefers-color-scheme: dark)"><img src="/files/site-ressources/faecher-icons/Chemie.svg" class="fachimg"></picture><br><span>Chemie</span></div></li></a> <!-- https://svgsilh.com/de/image/1073363.html -->
+                        <a><li class="fach"><div><picture><source srcset="/files/site-ressources/faecher-icons/Physik-Dark.svg" media="(prefers-color-scheme: dark)"><img src="/files/site-ressources/faecher-icons/Physik.svg" class="fachimg"></picture><br><span>Physik</span></div></li></a> <!-- https://svgsilh.com/de/image/148441.html -->
+                        <a><li class="fach"><div><picture><source srcset="/files/site-ressources/faecher-icons/Informatik-Dark.svg" media="(prefers-color-scheme: dark)"><img src="/files/site-ressources/faecher-icons/Informatik.svg" class="fachimg"></picture><br><span>Informatik</span></div></li></a> <!-- https://www.svgrepo.com/svg/28224/programming -->
+                        <a><li class="fach"><div><picture><source srcset="/files/site-ressources/faecher-icons/Naturwissenschaften-Dark.svg" media="(prefers-color-scheme: dark)"><img src="/files/site-ressources/faecher-icons/Naturwissenschaften.svg" class="fachimg"></picture><br><span>Naturwissenschaften</span></div></li></a> <!-- https://svgsilh.com/image/2099128.html -->
                     </ul>
                 </div>
                 <div class="bereichdiv">
                     <label class="fachbereich">Gesellschaftswissenschaften</label><br>
                     <ul class="faecherlist">
-                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Erdkunde.svg" class="fachimg"><br><span>Erdkunde</span></div></li></a> <!-- https://svgsilh.com/image/158348.html -->
+                        <a><li class="fach"><div><picture><source srcset="/files/site-ressources/faecher-icons/Erdkunde-Dark.svg" media="(prefers-color-scheme: dark)"><img src="/files/site-ressources/faecher-icons/Erdkunde.svg" class="fachimg"></picture><br><span>Erdkunde</span></div></li></a> <!-- https://svgsilh.com/image/158348.html -->
                         <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Geschichte.svg" class="fachimg"><br><span>Geschichte</span></div></li></a> <!-- https://svgsilh.com/image/33963.html -->
-                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/PB.svg" class="fachimg"><br><span>Politische Bildung</span></div></li></a> <!-- https://svgsilh.com/image/32310.html -->
+                        <a><li class="fach"><div><picture><source srcset="/files/site-ressources/faecher-icons/PB-Dark.svg" media="(prefers-color-scheme: dark)"><img src="/files/site-ressources/faecher-icons/PB.svg" class="fachimg"></picture><br><span>Politische Bildung</span></div></li></a> <!-- https://svgsilh.com/image/32310.html -->
                         <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Gesellschaftswissenschaften.svg" class="fachimg"><br><span>Gesellschaftswissenschaften</span></div></li></a> <!--  -->
                         <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/RE.svg" class="fachimg"><br><span>Religion</span></div></li></a> <!--  -->
                         <!-- <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Eva_RE.svg" class="fachimg"><br><span>Evangelischer Religionsunterricht</span></div></li></a>
@@ -53,9 +53,9 @@
                 <div class="bereichdiv">
                     <label class="fachbereich">Künstlerische Fächer</label><br>
                     <ul class="faecherlist">
-                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/DS.svg" class="fachimg"><br><span>Darstellendes Spiel</span></div></li></a> <!-- https://www.ardenne-gymnasium.de/media/icon_darstellendes_spiel.svg -->
+                        <a><li class="fach"><div><picture><source srcset="/files/site-ressources/faecher-icons/DS-Dark.svg" media="(prefers-color-scheme: dark)"><img src="/files/site-ressources/faecher-icons/DS.svg" class="fachimg"></picture><br><span>Darstellendes Spiel</span></div></li></a> <!-- https://www.ardenne-gymnasium.de/media/icon_darstellendes_spiel.svg -->
                         <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Kunst.svg" class="fachimg"><br><span>Kunst</span></div></li></a> <!-- https://publicdomainvectors.org/de/kostenlose-vektorgrafiken/Pinsel-Paletten/40255.html -->
-                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Musik.svg" class="fachimg"><br><span>Musik</span></div></li></a> <!-- https://svgsilh.com/image/2073069.html -->
+                        <a><li class="fach"><div><picture><source srcset="/files/site-ressources/faecher-icons/Musik-Dark.svg" media="(prefers-color-scheme: dark)"><img src="/files/site-ressources/faecher-icons/Musik.svg" class="fachimg"></picture><br><span>Musik</span></div></li></a> <!-- https://svgsilh.com/image/2073069.html -->
                     </ul>
                 </div>
                 <div class="bereichdiv">

@@ -6,7 +6,7 @@
 .faecher div.bereichdiv {
     position: relative;
     margin: auto;
-    width: clamp(300px, 80%, 1050px);
+    width: clamp(300px, 80%, 1057px);
     margin-top: 25px;
 }
 
@@ -33,7 +33,7 @@
 
 .faecher div.bereichdiv ul li.fach {
     position: relative;
-    border: 1px solid white;
+    border: 2px solid white;
     border-radius: 15px;
     padding: 10px;
     width: 250px;
@@ -61,4 +61,18 @@
     width: 200px;
     max-height: 200px;
     margin: auto;
+}
+
+@media (prefers-color-scheme: light) {
+    .faecher div.bereichdiv ul li.fach {
+        border-color: #000;
+    }
+
+    .faecher {
+        color: #000;
+    }
+
+    .faecher div.bereichdiv ul li.fach span {
+        color: #000;
+    }
 }
