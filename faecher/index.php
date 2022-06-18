@@ -9,58 +9,59 @@
     </head>
     <body>
             <?php include_once realpath($_SERVER["DOCUMENT_ROOT"])."/sites/header.html" ?>
-
+            <!-- TODO: add hrefs to faecher pages + missing icons -->
             <section class="faecher">
-                <div>
+                <div class="bereichdiv">
                     <label class="fachbereich">Sprachwissenschaften</label><br>
                     <ul class="faecherlist">
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Deutsch</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Englisch</span></li></a>
-                        <a><li class="fach"><img src="https://upload.wikimedia.org/wikipedia/commons/0/01/France_flag_waving_icon.svg" class="fachimg"><br><span>Französisch</span></li></a>
-                        <!-- <a><li class="fach"><img src="" class="fachimg"><br><span>Polnisch</span></li></a> -->
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Russisch</span></li></a>
-                        <!-- <a><li class="fach"><img src="" class="fachimg"><br><span>Spanisch</span></li></a> -->
-                        <!-- <a><li class="fach"><img src="" class="fachimg"><br><span>Türkisch</span></li></a> -->
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Latein</span></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Deutsch.svg" class="fachimg"><br><span>Deutsch</span></div></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Englisch.svg" class="fachimg"><br><span>Englisch</span></div></li></a>
+                        <a><li class="fach"><div><img src="https://upload.wikimedia.org/wikipedia/commons/0/01/France_flag_waving_icon.svg" class="fachimg"><br><span>Französisch</span></div></li></a>
+                        <!-- <a><li class="fach"><div><img src="" class="fachimg"><br><span>Polnisch</span></div></li></a> -->
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Russisch.svg" class="fachimg"><br><span>Russisch</span></div></li></a>
+                        <!-- <a><li class="fach"><div><img src="" class="fachimg"><br><span>Spanisch</span></div></li></a> -->
+                        <!-- <a><li class="fach"><div><img src="" class="fachimg"><br><span>Türkisch</span></div></li></a> -->
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Latein.svg" class="fachimg"><br><span>Latein</span></div></li></a>
                     </ul>
                 </div>
-                <div>
+                <div class="bereichdiv">
                     <label class="fachbereich">Naturwissenschaften</label><br>
                     <ul class="faecherlist">
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Mathematik</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Biologie</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Chemie</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Physik</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Informatik</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Naturwissenschaften</span></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Mathematik.svg" class="fachimg"><br><span>Mathematik</span></div></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Biologie.svg" class="fachimg"><br><span>Biologie</span></div></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Chemie.svg" class="fachimg"><br><span>Chemie</span></div></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Physik.svg" class="fachimg"><br><span>Physik</span></div></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Informatik.svg" class="fachimg"><br><span>Informatik</span></div></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Naturwissenschaften.svg" class="fachimg"><br><span>Naturwissenschaften</span></div></li></a>
                     </ul>
                 </div>
-                <div>
+                <div class="bereichdiv">
                     <label class="fachbereich">Gesellschaftswissenschaften</label><br>
                     <ul class="faecherlist">
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Erdkunde</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Geschichte</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Politische Bildung</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Gesellschaftswissenschaften</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Evangelischer Religionsunterricht</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Katholischer Religionsunterricht</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Lebensgestaltung-Ethik-Religionskunde</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Wirtschat-Arbeit-Technik</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Wirtschaftswissenschaften</span></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Erdkunde.svg" class="fachimg"><br><span>Erdkunde</span></div></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Geschichte.svg" class="fachimg"><br><span>Geschichte</span></div></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/PB.svg" class="fachimg"><br><span>Politische Bildung</span></div></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Gesellschaftswissenschaften.svg" class="fachimg"><br><span>Gesellschaftswissenschaften</span></div></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/RE.svg" class="fachimg"><br><span>Religion</span></div></li></a>
+                        <!-- <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Eva_RE.svg" class="fachimg"><br><span>Evangelischer Religionsunterricht</span></div></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Kat_RE.svg" class="fachimg"><br><span>Katholischer Religionsunterricht</span></div></li></a> -->
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/LER.svg" class="fachimg"><br><span>Lebensgestaltung-Ethik-Religionskunde</span></div></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/WAT.svg" class="fachimg"><br><span>Wirtschaft-Arbeit-Technik<br>Wirtschaftswissenschaften</span></div></li></a>
+                        <!-- <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Wirtschaft.svg" class="fachimg"><br><span>Wirtschaftswissenschaften</span></div></li></a> -->
                     </ul>
                 </div>
-                <div>
+                <div class="bereichdiv">
                     <label class="fachbereich">Künstlerische Fächer</label><br>
                     <ul class="faecherlist">
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Darstellendes Spiel</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Kunst</span></li></a>
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Musik</span></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/DS.svg" class="fachimg"><br><span>Darstellendes Spiel</span></div></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Kunst.svg" class="fachimg"><br><span>Kunst</span></div></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Musik.svg" class="fachimg"><br><span>Musik</span></div></li></a>
                     </ul>
                 </div>
-                <div>
+                <div class="bereichdiv">
                     <label class="fachbereich">Sonstige</label><br>
                     <ul class="faecherlist">
-                        <a><li class="fach"><img src="" class="fachimg"><br><span>Sport</span></li></a>
+                        <a><li class="fach"><div><img src="/files/site-ressources/faecher-icons/Sport.svg" class="fachimg"><br><span>Sport</span></div></li></a>
                     </ul>
                 </div>
             </section>

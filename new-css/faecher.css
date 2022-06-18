@@ -1,11 +1,12 @@
 .faecher {
     text-align: left;
+    margin-bottom: 25px;
 }
 
-.faecher div {
+.faecher div.bereichdiv {
     position: relative;
     margin: auto;
-    width: clamp(300px, 80%, 2000px);
+    width: clamp(300px, 80%, 1050px);
     margin-top: 25px;
 }
 
@@ -16,7 +17,7 @@
     border-bottom: 2px solid #3d859c;
 }
 
-.faecher div ul {
+.faecher div.bereichdiv ul {
     list-style: none;
     width: 90%;
     margin: auto;
@@ -24,21 +25,40 @@
     margin-top: 5px;
 }
 
-.faecher div ul li.fach {
+.faecher div.bereichdiv ul div {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.faecher div.bereichdiv ul li.fach {
+    position: relative;
     border: 1px solid white;
     border-radius: 15px;
     padding: 10px;
     width: 250px;
+    height: 240px;
     margin: 15px 20px 15px 20px;
     display: inline-block;
     text-align: center;
 }
 
-.faecher div ul li.fach span {
-    width: 100px;
+.faecher div.bereichdiv ul li.fach span {
+    width: 200px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 10px;
 }
 
-.faecher div ul li.fach img.fachimg {
+.faecher div.bereichdiv ul li.fach img.fachimg {
+    position: absolute;
+    top: 0;
+    bottom: 15px;
+    left: 0;
+    right: 0;
     width: 200px;
-    margin-bottom: 10px;
+    max-height: 200px;
+    margin: auto;
 }
