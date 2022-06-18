@@ -1,0 +1,81 @@
+.faecher {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.faecher div.bereichdiv {
+    position: relative;
+    margin: auto;
+    width: clamp(300px, 80%, 1057px);
+    margin-top: 25px;
+}
+
+.faecher .fachbereich {
+    text-align: center;
+    font-size: 25px;
+    /* margin-left: 5%; */
+    border-bottom: 2px solid #3d859c;
+}
+
+.faecher div.bereichdiv ul {
+    list-style: none;
+    width: 90%;
+    margin: auto;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.faecher div.bereichdiv ul div {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.faecher div.bereichdiv ul li.fach {
+    position: relative;
+    border: 2px solid white;
+    border-radius: 15px;
+    padding: 10px;
+    width: 250px;
+    height: 240px;
+    margin: 15px 20px 15px 20px;
+    display: inline-block;
+    text-align: center;
+}
+
+.faecher div.bereichdiv ul li.fach span {
+    width: 200px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+}
+
+.faecher div.bereichdiv ul li.fach img.fachimg {
+    position: absolute;
+    top: 0;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    height: 200px;
+    width: 200px;
+    object-fit: contain;
+    /* max-width: 200px;
+    max-height: 200px; */
+    margin: auto;
+}
+
+@media (prefers-color-scheme: light) {
+    .faecher div.bereichdiv ul li.fach {
+        border-color: #000;
+    }
+
+    .faecher {
+        color: #000;
+    }
+
+    .faecher div.bereichdiv ul li.fach span {
+        color: #000;
+    }
+}
