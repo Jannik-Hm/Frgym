@@ -157,7 +157,7 @@
         verifylogin();
         checkperm($permneeded);
         if(!($GLOBALS["disabled"])){
-            $target_dir = "/usr/www/users/greenyr/frgym/new/files/".$dir;
+            $target_dir = $_SERVER["DOCUMENT_ROOT"]."/files/".$dir;
             // echo $_FILES[$inputname]["name"]."<br>";
             $max_filesize = 10000000;
     
