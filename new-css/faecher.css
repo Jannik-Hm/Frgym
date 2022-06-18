@@ -1,0 +1,44 @@
+.faecher {
+    text-align: left;
+}
+
+.faecher div {
+    position: relative;
+    margin: auto;
+    width: clamp(300px, 80%, 2000px);
+    margin-top: 25px;
+}
+
+.faecher .fachbereich {
+    text-align: center;
+    font-size: 25px;
+    /* margin-left: 5%; */
+    border-bottom: 2px solid #3d859c;
+}
+
+.faecher div ul {
+    list-style: none;
+    width: 90%;
+    margin: auto;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.faecher div ul li.fach {
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 10px;
+    width: 250px;
+    margin: 15px 20px 15px 20px;
+    display: inline-block;
+    text-align: center;
+}
+
+.faecher div ul li.fach span {
+    width: 100px;
+}
+
+.faecher div ul li.fach img.fachimg {
+    width: 200px;
+    margin-bottom: 10px;
+}
