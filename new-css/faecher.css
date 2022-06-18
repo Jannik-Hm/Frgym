@@ -58,8 +58,11 @@
     bottom: 15px;
     left: 0;
     right: 0;
+    height: 200px;
     width: 200px;
-    max-height: 200px;
+    object-fit: contain;
+    /* max-width: 200px;
+    max-height: 200px; */
     margin: auto;
 }
 
