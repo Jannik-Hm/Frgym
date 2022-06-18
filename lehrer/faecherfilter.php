@@ -63,45 +63,45 @@
     <ul>
         <ul>
             <label class="heading">Sprachwissenschaften</label>
-            <li><label><input onclick="addFach('DE')" type="checkbox" id="DE">Deutsch</label></li>
-            <li><label><input onclick="addFach('EN')" type="checkbox" id="EN">Englisch</label></li>
-            <li><label><input onclick="addFach('FR')" type="checkbox" id="FR">Französisch</label></li>
-            <li><label><input onclick="addFach('PO')" type="checkbox" id="PO">Polnisch</label></li>
-            <li><label><input onclick="addFach('RU')" type="checkbox" id="RU">Russisch</label></li>
-            <li><label><input onclick="addFach('SN')" type="checkbox" id="SN">Spanisch</label></li>
-            <li><label><input onclick="addFach('TR')" type="checkbox" id="TR">Türkisch</label></li>
-            <li><label><input onclick="addFach('LA')" type="checkbox" id="LA">Latein</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('DE')" type="checkbox" id="DE"><span class="chkbx"></span>Deutsch</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('EN')" type="checkbox" id="EN"><span class="chkbx"></span>Englisch</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('FR')" type="checkbox" id="FR"><span class="chkbx"></span>Französisch</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('PO')" type="checkbox" id="PO"><span class="chkbx"></span>Polnisch</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('RU')" type="checkbox" id="RU"><span class="chkbx"></span>Russisch</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('SN')" type="checkbox" id="SN"><span class="chkbx"></span>Spanisch</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('TR')" type="checkbox" id="TR"><span class="chkbx"></span>Türkisch</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('LA')" type="checkbox" id="LA"><span class="chkbx"></span>Latein</label></li>
         </ul>
         <ul>
             <label class="heading">Naturwissenschaften</label>
-            <li><label><input onclick="addFach('MA')" type="checkbox" name="chk_group[]" id="MA">Mathematik</label></li>
-            <li><label><input onclick="addFach('BI')" type="checkbox" name="chk_group[]" id="BI">Biologie</label></li>
-            <li><label><input onclick="addFach('CH')" type="checkbox" name="chk_group[]" id="CH">Chemie</label></li>
-            <li><label><input onclick="addFach('PH')" type="checkbox" name="chk_group[]" id="PH">Physik</label></li>
-            <li><label><input onclick="addFach('IF')" type="checkbox" name="chk_group[]" id="IF">Informatik</label></li>
-            <li><label><input onclick="addFach('NW')" type="checkbox" name="chk_group[]" id="NW">Naturwissenschaften</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('MA')" type="checkbox" name="chk_group[]" id="MA"><span class="chkbx"></span>Mathematik</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('BI')" type="checkbox" name="chk_group[]" id="BI"><span class="chkbx"></span>Biologie</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('CH')" type="checkbox" name="chk_group[]" id="CH"><span class="chkbx"></span>Chemie</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('PH')" type="checkbox" name="chk_group[]" id="PH"><span class="chkbx"></span>Physik</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('IF')" type="checkbox" name="chk_group[]" id="IF"><span class="chkbx"></span>Informatik</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('NW')" type="checkbox" name="chk_group[]" id="NW"><span class="chkbx"></span>Naturwissenschaften</label></li>
         </ul>
         <ul>
             <label class="heading">Gesellschaftswissenschaften</label>
-            <li><label><input onclick="addFach('EK')" type="checkbox" name="chk_group[]" id="EK">Erdkunde</label></li>
-            <li><label><input onclick="addFach('GE')" type="checkbox" name="chk_group[]" id="GE">Geschichte</label></li>
-            <li><label><input onclick="addFach('PB')" type="checkbox" name="chk_group[]" id="PB">Politische Bildung</label></li>
-            <li><label><input onclick="addFach('EG')" type="checkbox" name="chk_group[]" id="EG">Gesellschaftswissenschaften</label></li>
-            <li><label><input onclick="addFach('RE')" type="checkbox" name="chk_group[]" id="RE">Evangelischer Religionsunterricht</label></li>
-            <li><label><input onclick="addFach('RK')" type="checkbox" name="chk_group[]" id="RK">Katholischer Religionsunterricht</label></li>
-            <li><label><input onclick="addFach('LE')" type="checkbox" name="chk_group[]" id="LE">Lebensgestaltung-Ethik-Religionskunde</label></li>
-            <li><label><input onclick="addFach('AL')" type="checkbox" name="chk_group[]" id="AL">Wirtschaft-Arbeit-Technik</label></li>
-            <li><label><input onclick="addFach('WW')" type="checkbox" name="chk_group[]" id="WW">Wirtschaftswissenschaften</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('EK')" type="checkbox" name="chk_group[]" id="EK"><span class="chkbx"></span>Erdkunde</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('GE')" type="checkbox" name="chk_group[]" id="GE"><span class="chkbx"></span>Geschichte</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('PB')" type="checkbox" name="chk_group[]" id="PB"><span class="chkbx"></span>Politische Bildung</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('EG')" type="checkbox" name="chk_group[]" id="EG"><span class="chkbx"></span>Gesellschaftswissenschaften</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('RE')" type="checkbox" name="chk_group[]" id="RE"><span class="chkbx"></span>Evangelischer Religionsunterricht</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('RK')" type="checkbox" name="chk_group[]" id="RK"><span class="chkbx"></span>Katholischer Religionsunterricht</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('LE')" type="checkbox" name="chk_group[]" id="LE"><span class="chkbx"></span>Lebensgestaltung-Ethik-Religionskunde</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('AL')" type="checkbox" name="chk_group[]" id="AL"><span class="chkbx"></span>Wirtschaft-Arbeit-Technik</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('WW')" type="checkbox" name="chk_group[]" id="WW"><span class="chkbx"></span>Wirtschaftswissenschaften</label></li>
         </ul>
         <ul>
             <label class="heading">Künstlerische Fächer</label>
-            <li><label><input onclick="addFach('DS')" type="checkbox" name="chk_group[]" id="DS">Darstellendes Spiel</label></li>
-            <li><label><input onclick="addFach('KU')" type="checkbox" name="chk_group[]" id="KU">Kunst</label></li>
-            <li><label><input onclick="addFach('MU')" type="checkbox" name="chk_group[]" id="MU">Musik</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('DS')" type="checkbox" name="chk_group[]" id="DS"><span class="chkbx"></span>Darstellendes Spiel</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('KU')" type="checkbox" name="chk_group[]" id="KU"><span class="chkbx"></span>Kunst</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('MU')" type="checkbox" name="chk_group[]" id="MU"><span class="chkbx"></span>Musik</label></li>
         </ul>
         <ul>
             <label class="heading">Sonstige</label>
-            <li><label><input onclick="addFach('SP')" type="checkbox" name="chk_group[]" id="SP">Sport</label></li>
+            <li><label class="chkbx_label"><input onclick="addFach('SP')" type="checkbox" name="chk_group[]" id="SP"><span class="chkbx"></span>Sport</label></li>
         </ul>
         <ul><button id="resetFilter" style="cursor: pointer;" onclick="resetFilter(filteredFaecher)">Filter zurücksetzen</button></ul>
     </ul>

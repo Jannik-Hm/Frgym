@@ -107,13 +107,13 @@
                         echo("<h3>" . $row["position"] . "</h3>");
                         $imgdir = "/files/site-ressources/lehrer-bilder/";
                         $imgpath = $imgdir . strtolower(str_replace(" ","_",$row["vorname"])."_".str_replace(" ","_",$row["nachname"])).".";
-                        if (file_exists($imgpath."jpg")) {
+                        if (file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath."jpg")) {
                             $imgpath = $imgpath."jpg";
-                        }elseif (file_exists($imgpath."jpeg")) {
+                        }elseif (file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath."jpeg")) {
                             $imgpath = $imgpath."jpeg";
-                        }elseif (file_exists($imgpath."png")) {
+                        }elseif (file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath."png")) {
                             $imgpath = $imgpath."png";
-                        }elseif (file_exists($imgpath."webp")) {
+                        }elseif (file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath."webp")) {
                             $imgpath = $imgpath."webp";
                         }else{
                             $imgpath = $imgdir."placeholder.webp";

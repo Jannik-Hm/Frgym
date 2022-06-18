@@ -18,6 +18,104 @@ input[type="password"] {
     margin-top: 20px;
 }
 
+/* Custom Checkbox */
+
+.chkbx_label,
+.customradio {
+    display: block;
+    position: relative;
+    padding-left: 20px!important;
+    margin-bottom: 7px!important;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.chkbx_label input[type="checkbox"] {
+    display: none;
+}
+
+.chkbx_label .chkbx,
+.customradio .radiochk {
+    position: absolute;
+    left: 2px;
+    height: 15px;
+    width: 15px;
+    background-color: #eee;
+}
+
+.chkbx_label .chkbx {
+    border-radius: 3px;
+    top: 1px;
+}
+
+.customradio .radiochk {
+    border-radius: 50%;
+    top: 5px;
+}
+
+/* On mouse-over, add a grey background color */
+.chkbx_label:hover input[type="checkbox"] ~ .chkbx,
+.customradio:hover input[type="radio"] ~ .radiochk {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.chkbx_label input[type="checkbox"]:checked ~ .chkbx,
+.customradio input[type="radio"]:checked ~ .radiochk {
+    background-color: #4ba5c2;
+}
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+.chkbx_label .chkbx:after,
+.customradio .radiochk:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+  /* Show the checkmark when checked */
+.chkbx_label input[type="checkbox"]:checked ~ .chkbx:after,
+.customradio input[type="radio"]:checked ~ .radiochk:after {
+    display: block;
+}
+
+  /* Style the checkmark/indicator */
+.chkbx_label .chkbx:after {
+    left: 4.25px;
+    top: 2px;
+    width: 3px;
+    height: 6px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* Custom Checkbox END */
+
+/* Custom Radio Button */
+
+.customradio input[type="radio"] {
+    display: none;
+}
+
+/* Style the indicator (dot/circle) */
+
+.customradio .radiochk:after{
+    left: 3.5px;
+    top: 3.5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+/* Custom Radio Button END */
+
 input[type="text"] {
     padding-left: 10px;
 }
