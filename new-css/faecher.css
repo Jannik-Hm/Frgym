@@ -43,7 +43,20 @@
     text-align: center;
 }
 
-.faecher div.bereichdiv ul li.fach span {
+.faecher div.bereichdiv ul li.fach:hover::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    z-index: +1;
+}
+
+.faecher div.bereichdiv ul li.fach div span {
     width: 200px;
     position: absolute;
     margin: auto;
@@ -52,7 +65,7 @@
     bottom: 10px;
 }
 
-.faecher div.bereichdiv ul li.fach img.fachimg {
+.faecher div.bereichdiv ul li.fach div img.fachimg {
     position: absolute;
     top: 0;
     bottom: 15px;
@@ -64,6 +77,42 @@
     /* max-width: 200px;
     max-height: 200px; */
     margin: auto;
+}
+
+.faecher div.bereichdiv ul li.fach figcaption {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    background: #757575;
+    cursor: pointer;
+    z-index: +2;
+}
+
+.faecher div.bereichdiv ul li.fach figcaption:hover ~ div img.fachimg,
+.faecher div.bereichdiv ul li.fach figcaption:hover ~ div span,
+.faecher div.bereichdiv ul li.fach figcaption:focus-within ~ div img.fachimg {
+    filter: blur(2px);
+}
+
+.faecher div.bereichdiv ul li.fach figcaption:hover ~ object a.imgsource {
+    display: inline-block;
+}
+
+.faecher div.bereichdiv ul li.fach a.imgsource {
+    word-wrap: break-word;
+    width: 220px;
+    position: absolute;
+    text-align: left;
+    display: none;
+    z-index: +2;
+    left: 10px;
+    top: 100px;
+    font-weight: bold;
+    color: #474747;
 }
 
 @media (prefers-color-scheme: light) {
