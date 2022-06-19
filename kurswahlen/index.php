@@ -17,16 +17,16 @@
         input {
             padding: 5px 10px;
             margin-bottom: 10px;
-            border: 2px solid cornflowerblue;
-            border-radius: 15px;
+            border: 1px solid black;
+            border-radius: 5px;
             font-size: small;
-            background-color: silver;
             transition: all 1s;
         }
 
         input:hover {
-            transform: scale(1.1);
-            box-shadow: 5px 5px 5px darkgray;
+            color: #3d859c;
+            transform: scale(1.03);
+            /* box-shadow: 5px 5px 5px darkgray; */
         }
 
         .kWa:nth-of-type(2) {
