@@ -1,9 +1,9 @@
 <?php
 
-    function dropzone($inputname, $accepted_files, $uploaddir, $filenameoverride = null, $multiplebool = true, $ownform = true) {
+    function dropzone($inputname, $accepted_files, $uploaddir, $filenameoverride = null, $multiplebool = true, $ownform = true, $lehreredit = false) {
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         verifylogin();
-        checkperm("docs");
+        if(!$lehreredit){checkperm("docs");};
         if(($GLOBALS["disabled"])){
             $disabled="disabled";
         }else{
