@@ -82,7 +82,7 @@
             </div>
             <textarea rows="10" columns="50%" placeholder="Infotext (Optional)" name="beschreibung" <?php if($disabled){echo "disabled";} ?>><?php echo $GLOBALS["infotext"]; ?></textarea><br>
             <input type="date" placeholder="Geburtstag (Optional)" name="geburtstag" value="<?php echo $GLOBALS["date"]; ?>" Optional <?php if($disabled){echo "disabled";} ?>><br>
-            <?php dropzone("pictureUpload", array("jpg","jpeg","png", "webp"), "site-ressources/lehrer-bilder/", strtolower(str_replace(" ","_",$_POST["vorname"])."_".str_replace(" ","_",$_POST["nachname"])), false, false); ?>
+            <?php dropzone("pictureUpload", array("jpg","jpeg","png", "webp"), "site-ressources/lehrer-bilder/", strtolower(str_replace(" ","_",$_POST["vorname"])."_".str_replace(" ","_",$_POST["nachname"])), false, false, true); ?>
             <style>#drop_zone{width: 90%}</style>
             <div id="preview">
                 <?php
@@ -192,6 +192,8 @@
             echo("<script>$('.confirm').show();</script>");
             if($_POST['deletefile'] == 'true' && $file_exists){ //delete File if delete is true
                 unlink($root.$imgpath);
+            } elseif($ownedit) {
+                uploadfile("site-ressources/lehrer-bilder/", array("jpg","jpeg","png", "webp"), "pictureUpload", strtolower(str_replace(" ","_",$GLOBALS["vorname"])."_".str_replace(" ","_",$GLOBALS["nachname"])), "lehrer.own");
             } else {
                 uploadfile("site-ressources/lehrer-bilder/", array("jpg","jpeg","png", "webp"), "pictureUpload", strtolower(str_replace(" ","_",$vorname)."_".str_replace(" ","_",$nachname)), "lehrer.all");
             }
