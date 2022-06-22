@@ -3,7 +3,7 @@ nav {
     width: 100%;
     top: 0%;  
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    z-index: +2;
+    z-index: +100;
     display: block;
 }
 
