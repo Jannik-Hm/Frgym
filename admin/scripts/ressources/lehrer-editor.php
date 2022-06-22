@@ -192,6 +192,8 @@
             echo("<script>$('.confirm').show();</script>");
             if($_POST['deletefile'] == 'true' && $file_exists){ //delete File if delete is true
                 unlink($root.$imgpath);
+            } elseif($ownedit) {
+                uploadfile("site-ressources/lehrer-bilder/", array("jpg","jpeg","png", "webp"), "pictureUpload", strtolower(str_replace(" ","_",$GLOBALS["vorname"])."_".str_replace(" ","_",$GLOBALS["nachname"])), "lehrer.own");
             } else {
                 uploadfile("site-ressources/lehrer-bilder/", array("jpg","jpeg","png", "webp"), "pictureUpload", strtolower(str_replace(" ","_",$vorname)."_".str_replace(" ","_",$nachname)), "lehrer.all");
             }
