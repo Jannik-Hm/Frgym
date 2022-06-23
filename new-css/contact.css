@@ -138,3 +138,12 @@
     width: 100%;
   }
 }
+
+@media (prefers-color-scheme: light) {
+  .contact-page .adresse .adresse-text,
+  .contact-page .contact div,
+  .contact-page .fa-map-marker-alt,
+  .contact-page .contact {
+    border-color: rgb(102, 102, 102);
+  }
+}

@@ -128,6 +128,11 @@ footer a:hover {
     color: #3d859c;
 }
 
+footer p,
+footer a {
+    color: #fff;
+}
+
 @media only screen and (max-width: 780px) {
     footer p {
         visibility: hidden;

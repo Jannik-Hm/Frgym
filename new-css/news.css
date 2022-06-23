@@ -345,7 +345,7 @@ div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news {
   left: 0;
   right: 0;
   margin: auto;
-  background-color: rgb(122, 133, 131);
+  /* background-color: rgb(122, 133, 131); */
   /* width: 1000px; */
   align-self: center;
   border: 2px #fff;
@@ -400,7 +400,7 @@ div.newsslidershow
   padding: 0;
   left: 0;
   right: 0;
-  color: rgb(221, 221, 221);
+  /* color: rgb(221, 221, 221); */
   display: inline-block;
 }
 
@@ -433,8 +433,9 @@ div.newsslidershow
   .news
   a[class^="readmore"] {
   cursor: pointer;
-  color: rgb(221, 221, 221);
+  /* color: rgb(221, 221, 221); */
   display: inline-block;
+  margin-bottom: 5px;
 }
 
 /*css for manual slide navigation*/
@@ -576,11 +577,11 @@ div[class^="readmorebox"] [class^="popupCloseButton"]:hover {
  /* Firefox */
 }
 
-.add-input-news form input, .add-input-news form textarea, .newssettings select, .newssettings input[type="submit"], .singlenews, .newssettings select, div.pagination, div[class^="readmorebox"] > div, div[class^="readmorebox"] [class^="popupCloseButton"] {
+.add-input-news form input, .add-input-news form textarea, .newssettings select, .newssettings input[type="submit"], .singlenews, .newssettings select, div.pagination, div[class^="readmorebox"] > div, div[class^="readmorebox"] [class^="popupCloseButton"], div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news {
   background: rgb(205, 211, 210);
 }
 
-.singlenews h5 p, .newspopup h5, .newspopup h5 p, .singlenews a[class^="readmore"] {
+.singlenews h5 p, .newspopup h5, .newspopup h5 p, .singlenews a[class^="readmore"], div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news h5 p, div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news a[class^="readmore"] {
   color: rgb(129, 129, 129);
 }
 
@@ -599,11 +600,11 @@ div.pagination a:hover {
     border-bottom: none;
   }
 
-  .add-input-news form input, .add-input-news form textarea, .newssettings select, .newssettings input[type="submit"], .singlenews, .newssettings select, div.pagination, div[class^="readmorebox"] > div, div[class^="readmorebox"] [class^="popupCloseButton"] {
+  .add-input-news form input, .add-input-news form textarea, .newssettings select, .newssettings input[type="submit"], .singlenews, .newssettings select, div.pagination, div[class^="readmorebox"] > div, div[class^="readmorebox"] [class^="popupCloseButton"], div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news {
     background: rgb(122, 133, 131);
   }
 
-  .singlenews h5 p, .newspopup h5, .newspopup h5 p, .singlenews a[class^="readmore"] {
+  .singlenews h5 p, .newspopup h5, .newspopup h5 p, .singlenews a[class^="readmore"], div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news h5 p, div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news a[class^="readmore"] {
     color: rgb(221, 221, 221);
   }
 }
