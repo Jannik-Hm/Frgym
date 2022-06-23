@@ -1,12 +1,22 @@
 <div style='left: 0;display: block' class='no_perm'>
     <link rel="stylesheet" href="/new-css/no-perm.css">
+    <style>
+        #supportmaillink {
+            width: auto;margin: auto;padding: 0; color: rgb(226, 226, 226);
+        }
+        @media (prefers-color-scheme: light) {
+            #supportmaillink {
+                color: rgb(0, 0, 0);
+            }
+        }
+    </style>
     <div>
         <span class='helper'></span>
         <div class='no_permission'>
             <h1>WIP</h1><br>
             <p>
                 Diese Webseite befindet sich aktiv in der Entwicklungsphase. <br>
-                Falls du Fehler entdeckst oder Ideen hast, melde dich unter <a href="mailto:support@frgym.de" style="width: auto;margin: auto;padding: 0; color: rgb(226, 226, 226)">support@frgym.de</a>.
+                Falls du Fehler entdeckst oder Ideen hast, melde dich unter <a id="supportmaillink" href="mailto:support@frgym.de">support@frgym.de</a>.
             </p>
             <br>
             <a onclick="$('.no_perm').hide()" class='back'>OK</a>
