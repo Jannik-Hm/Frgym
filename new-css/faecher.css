@@ -89,6 +89,7 @@
     border-radius: 50%;
     background: #757575;
     cursor: pointer;
+    color: #fff;
     z-index: +2;
 }
 
