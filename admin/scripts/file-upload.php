@@ -24,6 +24,10 @@
             #drop_zone:hover {background-color: #676565}
             #drop_zone .popupCloseButton {position: absolute; right: -15px; top: -15px; display: inline-block; font-weight: bold; font-size: 25px; line-height: 30px; width: 30px; height: 30px; text-align: center; background-color: rgb(122, 133, 131); border-radius: 50px; border: 3px solid #999; color: #414141;}
             #drop_zone .popupCloseButton:hover {background-color: #fff;}
+            @media (prefers-color-scheme: light){
+                #drop_zone {background-color: rgb(205, 211, 210)}
+                #drop_zone:hover {background-color: rgb(174, 178, 178)}
+            }
         </style>
         <input type="file" name="'.$inputname.$multiplearray.'" id="'.$inputname.'" accept="'.$accept_string.'" '.$multiple.' '.$disabled.' hidden>
         <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" style="">';
@@ -50,7 +54,11 @@
 
                 // add visual drag information
                     dropzone.on("dragover", function() {
-                        $("#drop_zone").attr("style", "background-color: #676565");
+                        if(window.matchMedia("(prefers-color-scheme: dark)").matches){
+                            $("#drop_zone").attr("style", "background-color: #676565");
+                        }else{
+                            $("#drop_zone").attr("style", "background-color: rgb(174, 178, 178)");
+                        }
                     })
                     dropzone.on("dragleave", function() {
                         $("#drop_zone").attr("style", "background-color: ");

@@ -107,7 +107,7 @@
                         if( !( $disabledall ) || ($lehrer_own == 1 && $_SESSION["vorname"] == $row["vorname"] && $_SESSION["nachname"] == $row["nachname"])){
                             echo("<td title='Bearbeiten' class='editrow' onclick=\"window.location='/admin/lehrer/edit?id=" .$row["id"] . "'\"><i class='fas fa-edit'></i></td>");
                             if( ! ($disabledall)){
-                                echo("<td title='Löschen' class='deleterow' onclick=\"$('#confirmdelete').attr('href', '/admin/lehrer/delete.php?id=".$row['id']."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du den Lehrer &#34;".$row["vorname"]." ".$row["nachname"]."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
+                                echo("<td title='Löschen' class='deleterow' onclick=\"$('#confirmdelete').attr('href', '/admin/lehrer/delete.php?id=".$row['id']."');$('#confirmdeletefirst').attr('href', '/admin/lehrer/delete.php?id=".$row['id']."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du den Lehrer &#34;".$row["vorname"]." ".$row["nachname"]."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
                             }
                             // else{
                                 // echo("<td><i class='fas fa-trash red' style='color:#F75140;color:transparent'></i></td>");

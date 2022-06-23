@@ -64,7 +64,7 @@
                         if($GLOBALS["news.all"] == 1 || ($GLOBALS["news.own"] == 1 && $_SESSION["vorname"] . " " . $_SESSION["nachname"] == $autor)){
                             echo("
                             <a title='Bearbeiten' onclick=\"event.stopPropagation();window.location='/admin/news/edit?id=" .$id. "'\"><i style='margin-right: 30px' class='fas fa-edit'></i></a>
-                            <a title='Löschen' onclick=\"event.stopPropagation();$('#confirmdelete').attr('href', '/admin/news/delete.php?id=".$id."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du die Neuigkeit &#34;'+titel".$id."+'&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></a>
+                            <a title='Löschen' onclick=\"event.stopPropagation();$('#confirmdelete').attr('href', '/admin/news/delete.php?id=".$id."');$('#confirmdeletefirst').attr('href', '/admin/news/delete.php?id=".$id."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du die Neuigkeit &#34;'+titel".$id."+'&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></a>
                                 ");
                             }
                         echo("</div>");

@@ -86,7 +86,7 @@
                     <a id='".$deleteid."' class='delete'>".$delete."</a>
                 </div>
                 <div id='deletefirst'>
-                    <a id='".$deleteid."' class='delete'>".$delete."</a>
+                    <a id='".$deleteid."first' class='delete'>".$delete."</a>
                     <a onclick=\"$('.confirm').hide();\" class='abort'>".$abort."</a>
                 </div>
             </div>
