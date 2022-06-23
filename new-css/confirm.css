@@ -47,7 +47,7 @@ div.confirm {
   div.confirmation a.abort {
     margin-right: 100px;
   }
-  
+
   div.confirmation div#deletefirst a {
     display: none;
   }
@@ -74,6 +74,12 @@ div.confirm > div {
     color: rgb(102, 102, 102);
     opacity: 1;
 }
+
+  div.confirmation a.delete,
+  div.confirmation a.repeat,
+  div.confirmation a.abort {
+    color: #fff;
+  }
 
   div.confirmation a.repeat {
     background-color: #40b459;
