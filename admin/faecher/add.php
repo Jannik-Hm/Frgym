@@ -12,7 +12,7 @@
                 $root = realpath($_SERVER["DOCUMENT_ROOT"]);
                 include_once "$root/admin/sites/head.html"
             ?>
-            <title>Lehrer hinzufügen - Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
+            <title>Fachseite bearbeiten - Admin Panel - Friedrich-Gymnasium Luckenwalde</title>
         </head>
         <body>
             <?php include_once "$root/admin/sites/header.html"; ?>

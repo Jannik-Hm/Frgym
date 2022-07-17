@@ -1,0 +1,2 @@
+<?php dropzone("pictureUpload", array("jpg","jpeg","png", "webp"), "site-ressources/lehrer-bilder/", strtolower(str_replace(" ","_",$_POST["vorname"])."_".str_replace(" ","_",$_POST["nachname"])), false, false, true); ?>
+<style>#drop_zone{width: 90%}</style>

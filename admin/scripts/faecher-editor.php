@@ -23,9 +23,25 @@
 
     // Question: live save or save btn?
 
-    function save_segments() {
+    // TODO: Dropzone for pictures with "placeholder" img as background
+
+    function save_segment() {
         // TODO: save segment to individual DB entry
         // for every segment save to DB
+
+        require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+        if(isset($_POST["submit"])) {
+            if(isset($_POST["update"])){
+                echo("update query");
+                // TODO: add edit feature
+                $insert = mysqli_query(getsqlconnection(), "UPDATE faecher SET content1=NULLIF(\"{$_POST['content1']}\", '') content2=NULLIF(\"{$_POST['content2']}\", '') content3=NULLIF(\"{$_POST['content3']}\", '') WHERE id=\"{$_POST['id']}\"");
+            }else{
+                $insert = mysqli_query(getsqlconnection(), "INSERT INTO faecher (id, fach, position, contenttype, content1, content2, content3) VALUES (\"{$_POST['id']}\", \"{$_GET['fach']}\", \"\", \"{$_POST['contenttype']}\", NULLIF(\"{$_POST['content1']}\", ''), NULLIF(\"{$_POST['content2']}\", ''), NULLIF(\"{$_POST['content3']}\", ''))");
+            }
+            if ($insert) {
+            // confirm action
+            }
+        }
     }
 
     // TODO: make segments editable / updatable
