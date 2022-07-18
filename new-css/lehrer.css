@@ -221,8 +221,8 @@
 
   /* Faecherfilter */
   #lehrerFaecherFilterShow {
-    background: rgb(122, 133, 131);
-    color: rgb(226, 226, 226);
+    /* background: rgb(122, 133, 131); */
+    /* color: rgb(226, 226, 226); */
     padding: 8px 16px;
     display: block;
     margin-left: auto;
@@ -233,10 +233,10 @@
     border: none;
     border-radius: 10px;
   }
-  
+
   #lehrerFaecherFilter #resetFilter {
-    background: rgb(122, 133, 131);
-    color: rgb(226, 226, 226);
+    /* background: rgb(122, 133, 131);
+    color: rgb(226, 226, 226); */
     padding: 8px 16px;
     outline: none;
     border: none;
@@ -253,7 +253,7 @@
     margin: 8px 10px;
     position: relative;
     width: clamp(360px, 95%, 1000px);
-    color: #fff;
+    /* color: #fff; */
     font-family: "montserrat", sans-serif;
     padding-right: 5%;
     align-items: center;
@@ -415,7 +415,10 @@
 .add-input form textarea,
 .add-input form ::placeholder,
 #lehrerTableSearch::placeholder,
-#lehrerTable tr {
+#lehrerTable tr,
+#lehrerFaecherFilterShow,
+#lehrerFaecherFilter #resetFilter,
+#lehrerFaecherFilter {
   color: rgb(102, 102, 102);
   opacity: 1;
 }
@@ -426,7 +429,9 @@
 .add-input form label#changepic,
 .add-input form label#rmpic,
 #lehrerTableSearch,
-#lehrerTable tr:nth-child(even) {
+#lehrerTable tr:nth-child(even),
+#lehrerFaecherFilterShow,
+#lehrerFaecherFilter #resetFilter {
   background: rgb(205, 211, 210);
 }
 #lehrerTable tr:nth-child(odd) {
@@ -457,7 +462,10 @@
   .add-input form label,
   #lehrerTableSearch::placeholder,
   #lehrerTableSearch,
-  #lehrerTable tr {
+  #lehrerTable tr,
+  #lehrerFaecherFilterShow,
+  #lehrerFaecherFilter #resetFilter,
+  #lehrerFaecherFilter {
     color: rgb(226, 226, 226);
     opacity: 1; /* Firefox */
   }
@@ -466,7 +474,9 @@
   .add-input form label#file,
   .add-input form label#changepic,
   .add-input form label#rmpic,
-  #lehrerTableSearch {
+  #lehrerTableSearch,
+  #lehrerFaecherFilterShow,
+  #lehrerFaecherFilter #resetFilter {
     background: rgb(122, 133, 131);
     border-bottom: none;
   }

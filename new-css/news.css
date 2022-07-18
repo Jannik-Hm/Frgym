@@ -567,11 +567,11 @@ div[class^="readmorebox"] [class^="popupCloseButton"]:hover {
   background-color: #fff;
 }
 
-.newssettings label, div.pagination a {
+div.pagination a {
   color: #fff;
 }
 
-.add-input-news form label, .add-input-news form input, .add-input-news form textarea, .add-input-news form ::placeholder, .fa-edit {
+.add-input-news form label, .add-input-news form input, .add-input-news form textarea, .add-input-news form ::placeholder, .fa-edit, .newssettings label {
   color: rgb(102, 102, 102);
   opacity: 1;
  /* Firefox */
@@ -590,7 +590,7 @@ div.pagination a:hover {
 }
 
 @media (prefers-color-scheme: dark) {
-  .add-input-news form label, .add-input-news form input, .add-input-news form textarea, .add-input-news form ::placeholder, .newssettings select, .newssettings input[type="submit"], .fa-edit {
+  .add-input-news form label, .add-input-news form input, .add-input-news form textarea, .add-input-news form ::placeholder, .newssettings select, .newssettings input[type="submit"], .fa-edit, .newssettings label {
     color: rgb(226, 226, 226);
     opacity: 1;
     /* Firefox */

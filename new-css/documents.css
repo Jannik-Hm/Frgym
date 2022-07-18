@@ -24,6 +24,10 @@
   white-space: nowrap;
 }
 
+#fileTable tr td p span {
+  font-size: 16px;
+}
+
 #fileTable tr td:first-child {
   padding-left: 15px;
 }
