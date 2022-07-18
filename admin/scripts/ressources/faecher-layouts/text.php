@@ -28,11 +28,7 @@
     }
 </style>
 <div class="grow-wrap">
-    <?php $id=uniqid("text"); ?>
-    <textarea name="content1<?php // echo $id ?>" id="<?php echo $id ?>" onInput="this.parentNode.dataset.replicatedValue = this.value" <?php if(!($GLOBALS["edit"])) { echo("style='border: none;background: none;color: #000;' disabled"); } ?>></textarea>
+    <?php $id=$GLOBALS["id"]; ?>
+    <textarea name="content1<?php // echo $id ?>" id="content1<?php echo $id ?>" onInput="this.parentNode.dataset.replicatedValue = this.value" style="border: none;background: none;color: #000;" disabled <?php // if(!($GLOBALS["edit"])) { echo("style='border: none;background: none;color: #000;' disabled"); } ?>></textarea>
     <input name="contenttype" type="text" value="text" hidden></input>
 </div>
-<?php
-    echo($GLOBALS["id"]);
-    echo("edit:".$GLOBALS["edit"]);
-?>
