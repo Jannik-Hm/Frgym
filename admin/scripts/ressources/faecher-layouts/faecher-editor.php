@@ -27,6 +27,6 @@
         $('[id*="abort"]').hide();
         $('[id*="save"]').hide();
         $('[id*="content"]').attr('class', 'normal');
-        $('[id*="content"]').attr('disabled');
+        $('[id*="content"]').attr('disabled', true);
     }
 </script>
