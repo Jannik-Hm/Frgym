@@ -26,9 +26,13 @@
     /* Place on top of each other */
     grid-area: 1 / 1 / 2 / 2;
     }
+    textarea.normal{
+        border: none;background: none;color: #000;
+    }
+    textarea.edit{}
 </style>
 <div class="grow-wrap">
     <?php $id=$GLOBALS["id"]; ?>
-    <textarea name="content1<?php // echo $id ?>" id="content1<?php echo $id ?>" onInput="this.parentNode.dataset.replicatedValue = this.value" style="border: none;background: none;color: #000;" disabled <?php // if(!($GLOBALS["edit"])) { echo("style='border: none;background: none;color: #000;' disabled"); } ?>></textarea>
+    <textarea name="content1" id="content1<?php echo $id ?>" class="normal" onInput="this.parentNode.dataset.replicatedValue = this.value" disabled></textarea>
     <input name="contenttype" type="text" value="text" hidden></input>
 </div>
