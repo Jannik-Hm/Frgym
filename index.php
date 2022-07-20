@@ -50,7 +50,7 @@
         </section>
         <section id="mainFourth">
             <div>
-                <p>Was uns auszeichnet</p>
+                <p>Auszeichnungen</p>
             </div>
             <div>
                 <div>
