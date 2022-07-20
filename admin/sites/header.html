@@ -5,7 +5,7 @@
             <li><a href="/">Home</a></li>
             <li><a href="/admin/">Startseite-Admin</a></li>
             <li class="drop-menu">
-                <a href="#" style="padding-left: 93px; padding-right: 86px;"> Lehrer <i
+                <a href="#"> Lehrer <i
                         class="fa fa-angle-down"></i></a>
                 <ul>
                     <li><a href="/admin/lehrer/">Liste</a></li>
@@ -13,7 +13,7 @@
                 </ul>
             </li>
             <li class="drop-menu">
-                <a href="#" style="padding-left: 100px; padding-right: 85px;"> News <i class="fa fa-angle-down"></i></a>
+                <a href="#"> News <i class="fa fa-angle-down"></i></a>
                 <ul>
                     <li><a href="/admin/news/">News-Blog</a></li>
                     <li><a href="/admin/news/add/">Hinzufügen</a></li>
@@ -24,6 +24,20 @@
                 <a onclick="logout()">
                     <i class="fa-solid fa-arrow-right-from-bracket" style="color: lightcoral;"></i>
                 </a>
+            </li>
+            <li class="drop-menu" id="Sonstiges-Button">
+                <a href="#"> Sonstiges <i class="fa fa-angle-down"></i></a>
+                <ul id="Sonstiges">
+    
+    
+                </ul>
+            </li>
+        </ul>
+        <ul id="mobile" style="display: none;">
+            <li class="drop-menu" style="width: 100%">
+                <a href="#" style="width: 100%; text-align: left"><i class="fas fa-bars" style="margin-right: 15px"></i>Navigator</a>
+                <ul id="mobile-list">
+                </ul>
             </li>
         </ul>
     </nav>
