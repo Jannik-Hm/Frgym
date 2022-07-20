@@ -1,5 +1,39 @@
 </div>
 <script defer>
+    function adjustheader() {
+        // var sonstiges_width = $(".header ul li:last-child").not(".header ul li ul li").width();
+        var sonstiges_width = 240; // Slide out menu buttons width
+        var window_width = $(window).width();
+        var menu_width = sonstiges_width;
+        $("#Sonstiges-Button").show();
+        $("#mobile").hide();
+        $("#Sonstiges li").not("#Sonstiges li ul li").each(function() {
+            $(this).insertBefore("#Sonstiges-Button");
+        })
+        $("#mobile-list li").not("#mobile-list li ul li").each(function() {
+            $(this).insertBefore("#Sonstiges-Button");
+        })
+        if(window_width <= 460){
+            $("#Sonstiges-Button").hide();
+            $("#mobile").show();
+            $(".header ul li").not(".header ul li ul li").not(".header ul li:last-child").each(function(){
+                $(this).appendTo("#mobile-list");
+            })
+        }else{
+            $(".header ul li").not(".header ul li ul li").not(".header ul li:last-child").each(function(index) { // Iterate every head element excluding "Sonstiges"
+                var isLastElement = index == $(".header ul li").not(".header ul li ul li").not(".header ul li:last-child").length -1;
+                menu_width += $(this).width();
+                if(menu_width < window_width){
+                    if(isLastElement){$("#Sonstiges-Button").hide();}
+                }else if (isLastElement && menu_width - sonstiges_width <= window_width) {
+                    $("#Sonstiges-Button").hide();
+                }else{
+                    $(this).appendTo("#Sonstiges");
+                }
+            })
+        }
+        headerheight();
+    }
     function headerheight() {
         var interval1 = setInterval(function() {
             if (typeof onresizefunc == "function") { onresizefunc() };
@@ -10,9 +44,9 @@
             }
         }, 50);
     }
-    headerheight();
+    adjustheader();
     window.onresize = function(e) {
-        headerheight();
+        adjustheader();
     }
 
 </script>

@@ -79,10 +79,15 @@ nav ul li ul li a:hover {
     border-left: 4px solid #477f92;
 }
 
-.drop-menu li {
+.drop-menu ul {
     z-index: +3;
 }
-  
+
+nav ul li#Sonstiges-Button ul#Sonstiges .drop-menu ul,
+nav ul#mobile li ul#mobile-list .drop-menu ul {
+    position: relative;
+    z-index: auto;
+}
 
 footer {
     display: block;
