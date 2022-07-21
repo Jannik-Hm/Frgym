@@ -1,9 +1,10 @@
 <?php
-    require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/file-upload.php";
-    dropzone("pictureUpload", array("jpg","jpeg","png", "webp"), "site-ressources/faecher-pictures/", null, false, true, true);
+    require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/faecher-editor.php";
+    faecher_img_dropzone("content1", array("jpg","jpeg","png", "webp"), "site-ressources/faecher-pictures/");
 ?>
 <div id="preview">
     <?php
+        require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         $result = mysqli_query(getsqlconnection(), "SELECT * FROM faecher WHERE id=\"62d6d68733b83\"");
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
@@ -57,6 +58,7 @@
     })
 </script>
 <style>#drop_zone{width: 100%; height: 200px; background-size: 100%; margin-top: 50px;}</style>
+<input name="contenttype" type="text" value="bild-banner" hidden></input>
 
 <?php
     if ($insert) {
