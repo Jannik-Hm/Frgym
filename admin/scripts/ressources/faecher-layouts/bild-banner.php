@@ -1,11 +1,12 @@
 <?php
     require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/faecher-editor.php";
     faecher_img_dropzone("content1", array("jpg","jpeg","png", "webp"), "site-ressources/faecher-pictures/");
+    $contentnum = "content1";
 ?>
 <div id="preview">
     <?php
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
-        $result = mysqli_query(getsqlconnection(), "SELECT * FROM faecher WHERE id=\"62d6d68733b83\"");
+        $result = mysqli_query(getsqlconnection(), "SELECT * FROM faecher WHERE id=\"{$GLOBALS['id']}\"");
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
         }
@@ -44,12 +45,12 @@
     };
     function rmimage() { // TODO: Delete Picture button not removing picture from server and fix img replacing
         $("#drop_zone p").html("Datei hochladen");
-        <?php if($GLOBALS["edit"]){echo "document.getElementById('deletefile').value = 'true';";}else{echo "document.getElementById('pictureUpload').value = '';";} ?>
+        document.getElementById('deletefile').value = 'true';
         $("#drop_zone").css("background-image", "url(\"data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='15' ry='15' stroke='%23333' stroke-width='5' stroke-dasharray='6%2c 14' stroke-dashoffset='14' stroke-linecap='square'/%3e%3c/svg%3e\")");
         $("#drop_zone p").show();
         document.getElementById('invalidfiletype').style.display = "none";
     }
-    $("#pictureUpload").change(function () {
+    $("#<?php echo $contentnum.$GLOBALS["id"] ?>picture").change(function () {
         imagePreview(this);
         document.getElementById('deletefile').value = 'false';
     });
@@ -66,7 +67,7 @@
         if($_POST['deletefile'] == 'true' && $file_exists){ //delete File if delete is true
             unlink(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath);
         } else {
-            uploadfile("site-ressources/lehrer-bilder/", array("jpg","jpeg","png", "webp"), "pictureUpload", strtolower(str_replace(" ","_",$vorname)."_".str_replace(" ","_",$nachname)), "lehrer.own");
+            uploadfile("site-ressources/lehrer-bilder/", array("jpg","jpeg","png", "webp"), "".$contentnum.$GLOBALS["id"]."picture", strtolower(str_replace(" ","_",$vorname)."_".str_replace(" ","_",$nachname)), "lehrer.own");
         }
     }
 ?>

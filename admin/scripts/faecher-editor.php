@@ -86,6 +86,7 @@
         foreach($accepted_files as $accepted_type) {
             $accept_string = $accept_string.".".$accepted_type.",";
         }
+        // TODO: adjust css when normal
         echo '
         <style>
             #drop_zone {cursor: pointer; text-align: center; border: none; width: 100%;  padding: 15px 0;  margin: 15px auto;  border-radius: 15px; background-color: #514f4f ;background-image: url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'15\' ry=\'15\' stroke=\'%23333\' stroke-width=\'5\' stroke-dasharray=\'6%2c 14\' stroke-dashoffset=\'14\' stroke-linecap=\'square\'/%3e%3c/svg%3e"); position: relative}
@@ -97,9 +98,10 @@
                 #drop_zone:hover {background-color: rgb(174, 178, 178)}
             }
         </style>
-        <input type="file" name="'.$contentnum.'picture[]" id="'.$contentnum.'picture" accept="'.$accept_string.'" hidden>
-        <input type="text" name="'.$contentnum.'" id="'.$contentnum.'">
-        <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" style="">';
+        <input type="file" name="'.$contentnum.'picture[]" id="'.$contentnum.$GLOBALS["id"].'picture" accept="'.$accept_string.'" hidden disabled>
+        <input type="text" name="'.$contentnum.'" id="'.$contentnum.$GLOBALS["id"].'" hidden disabled>
+        <div id="drop_zone" ondragover="dragOverHandler(event);" style="">
+        <!-- <img src="/files/site-ressources/faecher-pictures/62da943d8ac9c.jpg"></img> -->';
         echo '<div style="display: none" onclick="event.stopPropagation();resetupload();" class="popupCloseButton">&times;</div>';
         echo '<p>Datei hochladen</p>
         </div>
@@ -111,7 +113,7 @@
             const dropzone = $("#drop_zone")
                 // click input file field
                 dropzone.on(\'click\', function () {
-                $("#'.$contentnum.'picture").trigger("click");
+                $("#'.$contentnum.$GLOBALS["id"].'picture").trigger("click");
                 })
 
                 // prevent default browser behavior
@@ -136,14 +138,14 @@
                     $("#submitbtn").hide();
                     $("#drop_zone .popupCloseButton").hide();
                     $("#drop_zone p").html("Datei hochladen");
-                    $("#'.$contentnum.'picture").val("");
-                    $("#'.$contentnum.'").val("");
+                    $("#'.$contentnum.$GLOBALS["id"].'picture").val("");
+                    $("#'.$contentnum.$GLOBALS["id"].'").val("");
                 }
 
                 function onupload() {
                     var filenames = {};
-                    for (var i = 0; i<$("#'.$contentnum.'picture")[0].files.length; ++i) {
-                        filenames[i] = $("#'.$contentnum.'picture")[0].files[i].name;
+                    for (var i = 0; i<$("#'.$contentnum.$GLOBALS["id"].'picture")[0].files.length; ++i) {
+                        filenames[i] = $("#'.$contentnum.$GLOBALS["id"].'picture")[0].files[i].name;
                     }
                     var filenames_string = "";
                     for (const element in filenames) {
@@ -151,27 +153,28 @@
                         filenames_string += filenames[element].replace("."+filenames[element].substr(filenames[element].lastIndexOf(".")+1), "");
                     }
                     $("#drop_zone p").html(filenames_string);
-                    $("#'.$contentnum.'").val(filenames[0]);
+                    $("#'.$contentnum.$GLOBALS["id"].'").val(filenames[0]);
                     // TODO: change dropzone background to signalise files were added and add icons
-                    $("#submitbtn").attr("value",$("#'.$contentnum.'picture")[0].files.length+" Datei/en freigeben");
-                    $("#submitbtn").show();
+                    // $("#submitbtn").attr("value",$("#'.$contentnum.$GLOBALS["id"].'picture")[0].files.length+" Datei/en freigeben");
+                    // $("#submitbtn").show();
                     $("#drop_zone .popupCloseButton").show();
                 }
 
                 // catch file drop and add it to input
                 dropzone.on("drop", e => {
-                e.preventDefault();
-                let files = e.originalEvent.dataTransfer.files
-
-                if (files.length) {
-                    $("#'.$contentnum.'picture").prop("files", files);
-                    onupload();
-                    // document.getElementById("file_upload").submit();
-                }
+                    e.preventDefault();
+                    if ($("#'.$contentnum.$GLOBALS["id"].'picture")[0].getAttribute("disabled") == null) {
+                        let files = e.originalEvent.dataTransfer.files
+                        if (files.length) {
+                            $("#'.$contentnum.$GLOBALS["id"].'picture").prop("files", files);
+                            onupload();
+                            // document.getElementById("file_upload").submit();
+                        }
+                    }
                 });
 
                 // trigger file submission behavior
-                $("#'.$contentnum.'picture").on("change", function (e) {
+                $("#'.$contentnum.$GLOBALS["id"].'picture").on("change", function (e) {
                 if (e.target.files.length) {
                     onupload();
                     // document.getElementById("file_upload").submit();
@@ -190,9 +193,10 @@
         // create hidden text input with file name
 
         if(isset($_POST["submit"])) {
-            $_POST[$contentnum] = uniqid().".".pathinfo($_POST[$contentnum], PATHINFO_EXTENSION);
+            $img_id = uniqid();
+            $_POST[$contentnum] = $img_id.".".pathinfo($_POST[$contentnum], PATHINFO_EXTENSION);
             require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/file-upload.php";
-            uploadfile($uploaddir, $accepted_files, $contentnum.'picture[]', $_POST[$contentnum]);
+            uploadfile($uploaddir, $accepted_files, $contentnum.'picture', $img_id, "lehrer.own");
         }
 
     }
