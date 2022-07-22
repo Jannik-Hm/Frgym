@@ -12,7 +12,7 @@
                 <div onclick=\"event.stopPropagation();$('.faecher-selector-popup').hide()\" class='popupCloseButton'>&times;</div>
                 <div class='faecher-selector-popup-list'>
                     <ul>
-                        <li>Test</li>
+                        <li onmouseover='show iframe with link (js)' onmouseout='hide iframe (js)'>Test</li>
                     </ul>
                 </div>
             </div>
