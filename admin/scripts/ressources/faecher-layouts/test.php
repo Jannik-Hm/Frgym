@@ -18,8 +18,8 @@
             <?php
                 require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/faecher-editor.php";
                 create_segment("text");
-                create_segment("text");
-                create_segment("bild-banner");
+                create_segment("text", "62d6cfb39fe5c");
+                create_segment("bild-banner", "62dbd2f565c17");
                 save_segment();
             ?>
         </ul>

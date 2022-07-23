@@ -44,9 +44,12 @@
         }
     }
 
-    function create_segment($segmenttype) {
-        $GLOBALS["id"] = uniqid();
-        $GLOBALS["edit"] = true;
+    function create_segment($segmenttype, $existingid = NULL) {
+        if(isset($existingid)){
+            $GLOBALS["id"] = $existingid;
+        }else{
+            $GLOBALS["id"] = uniqid();
+        }
         echo '
         <li style="margin-bottom: 40px;" id="'.$GLOBALS["id"].'">
             <form method="POST" enctype="multipart/form-data" > ';
@@ -77,6 +80,7 @@
                 $(\'[id*="save"]\').hide();
                 $(\'[id*="content"]\').attr(\'class\', \'normal\');
                 $(\'[id*="content"]\').attr(\'disabled\', true);
+                // TODO: reset unsaved changes
             }
         </script>';
     }
@@ -89,19 +93,24 @@
         // TODO: adjust css when normal
         echo '
         <style>
-            #drop_zone {cursor: pointer; text-align: center; border: none; width: 100%;  padding: 15px 0;  margin: 15px auto;  border-radius: 15px; background-color: #514f4f ;background-image: url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'15\' ry=\'15\' stroke=\'%23333\' stroke-width=\'5\' stroke-dasharray=\'6%2c 14\' stroke-dashoffset=\'14\' stroke-linecap=\'square\'/%3e%3c/svg%3e"); position: relative}
-            #drop_zone:hover {background-color: #676565}
-            #drop_zone .popupCloseButton {position: absolute; right: -15px; top: -15px; display: inline-block; font-weight: bold; font-size: 25px; line-height: 30px; width: 30px; height: 30px; text-align: center; background-color: rgb(122, 133, 131); border-radius: 50px; border: 3px solid #999; color: #414141;}
-            #drop_zone .popupCloseButton:hover {background-color: #fff;}
+            [id*=drop_zone] {text-align: center; border: none; width: 100%;  padding: 0;  margin: 15px auto;  border-radius: 15px; background-color: #514f4f ;background-image: url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'15\' ry=\'15\' stroke=\'%23333\' stroke-width=\'5\' stroke-dasharray=\'6%2c 14\' stroke-dashoffset=\'14\' stroke-linecap=\'square\'/%3e%3c/svg%3e"); position: relative}
+            [id*=drop_zone].edit {cursor: pointer;}
+            [id*=drop_zone].edit:hover {background-color: #676565}
+            [id*=drop_zone] p {padding: 15px 0}
+            [id*=drop_zone] .popupCloseButton {position: absolute; right: -15px; top: -15px; display: inline-block; font-weight: bold; font-size: 25px; line-height: 30px; width: 30px; height: 30px; text-align: center; background-color: rgb(122, 133, 131); border-radius: 50px; border: 3px solid #999; color: #414141;}
+            [id*=drop_zone] .popupCloseButton:hover {background-color: #fff;}
+            [id*=drop_zone] .popupCloseButton {visibility: hidden}
+            [id*=drop_zone].edit .popupCloseButton {visibility: visible}
+            [id*=drop_zone] [id*=img_preview] {width: 100%; height: auto; border-radius: 15px; object-fit: cover;}
             @media (prefers-color-scheme: light){
-                #drop_zone {background-color: rgb(205, 211, 210)}
-                #drop_zone:hover {background-color: rgb(174, 178, 178)}
+                [id*=drop_zone] {background-color: rgb(205, 211, 210)}
+                [id*=drop_zone]:hover {background-color: rgb(174, 178, 178)}
             }
         </style>
         <input type="file" name="'.$contentnum.'picture[]" id="'.$contentnum.$GLOBALS["id"].'picture" accept="'.$accept_string.'" hidden disabled>
         <input type="text" name="'.$contentnum.'" id="'.$contentnum.$GLOBALS["id"].'" hidden disabled>
-        <div id="drop_zone" ondragover="dragOverHandler(event);" style="">
-        <!-- <img src="/files/site-ressources/faecher-pictures/62da943d8ac9c.jpg"></img> -->';
+        <div id="drop_zone'.$contentnum.$GLOBALS["id"].'" class="normal" ondragover="dragOverHandler(event);" style="">
+        <img id="img_preview_'.$contentnum.$GLOBALS["id"].'" src=""></img>';
         echo '<div style="display: none" onclick="event.stopPropagation();resetupload();" class="popupCloseButton">&times;</div>';
         echo '<p>Datei hochladen</p>
         </div>
@@ -110,7 +119,7 @@
             </p>
         </div> -->
         <script>
-            const dropzone = $("#drop_zone")
+            var dropzone = $("#drop_zone'.$contentnum.$GLOBALS["id"].'")
                 // click input file field
                 dropzone.on(\'click\', function () {
                 $("#'.$contentnum.$GLOBALS["id"].'picture").trigger("click");
@@ -125,19 +134,19 @@
                 // add visual drag information
                     dropzone.on("dragover", function() {
                         if(window.matchMedia("(prefers-color-scheme: dark)").matches){
-                            $("#drop_zone").attr("style", "background-color: #676565");
+                            dropzone.attr("style", "background-color: #676565");
                         }else{
-                            $("#drop_zone").attr("style", "background-color: rgb(174, 178, 178)");
+                            dropzone.attr("style", "background-color: rgb(174, 178, 178)");
                         }
                     })
                     dropzone.on("dragleave", function() {
-                        $("#drop_zone").attr("style", "background-color: ");
+                        dropzone.attr("style", "background-color: ");
                     })
 
                 function resetupload() {
                     $("#submitbtn").hide();
-                    $("#drop_zone .popupCloseButton").hide();
-                    $("#drop_zone p").html("Datei hochladen");
+                    dropzone.children(".popupCloseButton").hide();
+                    dropzone.children("p").html("Datei hochladen");
                     $("#'.$contentnum.$GLOBALS["id"].'picture").val("");
                     $("#'.$contentnum.$GLOBALS["id"].'").val("");
                 }
@@ -152,12 +161,12 @@
                         if (element != 0) {filenames_string += " & ";}
                         filenames_string += filenames[element].replace("."+filenames[element].substr(filenames[element].lastIndexOf(".")+1), "");
                     }
-                    $("#drop_zone p").html(filenames_string);
+                    dropzone.children("p").html(filenames_string);
                     $("#'.$contentnum.$GLOBALS["id"].'").val(filenames[0]);
                     // TODO: change dropzone background to signalise files were added and add icons
                     // $("#submitbtn").attr("value",$("#'.$contentnum.$GLOBALS["id"].'picture")[0].files.length+" Datei/en freigeben");
                     // $("#submitbtn").show();
-                    $("#drop_zone .popupCloseButton").show();
+                    dropzone.children(".popupCloseButton").show();
                 }
 
                 // catch file drop and add it to input
@@ -187,8 +196,61 @@
                     // Prevent default behavior (Prevent file from being opened)
                     ev.preventDefault();
                 }
+                function imagePreview(fileInput) {
+                    if (fileInput.files && fileInput.files[0]) {
+                        var fileReader = new FileReader();
+                        fileReader.onload = function (event) {
+                            // $("#preview").html("<img src=""+event.target.result+"" width="300" height="auto"/>");
+                            $("#img_preview_'.$contentnum.$GLOBALS["id"].'").attr("src", event.target.result);
+                            // dropzone.css("background-image", "url("+event.target.result+")");
+                            dropzone.children("p").hide();
+                        };
+                        fileReader.readAsDataURL(fileInput.files[0]);
+                        var fileName = fileInput.value; //Check of Extension
+                        var extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+                        if ((extension == "jpg" || extension == "jpeg" || extension == "png" || extension == "webp")){
+                            document.getElementById("invalidfiletype").style.display = "none";
+                            document.getElementById("preview").style.display = "";
+                        }else{
+                            document.getElementById("invalidfiletype").style.display = "";
+                            document.getElementById("preview").style.display = "none";
+                        }
+                    }
+                };
+                function rmimage() { // TODO: Delete Picture button not removing picture from server and fix img replacing
+                    dropzone.children("p").html("Datei hochladen");
+                    document.getElementById("deletefile").value = "true";
+                    $("#img_preview_'.$contentnum.$GLOBALS["id"].'").attr("src", "");
+                    dropzone.children("p").show();
+                    document.getElementById("invalidfiletype").style.display = "none";
+                }
+                $("#'.$contentnum.$GLOBALS["id"].'picture").change(function () {
+                    imagePreview(this);
+                    document.getElementById("deletefile").value = "false";
+                });
+                dropzone.children(".popupCloseButton").click(function() {
+                    rmimage();
+                })
         </script>
         <!-- <input type="submit" name="submit" style="width: 200px; margin-left: 20px; height: auto" value="Datei freigeben"> -->';
+
+        echo '<div id="preview">';
+                require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+                $result = mysqli_query(getsqlconnection(), "SELECT * FROM faecher WHERE id=\"{$GLOBALS["id"]}\"");
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                }
+                $GLOBALS["file_exists"] = false;
+                $imgpath = "/files/site-ressources/faecher-pictures/" . $row["content1"];
+                if ($row["content1"] != NULL && file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath)) {
+                    $GLOBALS["file_exists"] = true;
+                }
+                if($GLOBALS["file_exists"]){echo('<script>$("#img_preview_'.$contentnum.$GLOBALS["id"].'").attr("src", "'.$imgpath.'")</script>');}
+                echo '
+            <input type="hidden" id="deletefile" name="deletefile" value="" />
+        </div><br>
+        <div id="invalidfiletype" style="display:none"><p>Nur .jpg, .jpeg, .png und .webp Dateien sind erlaubt!</p></div><br>';
+        if($GLOBALS["file_exists"]){echo("<script>dropzone.children('p').hide();$('#drop_zone".$contentnum.$GLOBALS["id"]." .popupCloseButton').show();</script>");}
 
         // create hidden text input with file name
 
@@ -196,7 +258,12 @@
             $img_id = uniqid();
             $_POST[$contentnum] = $img_id.".".pathinfo($_POST[$contentnum], PATHINFO_EXTENSION);
             require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/file-upload.php";
-            uploadfile($uploaddir, $accepted_files, $contentnum.'picture', $img_id, "lehrer.own");
+            if($_POST['deletefile'] == 'true' && $GLOBALS["file_exists"]){ //delete File if delete is true
+                unlink(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath);
+                $_POST[$contentnum] = NULL;
+            } else {
+                uploadfile($uploaddir, $accepted_files, $contentnum.'picture', $img_id, "lehrer.own");
+            }
         }
 
     }
