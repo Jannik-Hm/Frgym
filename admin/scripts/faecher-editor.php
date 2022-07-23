@@ -46,17 +46,19 @@
 
     function create_segment($segmenttype, $existingid = NULL) {
         if(isset($existingid)){
-            $GLOBALS["id"] = $existingid;
+            // $GLOBALS["id"] = $existingid;
+            // $update = "checked";
         }else{
-            $GLOBALS["id"] = uniqid();
+            // $update = "";
         }
+        $GLOBALS["id"] = uniqid();
         echo '
         <li style="margin-bottom: 40px;" id="'.$GLOBALS["id"].'">
             <form method="POST" enctype="multipart/form-data" > ';
                 include(realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/faecher-layouts/$segmenttype.php");
         echo '
                 <input name="id" type="text" value="'.$GLOBALS["id"].'" hidden></input>
-                <input name="update" type="checkbox" hidden></input>
+                <input name="update" type="checkbox" '.$update.' hidden></input>
                 <input name="edit" type="checkbox" checked hidden></input>
                 <div style="margin: auto; margin-right: 5px; display: inline-block; float: right; margin-top: 5px;">
                     <btn style="cursor:pointer; border: 1px solid #000; width: 80px; display: inline-block; text-align: center;" onclick="resetedit(); edit(\''.$GLOBALS["id"].'\');" id="'.$GLOBALS["id"].'edit">Bearbeiten</btn>
@@ -90,7 +92,7 @@
         foreach($accepted_files as $accepted_type) {
             $accept_string = $accept_string.".".$accepted_type.",";
         }
-        // TODO: adjust css when normal
+        // TODO: fix file drop to only allow single file + check for filetype
         echo '
         <style>
             [id*=drop_zone] {text-align: center; border: none; width: 100%;  padding: 0;  margin: 15px auto;  border-radius: 15px; background-color: #514f4f ;background-image: url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'15\' ry=\'15\' stroke=\'%23333\' stroke-width=\'5\' stroke-dasharray=\'6%2c 14\' stroke-dashoffset=\'14\' stroke-linecap=\'square\'/%3e%3c/svg%3e"); position: relative}
@@ -108,7 +110,6 @@
             }
         </style>
         <input type="file" name="'.$contentnum.'picture[]" id="'.$contentnum.$GLOBALS["id"].'picture" accept="'.$accept_string.'" hidden disabled>
-        <input type="text" name="'.$contentnum.'" id="'.$contentnum.$GLOBALS["id"].'" hidden disabled>
         <div id="drop_zone'.$contentnum.$GLOBALS["id"].'" class="normal" ondragover="dragOverHandler(event);" style="">
         <img id="img_preview_'.$contentnum.$GLOBALS["id"].'" src=""></img>';
         echo '<div style="display: none" onclick="event.stopPropagation();resetupload();" class="popupCloseButton">&times;</div>';
@@ -152,17 +153,8 @@
                 }
 
                 function onupload() {
-                    var filenames = {};
-                    for (var i = 0; i<$("#'.$contentnum.$GLOBALS["id"].'picture")[0].files.length; ++i) {
-                        filenames[i] = $("#'.$contentnum.$GLOBALS["id"].'picture")[0].files[i].name;
-                    }
-                    var filenames_string = "";
-                    for (const element in filenames) {
-                        if (element != 0) {filenames_string += " & ";}
-                        filenames_string += filenames[element].replace("."+filenames[element].substr(filenames[element].lastIndexOf(".")+1), "");
-                    }
-                    dropzone.children("p").html(filenames_string);
-                    $("#'.$contentnum.$GLOBALS["id"].'").val(filenames[0]);
+                    imagePreview($("#'.$contentnum.$GLOBALS["id"].'picture")[0]);
+                    document.getElementById("deletefile").value = "false";
                     // TODO: change dropzone background to signalise files were added and add icons
                     // $("#submitbtn").attr("value",$("#'.$contentnum.$GLOBALS["id"].'picture")[0].files.length+" Datei/en freigeben");
                     // $("#submitbtn").show();
@@ -224,10 +216,6 @@
                     dropzone.children("p").show();
                     document.getElementById("invalidfiletype").style.display = "none";
                 }
-                $("#'.$contentnum.$GLOBALS["id"].'picture").change(function () {
-                    imagePreview(this);
-                    document.getElementById("deletefile").value = "false";
-                });
                 dropzone.children(".popupCloseButton").click(function() {
                     rmimage();
                 })
@@ -253,10 +241,10 @@
         if($GLOBALS["file_exists"]){echo("<script>dropzone.children('p').hide();$('#drop_zone".$contentnum.$GLOBALS["id"]." .popupCloseButton').show();</script>");}
 
         // create hidden text input with file name
-
+        // TODO: check for correct file type before sql
         if(isset($_POST["submit"])) {
             $img_id = uniqid();
-            $_POST[$contentnum] = $img_id.".".pathinfo($_POST[$contentnum], PATHINFO_EXTENSION);
+            $_POST[$contentnum] = $img_id.".".strtolower(pathinfo(basename($_FILES[$contentnum.'picture']["name"][0]),PATHINFO_EXTENSION));
             require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/file-upload.php";
             if($_POST['deletefile'] == 'true' && $GLOBALS["file_exists"]){ //delete File if delete is true
                 unlink(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath);
