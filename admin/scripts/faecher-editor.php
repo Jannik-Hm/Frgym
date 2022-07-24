@@ -34,7 +34,7 @@
             if(isset($_POST["update"])){
                 echo("update query");
                 // TODO: add edit feature
-                $insert = mysqli_query(getsqlconnection(), "UPDATE faecher SET content1=NULLIF(\"{$_POST['content1']}\", '') content2=NULLIF(\"{$_POST['content2']}\", '') content3=NULLIF(\"{$_POST['content3']}\", '') WHERE id=\"{$_POST['id']}\"");
+                $insert = mysqli_query(getsqlconnection(), "UPDATE faecher SET content1=NULLIF(\"{$_POST['content1']}\", ''), content2=NULLIF(\"{$_POST['content2']}\", ''), content3=NULLIF(\"{$_POST['content3']}\", '') WHERE id=\"{$_POST['id']}\"");
             }else{
                 $insert = mysqli_query(getsqlconnection(), "INSERT INTO faecher (id, fach, position, contenttype, content1, content2, content3) VALUES (\"{$_POST['id']}\", \"{$_GET['fach']}\", \"\", \"{$_POST['contenttype']}\", NULLIF(\"{$_POST['content1']}\", ''), NULLIF(\"{$_POST['content2']}\", ''), NULLIF(\"{$_POST['content3']}\", ''))");
             }
@@ -46,12 +46,12 @@
 
     function create_segment($segmenttype, $existingid = NULL) {
         if(isset($existingid)){
-            // $GLOBALS["id"] = $existingid;
-            // $update = "checked";
+            $GLOBALS["id"] = $existingid;
+            $update = "checked";
         }else{
-            // $update = "";
+            $update = "";
+            $GLOBALS["id"] = uniqid();
         }
-        $GLOBALS["id"] = uniqid();
         echo '
         <li style="margin-bottom: 40px;" id="'.$GLOBALS["id"].'">
             <form method="POST" enctype="multipart/form-data" > ';
@@ -92,7 +92,6 @@
         foreach($accepted_files as $accepted_type) {
             $accept_string = $accept_string.".".$accepted_type.",";
         }
-        // TODO: fix file drop to only allow single file + check for filetype
         echo '
         <style>
             [id*=drop_zone] {text-align: center; border: none; width: 100%;  padding: 0;  margin: 15px auto;  border-radius: 15px; background-color: #514f4f ;background-image: url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'15\' ry=\'15\' stroke=\'%23333\' stroke-width=\'5\' stroke-dasharray=\'6%2c 14\' stroke-dashoffset=\'14\' stroke-linecap=\'square\'/%3e%3c/svg%3e"); position: relative}
@@ -118,7 +117,9 @@
         <!-- <div id="submitbtn" onclick=\'$("#file_upload").submit()\' style="display:none">
             <p>
             </p>
-        </div> -->
+        </div> -->';
+        
+        echo '
         <script>
             var dropzone = $("#drop_zone'.$contentnum.$GLOBALS["id"].'")
                 // click input file field
@@ -152,15 +153,6 @@
                     $("#'.$contentnum.$GLOBALS["id"].'").val("");
                 }
 
-                function onupload() {
-                    imagePreview($("#'.$contentnum.$GLOBALS["id"].'picture")[0]);
-                    document.getElementById("deletefile").value = "false";
-                    // TODO: change dropzone background to signalise files were added and add icons
-                    // $("#submitbtn").attr("value",$("#'.$contentnum.$GLOBALS["id"].'picture")[0].files.length+" Datei/en freigeben");
-                    // $("#submitbtn").show();
-                    dropzone.children(".popupCloseButton").show();
-                }
-
                 // catch file drop and add it to input
                 dropzone.on("drop", e => {
                     e.preventDefault();
@@ -169,7 +161,6 @@
                         if (files.length) {
                             $("#'.$contentnum.$GLOBALS["id"].'picture").prop("files", files);
                             onupload();
-                            // document.getElementById("file_upload").submit();
                         }
                     }
                 });
@@ -192,9 +183,7 @@
                     if (fileInput.files && fileInput.files[0]) {
                         var fileReader = new FileReader();
                         fileReader.onload = function (event) {
-                            // $("#preview").html("<img src=""+event.target.result+"" width="300" height="auto"/>");
                             $("#img_preview_'.$contentnum.$GLOBALS["id"].'").attr("src", event.target.result);
-                            // dropzone.css("background-image", "url("+event.target.result+")");
                             dropzone.children("p").hide();
                         };
                         fileReader.readAsDataURL(fileInput.files[0]);
@@ -219,12 +208,11 @@
                 dropzone.children(".popupCloseButton").click(function() {
                     rmimage();
                 })
-        </script>
-        <!-- <input type="submit" name="submit" style="width: 200px; margin-left: 20px; height: auto" value="Datei freigeben"> -->';
+        </script>';
 
         echo '<div id="preview">';
-                require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
-                $result = mysqli_query(getsqlconnection(), "SELECT * FROM faecher WHERE id=\"{$GLOBALS["id"]}\"");
+        require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+        $result = mysqli_query(getsqlconnection(), "SELECT * FROM faecher WHERE id=\"{$GLOBALS["id"]}\"");
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
                 }
@@ -240,23 +228,40 @@
         <div id="invalidfiletype" style="display:none"><p>Nur .jpg, .jpeg, .png und .webp Dateien sind erlaubt!</p></div><br>';
         if($GLOBALS["file_exists"]){echo("<script>dropzone.children('p').hide();$('#drop_zone".$contentnum.$GLOBALS["id"]." .popupCloseButton').show();</script>");}
 
-        // create hidden text input with file name
-        // TODO: check for correct file type before sql
+        echo '
+        <script>
+            function onupload() {
+                imagePreview($("#'.$contentnum.$GLOBALS["id"].'picture")[0]);';
+                if($GLOBALS["file_exists"] == "true"){echo 'document.getElementById("deletefile").value = "true";';}
+                echo '
+                dropzone.children(".popupCloseButton").show();
+            }
+        </script>';
+
         if(isset($_POST["submit"])) {
-            $img_id = uniqid();
-            $_POST[$contentnum] = $img_id.".".strtolower(pathinfo(basename($_FILES[$contentnum.'picture']["name"][0]),PATHINFO_EXTENSION));
             require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/file-upload.php";
             if($_POST['deletefile'] == 'true' && $GLOBALS["file_exists"]){ //delete File if delete is true
                 unlink(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath);
                 $_POST[$contentnum] = NULL;
-            } else {
-                uploadfile($uploaddir, $accepted_files, $contentnum.'picture', $img_id, "lehrer.own");
             }
+            $extension = strtolower(pathinfo(basename($_FILES[$contentnum.'picture']["name"][0]),PATHINFO_EXTENSION));
+            if($GLOBALS["file_exists"]){
+                $img_id = str_replace(".".strtolower(pathinfo(basename($row["content1"]),PATHINFO_EXTENSION)), "", $row["content1"]);
+            }else{
+                $img_id = uniqid();
+            }
+            $_POST[$contentnum] = NULL;
+            foreach($accepted_files as $accepted_type) {
+                if ($extension == $accepted_type){
+                    $_POST[$contentnum] = $img_id.".".$extension;
+                    break;
+                }
+            }
+            uploadfile($uploaddir, $accepted_files, $contentnum.'picture', $img_id, "lehrer.own");
         }
 
     }
 
     // TODO: make segments editable / updatable
-    // TODO: make segments movable
 
 ?>
