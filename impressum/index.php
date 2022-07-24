@@ -25,7 +25,7 @@
                 <h3>Anschrift</h3>
                 <p>Friedrich-Gymnasium Luckenwalde<br>Parkstraße 59<br>14943 Luckenwalde</p>
                 <h3>Schulleitung</h3>
-                <a href="/lehrer/?id=IDKOHL">Herr Michael Kohl</a> <!-- IDKOHL ERSETZEN -->
+                <a href="/lehrer/?id=IDKOHL">Herr Dr. Alexander Doms</a> <!-- IDKOHL ERSETZEN -->
                 <h3>Kontaktaufnahme</h3>
                 <table>
                     <tr>
