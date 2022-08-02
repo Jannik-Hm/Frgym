@@ -63,7 +63,7 @@ section a button i {
     width: 100%;
     top: 50px;
 
-    color: #fff;
+    color: var(--textcolor);
 
     background-attachment: fixed;
     background-position: center;
@@ -145,7 +145,7 @@ section a button i {
 
 #mainTop h2 {
     font-size: 40px;
-    color: #fff
+    color: #fff;
 }
 
 #mainSecond {
@@ -379,27 +379,15 @@ h4,
 h5,
 h6,
 p {
-    color: rgb(102, 102, 102);
+    color: var(--textcolor);
+}
+
+html, body {
+    background-color: var(--backgroundcolor);
+    color: var(--textcolor);
 }
 
 @media (prefers-color-scheme: dark) {
-    html,
-    body {
-        background-color: rgb(71, 71, 71);
-        color: rgb(226, 226, 226);
-    }
-
-    a,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p {
-        color: #fff;
-    }
-
     #mainSecond,
     #mainFourth {
         background-color: #1a1a1a;

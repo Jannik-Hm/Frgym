@@ -572,17 +572,17 @@ div.pagination a {
 }
 
 .add-input-news form label, .add-input-news form input, .add-input-news form textarea, .add-input-news form ::placeholder, .fa-edit, .newssettings label {
-  color: rgb(102, 102, 102);
+  color: var(--newstextcolor);
   opacity: 1;
  /* Firefox */
 }
 
 .add-input-news form input, .add-input-news form textarea, .newssettings select, .newssettings input[type="submit"], .singlenews, .newssettings select, div.pagination, div[class^="readmorebox"] > div, div[class^="readmorebox"] [class^="popupCloseButton"], div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news {
-  background: rgb(205, 211, 210);
+  background: var(--newsbackground);
 }
 
 .singlenews h5 p, .newspopup h5, .newspopup h5 p, .singlenews a[class^="readmore"], div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news h5 p, div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news a[class^="readmore"] {
-  color: rgb(129, 129, 129);
+  color: var(--newstextcolor);
 }
 
 div.pagination a:hover {
@@ -591,7 +591,7 @@ div.pagination a:hover {
 
 @media (prefers-color-scheme: dark) {
   .add-input-news form label, .add-input-news form input, .add-input-news form textarea, .add-input-news form ::placeholder, .newssettings select, .newssettings input[type="submit"], .fa-edit, .newssettings label {
-    color: rgb(226, 226, 226);
+    color: var(--newstextcolor);
     opacity: 1;
     /* Firefox */
   }
@@ -601,10 +601,10 @@ div.pagination a:hover {
   }
 
   .add-input-news form input, .add-input-news form textarea, .newssettings select, .newssettings input[type="submit"], .singlenews, .newssettings select, div.pagination, div[class^="readmorebox"] > div, div[class^="readmorebox"] [class^="popupCloseButton"], div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news {
-    background: rgb(122, 133, 131);
+    background: var(--newsbackground);
   }
 
   .singlenews h5 p, .newspopup h5, .newspopup h5 p, .singlenews a[class^="readmore"], div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news h5 p, div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news a[class^="readmore"] {
-    color: rgb(221, 221, 221);
+    color: var(--newstextcolor);
   }
 }
