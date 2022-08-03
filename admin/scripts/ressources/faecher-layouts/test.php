@@ -14,12 +14,12 @@
         <script src="/js/jquery.dragndrop.js"></script>
     </head>
     <body>
-        <ul class="test" style="list-style: none; padding: 0; margin-left: 50px; margin-right: 50px">
+        <ul class="test" style="list-style: none; padding: 25px; margin-left: 50px; margin-right: 50px; background-color: var(--inputbackground); border-radius: 15px; color: var(--inputcolor);">
             <?php
                 require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/faecher-editor.php";
                 create_segment("text");
                 create_segment("text", "62d6cfb39fe5c");
-                create_segment("bild-banner", "62dbd2f565c17");
+                create_segment("bild-banner", "62dc3c4993b99");
                 save_segment();
             ?>
         </ul>

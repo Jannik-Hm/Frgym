@@ -53,7 +53,7 @@
             $GLOBALS["id"] = uniqid();
         }
         echo '
-        <li style="margin-bottom: 40px;" id="'.$GLOBALS["id"].'">
+        <li style="margin-bottom: 10px; padding: 10px; padding-bottom: 30px; border: 2px solid #fff; border-radius: 15px" id="'.$GLOBALS["id"].'">
             <form method="POST" enctype="multipart/form-data" > ';
                 include(realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/faecher-layouts/$segmenttype.php");
         echo '
@@ -94,7 +94,7 @@
         }
         echo '
         <style>
-            [id*=drop_zone] {text-align: center; border: none; width: 100%;  padding: 0;  margin: 15px auto;  border-radius: 15px; background-color: #514f4f ;background-image: url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'15\' ry=\'15\' stroke=\'%23333\' stroke-width=\'5\' stroke-dasharray=\'6%2c 14\' stroke-dashoffset=\'14\' stroke-linecap=\'square\'/%3e%3c/svg%3e"); position: relative}
+            [id*=drop_zone] {text-align: center; border: none; width: 100%;  padding: 0;  border-radius: 15px; background-color: #514f4f ;background-image: url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'15\' ry=\'15\' stroke=\'%23333\' stroke-width=\'5\' stroke-dasharray=\'6%2c 14\' stroke-dashoffset=\'14\' stroke-linecap=\'square\'/%3e%3c/svg%3e"); position: relative}
             [id*=drop_zone].edit {cursor: pointer;}
             [id*=drop_zone].edit:hover {background-color: #676565}
             [id*=drop_zone] p {padding: 15px 0}
