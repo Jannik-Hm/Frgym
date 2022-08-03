@@ -165,19 +165,6 @@ input[type="date"],
 label#file,
 input[type="submit"],
 input[type="password"] {
-    background: rgb(122, 133, 131);
-    color: #fff;
-}
-
-@media (prefers-color-scheme: light) {
-    input[type="text"],
-    input[type="email"],
-    input[type="number"],
-    input[type="date"],
-    label#file,
-    input[type="submit"],
-    input[type="password"] {
-        background: rgb(205, 211, 210);
-        color: rgb(102, 102, 102);
-    }
+    background: var(--inputbackground);
+    color: var(--inputcolor);
 }

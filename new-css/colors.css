@@ -2,6 +2,8 @@
     --textcolor: rgb(102, 102, 102);
     --newsbackground: rgb(205, 211, 210);
     --newstextcolor: rgb(129, 129, 129);
+    --inputcolor: rgb(102, 102, 102);
+    --inputbackground: rgb(205, 211, 210);
 }
 @media (prefers-color-scheme: dark) {
     :root {
@@ -9,5 +11,7 @@
         --textcolor: #fff;
         --newsbackground: rgb(122, 133, 131);
         --newstextcolor: rgb(221, 221, 221);
+        --inputcolor: #fff;
+        --inputbackground: rgb(122, 133, 131);
     }
 }
