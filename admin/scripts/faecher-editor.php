@@ -1,6 +1,7 @@
 <?php
 
     function segment_selector() {
+        $layouts = scandir(realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/faecher-layouts/");
         echo("
         <link rel='stylesheet' href='/new-css/faecher.css'>
         <section id='faecher-selector'>
@@ -11,14 +12,36 @@
             <div onclick=\"event.stopPropagation();\" class='scroll'>
                 <div onclick=\"event.stopPropagation();$('.faecher-selector-popup').hide()\" class='popupCloseButton'>&times;</div>
                 <div class='faecher-selector-popup-list'>
-                    <ul>
-                        <li onmouseover='show iframe with link (js)' onmouseout='hide iframe (js)'>Test</li>
+                <iframe class='preview-frame' id='layout-preview' style='height: 40vh;width: 25vw;position: absolute;left: -5vw;opacity: 0.95;border-radius: 15px;' scrolling='no' src=''></iframe>
+                    <ul style='list-style-type: none'>");
+                    foreach ($layouts as $layout) {
+                        if(is_file(realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/faecher-layouts/".$layout) && $layout!="test.php"){
+                            echo("
+                            <li class='layout-select-btn' style='text-align: left' onclick='addelement(\"".pathinfo($layout, PATHINFO_FILENAME)."\")' onmouseover='$(\"#layout-preview\").attr(\"src\", \"/admin/scripts/ressources/faecher-layout-preview.php?layout=".pathinfo($layout, PATHINFO_FILENAME)."\");$(\"#layout-preview\").show()' onmouseout='$(\"#layout-preview\").hide()'>
+                                ".pathinfo($layout, PATHINFO_FILENAME)."
+                            </li>
+                            ");
+                        }
+                    }
+                    echo("
+                    <script>
+                        function reloaddragndrop() {
+                            $('.test').dragndrop('reload');
+                        }
+
+                        function addelement(layout) {
+                            $.get('/admin/scripts/ressources/faecher-layout-add.php?layout='+layout,function(response){
+                                $('.test').append(response);
+                            });
+                            $('.faecher-selector-popup').hide();
+                            setTimeout(() => reloaddragndrop(), 500);
+                        }
+                    </script>
                     </ul>
                 </div>
             </div>
         </div>
         ");
-        // TODO: add popup Selector listing all possible layouts
     }
 
     // Question: live save or save btn?
@@ -31,15 +54,33 @@
 
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         if(isset($_POST["submit"])) {
+            if(isset($_POST["picnum"])) {
+                require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/file-upload.php";
+                if($_POST['deletefile'] == 'true' && $GLOBALS["file_exists"]){ //delete File if delete is true
+                    unlink(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath);
+                    $_POST[$_POST["picnum"]] = NULL;
+                }
+                $extension = strtolower(pathinfo(basename($_FILES[$_POST["picnum"].'picture']["name"][0]),PATHINFO_EXTENSION));
+                if($GLOBALS["file_exists"]){
+                    $img_id = str_replace(".".strtolower(pathinfo(basename($row[$_POST["picnum"]]),PATHINFO_EXTENSION)), "", $row[$_POST["picnum"]]);
+                }else{
+                    $img_id = uniqid();
+                }
+                foreach($GLOBALS["accepted_files"] as $accepted_type) {
+                    if ($extension == $accepted_type){
+                        $_POST[$_POST["picnum"]] = $img_id.".".$extension;
+                        break;
+                    }
+                }
+                uploadfile($GLOBALS["uploaddir"], $GLOBALS["accepted_files"], $_POST["picnum"].'picture', $img_id, "lehrer.own");
+            }
             if(isset($_POST["update"])){
-                echo("update query");
-                // TODO: add edit feature
                 $insert = mysqli_query(getsqlconnection(), "UPDATE faecher SET content1=NULLIF(\"{$_POST['content1']}\", ''), content2=NULLIF(\"{$_POST['content2']}\", ''), content3=NULLIF(\"{$_POST['content3']}\", '') WHERE id=\"{$_POST['id']}\"");
             }else{
                 $insert = mysqli_query(getsqlconnection(), "INSERT INTO faecher (id, fach, position, contenttype, content1, content2, content3) VALUES (\"{$_POST['id']}\", \"{$_GET['fach']}\", \"\", \"{$_POST['contenttype']}\", NULLIF(\"{$_POST['content1']}\", ''), NULLIF(\"{$_POST['content2']}\", ''), NULLIF(\"{$_POST['content3']}\", ''))");
             }
             if ($insert) {
-            // confirm action
+                // confirm action
             }
         }
     }
@@ -53,21 +94,36 @@
             $GLOBALS["id"] = uniqid();
         }
         echo '
-        <li style="margin-bottom: 10px; padding: 10px; padding-bottom: 30px; border: 2px solid #fff; border-radius: 15px" id="'.$GLOBALS["id"].'">
+        <li style="margin-bottom: 10px; padding: 10px; padding-bottom: 40px; border: 2px solid #fff; border-radius: 15px" title="'.$segmenttype.'" id="'.$GLOBALS["id"].'">
             <form method="POST" enctype="multipart/form-data" > ';
                 include(realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/faecher-layouts/$segmenttype.php");
-        echo '
+                echo '
                 <input name="id" type="text" value="'.$GLOBALS["id"].'" hidden></input>
                 <input name="update" type="checkbox" '.$update.' hidden></input>
                 <input name="edit" type="checkbox" checked hidden></input>
                 <div style="margin: auto; margin-right: 5px; display: inline-block; float: right; margin-top: 5px;">
-                    <btn style="cursor:pointer; border: 1px solid #000; width: 80px; display: inline-block; text-align: center;" onclick="resetedit(); edit(\''.$GLOBALS["id"].'\');" id="'.$GLOBALS["id"].'edit">Bearbeiten</btn>
-                    <btn style="cursor:pointer; border: 1px solid #000; width: 80px; display: inline-block; text-align: center; display: none" onclick="resetedit()" id="'.$GLOBALS["id"].'abort">Abbrechen</btn>
-                    <input style="cursor: pointer; display: none" type="submit" name="submit" value="Speichern" id="'.$GLOBALS["id"].'save">
+                <btn class="button" style="cursor:pointer; display: inline-block; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="deleteelement(\''.$GLOBALS["id"].'\')" id="'.$GLOBALS["id"].'delete">Löschen</btn>
+                <btn class="button" style="cursor:pointer; display: inline-block; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="resetedit(); edit(\''.$GLOBALS["id"].'\');" id="'.$GLOBALS["id"].'edit">Bearbeiten</btn>
+                <input class="button" style="cursor: pointer; display: none" type="reset" name="" onclick="resetedit()" value="Abbrechen" id="'.$GLOBALS["id"].'abort">
+                    <input class="button"style="cursor: pointer; display: none" type="submit" name="submit" value="Speichern" id="'.$GLOBALS["id"].'save">
                 </div>
             </form>
         </li>
         <script>
+            function deleteelement(elementid) {
+                $.ajax({
+                    url: "/admin/scripts/ressources/faecher-remove-element.php",
+                    type: "post",
+                    data : {
+                        id : elementid
+                    },
+                    dataType: "json",
+                    success: function(data)
+                    {
+                    }
+                });
+                $(\'#\'+elementid).remove()
+            }
             // location.reload(); return false;
             function edit(id) {
                 $(\'#\'+id+\'edit\').hide();
@@ -92,9 +148,11 @@
         foreach($accepted_files as $accepted_type) {
             $accept_string = $accept_string.".".$accepted_type.",";
         }
+        $GLOBALS["accepted_files"] = $accepted_files;
+        $GLOBALS["uploaddir"] = $uploaddir;
         echo '
         <style>
-            [id*=drop_zone] {text-align: center; border: none; width: 100%;  padding: 0;  border-radius: 15px; background-color: #514f4f ;background-image: url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'15\' ry=\'15\' stroke=\'%23333\' stroke-width=\'5\' stroke-dasharray=\'6%2c 14\' stroke-dashoffset=\'14\' stroke-linecap=\'square\'/%3e%3c/svg%3e"); position: relative}
+            [id*=drop_zone] {text-align: center; border: none; width: 100%;  padding: 0;  border-radius: 15px; background-color: none ;background-image: url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'15\' ry=\'15\' stroke=\'%23fff\' stroke-width=\'5\' stroke-dasharray=\'6%2c 14\' stroke-dashoffset=\'14\' stroke-linecap=\'square\'/%3e%3c/svg%3e"); position: relative}
             [id*=drop_zone].edit {cursor: pointer;}
             [id*=drop_zone].edit:hover {background-color: #676565}
             [id*=drop_zone] p {padding: 15px 0}
@@ -103,12 +161,14 @@
             [id*=drop_zone] .popupCloseButton {visibility: hidden}
             [id*=drop_zone].edit .popupCloseButton {visibility: visible}
             [id*=drop_zone] [id*=img_preview] {width: 100%; height: auto; border-radius: 15px; object-fit: cover;}
+            #invalidfiletype p {margin-bottom: 0}
             @media (prefers-color-scheme: light){
                 [id*=drop_zone] {background-color: rgb(205, 211, 210)}
-                [id*=drop_zone]:hover {background-color: rgb(174, 178, 178)}
+                [id*=drop_zone].edit:hover {background-color: rgb(174, 178, 178)}
             }
         </style>
         <input type="file" name="'.$contentnum.'picture[]" id="'.$contentnum.$GLOBALS["id"].'picture" accept="'.$accept_string.'" hidden disabled>
+        <input type="text" name="picnum" value="'.$contentnum.'" hidden></input>
         <div id="drop_zone'.$contentnum.$GLOBALS["id"].'" class="normal" ondragover="dragOverHandler(event);" style="">
         <img id="img_preview_'.$contentnum.$GLOBALS["id"].'" src=""></img>';
         echo '<div style="display: none" onclick="event.stopPropagation();resetupload();" class="popupCloseButton">&times;</div>';
@@ -224,8 +284,8 @@
                 if($GLOBALS["file_exists"]){echo('<script>$("#img_preview_'.$contentnum.$GLOBALS["id"].'").attr("src", "'.$imgpath.'")</script>');}
                 echo '
             <input type="hidden" id="deletefile" name="deletefile" value="" />
-        </div><br>
-        <div id="invalidfiletype" style="display:none"><p>Nur .jpg, .jpeg, .png und .webp Dateien sind erlaubt!</p></div><br>';
+        </div>
+        <div id="invalidfiletype" style="display:none;"><p>Nur .jpg, .jpeg, .png und .webp Dateien sind erlaubt!</p></div>';
         if($GLOBALS["file_exists"]){echo("<script>dropzone.children('p').hide();$('#drop_zone".$contentnum.$GLOBALS["id"]." .popupCloseButton').show();</script>");}
 
         echo '
@@ -237,28 +297,6 @@
                 dropzone.children(".popupCloseButton").show();
             }
         </script>';
-
-        if(isset($_POST["submit"])) {
-            require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/file-upload.php";
-            if($_POST['deletefile'] == 'true' && $GLOBALS["file_exists"]){ //delete File if delete is true
-                unlink(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath);
-                $_POST[$contentnum] = NULL;
-            }
-            $extension = strtolower(pathinfo(basename($_FILES[$contentnum.'picture']["name"][0]),PATHINFO_EXTENSION));
-            if($GLOBALS["file_exists"]){
-                $img_id = str_replace(".".strtolower(pathinfo(basename($row["content1"]),PATHINFO_EXTENSION)), "", $row["content1"]);
-            }else{
-                $img_id = uniqid();
-            }
-            $_POST[$contentnum] = NULL;
-            foreach($accepted_files as $accepted_type) {
-                if ($extension == $accepted_type){
-                    $_POST[$contentnum] = $img_id.".".$extension;
-                    break;
-                }
-            }
-            uploadfile($uploaddir, $accepted_files, $contentnum.'picture', $img_id, "lehrer.own");
-        }
 
     }
 
