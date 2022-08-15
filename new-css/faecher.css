@@ -202,7 +202,83 @@ div.faecher-selector-popup {
     text-align: center;
   }
 
+  /* Faecher Editor */
+
+  .button {
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    align-self: center;
+    position: relative;
+    height: 30px;
+    font-size: 15px;
+    margin: auto;
+    background-color: rgb(205, 211, 210);
+    color:#000;
+    width: 100px;
+}
+
+.grow-wrap {
+  /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
+  display: grid;
+  }
+  .grow-wrap::after {
+  /* Note the weird space! Needed to preventy jumpy behavior */
+  content: attr(data-replicated-value) " ";
+  /* This is how textarea text behaves */
+  white-space: pre-wrap;
+  /* Hidden from view, clicks, and screen readers */
+  visibility: hidden;
+  }
+  .grow-wrap > textarea {
+  /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+  resize: none;
+  /* Firefox shows scrollbar on growth, you can hide like this. */
+  overflow: hidden;
+  }
+  .grow-wrap > textarea,
+  .grow-wrap::after {
+  /* Identical styling required!! */
+  border: 1px solid black;
+  padding: 0.5rem;
+  font: inherit;
+  /* Place on top of each other */
+  grid-area: 1 / 1 / 2 / 2;
+  }
+  textarea.normal{
+      border: none;background: none;color: #000;
+  }
+  textarea.edit{
+      border-radius: 10px;
+      border: none;
+  }
+
+  li.layout-select-btn {
+    background-color: rgb(173 185 183);
+    width: 150px;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    text-align: center!important;
+    font-size: 20px;
+}
+
   /* colors */
+
+  .button, textarea.edit {
+    background-color: rgb(205, 211, 210)!important;
+  }
+  [id*=drop_zone].edit {
+    background-color: #9ba09f;
+  }
+  .button, textarea.edit, [id*=drop_zone].edit p, textarea::placeholder {
+    color:#000!important;
+  }
+
+  textarea.normal, textarea::placeholder {
+    color: rgb(226, 226, 226)!important;
+  }
   
   div.faecher-selector-popup {
     background: rgba(0, 0, 0, 0.8);
@@ -227,7 +303,16 @@ div.faecher-selector-popup {
   div.faecher-selector-popup div.popupCloseButton {
     background: rgb(205, 211, 210);
   }
-  
+
+  @media (prefers-color-scheme: light) {
+    .button, textarea.edit, [id*=drop_zone].edit {
+      background-color: rgb(157, 164, 163)!important;
+    }
+    .button, textarea.edit, [id*=drop_zone].edit p {
+      color: rgb(226, 226, 226)!important;
+    }
+  }
+
   @media (prefers-color-scheme: dark) {
     div.faecher-selector-popup > div {
       background-color: rgb(122, 133, 131);
