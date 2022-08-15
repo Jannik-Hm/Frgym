@@ -4,4 +4,4 @@
 ?>
 
 <style>[id*="drop_zone"] {width: 100%; min-height: 200px; background-size: 100%;} [id*=drop_zone] [id*=img_preview] {max-height: 400px; }</style>
-<input name="contenttype" type="text" value="bild-banner" hidden></input>
+<input name="contenttype" type="text" value="Bild-Banner" hidden></input>
