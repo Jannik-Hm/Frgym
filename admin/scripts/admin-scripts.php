@@ -27,7 +27,8 @@
 
         require_once "$root/sites/credentials.php";
 
-        $role = get_role($_SESSION["user_id"]);
+        $fachbereich = explode(",", get_role($_SESSION["user_id"]))[1];
+        $role = explode(",", get_role($_SESSION["user_id"]))[0];
 
         $sqlperm = ("SELECT * FROM roles WHERE name='".$role."';");
         $perms = mysqli_query(get_connection(), $sqlperm);
@@ -42,6 +43,9 @@
         if($GLOBALS["included-noperm"] == false){
             include_once "$root/admin/no-permission.html";
             $GLOBALS["included-noperm"] = true;
+        }
+        if($GLOBALS["lehrer.own"]){
+            $GLOBALS["fachbereich"] = $fachbereich;
         }
     }
 

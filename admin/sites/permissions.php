@@ -13,7 +13,7 @@
 
     require "$root/sites/credentials.php";
 
-    $role = get_role($_SESSION["user_id"]);
+    $role = explode(",", get_role($_SESSION["user_id"]))[0];
 
     $sqlperm = ("SELECT * FROM roles WHERE name='".$role."';");
     $perms = mysqli_query(get_connection(), $sqlperm);
