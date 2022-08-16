@@ -35,6 +35,7 @@
                             });
                             $('.faecher-selector-popup').hide();
                             setTimeout(() => reloaddragndrop(), 500);
+                            setTimeout(() => save_order(), 500);
                         }
                     </script>
                     </ul>
@@ -44,19 +45,45 @@
         ");
     }
 
-    function save_order() {
-        // TODO: Save element position via ajax request on dragndrop and order by asc
+    function dragndrop($tableidentifier) {
+        echo '
+        <script src="/js/jquery.dragndrop.js"></script>
+        <script>
+            function save_order() {
+                console.log("test");
+                var positions = {};
+                var i = 0;
+                $("'.$tableidentifier.' li").each(function () {
+                    positions[i] = {};
+                    positions[i]["id"] = this.id;
+                    positions[i]["index"] = $(this).index();
+                    i++;
+                })
+                $.ajax({
+                    url: "/admin/scripts/ressources/faecher-layout-order.php",
+                    type: "post",
+                    data : {
+                        positions: JSON.stringify(positions)
+                    },
+                    dataType: "json",
+                    success: function(data)
+                    {
+                    }
+                });
+            }
+
+            $("'.$tableidentifier.'").dragndrop({
+                onDrop: function( element, droppedElement ) {
+                    save_order();
+                }
+            });
+        </script>';
 
     }
 
-    // Question: live save or save btn?
-
-    // TODO: Dropzone for pictures with "placeholder" img as background
+    // TODO: Add button to publish or hide page
 
     function save_segment() {
-        // TODO: save segment to individual DB entry
-        // for every segment save to DB
-
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         if(isset($_POST["submit"])) {
             if(isset($_POST["picnum"])) {
@@ -303,7 +330,5 @@
         </script>';
 
     }
-
-    // TODO: make segments editable / updatable
 
 ?>

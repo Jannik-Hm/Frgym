@@ -21,24 +21,19 @@
                 <?php
                     require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/faecher-editor.php";
                     require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
-                    $result = mysqli_query(getsqlconnection(), "SELECT * FROM faecher WHERE fach=\"{$_GET["fach"]}\"");
+                    $result = mysqli_query(getsqlconnection(), "SELECT * FROM faecher WHERE fach=\"{$_GET["fach"]}\" ORDER BY LENGTH(position), position ASC");
                     if ($result->num_rows > 0) {
                         $row = $result->fetch_assoc();
-                        while($row = $result->fetch_assoc()) {
-                            create_segment($row["contenttype"], $row["id"]);
-                        }
+                        do {
+                            if($row["contenttype"] != NULL){
+                                create_segment($row["contenttype"], $row["id"]);
+                            }
+                        } while($row = $result->fetch_assoc());
                     }
                     save_segment();
                 ?>
             </ul>
-            <script src="/js/jquery.dragndrop.js"></script>
-            <script>
-                $('.test').dragndrop({
-                    onDrop: function( element, droppedElement ) {
-                        // console.log( 'element dropped: ' + $(droppedElement).attr("id") + " to index " + $(droppedElement).index() );
-                    }
-                });
-            </script>
+            <?php dragndrop(".test") ?>
                 <?php
                     require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/faecher-editor.php";
                     segment_selector();
