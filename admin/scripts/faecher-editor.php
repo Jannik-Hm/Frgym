@@ -86,6 +86,7 @@
     function save_segment() {
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         if(isset($_POST["submit"])) {
+            echo '<script>save_order();</script>';
             if(isset($_POST["picnum"])) {
                 require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/file-upload.php";
                 if($_POST['deletefile'] == 'true' && $_POST["file_exists"] == "true"){ //delete File if delete is true
