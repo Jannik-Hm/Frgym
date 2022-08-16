@@ -30,7 +30,7 @@
                         }
 
                         function addelement(layout) {
-                            $.get('/admin/scripts/ressources/faecher-layout-add.php?layout='+layout,function(response){
+                            $.get('/admin/scripts/ressources/faecher-layout-add.php?fach=".$_GET["fach"]."&layout='+layout,function(response){
                                 $('.test').append(response);
                             });
                             $('.faecher-selector-popup').hide();
@@ -44,6 +44,11 @@
         ");
     }
 
+    function save_order() {
+        // TODO: Save element position via ajax request on dragndrop and order by asc
+
+    }
+
     // Question: live save or save btn?
 
     // TODO: Dropzone for pictures with "placeholder" img as background
@@ -51,8 +56,6 @@
     function save_segment() {
         // TODO: save segment to individual DB entry
         // for every segment save to DB
-
-        // TODO: Save element position and order by asc
 
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         if(isset($_POST["submit"])) {
@@ -76,11 +79,7 @@
                 }
                 uploadfile($GLOBALS["uploaddir"], $GLOBALS["accepted_files"], $_POST["picnum"].'picture', $img_id, "lehrer.own");
             }
-            if(isset($_POST["update"])){
-                $insert = mysqli_query(getsqlconnection(), "UPDATE faecher SET content1=NULLIF(\"{$_POST['content1']}\", ''), content2=NULLIF(\"{$_POST['content2']}\", ''), content3=NULLIF(\"{$_POST['content3']}\", '') WHERE id=\"{$_POST['id']}\"");
-            }else{
-                $insert = mysqli_query(getsqlconnection(), "INSERT INTO faecher (id, fach, position, contenttype, content1, content2, content3) VALUES (\"{$_POST['id']}\", \"{$_GET['fach']}\", \"\", \"{$_POST['contenttype']}\", NULLIF(\"{$_POST['content1']}\", ''), NULLIF(\"{$_POST['content2']}\", ''), NULLIF(\"{$_POST['content3']}\", ''))");
-            }
+            $insert = mysqli_query(getsqlconnection(), "UPDATE faecher SET content1=NULLIF(\"{$_POST['content1']}\", ''), content2=NULLIF(\"{$_POST['content2']}\", ''), content3=NULLIF(\"{$_POST['content3']}\", '') WHERE id=\"{$_POST['id']}\"");
             if ($insert) {
                 // confirm action
             }
@@ -90,9 +89,7 @@
     function create_segment($segmenttype, $existingid = NULL) {
         if(isset($existingid)){
             $GLOBALS["id"] = $existingid;
-            $update = "checked";
         }else{
-            $update = "";
             $GLOBALS["id"] = uniqid();
         }
         echo '
@@ -101,7 +98,6 @@
                 include(realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/faecher-layouts/$segmenttype.php");
                 echo '
                 <input name="id" type="text" value="'.$GLOBALS["id"].'" hidden></input>
-                <input name="update" type="checkbox" '.$update.' hidden></input>
                 <input name="edit" type="checkbox" checked hidden></input>
                 <div style="margin: auto; margin-right: 5px; display: inline-block; float: right; margin-top: 5px;">
                 <btn class="button" style="cursor:pointer; display: inline-block; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="deleteelement(\''.$GLOBALS["id"].'\')" id="'.$GLOBALS["id"].'delete">Löschen</btn>
