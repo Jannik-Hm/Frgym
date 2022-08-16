@@ -52,17 +52,19 @@
         // TODO: save segment to individual DB entry
         // for every segment save to DB
 
+        // TODO: Save element position and order by asc
+
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         if(isset($_POST["submit"])) {
             if(isset($_POST["picnum"])) {
                 require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/file-upload.php";
-                if($_POST['deletefile'] == 'true' && $GLOBALS["file_exists"]){ //delete File if delete is true
+                if($_POST['deletefile'] == 'true' && $_POST["file_exists"] == "true"){ //delete File if delete is true
                     unlink(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath);
                     $_POST[$_POST["picnum"]] = NULL;
                 }
                 $extension = strtolower(pathinfo(basename($_FILES[$_POST["picnum"].'picture']["name"][0]),PATHINFO_EXTENSION));
-                if($GLOBALS["file_exists"]){
-                    $img_id = str_replace(".".strtolower(pathinfo(basename($row[$_POST["picnum"]]),PATHINFO_EXTENSION)), "", $row[$_POST["picnum"]]);
+                if($_POST["file_exists"] == "true"){
+                    $img_id = $_POST["old-id"];
                 }else{
                     $img_id = uniqid();
                 }
@@ -169,6 +171,7 @@
         </style>
         <input type="file" name="'.$contentnum.'picture[]" id="'.$contentnum.$GLOBALS["id"].'picture" accept="'.$accept_string.'" hidden disabled>
         <input type="text" name="picnum" value="'.$contentnum.'" hidden></input>
+        <input type="text" name="file_exists" id="'.$contentnum.$GLOBALS["id"].'file_exists" value="'.$contentnum.'" hidden></input>
         <div id="drop_zone'.$contentnum.$GLOBALS["id"].'" class="normal" ondragover="dragOverHandler(event);" style="">
         <img id="img_preview_'.$contentnum.$GLOBALS["id"].'" src=""></img>';
         echo '<div style="display: none" onclick="event.stopPropagation();resetupload();" class="popupCloseButton">&times;</div>';
@@ -276,12 +279,17 @@
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
                 }
+                echo '<script>$("#'.$contentnum.$GLOBALS["id"].'file_exists").val("false")</script>';
                 $GLOBALS["file_exists"] = false;
-                $imgpath = "/files/site-ressources/faecher-pictures/" . $row["content1"];
-                if ($row["content1"] != NULL && file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath)) {
+                $imgpath = "/files/site-ressources/faecher-pictures/" . $row[$contentnum];
+                if ($row[$contentnum] != NULL && file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath)) {
+                    echo '<script>$("#'.$contentnum.$GLOBALS["id"].'file_exists").val("true")</script>';
                     $GLOBALS["file_exists"] = true;
                 }
-                if($GLOBALS["file_exists"]){echo('<script>$("#img_preview_'.$contentnum.$GLOBALS["id"].'").attr("src", "'.$imgpath.'")</script>');}
+                if($GLOBALS["file_exists"]){echo('
+                    <script>$("#img_preview_'.$contentnum.$GLOBALS["id"].'").attr("src", "'.$imgpath.'")</script>
+                    <input type="hidden" name="old-id" value='.str_replace(".".strtolower(pathinfo(basename($row[$contentnum]),PATHINFO_EXTENSION)), "", $row[$contentnum]).'></input>
+                    ');}
                 echo '
             <input type="hidden" id="deletefile" name="deletefile" value="" />
         </div>
