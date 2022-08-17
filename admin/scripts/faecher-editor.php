@@ -89,8 +89,8 @@
             echo '<script>save_order();</script>';
             if(isset($_POST["picnum"])) {
                 require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/file-upload.php";
-                if($_POST['deletefile'] == 'true' && $_POST["file_exists"] == "true"){ //delete File if delete is true
-                    unlink(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath);
+                if($_POST['deletefile'] == 'true' && $_POST["file_exists"] != NULL){ //delete File if delete is true
+                    unlink(realpath($_SERVER["DOCUMENT_ROOT"]).$_POST["imgpath"]);
                     $_POST[$_POST["picnum"]] = NULL;
                 }
                 $extension = strtolower(pathinfo(basename($_FILES[$_POST["picnum"].'picture']["name"][0]),PATHINFO_EXTENSION));
@@ -198,7 +198,7 @@
         <input type="text" name="file_exists" id="'.$contentnum.$GLOBALS["id"].'file_exists" value="'.$contentnum.'" hidden></input>
         <div id="drop_zone'.$contentnum.$GLOBALS["id"].'" class="normal" ondragover="dragOverHandler(event);" style="">
         <img id="img_preview_'.$contentnum.$GLOBALS["id"].'" src=""></img>';
-        echo '<div style="display: none" onclick="event.stopPropagation();resetupload();" class="popupCloseButton">&times;</div>';
+        echo '<div style="display: none" onclick="event.stopPropagation();resetupload(\''.$contentnum.$GLOBALS["id"].'\');" class="popupCloseButton">&times;</div>';
         echo '<p>Datei hochladen</p>
         </div>
         <!-- <div id="submitbtn" onclick=\'$("#file_upload").submit()\' style="display:none">
@@ -232,12 +232,11 @@
                         dropzone.attr("style", "background-color: ");
                     })
 
-                function resetupload() {
-                    $("#submitbtn").hide();
+                function resetupload(id) {
                     dropzone.children(".popupCloseButton").hide();
                     dropzone.children("p").html("Datei hochladen");
-                    $("#'.$contentnum.$GLOBALS["id"].'picture").val("");
-                    $("#'.$contentnum.$GLOBALS["id"].'").val("");
+                    $("#"+id+"picture").val("");
+                    $("#"+id+"").val("");
                 }
 
                 // catch file drop and add it to input
@@ -247,7 +246,7 @@
                         let files = e.originalEvent.dataTransfer.files
                         if (files.length) {
                             $("#'.$contentnum.$GLOBALS["id"].'picture").prop("files", files);
-                            onupload();
+                            onupload("'.$contentnum.$GLOBALS["id"].'");
                         }
                     }
                 });
@@ -255,7 +254,7 @@
                 // trigger file submission behavior
                 $("#'.$contentnum.$GLOBALS["id"].'picture").on("change", function (e) {
                 if (e.target.files.length) {
-                    onupload();
+                    onupload("'.$contentnum.$GLOBALS["id"].'");
                     // document.getElementById("file_upload").submit();
                 }
                 })
@@ -266,11 +265,11 @@
                     // Prevent default behavior (Prevent file from being opened)
                     ev.preventDefault();
                 }
-                function imagePreview(fileInput) {
+                function imagePreview(fileInput, id) {
                     if (fileInput.files && fileInput.files[0]) {
                         var fileReader = new FileReader();
                         fileReader.onload = function (event) {
-                            $("#img_preview_'.$contentnum.$GLOBALS["id"].'").attr("src", event.target.result);
+                            $("#img_preview_"+id).attr("src", event.target.result);
                             dropzone.children("p").hide();
                         };
                         fileReader.readAsDataURL(fileInput.files[0]);
@@ -285,15 +284,15 @@
                         }
                     }
                 };
-                function rmimage() { // TODO: Delete Picture button not removing picture from server and fix img replacing
+                function rmimage(id) { // TODO: Delete Picture button not removing picture from server and fix img replacing
                     dropzone.children("p").html("Datei hochladen");
-                    document.getElementById("deletefile").value = "true";
-                    $("#img_preview_'.$contentnum.$GLOBALS["id"].'").attr("src", "");
+                    document.getElementById(id+"deletefile").value = "true";
+                    $("#img_preview_"+id).attr("src", "");
                     dropzone.children("p").show();
                     document.getElementById("invalidfiletype").style.display = "none";
                 }
                 dropzone.children(".popupCloseButton").click(function() {
-                    rmimage();
+                    rmimage("'.$contentnum.$GLOBALS["id"].'");
                 })
         </script>';
 
@@ -315,16 +314,17 @@
                     <input type="hidden" name="old-id" value='.str_replace(".".strtolower(pathinfo(basename($row[$contentnum]),PATHINFO_EXTENSION)), "", $row[$contentnum]).'></input>
                     ');}
                 echo '
-            <input type="hidden" id="deletefile" name="deletefile" value="" />
+            <input type="hidden" id="'.$contentnum.$GLOBALS["id"].'deletefile" name="deletefile" value="" />
+            <input type="hidden" name="imgpath" value="'.$imgpath.'" />
         </div>
         <div id="invalidfiletype" style="display:none;"><p>Nur .jpg, .jpeg, .png und .webp Dateien sind erlaubt!</p></div>';
         if($GLOBALS["file_exists"]){echo("<script>dropzone.children('p').hide();$('#drop_zone".$contentnum.$GLOBALS["id"]." .popupCloseButton').show();</script>");}
 
         echo '
         <script>
-            function onupload() {
-                imagePreview($("#'.$contentnum.$GLOBALS["id"].'picture")[0]);';
-                if($GLOBALS["file_exists"] == "true"){echo 'document.getElementById("deletefile").value = "true";';}
+            function onupload(id) {
+                imagePreview($("#"+id+"picture")[0], id);';
+                if($GLOBALS["file_exists"] == "true"){echo 'document.getElementById(id+"deletefile").value = "true";';}
                 echo '
                 dropzone.children(".popupCloseButton").show();
             }
