@@ -81,7 +81,105 @@
 
     }
 
-    // TODO: Add button to publish or hide page
+    function makevisible() {
+        require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+        $result = mysqli_query(getsqlconnection(), "SELECT id, content1 FROM faecher WHERE fach=\"{$_GET["fach"]}\" AND contenttype='visibility'");
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $id = $row["id"];
+            $content1 = $row["content1"];
+        }else{
+            $id = uniqid();
+            mysqli_query(getsqlconnection(), "INSERT INTO faecher (id, fach, position, contenttype) VALUES (\"{$id}\", \"{$_GET['fach']}\", \"\", \"visibility\")");
+        }
+        if ($content1 == "visible") $checked="checked";
+        echo '
+        <style>
+            .chkbx_label,
+            .customradio {
+                display: block;
+                position: relative;
+                padding-left: 20px!important;
+                margin-bottom: 7px!important;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            
+            .chkbx_label input[type="checkbox"] {
+                display: none;
+            }
+            
+            .chkbx_label .chkbx,
+            .customradio .radiochk {
+                position: absolute;
+                left: 2px;
+                height: 15px;
+                width: 15px;
+                background-color: #eee;
+            }
+            
+            .chkbx_label .chkbx {
+                border-radius: 3px;
+                top: 1px;
+            }
+            
+            .customradio .radiochk {
+                border-radius: 50%;
+                top: 5px;
+            }
+            
+            /* On mouse-over, add a grey background color */
+            .chkbx_label:hover input[type="checkbox"] ~ .chkbx,
+            .customradio:hover input[type="radio"] ~ .radiochk {
+                background-color: #ccc;
+            }
+
+            /* When the checkbox is checked, add a blue background */
+            .chkbx_label input[type="checkbox"]:checked ~ .chkbx,
+            .customradio input[type="radio"]:checked ~ .radiochk {
+                background-color: #4ba5c2;
+            }
+            
+            /* Create the checkmark/indicator (hidden when not checked) */
+            .chkbx_label .chkbx:after,
+            .customradio .radiochk:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+            
+            /* Show the checkmark when checked */
+            .chkbx_label input[type="checkbox"]:checked ~ .chkbx:after,
+            .customradio input[type="radio"]:checked ~ .radiochk:after {
+                display: block;
+            }
+
+            /* Style the checkmark/indicator */
+            .chkbx_label .chkbx:after {
+                left: 4.25px;
+                top: 2px;
+                width: 3px;
+                height: 6px;
+                border: solid white;
+                border-width: 0 3px 3px 0;
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+        </style>
+        <section style="padding: 10px; margin: auto; margin-top: 25px; margin-bottom: 25px; border-radius: 15px; width: clamp(300px, 25vw, 600px);background-color: var(--inputbackground);">
+            <form method="POST" enctype="multipart/form-data" style="display: inline-flex">
+                <label class="chkbx_label" style="margin: auto; width: fit-content; margin-right: 15px"><input type="checkbox" name="content1" value="visible"'.$checked.'><span class="chkbx"></span>Öffentlich sichtbar</label>
+                <input name="id" type="hidden" value="'.$id.'"></input>
+                <input name="contenttype" type="hidden" value="visibility"></input>
+                <input class="button"style="cursor: pointer; margin-left: 15px" type="submit" name="submit" value="Speichern">
+            </form>
+        </section>
+        ';
+    }
 
     function save_segment() {
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
@@ -109,7 +207,7 @@
             }
             $insert = mysqli_query(getsqlconnection(), "UPDATE faecher SET content1=NULLIF(\"{$_POST['content1']}\", ''), content2=NULLIF(\"{$_POST['content2']}\", ''), content3=NULLIF(\"{$_POST['content3']}\", '') WHERE id=\"{$_POST['id']}\"");
             if ($insert) {
-                // confirm action
+                echo("<script>window.location.href = window.location.href;</script>");
             }
         }
     }
@@ -128,9 +226,9 @@
                 <input name="id" type="text" value="'.$GLOBALS["id"].'" hidden></input>
                 <input name="edit" type="checkbox" checked hidden></input>
                 <div style="margin: auto; margin-right: 5px; display: inline-block; float: right; margin-top: 5px;">
-                <btn class="button" style="cursor:pointer; display: inline-block; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="deleteelement(\''.$GLOBALS["id"].'\')" id="'.$GLOBALS["id"].'delete">Löschen</btn>
-                <btn class="button" style="cursor:pointer; display: inline-block; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="resetedit(); edit(\''.$GLOBALS["id"].'\');" id="'.$GLOBALS["id"].'edit">Bearbeiten</btn>
-                <input class="button" style="cursor: pointer; display: none" type="reset" name="" onclick="resetedit()" value="Abbrechen" id="'.$GLOBALS["id"].'abort">
+                    <btn class="button" style="cursor:pointer; display: inline-block; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="deleteelement(\''.$GLOBALS["id"].'\')" id="'.$GLOBALS["id"].'delete">Löschen</btn>
+                    <btn class="button" style="cursor:pointer; display: inline-block; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="resetedit(); edit(\''.$GLOBALS["id"].'\');" id="'.$GLOBALS["id"].'edit">Bearbeiten</btn>
+                    <input class="button" style="cursor: pointer; display: none" type="reset" name="" onclick="resetedit()" value="Abbrechen" id="'.$GLOBALS["id"].'abort">
                     <input class="button"style="cursor: pointer; display: none" type="submit" name="submit" value="Speichern" id="'.$GLOBALS["id"].'save">
                 </div>
             </form>

@@ -25,7 +25,7 @@
                 <section style="height: 25px"></section>
                 <ul class="test" style="list-style: none; padding: 25px; margin-left: 50px; margin-right: 50px; background-color: var(--inputbackground); border-radius: 15px; color: var(--inputcolor);">';
                     require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/faecher-editor.php";
-                    $result = mysqli_query(getsqlconnection(), "SELECT * FROM faecher WHERE fach=\"{$_GET["fach"]}\" ORDER BY LENGTH(position), position ASC");
+                    $result = mysqli_query(getsqlconnection(), "SELECT * FROM faecher WHERE fach=\"{$_GET["fach"]}\" && contenttype != 'visibility' ORDER BY LENGTH(position), position ASC");
                     if ($result->num_rows > 0) {
                         $row = $result->fetch_assoc();
                         do {
@@ -39,6 +39,7 @@
                 dragndrop(".test");
                 require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/faecher-editor.php";
                 segment_selector();
+                makevisible();
             }else{
                 echo("<script>$('.no_perm').show();</script>");
             }
