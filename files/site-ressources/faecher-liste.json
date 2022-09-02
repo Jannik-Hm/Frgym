@@ -1,0 +1,49 @@
+{
+    "fachbereich1" : {
+        "name": "Sprachwissenschaften",
+        "faecher": {
+            "fach1": {"name": "Deutsch", "filename": "Deutsch", "pic-url": "https://freesvg.org/stack-of-books-vector-clip-art", "dark-image": false},
+            "fach2": {"name": "Englisch", "filename": "Englisch", "pic-url": "https://en.wikipedia.org/wiki/File:English_language.svg", "dark-image": false},
+            "fach3": {"name": "Französisch", "filename": "Französisch", "pic-url": "https://commons.wikimedia.org/wiki/File:France_flag_waving_icon.svg", "dark-image": false},
+            "fach4": {"name": "Russisch", "filename": "Russisch", "pic-url": "https://freesvg.org/flag-of-the-russian-federation-vector-graphics", "dark-image": false},
+            "fach5": {"name": "Latein", "filename": "Latein", "pic-url": "https://svgsilh.com/image/161704.html", "dark-image": false}
+        }
+    },
+    "fachbereich2" : {
+        "name": "Naturwissenschaften",
+        "faecher": {
+            "fach1": {"name": "Mathematik", "filename": "Mathematik", "pic-url": "https://de.wikipedia.org/wiki/Datei:Math.svg", "dark-image": false},
+            "fach2": {"name": "Biologie", "filename": "Biologie", "pic-url": "https://www.labbe.de/blog/Ruth-Patrick", "dark-image": false},
+            "fach3": {"name": "Chemie", "filename": "Chemie", "pic-url": "https://svgsilh.com/de/image/1073363.html", "dark-image": true},
+            "fach4": {"name": "Physik", "filename": "Physik", "pic-url": "https://svgsilh.com/de/image/148441.html", "dark-image": true},
+            "fach5": {"name": "Informatik", "filename": "Informatik", "pic-url": "https://www.svgrepo.com/svg/28224/programming", "dark-image": true},
+            "fach6": {"name": "Naturwissenschaften", "filename": "Naturwissenschaften", "pic-url": "https://svgsilh.com/image/2099128.html", "dark-image": true}
+        }
+    },
+    "fachbereich3" : {
+        "name": "Gesellschaftswissenschaften",
+        "faecher": {
+            "fach1": {"name": "Erdkunde", "filename": "Erdkunde", "pic-url": "https://svgsilh.com/image/158348.html", "dark-image": true},
+            "fach2": {"name": "Geschichte", "filename": "Geschichte", "pic-url": "https://svgsilh.com/image/33963.html", "dark-image": false},
+            "fach3": {"name": "Politische Bildung", "filename": "PB", "pic-url": "https://svgsilh.com/image/32310.html", "dark-image": true},
+            "fach4": {"name": "Gesellschafts-wissenschaften", "filename": "Gesellschaftswissenschaften", "pic-url": "https://publicdomainvectors.org/en/vectoriales-gratuitas/Diosa-de-la-justicia-signo-vector-de-la-imagen/16404.html", "dark-image": true},
+            "fach5": {"name": "Religion", "filename": "RE", "pic-url": "https://commons.wikimedia.org/wiki/File:Religion_icon.svg", "dark-image": true},
+            "fach6": {"name": "Lebensgestaltung-Ethik-Religionskunde", "filename": "LER", "pic-url": "https://unterrichten.zum.de/index.php?title=Datei:Buch-Icon.svg&veaction=edit&redlink=1", "dark-image": true},
+            "fach7": {"name": "Wirtschaft-Arbeit-Technik<br>Wirtschaftswissenschaften", "filename": "WAT", "pic-url": "https://commons.wikimedia.org/wiki/File:Euro_sign.svg", "dark-image": true}
+        }
+    },
+    "fachbereich4" : {
+        "name": "Künstlerische Fächer",
+        "faecher": {
+            "fach1": {"name": "Darstellendes Spiel", "filename": "DS", "pic-url": "https://www.ardenne-gymnasium.de/media/icon_darstellendes_spiel.svg", "dark-image": true},
+            "fach2": {"name": "Kunst", "filename": "Kunst", "pic-url": "https://publicdomainvectors.org/de/kostenlose-vektorgrafiken/Pinsel-Paletten/40255.html", "dark-image": false},
+            "fach3": {"name": "Musik", "filename": "Musik", "pic-url": "https://svgsilh.com/image/2073069.html", "dark-image": true}
+        }
+    },
+    "fachbereich5" : {
+        "name": "Sonstige",
+        "faecher": {
+            "fach1": {"name": "Sport", "filename": "Sport", "pic-url": "https://svgsilh.com/image/309539.html", "dark-image": false}
+        }
+    }
+}
