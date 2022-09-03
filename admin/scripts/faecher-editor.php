@@ -213,6 +213,7 @@
     }
 
     function create_segment($segmenttype, $existingid = NULL) {
+        $GLOBALS["viewer"] = false;
         if(isset($existingid)){
             $GLOBALS["id"] = $existingid;
         }else{
@@ -267,7 +268,22 @@
         </script>';
     }
 
-    function faecher_img_dropzone($contentnum, $accepted_files, $uploaddir) {
+    function show_segment($segmenttype, $existingid) {
+        $GLOBALS["id"] = $existingid;
+        echo '
+        <style>
+            textarea {height: 1em}
+        </style>
+        <li style="padding: 10px;" title="'.$segmenttype.'" id="'.$GLOBALS["id"].'"
+            <form>';
+            $GLOBALS["viewer"] = true;
+            include(realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/faecher-layouts/$segmenttype.php");
+            echo '
+            </form>
+        </li>';
+    }
+
+    function faecher_img_dropzone($contentnum, $accepted_files, $uploaddir, $viewer) {
         $accept_string = "";
         foreach($accepted_files as $accepted_type) {
             $accept_string = $accept_string.".".$accepted_type.",";
@@ -276,7 +292,7 @@
         $GLOBALS["uploaddir"] = $uploaddir;
         echo '
         <style>
-            [id*=drop_zone] {text-align: center; border: none; width: 100%;  padding: 0;  border-radius: 15px; background-color: none ;background-image: url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'15\' ry=\'15\' stroke=\'%23fff\' stroke-width=\'5\' stroke-dasharray=\'6%2c 14\' stroke-dashoffset=\'14\' stroke-linecap=\'square\'/%3e%3c/svg%3e"); position: relative}
+            [id*=drop_zone] {text-align: center; border: none; width: 100%;  padding: 0;  border-radius: 15px; background-color: none ; position: relative}
             [id*=drop_zone].edit {cursor: pointer;}
             [id*=drop_zone].edit:hover {background-color: #676565}
             [id*=drop_zone] p {padding: 15px 0}
@@ -290,143 +306,156 @@
                 [id*=drop_zone] {background-color: rgb(205, 211, 210)}
                 [id*=drop_zone].edit:hover {background-color: rgb(174, 178, 178)}
             }
-        </style>
-        <input type="file" name="'.$contentnum.'picture[]" id="'.$contentnum.$GLOBALS["id"].'picture" accept="'.$accept_string.'" hidden disabled>
-        <input type="text" name="picnum" value="'.$contentnum.'" hidden></input>
-        <input type="text" name="file_exists" id="'.$contentnum.$GLOBALS["id"].'file_exists" value="'.$contentnum.'" hidden></input>
+        </style>';
+        if(!$viewer) {
+            echo '
+                <style>[id*=drop_zone] {background-image: url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'15\' ry=\'15\' stroke=\'%23fff\' stroke-width=\'5\' stroke-dasharray=\'6%2c 14\' stroke-dashoffset=\'14\' stroke-linecap=\'square\'/%3e%3c/svg%3e");}</style>
+                <input type="file" name="'.$contentnum.'picture[]" id="'.$contentnum.$GLOBALS["id"].'picture" accept="'.$accept_string.'" hidden disabled>
+                <input type="text" name="picnum" value="'.$contentnum.'" hidden></input>
+                <input type="text" name="file_exists" id="'.$contentnum.$GLOBALS["id"].'file_exists" value="'.$contentnum.'" hidden></input>
+            ';
+        }
+        echo '
         <div id="drop_zone'.$contentnum.$GLOBALS["id"].'" class="normal" ondragover="dragOverHandler(event);" style="">
         <img id="img_preview_'.$contentnum.$GLOBALS["id"].'" src=""></img>';
-        echo '<div style="display: none" onclick="event.stopPropagation();resetupload(\''.$contentnum.$GLOBALS["id"].'\');" class="popupCloseButton">&times;</div>';
-        echo '<p>Datei hochladen</p>
-        </div>
-        <!-- <div id="submitbtn" onclick=\'$("#file_upload").submit()\' style="display:none">
-            <p>
-            </p>
-        </div> -->';
-        
-        echo '
-        <script>
-            var dropzone = $("#drop_zone'.$contentnum.$GLOBALS["id"].'")
-                // click input file field
-                dropzone.on(\'click\', function () {
-                $("#'.$contentnum.$GLOBALS["id"].'picture").trigger("click");
-                })
-
-                // prevent default browser behavior
-                dropzone.on("drag dragstart dragend dragover dragenter dragleave drop", function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                })
-
-                // add visual drag information
-                    dropzone.on("dragover", function() {
-                        if(window.matchMedia("(prefers-color-scheme: dark)").matches){
-                            dropzone.attr("style", "background-color: #676565");
-                        }else{
-                            dropzone.attr("style", "background-color: rgb(174, 178, 178)");
-                        }
+        if(!$viewer) {
+            echo '<div style="display: none" onclick="event.stopPropagation();resetupload(\''.$contentnum.$GLOBALS["id"].'\');" class="popupCloseButton">&times;</div>';
+            echo '<p>Datei hochladen</p>
+            </div>
+            <!-- <div id="submitbtn" onclick=\'$("#file_upload").submit()\' style="display:none">
+                <p>
+                </p>
+            </div> -->';
+    
+            echo '
+            <script>
+                var dropzone = $("#drop_zone'.$contentnum.$GLOBALS["id"].'")
+                    // click input file field
+                    dropzone.on(\'click\', function () {
+                    $("#'.$contentnum.$GLOBALS["id"].'picture").trigger("click");
                     })
-                    dropzone.on("dragleave", function() {
-                        dropzone.attr("style", "background-color: ");
+    
+                    // prevent default browser behavior
+                    dropzone.on("drag dragstart dragend dragover dragenter dragleave drop", function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
                     })
-
-                function resetupload(id) {
-                    dropzone.children(".popupCloseButton").hide();
-                    dropzone.children("p").html("Datei hochladen");
-                    $("#"+id+"picture").val("");
-                    $("#"+id+"").val("");
-                }
-
-                // catch file drop and add it to input
-                dropzone.on("drop", e => {
-                    e.preventDefault();
-                    if ($("#'.$contentnum.$GLOBALS["id"].'picture")[0].getAttribute("disabled") == null) {
-                        let files = e.originalEvent.dataTransfer.files
-                        if (files.length) {
-                            $("#'.$contentnum.$GLOBALS["id"].'picture").prop("files", files);
-                            onupload("'.$contentnum.$GLOBALS["id"].'");
-                        }
+    
+                    // add visual drag information
+                        dropzone.on("dragover", function() {
+                            if(window.matchMedia("(prefers-color-scheme: dark)").matches){
+                                dropzone.attr("style", "background-color: #676565");
+                            }else{
+                                dropzone.attr("style", "background-color: rgb(174, 178, 178)");
+                            }
+                        })
+                        dropzone.on("dragleave", function() {
+                            dropzone.attr("style", "background-color: ");
+                        })
+    
+                    function resetupload(id) {
+                        dropzone.children(".popupCloseButton").hide();
+                        dropzone.children("p").html("Datei hochladen");
+                        $("#"+id+"picture").val("");
+                        $("#"+id+"").val("");
                     }
-                });
-
-                // trigger file submission behavior
-                $("#'.$contentnum.$GLOBALS["id"].'picture").on("change", function (e) {
-                if (e.target.files.length) {
-                    onupload("'.$contentnum.$GLOBALS["id"].'");
-                    // document.getElementById("file_upload").submit();
-                }
-                })
-
-                function dragOverHandler(ev) {
-                    // console.log("File(s) in drop zone");
-
-                    // Prevent default behavior (Prevent file from being opened)
-                    ev.preventDefault();
-                }
-                function imagePreview(fileInput, id) {
-                    if (fileInput.files && fileInput.files[0]) {
-                        var fileReader = new FileReader();
-                        fileReader.onload = function (event) {
-                            $("#img_preview_"+id).attr("src", event.target.result);
-                            dropzone.children("p").hide();
-                        };
-                        fileReader.readAsDataURL(fileInput.files[0]);
-                        var fileName = fileInput.value; //Check of Extension
-                        var extension = fileName.substring(fileName.lastIndexOf(".") + 1);
-                        if ((extension == "jpg" || extension == "jpeg" || extension == "png" || extension == "webp")){
-                            document.getElementById("invalidfiletype").style.display = "none";
-                            document.getElementById("preview").style.display = "";
-                        }else{
-                            document.getElementById("invalidfiletype").style.display = "";
-                            document.getElementById("preview").style.display = "none";
+    
+                    // catch file drop and add it to input
+                    dropzone.on("drop", e => {
+                        e.preventDefault();
+                        if ($("#'.$contentnum.$GLOBALS["id"].'picture")[0].getAttribute("disabled") == null) {
+                            let files = e.originalEvent.dataTransfer.files
+                            if (files.length) {
+                                $("#'.$contentnum.$GLOBALS["id"].'picture").prop("files", files);
+                                onupload("'.$contentnum.$GLOBALS["id"].'");
+                            }
                         }
+                    });
+    
+                    // trigger file submission behavior
+                    $("#'.$contentnum.$GLOBALS["id"].'picture").on("change", function (e) {
+                    if (e.target.files.length) {
+                        onupload("'.$contentnum.$GLOBALS["id"].'");
+                        // document.getElementById("file_upload").submit();
                     }
-                };
-                function rmimage(id) { // TODO: Delete Picture button not removing picture from server and fix img replacing
-                    dropzone.children("p").html("Datei hochladen");
-                    document.getElementById(id+"deletefile").value = "true";
-                    $("#img_preview_"+id).attr("src", "");
-                    dropzone.children("p").show();
-                    document.getElementById("invalidfiletype").style.display = "none";
-                }
-                dropzone.children(".popupCloseButton").click(function() {
-                    rmimage("'.$contentnum.$GLOBALS["id"].'");
-                })
-        </script>';
+                    })
+    
+                    function dragOverHandler(ev) {
+                        // console.log("File(s) in drop zone");
+    
+                        // Prevent default behavior (Prevent file from being opened)
+                        ev.preventDefault();
+                    }
+                    function imagePreview(fileInput, id) {
+                        if (fileInput.files && fileInput.files[0]) {
+                            var fileReader = new FileReader();
+                            fileReader.onload = function (event) {
+                                $("#img_preview_"+id).attr("src", event.target.result);
+                                dropzone.children("p").hide();
+                            };
+                            fileReader.readAsDataURL(fileInput.files[0]);
+                            var fileName = fileInput.value; //Check of Extension
+                            var extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+                            if ((extension == "jpg" || extension == "jpeg" || extension == "png" || extension == "webp")){
+                                document.getElementById("invalidfiletype").style.display = "none";
+                                document.getElementById("preview").style.display = "";
+                            }else{
+                                document.getElementById("invalidfiletype").style.display = "";
+                                document.getElementById("preview").style.display = "none";
+                            }
+                        }
+                    };
+                    function rmimage(id) { // TODO: Delete Picture button not removing picture from server and fix img replacing
+                        dropzone.children("p").html("Datei hochladen");
+                        document.getElementById(id+"deletefile").value = "true";
+                        $("#img_preview_"+id).attr("src", "");
+                        dropzone.children("p").show();
+                        document.getElementById("invalidfiletype").style.display = "none";
+                    }
+                    dropzone.children(".popupCloseButton").click(function() {
+                        rmimage("'.$contentnum.$GLOBALS["id"].'");
+                    })
+            </script>';
+        }
 
         echo '<div id="preview">';
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         $result = mysqli_query(getsqlconnection(), "SELECT * FROM faecher WHERE id=\"{$GLOBALS["id"]}\"");
-                if ($result->num_rows > 0) {
-                    $row = $result->fetch_assoc();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+        }
+        echo '<script>$("#'.$contentnum.$GLOBALS["id"].'file_exists").val("false")</script>';
+        $GLOBALS["file_exists"] = false;
+        $imgpath = "/files/site-ressources/faecher-pictures/" . $row[$contentnum];
+        if ($row[$contentnum] != NULL && file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath)) {
+            echo '<script>$("#'.$contentnum.$GLOBALS["id"].'file_exists").val("true")</script>';
+            $GLOBALS["file_exists"] = true;
+        }
+        if($GLOBALS["file_exists"]){echo('
+            <script>$("#img_preview_'.$contentnum.$GLOBALS["id"].'").attr("src", "'.$imgpath.'")</script>
+            <input type="hidden" name="old-id" value='.str_replace(".".strtolower(pathinfo(basename($row[$contentnum]),PATHINFO_EXTENSION)), "", $row[$contentnum]).'></input>
+            ');}
+        if(!$viewer) {
+            echo '
+                <input type="hidden" id="'.$contentnum.$GLOBALS["id"].'deletefile" name="deletefile" value="" />
+                <input type="hidden" name="imgpath" value="'.$imgpath.'" />
+            ';
+        }
+        echo '</div>';
+        if(!$viewer){
+            echo '<div id="invalidfiletype" style="display:none;"><p>Nur .jpg, .jpeg, .png und .webp Dateien sind erlaubt!</p></div>';
+            if($GLOBALS["file_exists"]){echo("<script>dropzone.children('p').hide();$('#drop_zone".$contentnum.$GLOBALS["id"]." .popupCloseButton').show();</script>");}
+            echo '
+            <script>
+                function onupload(id) {
+                    imagePreview($("#"+id+"picture")[0], id);';
+                    if($GLOBALS["file_exists"] == "true"){echo 'document.getElementById(id+"deletefile").value = "true";';}
+                    echo '
+                    dropzone.children(".popupCloseButton").show();
                 }
-                echo '<script>$("#'.$contentnum.$GLOBALS["id"].'file_exists").val("false")</script>';
-                $GLOBALS["file_exists"] = false;
-                $imgpath = "/files/site-ressources/faecher-pictures/" . $row[$contentnum];
-                if ($row[$contentnum] != NULL && file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath)) {
-                    echo '<script>$("#'.$contentnum.$GLOBALS["id"].'file_exists").val("true")</script>';
-                    $GLOBALS["file_exists"] = true;
-                }
-                if($GLOBALS["file_exists"]){echo('
-                    <script>$("#img_preview_'.$contentnum.$GLOBALS["id"].'").attr("src", "'.$imgpath.'")</script>
-                    <input type="hidden" name="old-id" value='.str_replace(".".strtolower(pathinfo(basename($row[$contentnum]),PATHINFO_EXTENSION)), "", $row[$contentnum]).'></input>
-                    ');}
-                echo '
-            <input type="hidden" id="'.$contentnum.$GLOBALS["id"].'deletefile" name="deletefile" value="" />
-            <input type="hidden" name="imgpath" value="'.$imgpath.'" />
-        </div>
-        <div id="invalidfiletype" style="display:none;"><p>Nur .jpg, .jpeg, .png und .webp Dateien sind erlaubt!</p></div>';
-        if($GLOBALS["file_exists"]){echo("<script>dropzone.children('p').hide();$('#drop_zone".$contentnum.$GLOBALS["id"]." .popupCloseButton').show();</script>");}
+            </script>';
+        }
 
-        echo '
-        <script>
-            function onupload(id) {
-                imagePreview($("#"+id+"picture")[0], id);';
-                if($GLOBALS["file_exists"] == "true"){echo 'document.getElementById(id+"deletefile").value = "true";';}
-                echo '
-                dropzone.children(".popupCloseButton").show();
-            }
-        </script>';
 
     }
 

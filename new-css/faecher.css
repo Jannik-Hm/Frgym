@@ -245,7 +245,11 @@ div.faecher-selector-popup {
   /* Place on top of each other */
   grid-area: 1 / 1 / 2 / 2;
   }
-  textarea.normal{
+  li p {
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
+  textarea.normal, li p{
       border: none;background: none;color: #000;
   }
   textarea.edit{
@@ -276,7 +280,7 @@ div.faecher-selector-popup {
     color:#000!important;
   }
 
-  textarea.normal, textarea::placeholder {
+  textarea.normal, textarea::placeholder, p {
     color: rgb(226, 226, 226)!important;
   }
   
