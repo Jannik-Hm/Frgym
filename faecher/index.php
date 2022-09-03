@@ -11,7 +11,14 @@
             <?php
             include_once realpath($_SERVER["DOCUMENT_ROOT"])."/sites/header.html";
             require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
-            if(isset($_GET["fach"])){
+            $result = mysqli_query(getsqlconnection(), "SELECT fach, content1 FROM faecher WHERE contenttype='visibility'");
+                $visibilitylist = array();
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()){
+                        $visibilitylist[$row["fach"]] = $row["content1"];
+                    }
+            }
+            if(isset($_GET["fach"]) && $visibilitylist[$_GET["fach"]]){
                 // Show Fach Page
                 require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/faecher-editor.php";
                 echo '
@@ -30,13 +37,6 @@
                     }
                 echo '</ul>';
             }else{
-                $result = mysqli_query(getsqlconnection(), "SELECT fach, content1 FROM faecher WHERE contenttype='visibility'");
-                $visibilitylist = array();
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()){
-                        $visibilitylist[$row["fach"]] = $row["content1"];
-                    }
-                }
                 echo '<section class="faecher">';
                 $faecher = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/files/site-ressources/faecher-liste.json"), true);
                 foreach($faecher as $fachbereich){
