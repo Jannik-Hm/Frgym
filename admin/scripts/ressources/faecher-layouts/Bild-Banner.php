@@ -11,6 +11,6 @@
             <input name="contenttype" type="text" value="Bild-Banner" hidden></input>
         ';
     }
+    echo('<style>#drop_zone'.'content1'.$GLOBALS["id"].' {width: 100%; min-height: 200px; background-size: 100%;} [id*=drop_zone] [id*=img_preview] {max-height: 400px; }</style>');
 ?>
-<style>[id*="drop_zone"] {width: 100%; min-height: 200px; background-size: 100%;} [id*=drop_zone] [id*=img_preview] {max-height: 400px; }</style>
 
