@@ -112,18 +112,6 @@
               return $result;
             }
           }
-  //         $Konferenzen = getcalevents("hsjgf6vsu77oe0kugcabr8btog@group.calendar.google.com", $tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"]);
-  // // echo (print_r($Konferenzen["items"][0]));
-  // // echo print_r($Konferenzen);
-  // $calendars = getcalendars($tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"]);
-  // foreach ($calendars["items"] as $calendar){
-    //   if($calendar["summary"] == "support@frgym.de"){continue;}
-    //   echo("Kalendar: ".$calendar["summary"]."<br>");
-    //   foreach (getcalevents($calendar["id"], $tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"])["items"] as $entry){
-      //     echo ("Name: ".$entry["summary"]. " ");
-      //     echo ("Uhrzeit: ".date("d.m.Y H:i",strtotime( $entry["start"]["dateTime"]))." - ".date("d.m.Y H:i",strtotime($entry["end"]["dateTime"]))."<br>");
-      //   }
-      // }
       ?>
       <form method="POST">
         <label>
