@@ -31,8 +31,10 @@
               return $newtokenarray["access_token"];
           }
 
-          function getcalendars($access_token, $token_type, $refresh_token, $client_id, $client_secret) {
+          function getcalendars($access_token, $token_type, $refresh_token, $client_id, $client_secret, $tokens) {
+            $i = 0;
             begin:
+            $i++;
             $curl = curl_init();
 
             curl_setopt_array($curl, [
@@ -60,19 +62,26 @@
 
             $result = json_decode($response, true);
 
-            if($result["error"]) {
+            if($result["error"]["code"] == 401) {
               echo("newtoken");
               $access_token = getnewtoken($refresh_token, $client_id, $client_secret);
-              $GLOBALS["newtoken"]=$access_token;
-              goto begin;
+              if(isset($access_token)){
+                $tokens["readonly"]["access_token"] = $access_token;;
+                file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/GoogleApisecrets.json", json_encode($tokens));
+              }
+              if($i < 2){
+                goto begin;
+              }
               return;
             }else{
               return $result;
             }
           }
 
-          function getcalevents($calid, $access_token, $token_type, $refresh_token, $client_id, $client_secret){
+          function getcalevents($calid, $access_token, $token_type, $refresh_token, $client_id, $client_secret, $tokens){
+            $i = 0;
             begin:
+            $i++;
             $curl = curl_init();
 
             curl_setopt_array($curl, [
@@ -100,28 +109,29 @@
 
             $result = json_decode($response, true);
 
-            if($result["error"]) {
+            if($result["error"]["code"] == 401) {
               echo("newtoken");
               $access_token = getnewtoken($refresh_token, $client_id, $client_secret);
-              $GLOBALS["newtoken"]=$access_token;
-              goto begin;
+              if(isset($access_token)){
+                $tokens["readonly"]["access_token"] = $access_token;;
+                file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/GoogleApisecrets.json", json_encode($tokens));
+              }
+              if($i < 2){
+                goto begin;
+              }
               return;
             }else{
               return $result;
             }
           }
-          $Konferenzen = getcalevents("hsjgf6vsu77oe0kugcabr8btog@group.calendar.google.com", $tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"]);
-          if(isset($GLOBALS["newtoken"])){
-            $tokens["readonly"]["access_token"] = $GLOBALS["newtoken"];
-            file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/GoogleApisecrets.json", json_encode($tokens));
-          }
+          // $Konferenzen = getcalevents("hsjgf6vsu77oe0kugcabr8btog@group.calendar.google.com", $tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"], $tokens);
   // echo (print_r($Konferenzen["items"][0]));
   // echo print_r($Konferenzen);
-  $calendars = getcalendars($tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"]);
+  $calendars = getcalendars($tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"], $tokens);
   foreach ($calendars["items"] as $calendar){
     if($calendar["summary"] == "support@frgym.de"){continue;}
     echo("Kalendar: ".$calendar["summary"]."<br>");
-    foreach (getcalevents($calendar["id"], $tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"])["items"] as $entry){
+    foreach (getcalevents($calendar["id"], $tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"], $tokens)["items"] as $entry){
       echo ("Name: ".$entry["summary"]. " ");
       echo ("Uhrzeit: ".date("d.m.Y H:i",strtotime( $entry["start"]["dateTime"]))." - ".date("d.m.Y H:i",strtotime($entry["end"]["dateTime"]))."<br>");
     }
