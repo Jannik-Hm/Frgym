@@ -3,6 +3,8 @@
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
 
     <head>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/vfs_fonts.js"></script>
         <title>Startseite - Friedrich-Gymnasium Luckenwalde</title>
     </head>
 
@@ -127,17 +129,283 @@
           // $Konferenzen = getcalevents("hsjgf6vsu77oe0kugcabr8btog@group.calendar.google.com", $tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"], $tokens);
   // echo (print_r($Konferenzen["items"][0]));
   // echo print_r($Konferenzen);
+  $event_array = array();
   $calendars = getcalendars($tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"], $tokens);
+  $eventcounter = 0;
   foreach ($calendars["items"] as $calendar){
     if($calendar["summary"] == "support@frgym.de"){continue;}
     echo("Kalendar: ".$calendar["summary"]."<br>");
     foreach (getcalevents($calendar["id"], $tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"], $tokens)["items"] as $entry){
       echo ("Name: ".$entry["summary"]. " ");
-      echo ("Uhrzeit: ".date("d.m.Y H:i",strtotime( $entry["start"]["dateTime"]))." - ".date("d.m.Y H:i",strtotime($entry["end"]["dateTime"]))."<br>");
+      $event_array[$eventcounter] = array();
+      $event_array[$eventcounter]["name"] = $entry["summary"];
+      $event_array[$eventcounter]["color"] = $calendar["backgroundColor"];
+      if(isset($entry["start"]["dateTime"]) && isset($entry["end"]["dateTime"])){
+        echo ("Uhrzeit: ".date("d.m.Y H:i",strtotime( $entry["start"]["dateTime"]))." - ".date("d.m.Y H:i",strtotime($entry["end"]["dateTime"]))."<br>");
+        $event_array[$eventcounter]["start"] = date('Y/m/d H:i:s', strtotime( $entry["start"]["dateTime"]));
+        $event_array[$eventcounter]["end"] = date('Y/m/d H:i:s', strtotime( $entry["end"]["dateTime"]));
+      }else{
+        echo ("Uhrzeit: ".date("d.m.Y",strtotime( $entry["start"]["date"]))." - ".date("d.m.Y",strtotime($entry["end"]["date"]))."<br>");
+        $event_array[$eventcounter]["start"] = date('Y/m/d', strtotime( $entry["start"]["date"]));
+        $event_array[$eventcounter]["end"] = date('Y/m/d', strtotime( $entry["end"]["date"]));
+      }
+      $eventcounter++;
     }
   }
+  $eventcounter = 0;
+  $event_string = "[";
+  foreach($event_array as $entry){
+    $event_string = $event_string."['".$entry["name"]."', new Date(".json_encode($entry["start"])."), new Date(".json_encode($entry["end"])."), '".$entry["color"]."'],";
+  }
+  $event_string = $event_string."]";
+  // echo $event_string;
+  // echo("<script>console.log(".$event_string.")</script>");
 
 ?>
+        <script>
+            // playground requires you to assign document definition to a variable called dd
+            // playgroundsite: http://pdfmake.org/playground.html
+
+            let months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+
+            let weekdays = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+
+            var jahrspanne = [2022, 2023]; // TODO: Monat und Jahr in String --> split
+
+            var displayedmonths = [8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7];
+
+            var apiinput = <?php echo($event_string) ?>;
+
+            var Termine = [];
+
+            var termincounter = 0;
+
+            var globaltable = [];
+              
+              function generatepagetable(pageCount){
+                  for(var z=0; z<pageCount; z++){
+                    var pagetable = new Array(32);
+                    for(var j=0; j<pagetable.length; j++){
+                        var rowtable = new Array(6);
+                        for(var i=0; i<rowtable.length; i++){rowtable[i]={};}
+                        pagetable[j]=rowtable;
+                    }
+                    globaltable.push(pagetable);
+                  }
+              }
+              
+              generatepagetable(2);
+              
+              for(var i = 0; i<globaltable.length; i++){
+                  generateTable(globaltable[i], i+1);
+              }
+              
+              function generateTable(table, page) {
+                  var year2;
+                  var jahr;
+                  var monthmodifier = (page-1)*6;
+                  if(page>1){
+                      year2 = true;
+                  }
+              for(var i = 0; i < 6; i++){ // header for first table page
+                table[0][i] = {text: months[displayedmonths[monthmodifier+i]-1], bold: true, alignment: 'center'};
+                if(displayedmonths[monthmodifier+i]<displayedmonths[monthmodifier+i-1]){
+                    year2 = true;
+                }
+                if(year2){
+                    jahr = jahrspanne[1];
+                    table[0][i].fillColor = '#7BC3CE';
+                }else{
+                    jahr = jahrspanne[0];
+                    table[0][i].fillColor = '#7BCE84';
+                }
+                table[0][i].text = table[0][i].text + " "+ jahr;
+                var monthlength = new Date(jahr, displayedmonths[monthmodifier+i], 0).getDate();
+                for(var j = 1; j <= 31; j++){
+                    if (j<=monthlength){
+                        var dayofweek = new Date(jahr, displayedmonths[i]-1, j).getDay();
+                        table[j][i]["text"] = [j, {text: ' '+weekdays[dayofweek]}];
+                        if(dayofweek === 6){
+                            table[j][i].bold = true;
+                            table[j][i].fillColor = '#E8E5A0';
+                        }else if(dayofweek === 0){
+                            table[j][i].bold = true;
+                            table[j][i].fillColor = '#E8D0A0';
+                        }else{
+                            table[j][i].bold = false;
+                        }
+                    }else{
+                        table[j][i].text = null;
+                        table[j][i].fillColor = '#B8B8B8';
+                    }
+
+                }
+            }
+              }
+
+              
+
+            // apiinput.forEach(displayevent);
+
+            function displayevent(item){
+                // TODO: add for loop for all events longer than 1 day
+                // TODO: shortnames for multiple events on same day
+                var month = displayedmonths.findIndex(x => x === item[1].getMonth()+1);
+                if(globaltable[0][Number(item[1].getDate())][month].text.length >= 3){
+                    globaltable[0][Number(item[1].getDate())][month].text.push({text: ' /', color: ''});
+                }
+                globaltable[0][Number(item[1].getDate())][month].text.push({text: ' '+item[0], color: item[3]});
+            }
+
+            console.log(globaltable)
+
+            // for(var i=0; i<apiinput.length; i++){
+            //     var year = apiinput[i][1].getFullYear();
+            //     if(year >= jahrspanne[0]){
+            //         var month = displayedmonths.findIndex(x => x === apiinput[i][1].getMonth()+1);
+            //         console.log(apiinput[i][0]+displayedmonths[month]);
+            //         var monthmodifier = (year-jahrspanne[0])*12;
+            //         console.log(apiinput[i][0]+monthmodifier);
+            //         var monthmodifier = monthmodifier + displayedmonths[month] - displayedmonths[0];
+            //         console.log(apiinput[i][0]+monthmodifier);
+            //         var table = Math.floor(monthmodifier/6);
+            //         console.log(table);
+            //         if(globaltable[table][Number(apiinput[i][1].getDate())][month % 6].text.length >= 3){
+            //             globaltable[table][Number(apiinput[i][1].getDate())][month % 6].text.push({text: ' /', color: ''});
+            //         }
+            //         globaltable[table][Number(apiinput[i][1].getDate())][month % 6].text.push({text: ' '+apiinput[i][0], color: apiinput[i][3]});
+            //     }
+            // }
+
+            function displayevent(table, date, month, text, color){
+                if(table[date][month % 6].text.length >= 3){
+                    table[date][month % 6].text.push({text: ' /', color: ''});
+                }
+                table[date][month % 6].text.push({text: ' '+text, color: color});
+            }
+
+            function displayevents(input){
+                for(var i=0; i<input.length; i++){
+                    var year = input[i][1].getFullYear();
+                    if(year >= jahrspanne[0]){
+                        var termin = {begin:{}, end:{}};
+                        termin.begin.year = Number(input[i][1].getFullYear());
+                        termin.end.year = Number(input[i][2].getFullYear());
+                        termin.begin.month = displayedmonths.findIndex(x => x === input[i][1].getMonth()+1);
+                        termin.end.month = displayedmonths.findIndex(x => x === input[i][2].getMonth()+1);
+                        termin.begin.date = Number(input[i][1].getDate());
+                        termin.end.date = Number(input[i][2].getDate());
+                        var yeardifference = termin.end.year - termin.begin.year;
+                        var monthdifference;
+                        if(termin.begin.year == termin.end.year && termin.begin.month == termin.end.month){
+                            monthdifference = 0;
+                        }else if(termin.begin.year == termin.end.year && termin.begin.month<termin.end.month){
+                            monthdifference = displayedmonths[termin.end.month]-displayedmonths[termin.begin.month];
+                        }else{
+                            for(var y=termin.begin.year; y<termin.end.year; y++){
+                                if(y==termin.begin.year){
+                                    monthdifference = 12 - displayedmonths[termin.begin.month];
+                                }else{
+                                    monthdifference += 12;
+                                }
+                            }
+                            monthdifference += displayedmonths[termin.end.month]-1;
+                        }
+                        if(monthdifference>0){
+                            for(var m = termin.begin.month; m<=termin.end.month; m++){
+                                if(m==termin.begin.month){
+                                    for(var d = termin.begin.date; d<=31; d++){
+                                        var table = Math.floor(m/6);
+                                        if(globaltable[0][d][m % 6].text!==null){
+                                            displayevent(globaltable[table], d, m, input[i][0], input[i][3]);
+                                        }
+                                    }
+                                }else if(m==termin.end.month){
+                                    for(var d = 1; d<=termin.end.date; d++){
+                                        var table = Math.floor(m/6);
+                                        if(globaltable[table][d][m % 6].text!==null){
+                                            displayevent(globaltable[table], d, m, input[i][0], input[i][3]);
+                                        }
+                                        console.log("Last Month:"+d+"m:"+m);
+                                    }
+                                }else{
+                                    for(var d = 1; d<=31; d++){
+                                        var table = Math.floor(m/6);
+                                        if(globaltable[table][d][m%6].text!==null){
+                                            displayevent(globaltable[table], d, m%6, input[i][0], input[i][3]);
+                                        }
+                                    };
+                                }
+                            }
+                        }else{
+                            var monthmodifier = (year-jahrspanne[0])*12;
+                            console.log(input[i][0]+monthmodifier);
+                            monthmodifier = monthmodifier + displayedmonths[termin.begin.month] - displayedmonths[0];
+                            console.log(input[i][0]+monthmodifier);
+                            var table = Math.floor(monthmodifier/6);
+                            displayevent(globaltable[table], termin.begin.date, termin.begin.month, input[i][0], input[i][3]);
+                        }
+                        console.log(input[i][0]+displayedmonths[termin.begin.month]);
+                        console.log("Jahresunterschied" + yeardifference);
+                        console.log("Monatsunterschied" + (monthdifference));
+                        console.log(table);
+                    }
+                }
+            }
+
+            displayevents(apiinput);
+
+            console.log(globaltable);
+
+            var dd = {
+                // a string or { width: number, height: number }
+              pageSize: 'A4',
+
+              // by default we use portrait, you can change it to landscape if you wish
+              pageOrientation: 'landscape',
+
+              // [left, top, right, bottom] or [horizontal, vertical] or just a number for equal margins
+              pageMargins: [ 40, 40, 40, 40 ],
+              header: {text: 'Schulkalender 2022/23', margin: [40, 21, 0, 0], fontSize: 16, bold: true},
+              footer: {
+                  columns: [
+                      {text: 'SD - Beratung der Schulleitung\nEV - möglicher Termin für Elternversammlung\nSF - Schulfahrt'},
+                      {text: 'BP - Betriebspraktikum\nPT7 - Projektwoche Klasse 7\nSK - Schulkonferenz'},
+                      {text: 'SÜ - Schülerkonferenz\nEK - Elternkonferenz\nKK - Klassenkonferenz'},
+                      {text: 'LK - Lehrerkonferenz\nK - Klausur'}
+                  ],
+                  margin: [50, 0, 0, 0],
+                  fontSize: 9
+              },
+              content: [
+                {
+                  table: {
+                    // headers are automatically repeated if the table spans over multiple pages
+                    // you can declare how many rows should be treated as headers
+                    headerRows: 1,
+                    widths: [ '*', '*', '*', '*', '*', '*' ],
+
+                    body: globaltable[0]
+                  },
+                  pageBreak: "after",
+                  fontSize: 9
+                },
+                {
+                  table: {
+                    // headers are automatically repeated if the table spans over multiple pages
+                    // you can declare how many rows should be treated as headers
+                    headerRows: 1,
+                    widths: [ '*', '*', '*', '*', '*', '*' ],
+
+                    body: globaltable[1]
+                  },
+                  fontSize: 9
+                }
+              ]
+
+            };
+        </script>
+        <button href="" onclick="pdfMake.createPdf(dd).open();">PDF generieren</button>
     </body>
 
 </html>
