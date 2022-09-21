@@ -87,7 +87,7 @@
             $curl = curl_init();
 
             curl_setopt_array($curl, [
-              CURLOPT_URL => "https://www.googleapis.com/calendar/v3/calendars/".$calid."/events",
+              CURLOPT_URL => "https://www.googleapis.com/calendar/v3/calendars/".urlencode($calid)."/events",
               CURLOPT_RETURNTRANSFER => true,
               CURLOPT_ENCODING => "",
               CURLOPT_MAXREDIRS => 10,
@@ -136,18 +136,21 @@
     if($calendar["summary"] == "support@frgym.de"){continue;}
     echo("Kalendar: ".$calendar["summary"]."<br>");
     foreach (getcalevents($calendar["id"], $tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"], $tokens)["items"] as $entry){
-      echo ("Name: ".$entry["summary"]. " ");
+      $name = trim(str_replace(["Erster", "Zweiter", "Dritter", "Vierter"], ["1.", "2.", "3.", "4."], str_replace(["(regionaler Feiertag)", "Halloween", "St. Martin", "Volkstrauertag", "Totensonntag", "Heilige Drei Könige", "Valentinstag", "Rosenmontag", "Faschingsdienstag", "Aschermittwoch", "Palmsonntag", "Jahrestag der Befreiung vom Nationalsozialismus", "Internationaler Frauentag", "Vatertag", "Fronleichnam"], "", (preg_match("(Bayern|Sachsen|Sommerzeit|Thüringen)", $entry["summary"]) === 1) ? "" : $entry["summary"])));
+      echo ("Name: ".$name. " ");
       $event_array[$eventcounter] = array();
-      $event_array[$eventcounter]["name"] = $entry["summary"];
+      $event_array[$eventcounter]["name"] = $name;
       $event_array[$eventcounter]["color"] = $calendar["backgroundColor"];
       if(isset($entry["start"]["dateTime"]) && isset($entry["end"]["dateTime"])){
         echo ("Uhrzeit: ".date("d.m.Y H:i",strtotime( $entry["start"]["dateTime"]))." - ".date("d.m.Y H:i",strtotime($entry["end"]["dateTime"]))."<br>");
         $event_array[$eventcounter]["start"] = date('Y/m/d H:i:s', strtotime( $entry["start"]["dateTime"]));
         $event_array[$eventcounter]["end"] = date('Y/m/d H:i:s', strtotime( $entry["end"]["dateTime"]));
+        $event_array[$eventcounter]["istime"] = true;
       }else{
         echo ("Uhrzeit: ".date("d.m.Y",strtotime( $entry["start"]["date"]))." - ".date("d.m.Y",strtotime($entry["end"]["date"]))."<br>");
         $event_array[$eventcounter]["start"] = date('Y/m/d', strtotime( $entry["start"]["date"]));
         $event_array[$eventcounter]["end"] = date('Y/m/d', strtotime( $entry["end"]["date"]));
+        $event_array[$eventcounter]["istime"] = false;
       }
       $eventcounter++;
     }
@@ -155,9 +158,10 @@
   $eventcounter = 0;
   $event_string = "[";
   foreach($event_array as $entry){
-    $event_string = $event_string."['".$entry["name"]."', new Date(".json_encode($entry["start"])."), new Date(".json_encode($entry["end"])."), '".$entry["color"]."'],";
+    $event_string = $event_string."['".$entry["name"]."', new Date(".json_encode($entry["start"])."), new Date(".json_encode($entry["end"])."), '".$entry["color"]."', ".$entry["istime"]."],";
   }
   $event_string = $event_string."]";
+  // echo($event_string);
   // echo $event_string;
   // echo("<script>console.log(".$event_string.")</script>");
 
@@ -181,7 +185,7 @@
             var termincounter = 0;
 
             var globaltable = [];
-              
+
               function generatepagetable(pageCount){
                   for(var z=0; z<pageCount; z++){
                     var pagetable = new Array(32);
@@ -193,13 +197,13 @@
                     globaltable.push(pagetable);
                   }
               }
-              
+
               generatepagetable(2);
-              
+
               for(var i = 0; i<globaltable.length; i++){
                   generateTable(globaltable[i], i+1);
               }
-              
+
               function generateTable(table, page) {
                   var year2;
                   var jahr;
@@ -223,7 +227,7 @@
                 var monthlength = new Date(jahr, displayedmonths[monthmodifier+i], 0).getDate();
                 for(var j = 1; j <= 31; j++){
                     if (j<=monthlength){
-                        var dayofweek = new Date(jahr, displayedmonths[i]-1, j).getDay();
+                        var dayofweek = new Date(jahr, displayedmonths[monthmodifier+i]-1, j).getDay();
                         table[j][i]["text"] = [j, {text: ' '+weekdays[dayofweek]}];
                         if(dayofweek === 6){
                             table[j][i].bold = true;
@@ -243,7 +247,7 @@
             }
               }
 
-              
+
 
             // apiinput.forEach(displayevent);
 
@@ -278,10 +282,12 @@
             // }
 
             function displayevent(table, date, month, text, color){
+              if(text != ""){
                 if(table[date][month % 6].text.length >= 3){
                     table[date][month % 6].text.push({text: ' /', color: ''});
                 }
                 table[date][month % 6].text.push({text: ' '+text, color: color});
+              }
             }
 
             function displayevents(input){
@@ -295,8 +301,14 @@
                         termin.end.month = displayedmonths.findIndex(x => x === input[i][2].getMonth()+1);
                         termin.begin.date = Number(input[i][1].getDate());
                         termin.end.date = Number(input[i][2].getDate());
+                        if(input[i][4] != 1){
+                          termin.end.date = termin.end.date - 1;
+}
                         var yeardifference = termin.end.year - termin.begin.year;
                         var monthdifference;
+                        if(termin.begin.year == jahrspanne[0] && input[i][1].getMonth()+1 < displayedmonths[0]) continue;
+                        if(termin.begin.year == jahrspanne[1] && input[i][1].getMonth()+1 > displayedmonths[11]) continue;
+                        if(termin.begin.year>jahrspanne[1]) continue;
                         if(termin.begin.year == termin.end.year && termin.begin.month == termin.end.month){
                             monthdifference = 0;
                         }else if(termin.begin.year == termin.end.year && termin.begin.month<termin.end.month){
@@ -339,13 +351,14 @@
                             }
                         }else{
                             var monthmodifier = (year-jahrspanne[0])*12;
-                            console.log(input[i][0]+monthmodifier);
+                            // console.log(input[i][0]+monthmodifier);
                             monthmodifier = monthmodifier + displayedmonths[termin.begin.month] - displayedmonths[0];
-                            console.log(input[i][0]+monthmodifier);
+                            // console.log(input[i][0]+monthmodifier);
+                            // if(monthmodifier<0){continue;}
                             var table = Math.floor(monthmodifier/6);
                             displayevent(globaltable[table], termin.begin.date, termin.begin.month, input[i][0], input[i][3]);
                         }
-                        console.log(input[i][0]+displayedmonths[termin.begin.month]);
+                        console.log(input[i][0]+displayedmonths[termin.begin.month] + "d"+termin.begin.date+"m"+m);
                         console.log("Jahresunterschied" + yeardifference);
                         console.log("Monatsunterschied" + (monthdifference));
                         console.log(table);
