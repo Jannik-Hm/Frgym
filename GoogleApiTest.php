@@ -183,9 +183,17 @@
 
             let weekdays = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
-            var jahrspanne = [2022, 2023]; // TODO: Monat und Jahr in String --> split
+            var jahrspanne = []; // TODO: Monat und Jahr in String --> split
 
             var displayedmonths = [8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7];
+
+            if(new Date().getMonth() + 1 > 7){
+              jahrspanne[0] = new Date().getFullYear();
+              jahrspanne[1] = new Date().getFullYear()+1;
+            }else{
+              jahrspanne[0] = new Date().getFullYear()-1;
+              jahrspanne[1] = new Date().getFullYear();
+            }
 
             var apiinput = <?php echo($event_string) ?>;
 
