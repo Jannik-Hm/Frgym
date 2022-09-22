@@ -137,28 +137,37 @@
     echo("Kalendar: ".$calendar["summary"]."<br>");
     foreach (getcalevents($calendar["id"], $tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"], $tokens)["items"] as $entry){
       $name = trim(str_replace(["Erster", "Zweiter", "Dritter", "Vierter", "der", "Deutschen"], ["1.", "2.", "3.", "4.", "d.", "Dt."], str_replace(["(regionaler Feiertag)", "Halloween", "St. Martin", "Volkstrauertag", "Totensonntag", "Heilige Drei Könige", "Valentinstag", "Rosenmontag", "Faschingsdienstag", "Aschermittwoch", "Palmsonntag", "Jahrestag der Befreiung vom Nationalsozialismus", "Internationaler Frauentag", "Vatertag", "Fronleichnam", "Allerheiligen"], "", (preg_match("(Bayern|Sachsen|Sommerzeit|Thüringen)", $entry["summary"]) === 1) ? "" : $entry["summary"])));
-      echo ("Name: ".$name. " ");
       $event_array[$eventcounter] = array();
       $event_array[$eventcounter]["name"] = $name;
       $event_array[$eventcounter]["color"] = $calendar["backgroundColor"];
       if(isset($entry["start"]["dateTime"]) && isset($entry["end"]["dateTime"])){
-        echo ("Uhrzeit: ".date("d.m.Y H:i",strtotime( $entry["start"]["dateTime"]))." - ".date("d.m.Y H:i",strtotime($entry["end"]["dateTime"]))."<br>");
-        $event_array[$eventcounter]["start"] = date('Y/m/d H:i:s', strtotime( $entry["start"]["dateTime"]));
-        $event_array[$eventcounter]["end"] = date('Y/m/d H:i:s', strtotime( $entry["end"]["dateTime"]));
+        $event_array[$eventcounter]["start"] = strtotime($entry["start"]["dateTime"]);
+        $event_array[$eventcounter]["end"] = strtotime($entry["end"]["dateTime"]);
         $event_array[$eventcounter]["istime"] = true;
       }else{
-        echo ("Uhrzeit: ".date("d.m.Y",strtotime( $entry["start"]["date"]))." - ".date("d.m.Y",strtotime($entry["end"]["date"]))."<br>");
-        $event_array[$eventcounter]["start"] = date('Y/m/d', strtotime( $entry["start"]["date"]));
-        $event_array[$eventcounter]["end"] = date('Y/m/d', strtotime( $entry["end"]["date"]));
+        $event_array[$eventcounter]["start"] = strtotime($entry["start"]["date"]);
+        $event_array[$eventcounter]["end"] = strtotime($entry["end"]["date"]);
         $event_array[$eventcounter]["istime"] = false;
       }
       $eventcounter++;
     }
   }
   $eventcounter = 0;
+   // Sort event_array by begin date
+  $keys = array_column($event_array, 'start');
+  array_multisort($keys, SORT_ASC, $event_array);
   $event_string = "[";
+  echo("Anstehende Termine:<br>");
   foreach($event_array as $entry){
-    $event_string = $event_string."['".$entry["name"]."', new Date(".json_encode($entry["start"])."), new Date(".json_encode($entry["end"])."), '".$entry["color"]."', ".$entry["istime"]."],";
+    if($entry["name"] == "" || $entry["name"] == NULL) continue;
+    $event_string = $event_string."['".$entry["name"]."', new Date(".json_encode(date('Y/m/d H:i:s', $entry["start"]))."), new Date(".json_encode(date('Y/m/d H:i:s', $entry["end"]))."), '".$entry["color"]."', ".$entry["istime"]."],";
+    if($entry["end"] < time()) continue;
+    echo ("Name: ".$entry["name"]. " ");
+    if($entry["istime"]){
+      echo ("Uhrzeit: ".date('Y/m/d H:i:s', $entry["start"])." - ".date('Y/m/d H:i:s', $entry["end"])."<br>");
+    }else{
+      echo ("Uhrzeit: ".date('Y/m/d', $entry["start"])." - ".date('Y/m/d', $entry["end"])."<br>");
+    }
   }
   $event_string = $event_string."]";
   // echo($event_string);
@@ -395,20 +404,24 @@
                             }
                           }
                         }else{
-                            console.log("jahr"+year);
-                            var monthmodifier = (year-jahrspanne[0])*12;
-                            console.log("jahrmodifier"+monthmodifier);
-                            // console.log(input[i][0]+monthmodifier);
-                            monthmodifier = monthmodifier + displayedmonths[termin.begin.month] - displayedmonths[0];
-                            // console.log(input[i][0]+monthmodifier);
-                            // if(monthmodifier<0){continue;}
-                            console.log("m"+termin.begin.month)
-                            console.log(monthmodifier);
-                            var table = Math.floor(monthmodifier/6);
-                            console.log(monthmodifier/6);
-                            console.log(table);
-                            console.log(input[i][0]+displayedmonths[termin.begin.month] + "d"+termin.begin.date+"m"+m);
-                            displayevent(globaltable[table], termin.begin.date, termin.begin.month, input[i][0], input[i][3]);
+                            if(input[i][0] !== "" && input[i][0] !== null && input[i][0] !== undefined){
+                              console.log("jahr"+year);
+                              var monthmodifier = (year-jahrspanne[0])*12;
+                              console.log("jahrmodifier"+monthmodifier);
+                              // console.log(input[i][0]+monthmodifier);
+                              monthmodifier = monthmodifier + displayedmonths[termin.begin.month] - displayedmonths[0];
+                              // console.log(input[i][0]+monthmodifier);
+                              // if(monthmodifier<0){continue;}
+                              console.log("m"+termin.begin.month)
+                              console.log(monthmodifier);
+                              var table = Math.floor(monthmodifier/6);
+                              console.log(monthmodifier/6);
+                              console.log(table);
+                              console.log(input[i][0]+displayedmonths[termin.begin.month] + "d"+termin.begin.date+"m"+m);
+                              if(globaltable[table] !== undefined){
+                                displayevent(globaltable[table], termin.begin.date, termin.begin.month, input[i][0], input[i][3]);
+                              }
+                            }
                         }
                         console.log(input[i][0]+displayedmonths[termin.begin.month] + "d"+termin.begin.date+"m"+m);
                         console.log("Jahresunterschied" + yeardifference);
