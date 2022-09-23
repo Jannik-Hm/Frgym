@@ -134,12 +134,13 @@
   $eventcounter = 0;
   foreach ($calendars["items"] as $calendar){
     if($calendar["summary"] == "support@frgym.de"){continue;}
-    echo("Kalendar: ".$calendar["summary"]."<br>");
+    // echo("Kalendar: ".$calendar["summary"]."<br>");
     foreach (getcalevents($calendar["id"], $tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"], $tokens)["items"] as $entry){
-      $name = trim(str_replace(["Erster", "Zweiter", "Dritter", "Vierter", "der", "Deutschen"], ["1.", "2.", "3.", "4.", "d.", "Dt."], str_replace(["(regionaler Feiertag)", "Halloween", "St. Martin", "Volkstrauertag", "Totensonntag", "Heilige Drei Könige", "Valentinstag", "Rosenmontag", "Faschingsdienstag", "Aschermittwoch", "Palmsonntag", "Jahrestag der Befreiung vom Nationalsozialismus", "Internationaler Frauentag", "Vatertag", "Fronleichnam", "Allerheiligen"], "", (preg_match("(Bayern|Sachsen|Sommerzeit|Thüringen)", $entry["summary"]) === 1) ? "" : $entry["summary"])));
+      $name = trim(str_replace(["Erster", "Zweiter", "Dritter", "Vierter", "der", "Deutschen", "Neujahrstag"], ["1.", "2.", "3.", "4.", "d.", "Dt.", "Neujahr"], str_replace(["(regionaler Feiertag)", "Halloween", "St. Martin", "Volkstrauertag", "Totensonntag", "Heilige Drei Könige", "Valentinstag", "Rosenmontag", "Faschingsdienstag", "Aschermittwoch", "Palmsonntag", "Jahrestag der Befreiung vom Nationalsozialismus", "Internationaler Frauentag", "Vatertag", "Fronleichnam", "Allerheiligen", "Mariä Himmelfahrt", "Nikolaustag", "Gründonnerstag", "Karsamstag", "Muttertag"], "", (preg_match("(Bayern|Sachsen|Sommerzeit|Thüringen)", $entry["summary"]) === 1) ? "" : $entry["summary"])));
       $event_array[$eventcounter] = array();
       $event_array[$eventcounter]["name"] = $name;
       $event_array[$eventcounter]["color"] = $calendar["backgroundColor"];
+      $event_array[$eventcounter]["eventtype"] = $calendar["summary"];
       if(isset($entry["start"]["dateTime"]) && isset($entry["end"]["dateTime"])){
         $event_array[$eventcounter]["start"] = strtotime($entry["start"]["dateTime"]);
         $event_array[$eventcounter]["end"] = strtotime($entry["end"]["dateTime"]);
@@ -162,12 +163,21 @@
     if($entry["name"] == "" || $entry["name"] == NULL) continue;
     $event_string = $event_string."['".$entry["name"]."', new Date(".json_encode(date('Y/m/d H:i:s', $entry["start"]))."), new Date(".json_encode(date('Y/m/d H:i:s', $entry["end"]))."), '".$entry["color"]."', ".$entry["istime"]."],";
     if($entry["end"] < time()) continue;
+    echo("<div style='height: 20px; margin-bottom: 5px'><i style='display: inline-block; margin-top: 5px; margin-right: 10px'><div style='height: 10px; width: 10px; background-color:".$entry["color"].";border-radius: 3px;'></div></i>");
     echo ("Name: ".$entry["name"]. " ");
+    echo ("Kalendar: ".$entry["eventtype"]." ");
+    $daysleft = ceil(($entry["start"]-time())/86400);
+    if($daysleft < 1){
+      echo ("Heute ");
+    }else{
+      echo (" in ".ceil(($entry["start"]-time())/86400)." Tag(en) ");
+    }
     if($entry["istime"]){
       echo ("Uhrzeit: ".date('Y/m/d H:i:s', $entry["start"])." - ".date('Y/m/d H:i:s', $entry["end"])."<br>");
     }else{
       echo ("Uhrzeit: ".date('Y/m/d', $entry["start"])." - ".date('Y/m/d', $entry["end"])."<br>");
     }
+    echo("</div>");
   }
   $event_string = $event_string."]";
   // echo($event_string);
