@@ -8,7 +8,7 @@
         <title>Startseite - Friedrich-Gymnasium Luckenwalde</title>
     </head>
 
-    <body>
+    <body style="font-family: 'montserrat', sans-serif; color: #fff;background: rgb(71 71 71)">
           <?php
           $tokens = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/GoogleApisecrets.json"), true);
 
@@ -162,22 +162,6 @@
   foreach($event_array as $entry){
     if($entry["name"] == "" || $entry["name"] == NULL) continue;
     $event_string = $event_string."['".$entry["name"]."', new Date(".json_encode(date('Y/m/d H:i:s', $entry["start"]))."), new Date(".json_encode(date('Y/m/d H:i:s', $entry["end"]))."), '".$entry["color"]."', ".$entry["istime"]."],";
-    if($entry["end"] < time()) continue;
-    echo("<div style='height: 20px; margin-bottom: 5px'><i style='display: inline-block; margin-top: 5px; margin-right: 10px'><div style='height: 10px; width: 10px; background-color:".$entry["color"].";border-radius: 3px;'></div></i>");
-    echo ("Name: ".$entry["name"]. " ");
-    echo ("Kalendar: ".$entry["eventtype"]." ");
-    $daysleft = ceil(($entry["start"]-time())/86400);
-    if($daysleft < 1){
-      echo ("Heute ");
-    }else{
-      echo (" in ".ceil(($entry["start"]-time())/86400)." Tag(en) ");
-    }
-    if($entry["istime"]){
-      echo ("Uhrzeit: ".date('Y/m/d H:i:s', $entry["start"])." - ".date('Y/m/d H:i:s', $entry["end"])."<br>");
-    }else{
-      echo ("Uhrzeit: ".date('Y/m/d', $entry["start"])." - ".date('Y/m/d', $entry["end"])."<br>");
-    }
-    echo("</div>");
   }
   $event_string = $event_string."]";
   // echo($event_string);
@@ -185,6 +169,25 @@
   // echo("<script>console.log(".$event_string.")</script>");
 
 ?>
+  <section>
+    <div style="background: rgb(122 133 131); padding: 30px 40px; border-radius: 15px; margin: auto; width: fit-content">
+    <?php
+      foreach($event_array as $entry){
+        if($entry["name"] == "" || $entry["name"] == NULL) continue;
+        if($entry["end"] < time()) continue;
+        echo("<a onclick='console.log(\"Kalender: ".$entry["eventtype"]."\");console.log(\"Start: ".date('Y/m/d H:i:s', $entry["start"])."\");console.log(\"Ende: ".date('Y/m/d H:i:s', $entry["end"])."\");console.log(\"Istime: ".$entry["istime"]."\")'><div style='height: 20px; margin-bottom: 5px'><i style='display: inline-block; margin-top: 5px; margin-right: 10px'><div style='height: 10px; width: 10px; background-color:".$entry["color"].";border-radius: 3px;'></div></i><span>");
+        echo ($entry["name"]. " ");
+        $daysleft = ceil(($entry["start"]-time())/86400);
+        if($daysleft < 1){
+          echo ("<span style='color: rgb(221 221 221)'>heute</span> ");
+        }else{
+          echo ("<span style='color: rgb(221 221 221)'> in ".ceil(($entry["start"]-time())/86400)." Tag(en)</span> ");
+        }
+        echo("</span></div></a>");
+      }
+    ?>
+    </div>
+  </section>
         <script>
             // playground requires you to assign document definition to a variable called dd
             // playgroundsite: http://pdfmake.org/playground.html
@@ -501,7 +504,7 @@
 
             };
         </script>
-        <button href="" onclick="pdfMake.createPdf(dd).open();">PDF generieren</button>
+        <button href="" onclick="pdfMake.createPdf(dd).open();" style="padding: 7px 15px;border-radius: 10px;margin: auto;border:  none;background-color: rgb(205 211 210);font-family: 'montserrat', sans-serif;display: flex;justify-content: center;margin-top:  15px; cursor: pointer">PDF generieren</button>
     </body>
 
 </html>
