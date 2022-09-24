@@ -10,7 +10,7 @@
 
     <body style="font-family: 'montserrat', sans-serif; color: #fff;background: rgb(71 71 71)">
           <?php
-          $tokens = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/GoogleApisecrets.json"), true);
+          $GLOBALS["tokens"] = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/GoogleApisecrets.json"), true);
 
           function getnewtoken($refresh_token, $client_id, $client_secret){
             $curlrefresh = curl_init();
@@ -33,7 +33,7 @@
               return $newtokenarray["access_token"];
           }
 
-          function getcalendars($access_token, $token_type, $refresh_token, $client_id, $client_secret, $tokens) {
+          function getcalendars($access_token, $token_type, $refresh_token, $client_id, $client_secret) {
             $i = 0;
             begin:
             $i++;
@@ -68,8 +68,8 @@
               echo("newtoken");
               $access_token = getnewtoken($refresh_token, $client_id, $client_secret);
               if(isset($access_token)){
-                $tokens["readonly"]["access_token"] = $access_token;;
-                file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/GoogleApisecrets.json", json_encode($tokens));
+                $GLOBALS["tokens"]["readonly"]["access_token"] = $access_token;;
+                file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/GoogleApisecrets.json", json_encode($GLOBALS["tokens"]));
               }
               if($i < 2){
                 goto begin;
@@ -80,7 +80,7 @@
             }
           }
 
-          function getcalevents($calid, $access_token, $token_type, $refresh_token, $client_id, $client_secret, $tokens){
+          function getcalevents($calid, $access_token, $token_type, $refresh_token, $client_id, $client_secret){
             $i = 0;
             begin:
             $i++;
@@ -115,8 +115,8 @@
               echo("newtoken");
               $access_token = getnewtoken($refresh_token, $client_id, $client_secret);
               if(isset($access_token)){
-                $tokens["readonly"]["access_token"] = $access_token;;
-                file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/GoogleApisecrets.json", json_encode($tokens));
+                $GLOBALS["tokens"]["readonly"]["access_token"] = $access_token;;
+                file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/GoogleApisecrets.json", json_encode($GLOBALS["tokens"]));
               }
               if($i < 2){
                 goto begin;
@@ -130,12 +130,12 @@
   // echo (print_r($Konferenzen["items"][0]));
   // echo print_r($Konferenzen);
   $event_array = array();
-  $calendars = getcalendars($tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"], $tokens);
+  $calendars = getcalendars($GLOBALS["tokens"]["readonly"]["access_token"], $GLOBALS["tokens"]["readonly"]["token_type"], $GLOBALS["tokens"]["readonly"]["refresh_token"], $GLOBALS["tokens"]["readonly"]["client_id"], $GLOBALS["tokens"]["readonly"]["client_secret"]);
   $eventcounter = 0;
   foreach ($calendars["items"] as $calendar){
     if($calendar["summary"] == "support@frgym.de"){continue;}
     // echo("Kalendar: ".$calendar["summary"]."<br>");
-    foreach (getcalevents($calendar["id"], $tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"], $tokens)["items"] as $entry){
+    foreach (getcalevents($calendar["id"], $GLOBALS["tokens"]["readonly"]["access_token"], $GLOBALS["tokens"]["readonly"]["token_type"], $GLOBALS["tokens"]["readonly"]["refresh_token"], $GLOBALS["tokens"]["readonly"]["client_id"], $GLOBALS["tokens"]["readonly"]["client_secret"])["items"] as $entry){
       $name = trim(str_replace(["Erster", "Zweiter", "Dritter", "Vierter", "der", "Deutschen", "Neujahrstag"], ["1.", "2.", "3.", "4.", "d.", "Dt.", "Neujahr"], str_replace(["(regionaler Feiertag)", "Halloween", "St. Martin", "Volkstrauertag", "Totensonntag", "Heilige Drei Könige", "Valentinstag", "Rosenmontag", "Faschingsdienstag", "Aschermittwoch", "Palmsonntag", "Jahrestag der Befreiung vom Nationalsozialismus", "Internationaler Frauentag", "Vatertag", "Fronleichnam", "Allerheiligen", "Mariä Himmelfahrt", "Nikolaustag", "Gründonnerstag", "Karsamstag", "Muttertag"], "", (preg_match("(Bayern|Sachsen|Sommerzeit|Thüringen)", $entry["summary"]) === 1) ? "" : $entry["summary"])));
       $event_array[$eventcounter] = array();
       $event_array[$eventcounter]["name"] = $name;
