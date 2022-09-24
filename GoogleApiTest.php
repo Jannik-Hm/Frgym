@@ -175,7 +175,7 @@
       foreach($event_array as $entry){
         if($entry["name"] == "" || $entry["name"] == NULL) continue;
         if($entry["end"] < time()) continue;
-        echo("<a onclick='console.log(\"Kalender: ".$entry["eventtype"]."\");console.log(\"Start: ".date('Y/m/d H:i:s', $entry["start"])."\");console.log(\"Ende: ".date('Y/m/d H:i:s', $entry["end"])."\");console.log(\"Istime: ".$entry["istime"]."\")'><div style='height: 20px; margin-bottom: 5px'><i style='display: inline-block; margin-top: 5px; margin-right: 10px'><div style='height: 10px; width: 10px; background-color:".$entry["color"].";border-radius: 3px;'></div></i><span>");
+        echo("<a style='cursor: pointer' onclick='console.log(\"Kalender: ".$entry["eventtype"]."\");console.log(\"Start: ".date('Y/m/d H:i:s', $entry["start"])."\");console.log(\"Ende: ".date('Y/m/d H:i:s', $entry["end"])."\");console.log(\"Istime: ".$entry["istime"]."\")'><div style='background-color: rgb(156 156 156);border-radius: 5px;padding: 5px 10px;height: 20px;margin-bottom: 5px'><i style='display: inline-block; margin-top: 5px; margin-right: 10px'><div style='height: 10px; width: 10px; background-color:".$entry["color"].";border-radius: 3px;'></div></i><span>");
         echo ($entry["name"]. " ");
         $daysleft = ceil(($entry["start"]-time())/86400);
         if($daysleft < 1){
