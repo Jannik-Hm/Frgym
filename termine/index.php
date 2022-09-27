@@ -1,14 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
 
-    <head>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/pdfmake.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/vfs_fonts.js"></script>
-        <title>Startseite - Friedrich-Gymnasium Luckenwalde</title>
-    </head>
+<head>
+    <?php
+    $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+    include_once "$root/sites/head.html"
+    ?>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/vfs_fonts.js"></script>
+    <link rel="stylesheet" href="/new-css/termine.css">
+    <title>Termine - Friedrich-Gymnasium Luckenwalde</title>
+</head>
 
-    <body style="font-family: 'montserrat', sans-serif; color: #fff;background: rgb(71 71 71)">
+    <body>
+      <?php include_once "$root/sites/header.html"; ?>
           <?php
           $GLOBALS["tokens"] = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/GoogleApisecrets.json"), true);
 
@@ -158,7 +163,6 @@
   $keys = array_column($event_array, 'start');
   array_multisort($keys, SORT_ASC, $event_array);
   $event_string = "[";
-  echo("Anstehende Termine:<br>");
   foreach($event_array as $entry){
     if($entry["name"] == "" || $entry["name"] == NULL) continue;
     $event_string = $event_string."['".$entry["name"]."', new Date(".json_encode(date('Y/m/d H:i:s', $entry["start"]))."), new Date(".json_encode(date('Y/m/d H:i:s', $entry["end"]))."), '".$entry["color"]."', ".$entry["istime"]."],";
@@ -169,19 +173,22 @@
   // echo("<script>console.log(".$event_string.")</script>");
 
 ?>
+  <br>
   <section>
-    <div style="background: rgb(122 133 131); padding: 30px 40px; border-radius: 15px; margin: auto; width: fit-content">
+    <div class="terminelistdiv">
     <?php
       foreach($event_array as $entry){
         if($entry["name"] == "" || $entry["name"] == NULL) continue;
         if($entry["end"] < time()) continue;
-        echo("<a style='cursor: pointer' onclick='console.log(\"Kalender: ".$entry["eventtype"]."\");console.log(\"Start: ".date('Y/m/d H:i:s', $entry["start"])."\");console.log(\"Ende: ".date('Y/m/d H:i:s', $entry["end"])."\");console.log(\"Istime: ".$entry["istime"]."\")'><div style='background-color: rgb(156 156 156);border-radius: 5px;padding: 5px 10px;height: 20px;margin-bottom: 5px'><i style='display: inline-block; margin-top: 5px; margin-right: 10px'><div style='height: 10px; width: 10px; background-color:".$entry["color"].";border-radius: 3px;'></div></i><span>");
+        echo("<a style='cursor: pointer' onclick='$(\".readmorebox\").show();$(\"#termintest\").html(\"Name: ".$entry["name"]."\");$(\"#termintest1\").html(\"Kalender: ".$entry["eventtype"]."\");$(\"#termintest2\").html(\"Start: ".date('Y/m/d H:i:s', $entry["start"])."\");$(\"#termintest3\").html(\"Ende: ".date('Y/m/d H:i:s', $entry["end"])."\");$(\"#termintest4\").html(\"Istime: ".$entry["istime"]."\")'><div class='termindiv'><i class='termincolori'><div style='background-color:".$entry["color"].";'></div></i><span>");
         echo ($entry["name"]. " ");
-        $daysleft = ceil(($entry["start"]-time())/86400);
+        $daysleft = ceil(($entry["start"]-time())/86400); // TODO: fix this to not count hours till event
         if($daysleft < 1){
-          echo ("<span style='color: rgb(221 221 221)'>heute</span> ");
+          echo ("<span style='color: var(--newstextcolor)'>heute</span> ");
+        }elseif($daysleft == 1) {
+          echo ("<span style='color: var(--newstextcolor)'>morgen</span> ");
         }else{
-          echo ("<span style='color: rgb(221 221 221)'> in ".ceil(($entry["start"]-time())/86400)." Tag(en)</span> ");
+          echo ("<span style='color: var(--newstextcolor)'> in ".ceil(($entry["start"]-time())/86400)." Tag(en)</span> ");
         }
         echo("</span></div></a>");
       }
@@ -504,7 +511,22 @@
 
             };
         </script>
-        <button href="" onclick="pdfMake.createPdf(dd).open();" style="padding: 7px 15px;border-radius: 10px;margin: auto;border:  none;background-color: rgb(205 211 210);font-family: 'montserrat', sans-serif;display: flex;justify-content: center;margin-top:  15px; cursor: pointer">PDF generieren</button>
+        <button href="" onclick="pdfMake.createPdf(dd).open();" id="pdfbtn">PDF generieren</button>
+        <div onclick="event.stopPropagation();$('.readmorebox').hide()" style='left: 0;' class='readmorebox'>
+                <span class='helper'></span>
+                <div onclick="event.stopPropagation();" class='scroll'>
+                    <div onclick="event.stopPropagation();$('.readmorebox').hide()" class='popupCloseButton'>&times;</div>
+                    <div class='terminpopup'>
+                      <h1 id="termintest"></h1>
+                      <h3 id="termintest1"></h1>
+                      <h5 id="termintest2"></h1>
+                      <h5 id="termintest3"></h1>
+                      <h5 id="termintest4"></h1>
+                    </div>
+                </div>
+            </div>
+        <br>
+        <?php include_once "$root/sites/footer.html" ?>
     </body>
 
 </html>

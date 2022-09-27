@@ -1,0 +1,106 @@
+#pdfbtn {
+    padding: 7px 15px;
+    border-radius: 10px;
+    margin: auto;
+    border:  none;
+    background-color: var(--terminbackground);
+    color: var(--textcolor);
+    display: flex;
+    justify-content: center;
+    margin-top:  15px;
+    cursor: pointer;
+    width: 150px;
+    font-size: 14px
+}
+
+.termindiv {
+    background-color: var(--terminbackground);
+    border-radius: 5px;
+    padding: 5px 10px;
+    height: 20px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.termincolori {
+    display: inline-block;
+    margin-top: 5px;
+    margin-right: 10px
+}
+
+.termincolori div {
+    height: 10px;
+    width: 10px;
+    border-radius: 3px;
+}
+
+.terminelistdiv {
+    background: var(--inputbackground);
+    padding: 30px 40px;
+    border-radius: 15px;
+    margin: auto;
+    width: fit-content
+}
+
+/* Popup box BEGIN */
+div[class^="readmorebox"] {
+    margin-left: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: none;
+    height: 100%;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  div[class^="readmorebox"] .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+  
+  div[class^="readmorebox"] > div {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    box-shadow: 10px 10px 60px #555;
+    display: inline-block;
+    height: auto;
+    width: clamp(300px, 85%, 1000px);
+    min-height: 100px;
+    vertical-align: middle;
+    position: relative;
+    border-radius: 8px;
+    padding: 5px 5%;
+    text-align: left;
+  }
+  
+  div[class^="readmorebox"] [class^="popupCloseButton"] {
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+  }
+  
+  /* Popup box END */
+
+div[class^="readmorebox"] [class^="popupCloseButton"]:hover {
+background-color: #fff;
+}
+
+div[class^="readmorebox"] > div, div[class^="readmorebox"] [class^="popupCloseButton"] {
+    background: var(--newsbackground);
+}
