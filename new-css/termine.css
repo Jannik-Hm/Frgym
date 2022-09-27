@@ -42,6 +42,14 @@
     width: fit-content
 }
 
+#popuptermincolordiv {
+    height: 20px;
+    width: 20px;
+    margin-bottom: 2.5px;
+    border-radius: 5px;
+    padding: 0;
+}
+
 /* Popup box BEGIN */
 div[class^="readmorebox"] {
     margin-left: 0;
@@ -74,7 +82,7 @@ div[class^="readmorebox"] {
     vertical-align: middle;
     position: relative;
     border-radius: 8px;
-    padding: 5px 5%;
+    padding: 20px 5%;
     text-align: left;
   }
   
@@ -94,6 +102,18 @@ div[class^="readmorebox"] {
     height: 30px;
     text-align: center;
   }
+
+.terminpopup {
+    text-align: left;
+}
+
+.terminpopup div {
+    background-color: var(--terminbackground);
+    border-radius: 5px;
+    padding: 5px 15px;
+    text-align: left;
+    width: fit-content;
+}
   
   /* Popup box END */
 

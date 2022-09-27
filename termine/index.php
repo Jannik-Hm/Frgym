@@ -180,7 +180,22 @@
       foreach($event_array as $entry){
         if($entry["name"] == "" || $entry["name"] == NULL) continue;
         if($entry["end"] < time()) continue;
-        echo("<a style='cursor: pointer' onclick='$(\".readmorebox\").show();$(\"#termintest\").html(\"Name: ".$entry["name"]."\");$(\"#termintest1\").html(\"Kalender: ".$entry["eventtype"]."\");$(\"#termintest2\").html(\"Start: ".date('Y/m/d H:i:s', $entry["start"])."\");$(\"#termintest3\").html(\"Ende: ".date('Y/m/d H:i:s', $entry["end"])."\");$(\"#termintest4\").html(\"Istime: ".$entry["istime"]."\")'><div class='termindiv'><i class='termincolori'><div style='background-color:".$entry["color"].";'></div></i><span>");
+        if($entry["istime"] || date('d.m.Y', $entry["end"]-86400) != date('d.m.Y', $entry["start"])){
+          echo("Begin + end");
+        }
+        echo(($entry["istime"] || date('d.m.Y', $entry["end"]-86400) != date('d.m.Y', $entry["start"])) ? "test" : "");
+        echo("
+        <a style='cursor: pointer' onclick='
+          $(\".readmorebox\").show();
+          $(\"#termintest\").html(\"".$entry["name"]."\");
+          $(\"#termintest1\").html(\"".$entry["eventtype"]."\");
+          $(\"#termintest2\").html(\"Start: ".(($entry["istime"]) ? date('d.m.Y H:i:s', $entry["start"]) : date('d.m.Y', $entry["start"]))."\");
+          $(\"#termintest3\").html(\"".
+          (($entry["istime"] || date('d.m.Y', $entry["end"]-86400) != date('d.m.Y', $entry["start"])) ? (
+            ("Ende: ".(($entry["istime"]) ? date('d.m.Y H:i:s', $entry["end"]) : date('d.m.Y', $entry["end"]-86400)))) : (""))
+          ."\")
+          $(\"#popuptermincolordiv\").css(\"background-color\",\"".$entry["color"]."\")'>
+          <div class='termindiv'><i class='termincolori'><div style='background-color:".$entry["color"].";'></div></i><span>");
         echo ($entry["name"]. " ");
         $daysleft = ceil(($entry["start"]-time())/86400); // TODO: fix this to not count hours till event
         if($daysleft < 1){
@@ -517,11 +532,15 @@
                 <div onclick="event.stopPropagation();" class='scroll'>
                     <div onclick="event.stopPropagation();$('.readmorebox').hide()" class='popupCloseButton'>&times;</div>
                     <div class='terminpopup'>
-                      <h1 id="termintest"></h1>
-                      <h3 id="termintest1"></h1>
-                      <h5 id="termintest2"></h1>
-                      <h5 id="termintest3"></h1>
-                      <h5 id="termintest4"></h1>
+                      <div>
+                        <i class='termincolori' id='popuptermincolori'><div id='popuptermincolordiv'></div></i>
+                        <span style="font-size: 35px; font-weight: bold; width: fit-content; margin: auto" id="termintest"></span>
+                        <br>
+                        <p style="text-align: center; color: var(--newstextcolor); margin-top: 2px; margin-bottom: 0; font-weight: bold;"><i class="far fa-calendar"></i><span id="termintest1" style="margin-left: 8px"></span></p>
+                      </div>
+                      <h5 id="termintest2" style="text-align: left"></h5>
+                      <h5 id="termintest3" style="text-align: left"></h5>
+                      <h5 id="termintest4" style="text-align: left"></h5>
                     </div>
                 </div>
             </div>
