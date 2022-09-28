@@ -180,20 +180,25 @@
       foreach($event_array as $entry){
         if($entry["name"] == "" || $entry["name"] == NULL) continue;
         if($entry["end"] < time()) continue;
-        if($entry["istime"] || date('d.m.Y', $entry["end"]-86400) != date('d.m.Y', $entry["start"])){
-          echo("Begin + end");
+        if($entry["istime"] || date('d.m.Y', $entry["end"]-86400) != date('d.m.Y', $entry["start"])) {
+          if($entry["istime"]){
+            if(date('d.m.Y', $entry["end"]) == date('d.m.Y', $entry["start"])){
+              $endtext = " - ".date('H:i', $entry["end"]);
+            }else{
+              $endtext = " - ".date('d.m.Y H:i', $entry["end"]);
+            }
+          }else{
+            $endtext = " - ".date('d.m.Y', $entry["end"]-86400);
+          }
+        }else{
+          $endtext = "";
         }
-        echo(($entry["istime"] || date('d.m.Y', $entry["end"]-86400) != date('d.m.Y', $entry["start"])) ? "test" : "");
         echo("
         <a style='cursor: pointer' onclick='
           $(\".readmorebox\").show();
           $(\"#termintest\").html(\"".$entry["name"]."\");
           $(\"#termintest1\").html(\"".$entry["eventtype"]."\");
-          $(\"#termintest2\").html(\"Start: ".(($entry["istime"]) ? date('d.m.Y H:i:s', $entry["start"]) : date('d.m.Y', $entry["start"]))."\");
-          $(\"#termintest3\").html(\"".
-          (($entry["istime"] || date('d.m.Y', $entry["end"]-86400) != date('d.m.Y', $entry["start"])) ? (
-            ("Ende: ".(($entry["istime"]) ? date('d.m.Y H:i:s', $entry["end"]) : date('d.m.Y', $entry["end"]-86400)))) : (""))
-          ."\")
+          $(\"#popuptime\").html(\"".(($entry["istime"]) ? date('d.m.Y H:i', $entry["start"]) : date('d.m.Y', $entry["start"])).$endtext."\");
           $(\"#popuptermincolordiv\").css(\"background-color\",\"".$entry["color"]."\")'>
           <div class='termindiv'><i class='termincolori'><div style='background-color:".$entry["color"].";'></div></i><span>");
         echo ($entry["name"]. " ");
@@ -532,15 +537,18 @@
                 <div onclick="event.stopPropagation();" class='scroll'>
                     <div onclick="event.stopPropagation();$('.readmorebox').hide()" class='popupCloseButton'>&times;</div>
                     <div class='terminpopup'>
-                      <div>
-                        <i class='termincolori' id='popuptermincolori'><div id='popuptermincolordiv'></div></i>
-                        <span style="font-size: 35px; font-weight: bold; width: fit-content; margin: auto" id="termintest"></span>
-                        <br>
-                        <p style="text-align: center; color: var(--newstextcolor); margin-top: 2px; margin-bottom: 0; font-weight: bold;"><i class="far fa-calendar"></i><span id="termintest1" style="margin-left: 8px"></span></p>
-                      </div>
-                      <h5 id="termintest2" style="text-align: left"></h5>
-                      <h5 id="termintest3" style="text-align: left"></h5>
-                      <h5 id="termintest4" style="text-align: left"></h5>
+                        <div>
+                            <i class='termincolori' id='popuptermincolori'><div id='popuptermincolordiv'></div></i>
+                            <span style="font-size: 35px; font-weight: bold; width: fit-content; margin: auto" id="termintest"></span>
+                            <br>
+                            <p style="text-align: center; color: var(--newstextcolor); margin-top: 2px; margin-bottom: 0; font-weight: bold;"><i class="far fa-calendar"></i><span id="termintest1" style="margin-left: 8px"></span></p>
+                        </div>
+                        <div style="margin-top: 10px">
+                            <p>
+                                <i class="far fa-clock"></i>
+                                <span id="popuptime" style="margin-left: 6px;"></span>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

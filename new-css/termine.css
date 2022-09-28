@@ -77,12 +77,12 @@ div[class^="readmorebox"] {
     box-shadow: 10px 10px 60px #555;
     display: inline-block;
     height: auto;
-    width: clamp(300px, 85%, 1000px);
+    width: fit-content;
     min-height: 100px;
     vertical-align: middle;
     position: relative;
     border-radius: 8px;
-    padding: 20px 5%;
+    padding: 20px 30px;
     text-align: left;
   }
   
@@ -105,14 +105,16 @@ div[class^="readmorebox"] {
 
 .terminpopup {
     text-align: left;
+    width: fit-content;
+    margin: auto;
 }
 
 .terminpopup div {
     background-color: var(--terminbackground);
     border-radius: 5px;
     padding: 5px 15px;
-    text-align: left;
-    width: fit-content;
+    text-align: center;
+    width: initial;
 }
   
   /* Popup box END */
