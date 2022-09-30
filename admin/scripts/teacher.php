@@ -31,7 +31,7 @@
             echo("<script>$('.no_perm').show();</script>");
             $GLOBALS["disabled"] = true;
         }
-        include realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/lehrer-editor.php";
+        include realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/user-editor.php";
     }
 
 ?>
