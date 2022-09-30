@@ -46,10 +46,14 @@
                 $conn = get_connection();
 
                 if(isset($_POST["submit"])) {
-                    $sql = str_replace("--", "_", ("SELECT * FROM users WHERE username=\"" . $use . "\" AND password_hash=\"" . $pwa . "\";"));
-                    // $pw = mysqli_query($conn, "SELECT * FROM users WHERE username="" . $use . "" AND password_hash="" . $pwa . "";");
-                    $pw = mysqli_query($conn, $sql);
-                    
+                    $sql = $conn->prepare("SELECT * FROM users WHERE username=? AND password_hash=?;");
+                    $sql->bind_param("ss", $use, $pwa);
+                    $sql->execute();
+                    // echo($sql);
+                    // $pw = mysqli_query($conn, "SELECT * FROM users WHERE username=" . $use . " AND password_hash=" . $pwa . ";");
+                    // $pw = $conn->query($sql);
+                    $pw = $sql->get_result();
+
                     if($pw->num_rows > 0) {
                         $_SESSION["username"] = $use;
                         $_SESSION["password"] = $pwa;
