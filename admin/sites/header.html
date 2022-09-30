@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="/new-css/header.css">
     <nav class="header">
         <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="/" id="homenav">Home</a></li>
             <li><a href="/admin/">Startseite-Admin</a></li>
             <li class="drop-menu">
                 <a href="#"> Lehrer <i
@@ -65,7 +65,8 @@
 
         console.log(document.cookie);
         if (location.href.match("/admin/login/")) {
-            document.getElementById('admin-profile-dropdwn').style.display = 'none';
+            $(".header ul li a").hide();
+            $("#homenav").show();
         }
     </script>
     <script>
