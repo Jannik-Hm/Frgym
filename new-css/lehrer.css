@@ -40,7 +40,10 @@
   .add-input form label#file,
   .add-input form input[type="submit"],
   .add-input form textarea {
-    width: clamp(360px, 95%, 1000px);
+    /* width: clamp(360px, 95%, 1000px); */
+    height: 38px;
+    box-sizing: border-box;
+    width: 100%;
   }
   
   .add-input form label#changepic,
@@ -123,14 +126,14 @@
   
   .add-input form .faecher,
   .add-input form .position {
-    align-self: center;
-    left: 50%;
-    right: 50%;
-    transform: translate(-50%);
+    /* align-self: center; */
+    /* left: 50%; */
+    /* right: 50%; */
+    /* transform: translate(-50%); */
     padding: 4px 4px;
-    margin: 8px 10px;
+    margin: 8px 0px;
     position: relative;
-    width: clamp(360px, 95%, 1000px);
+    /* width: clamp(360px, 95%, 1000px); */
   }
   
   .add-input form .faecher ul li,
