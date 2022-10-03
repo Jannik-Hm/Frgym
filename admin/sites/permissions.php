@@ -11,7 +11,7 @@
 
     $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 
-    require "$root/sites/credentials.php";
+    require_once "$root/sites/credentials.php";
 
     $role = explode(",", get_role($_SESSION["user_id"]))[0];
 
