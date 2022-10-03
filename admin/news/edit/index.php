@@ -13,7 +13,7 @@
     </head>
     <body>
         <?php
-            include_once "$root/admin/sites/header.html";
+            include_once "$root/admin/sites/header.php";
             require "$root/admin/scripts/news.php";
             news_editor(true);
         ?>

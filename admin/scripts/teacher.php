@@ -8,16 +8,18 @@
         $GLOBALS["id"] = $id;
         if($edit){
             $conn = getsqlconnection();
-            $sql = "SELECT * FROM lehrer WHERE id = " . $id . ";";
+            $sql = "SELECT * FROM users_neu WHERE id = " . $id . ";";
             $result = mysqli_query($conn,$sql);
             $myArray = array();
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 $GLOBALS["faecher"] = explode(";", $row["faecher"]);
-                $GLOBALS["date"] = $row["datum"];
+                $GLOBALS["username"] = $row["username"];
+                $GLOBALS["display_vorname"] = $row["display_vorname"];
+                $GLOBALS["titel"] = $row["titel"];
                 $GLOBALS["vorname"] = $row["vorname"];
                 $GLOBALS["nachname"] = $row["nachname"];
-                $GLOBALS["position"] = $row["position"];
+                $GLOBALS["position"] = $row["role"];
                 $GLOBALS["email"] = $row["email"];
                 $GLOBALS["infotext"] = $row["beschreibung"];
             }

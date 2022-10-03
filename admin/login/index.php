@@ -18,7 +18,7 @@
     </head>
     <body>
         <?php
-            include_once "$root/admin/sites/header.html";
+            include_once "$root/admin/sites/header.php";
         ?>
         <div class="loginwelcome">
             <h1>Willkommen zur Frgym&nbsp;Admin&nbsp;Seite!</h1>
@@ -46,7 +46,7 @@
                 $conn = get_connection();
 
                 if(isset($_POST["submit"])) {
-                    $sql = $conn->prepare("SELECT * FROM users WHERE username=? AND password_hash=?;");
+                    $sql = $conn->prepare("SELECT * FROM users_neu WHERE username=? AND password_hash=?;");
                     $sql->bind_param("ss", $use, $pwa);
                     $sql->execute();
                     // echo($sql);
@@ -64,7 +64,7 @@
                         $_SESSION["role"] = $row["role"];
                         $_SESSION["lastlogin"] = $row["lastlogin"];
                         $date = date("Y-m-d H:i");
-                        $lastlogin = mysqli_query($conn, "UPDATE users SET lastlogin='{$date}' WHERE id='{$row["id"]}';");
+                        $lastlogin = mysqli_query($conn, "UPDATE users_neu SET lastlogin='{$date}' WHERE id='{$row["id"]}';");
                         echo("<script>window.location.replace('/admin/');</script>");
                     }else{
                         echo("<script>$('#wronginput').show()</script>");

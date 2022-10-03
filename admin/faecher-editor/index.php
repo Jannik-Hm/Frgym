@@ -16,7 +16,7 @@
         </head>
         <body>
             <?php
-            include_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/sites/header.html";
+            include_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/sites/header.php";
             require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
             getperm();
             if($GLOBALS["fachbereich"] == "admin"){$GLOBALS["fachbereich"] = $_GET["fach"];}

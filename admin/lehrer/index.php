@@ -48,7 +48,7 @@
     <body>
         <?php
 
-            include_once "$root/admin/sites/header.html";
+            include_once "$root/admin/sites/header.php";
 
             include_once "$root/admin/sites/permissions.php";
             if($lehrer_all == 0){
@@ -65,14 +65,13 @@
         </div>-->
 
         <?php
-
             require_once "$root/sites/credentials.php";
             $conn = get_connection();
 
             if(!isset($_GET["id"])) {
-            //output every lehrer 
+            //output every user
                 
-                $sql = "SELECT * FROM lehrer ORDER BY nachname ASC;";
+                $sql = "SELECT * FROM users_neu WHERE role!='Admin' ORDER BY nachname ASC";
                 $result = mysqli_query($conn,$sql); 
                 $myArray = array();
                 if ($result->num_rows > 0) {
@@ -101,7 +100,7 @@
                         echo("<tr>");
                         echo("<td class='name' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["vorname"] . " " . $row["nachname"] . "</td>");
                         echo("<td class='email' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["email"] . "</td>");
-                        echo("<td class='position' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["position"] . "</td>");
+                        echo("<td class='position' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["role"] . "</td>");
                         echo("<td class='faecher' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $faecher . "</td>");
                         echo("<td class='date' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $date . "</td>");
                         if( !( $disabledall ) || ($lehrer_own == 1 && $_SESSION["vorname"] == $row["vorname"] && $_SESSION["nachname"] == $row["nachname"])){

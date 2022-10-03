@@ -13,7 +13,7 @@ function get_connection() {
 }
 
 function get_role($user_id) {
-    $sql = ("SELECT role, `fachbereich-verwaltung` FROM users WHERE id=\"".$user_id."\";");
+    $sql = ("SELECT role, `fachbereich-verwaltung` FROM users_neu WHERE id=\"".$user_id."\";");
     $result = mysqli_query(get_connection(), $sql);
     if($result->num_rows > 0) {
         $row = $result->fetch_assoc();

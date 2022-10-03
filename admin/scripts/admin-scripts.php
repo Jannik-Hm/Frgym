@@ -39,6 +39,7 @@
             $GLOBALS["news.all"] = $row["news.all"];
             $GLOBALS["lehrer.own"] = $row["lehrer.own"];
             $GLOBALS["lehrer.all"] = $row["lehrer.all"];
+            $GLOBALS["user.administration"] = $row["user.administration"];
         }
         if($GLOBALS["included-noperm"] == false){
             include_once "$root/admin/no-permission.html";
