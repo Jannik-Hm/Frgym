@@ -13,9 +13,6 @@
         $id = $GLOBALS["id"];
         $faecher = $GLOBALS["faecher"];
         $position = $GLOBALS["position"];
-        $GLOBALS["username-edit"] = true;
-        $GLOABLS["personal-edit"] = true;
-        $GLOBALS["image-upload-edit"] = true;
         require_once "$root/sites/credentials.php";
         $conn = get_connection();
     ?>
@@ -23,7 +20,7 @@
         <div class="add-input">
             <form method="POST" enctype="multipart/form-data" style="margin-top: 25px">
                 <?php
-                    if($GLOBALS["username-edit"]){
+                    if($GLOBALS["user.administration"]){
                     echo'
                     <input type="text" width="" placeholder="Benutzername*" name="benutzername" title="Benutzername" value="'.$GLOBALS["username"].'" '. (($disabled or $ownedit)?"disabled":"").'><br>
                     <div style="display: flex;margin: auto;">
@@ -36,7 +33,7 @@
                     <div class="position">
                         <label class="heading2">Position</label>
                         <ul style="margin-bottom: 0">';
-                            $result = mysqli_query($conn, 'SELECT name FROM roles WHERE name != "Admin"');
+                            $result = mysqli_query($conn, 'SELECT name FROM roles');
                             $roles = array();
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
@@ -74,9 +71,9 @@
                     }
                 ?>
                 <?php
-                    if($GLOABLS["personal-edit"]){
+                    if($ownedit){
                         echo'
-                        <input type="text" name="display_vorname" placeholder="Sichtbarer Vorname" title="Sichtbarer Vorname" value="'.$GLOBALS["display_vorname"].'" required><br>
+                        <input type="text" name="display_vorname" placeholder="Sichtbarer Vorname" title="Sichtbarer Vorname" value="'.$GLOBALS["display_vorname"].'"><br>
                         <div class="grow-wrap">
                         <textarea name="beschreibung" columns="50%" class="normal" onInput="this.parentNode.dataset.replicatedValue = this.value" placeholder="Infotext (Optional)" title="Infotext" '.(($disabled)? "disabled":"").'>'.$GLOBALS["infotext"].'</textarea>
                         </div>
@@ -108,7 +105,7 @@
                 <?php //if($file_exists){echo("<script>$('#drop_zone .popupCloseButton').show();</script>");} ?> -->
                 <!-- New Dropzone -->
                 <?php
-                    if($GLOBALS["image-upload-edit"]){
+                    if($ownedit){
                         $accepted_files = array("jpg","jpeg","png", "webp");
                         $accept_string = "";
                         foreach($accepted_files as $accepted_type) {
@@ -306,8 +303,9 @@
 
     <?php
         if(isset($_POST["submit"])) {
-        $username = $_POST["username"];
+        $username = $_POST["benutzername"];
         $titel = $_POST["titel"];
+        $displayvorname = $_POST["display_vorname"];
         $vorname = $_POST["vorname"];
         $nachname = $_POST["nachname"];
         $email = $_POST["email"];
@@ -325,15 +323,19 @@
             }
         }
         if($GLOBALS["edit"]){
-            if(isset($_POST["submit"]) && ($disabled == false && $ownedit == false)) {
-                $insert = mysqli_query($conn, "UPDATE lehrer SET vorname='{$vorname}', nachname='{$nachname}', email='{$email}', position=NULLIF('{$position}', ''), faecher='{$faecher}', beschreibung=NULLIF('{$infotext}', '') WHERE id='{$id}'");
-            }elseif(isset($_POST["submit"]) && ($disabled == false && $ownedit)){
-                $insert = mysqli_query($conn, "UPDATE lehrer SET faecher='{$faecher}', beschreibung=NULLIF('{$infotext}', '') WHERE id='{$id}'");
+            if(isset($_POST["submit"])) {
+                if($GLOBALS["user.administration"] && $ownedit){
+                    $insert = mysqli_query($conn, "UPDATE users_neu SET username='{$username}', titel=NULLIF('{$titel}', ''), vorname='{$vorname}', nachname='{$nachname}', email='{$email}', role='{$position}', faecher='{$faecher}', display_vorname=NULLIF('{$displayvorname}', ''), infotext=NULLIF('{$infotext}', '') WHERE id='{$id}'");
+                }elseif($GLOBALS["user.administration"]){
+                    $insert = mysqli_query($conn, "UPDATE users_neu SET username='{$username}', titel=NULLIF('{$titel}', ''), vorname='{$vorname}', nachname='{$nachname}', email='{$email}', role='{$position}', faecher='{$faecher}' WHERE id='{$id}'");
+                }else{
+                    $insert = mysqli_query($conn, "UPDATE users_neu SET display_vorname=NULLIF('{$displayvorname}', '') beschreibung=NULLIF('{$infotext}', '') WHERE id='{$id}'");
+                }
             }
         }else{
-            if(isset($_POST["submit"]) && $GLOBALS["lehrer.all"] == 1) {
-                $insert = mysqli_query($conn, "INSERT INTO lehrer (vorname, nachname, email, position, faecher, beschreibung) VALUES ('{$vorname}', '{$nachname}', '{$email}', NULLIF('{$position}', ''), '{$faecher}', NULLIF('{$infotext}', ''))");
-                // $insert = mysqli_query($conn, "INSERT INTO users_neu (username, titel, vorname, nachname, passwort, email, position, faecher, beschreibung) VALUES ('{$username}', NULLIF('{$titel}', ''), '{$vorname}', '{$nachname}', '{$passwort}', '{$email}', '{$position}', '{$faecher}', NULLIF('{$infotext}', ''))");
+            if(isset($_POST["submit"]) && $GLOBALS["user.administration"]) {
+                // $insert = mysqli_query($conn, "INSERT INTO lehrer (vorname, nachname, email, position, faecher, beschreibung) VALUES ('{$vorname}', '{$nachname}', '{$email}', NULLIF('{$position}', ''), '{$faecher}', NULLIF('{$infotext}', ''))");
+                $insert = mysqli_query($conn, "INSERT INTO users_neu (username, titel, display_vorname, vorname, nachname, password_hash, email, role, faecher, infotext) VALUES ('{$username}', NULLIF('{$titel}', ''), NULLIF('{$displayvorname}', ''), '{$vorname}', '{$nachname}', '{$passwort}', '{$email}', '{$position}', '{$faecher}', NULLIF('{$infotext}', ''))");
             }
         }
         if ($insert) {
