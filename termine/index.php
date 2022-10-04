@@ -202,13 +202,13 @@
           $(\"#popuptermincolordiv\").css(\"background-color\",\"".$entry["color"]."\")'>
           <div class='termindiv'><i class='termincolori'><div style='background-color:".$entry["color"].";'></div></i><span>");
         echo ($entry["name"]. " ");
-        $daysleft = ceil(($entry["start"]-time())/86400); // TODO: fix this to not count hours till event
+        $daysleft = ceil((mktime(0,0,0,date("m", $entry["start"]), date("d", $entry["start"]), date("Y", $entry["start"]))-mktime(0,0,0,date("m", time()), date("d", time()), date("Y", time())))/86400);
         if($daysleft < 1){
           echo ("<span style='color: var(--newstextcolor)'>heute</span> ");
         }elseif($daysleft == 1) {
           echo ("<span style='color: var(--newstextcolor)'>morgen</span> ");
         }else{
-          echo ("<span style='color: var(--newstextcolor)'> in ".ceil(($entry["start"]-time())/86400)." Tag(en)</span> ");
+          echo ("<span style='color: var(--newstextcolor)'> in ".$daysleft." Tag(en)</span> ");
         }
         echo("</span></div></a>");
       }
