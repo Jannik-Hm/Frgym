@@ -2,8 +2,7 @@
     <link rel="stylesheet" href="/new-css/header.css">
     <nav class="header">
         <ul>
-            <li><a href="/" id="homenav">Home</a></li>
-            <li><a href="/admin/">Startseite-Admin</a></li>
+            <li><a href="/admin/" id="homenav">Home</a></li>
             <?php
             if(basename(dirname($_SERVER['PHP_SELF']))!="login"){
                 require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
