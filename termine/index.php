@@ -165,7 +165,7 @@
   $event_string = "[";
   foreach($event_array as $entry){
     if($entry["name"] == "" || $entry["name"] == NULL) continue;
-    $event_string = $event_string."['".$entry["name"]."', new Date(".json_encode(date('Y/m/d H:i:s', $entry["start"]))."), new Date(".json_encode(date('Y/m/d H:i:s', $entry["end"]))."), '".$entry["color"]."', ".$entry["istime"]."],";
+    $event_string = $event_string."['".$entry["name"]."', new Date(".json_encode(date('Y/m/d H:i:s', $entry["start"]))."), new Date(".json_encode(date('Y/m/d H:i:s', $entry["end"]))."), '".$entry["color"]."', '".$entry["eventtype"]."', ".$entry["istime"]."],";
   }
   $event_string = $event_string."]";
   // echo($event_string);
@@ -308,17 +308,17 @@
 
             // apiinput.forEach(displayevent);
 
-            function displayevent(item){
-                // TODO: add for loop for all events longer than 1 day
-                // TODO: shortnames for multiple events on same day
-                var month = displayedmonths.findIndex(x => x === item[1].getMonth()+1);
-                if(globaltable[0][Number(item[1].getDate())][month].text.length >= 3){
-                    globaltable[0][Number(item[1].getDate())][month].text.push({text: ' /', color: ''});
-                }
-                globaltable[0][Number(item[1].getDate())][month].text.push({text: ' '+item[0], color: item[3]});
-            }
+            // function displayevent(item){
+            //     // TODO: add for loop for all events longer than 1 day
+            //     // TODO: shortnames for multiple events on same day
+            //     var month = displayedmonths.findIndex(x => x === item[1].getMonth()+1);
+            //     if(globaltable[0][Number(item[1].getDate())][month].text.length >= 3){
+            //         globaltable[0][Number(item[1].getDate())][month].text.push({text: ' /', color: ''});
+            //     }
+            //     globaltable[0][Number(item[1].getDate())][month].text.push({text: ' '+item[0], color: item[3]});
+            // }
 
-            console.log(globaltable)
+            // console.log(globaltable)
 
             // for(var i=0; i<apiinput.length; i++){
             //     var year = apiinput[i][1].getFullYear();
@@ -338,12 +338,12 @@
             //     }
             // }
 
-            function displayevent(table, date, month, text, color){
+            function displayevent(table, date, month, text, color, calendar){
               if(text !== "" && text !== null){
                 if(table[date][month % 6].text.length >= 3){
                     table[date][month % 6].text.push({text: ' /', color: ''});
                 }
-                table[date][month % 6].text.push({text: ' '+text, color: color});
+                table[date][month % 6].text.push({text: ' '+text, color: color, calendar: calendar});
               }
             }
 
@@ -358,7 +358,7 @@
                         termin.end.month = displayedmonths.findIndex(x => x === input[i][2].getMonth()+1);
                         termin.begin.date = Number(input[i][1].getDate());
                         termin.end.date = Number(input[i][2].getDate());
-                        if(input[i][4] != 1){
+                        if(input[i][5] != 1){
                           termin.end.date = termin.end.date - 1;
                         }
                         var yeardifference = termin.end.year - termin.begin.year;
@@ -376,14 +376,14 @@
                                 for(var d=1; d<=termin.end.date; d++){
                                   var table = Math.floor(m/6);
                                   if(globaltable[table][d][m % 6].text!==null){
-                                      displayevent(globaltable[table], d, m, input[i][0], input[i][3]);
+                                      displayevent(globaltable[table], d, m, input[i][0], input[i][3], input[i][4]);
                                   }
                                 }
                               }else{
                                 for(var d=1; d<=31; d++){
                                   var table = Math.floor(m/6);
                                   if(globaltable[table][d][m % 6].text!==null){
-                                      displayevent(globaltable[table], d, m, input[i][0], input[i][3]);
+                                      displayevent(globaltable[table], d, m, input[i][0], input[i][3], input[i][4]);
                                   }
                                 }
                               }
@@ -394,14 +394,14 @@
                                 for(var d=termin.begin.date; d<=31; d++){
                                   var table = Math.floor(m/6);
                                   if(globaltable[table][d][m % 6].text!==null){
-                                      displayevent(globaltable[table], d, m, input[i][0], input[i][3]);
+                                      displayevent(globaltable[table], d, m, input[i][0], input[i][3], input[i][4]);
                                   }
                                 }
                               }else{
                                 for(var d=1; d<=31; d++){
                                   var table = Math.floor(m/6);
                                   if(globaltable[table][d][m % 6].text!==null){
-                                      displayevent(globaltable[table], d, m, input[i][0], input[i][3]);
+                                      displayevent(globaltable[table], d, m, input[i][0], input[i][3], input[i][4]);
                                   }
                                 }
                               }
@@ -422,22 +422,22 @@
                                     for(var d = termin.begin.date; d<=31; d++){
                                         var table = Math.floor(m/6);
                                         if(globaltable[0][d][m % 6].text!==null){
-                                            displayevent(globaltable[table], d, m, input[i][0], input[i][3]);
+                                            displayevent(globaltable[table], d, m, input[i][0], input[i][3], input[i][4]);
                                         }
                                     }
                                 }else if(m==termin.end.month){
                                     for(var d = 1; d<=termin.end.date; d++){
                                         var table = Math.floor(m/6);
                                         if(globaltable[table][d][m % 6].text!==null){
-                                            displayevent(globaltable[table], d, m, input[i][0], input[i][3]);
+                                            displayevent(globaltable[table], d, m, input[i][0], input[i][3], input[i][4]);
                                         }
-                                        console.log("Last Month:"+d+"m:"+m);
+                                        // console.log("Last Month:"+d+"m:"+m);
                                     }
                                 }else{
                                     for(var d = 1; d<=31; d++){
                                         var table = Math.floor(m/6);
                                         if(globaltable[table][d][m%6].text!==null){
-                                            displayevent(globaltable[table], d, m%6, input[i][0], input[i][3]);
+                                            displayevent(globaltable[table], d, m%6, input[i][0], input[i][3], input[i][4]);
                                         }
                                     };
                                 }
@@ -448,33 +448,33 @@
                               var monthmodifier = (year-jahrspanne[0])*12;
                               monthmodifier = monthmodifier + displayedmonths[termin.begin.month] - displayedmonths[0];
                               var table = Math.floor(monthmodifier/6);
-                              displayevent(globaltable[table], d, termin.begin.month, input[i][0], input[i][3]);
+                              displayevent(globaltable[table], d, termin.begin.month, input[i][0], input[i][3], input[i][4]);
                             }
                           }
                         }else{
                             if(input[i][0] !== "" && input[i][0] !== null && input[i][0] !== undefined){
-                              console.log("jahr"+year);
+                              // console.log("jahr"+year);
                               var monthmodifier = (year-jahrspanne[0])*12;
-                              console.log("jahrmodifier"+monthmodifier);
+                              // console.log("jahrmodifier"+monthmodifier);
                               // console.log(input[i][0]+monthmodifier);
                               monthmodifier = monthmodifier + displayedmonths[termin.begin.month] - displayedmonths[0];
                               // console.log(input[i][0]+monthmodifier);
                               // if(monthmodifier<0){continue;}
-                              console.log("m"+termin.begin.month)
-                              console.log(monthmodifier);
+                              // console.log("m"+termin.begin.month)
+                              // console.log(monthmodifier);
                               var table = Math.floor(monthmodifier/6);
-                              console.log(monthmodifier/6);
-                              console.log(table);
-                              console.log(input[i][0]+displayedmonths[termin.begin.month] + "d"+termin.begin.date+"m"+m);
+                              // console.log(monthmodifier/6);
+                              // console.log(table);
+                              // console.log(input[i][0]+displayedmonths[termin.begin.month] + "d"+termin.begin.date+"m"+m);
                               if(globaltable[table] !== undefined){
-                                displayevent(globaltable[table], termin.begin.date, termin.begin.month, input[i][0], input[i][3]);
+                                displayevent(globaltable[table], termin.begin.date, termin.begin.month, input[i][0], input[i][3], input[i][4]);
                               }
                             }
                         }
-                        console.log(input[i][0]+displayedmonths[termin.begin.month] + "d"+termin.begin.date+"m"+m);
-                        console.log("Jahresunterschied" + yeardifference);
-                        console.log("Monatsunterschied" + (monthdifference));
-                        console.log(table);
+                        // console.log(input[i][0]+displayedmonths[termin.begin.month] + "d"+termin.begin.date+"m"+m);
+                        // console.log("Jahresunterschied" + yeardifference);
+                        // console.log("Monatsunterschied" + (monthdifference));
+                        // console.log(table);
                     }
                 }
             }
