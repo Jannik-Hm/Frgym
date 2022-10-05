@@ -15,7 +15,8 @@
   }
   
   .add-input form input,
-  label#file {
+  label#file,
+  .add-input form textarea {
     border: none;
     outline: none;
     border-bottom: 2px solid #3d859c;
@@ -191,14 +192,8 @@
   }
   
   .add-input form textarea {
-    border: none;
-    outline: none;
-    overflow: none;
-    font-size: 16px;
-    padding: 4px 4px;
-    -moz-border-radius: 1px;
-    -webkit-border-radius: 1px;
-    border-radius: 1px;
+    padding: 8px 8px;
+    margin: 0;
     resize: none;
   }
 

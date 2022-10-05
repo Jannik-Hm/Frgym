@@ -10,9 +10,9 @@
         $ownedit = $GLOBALS["ownedit"];
         $disabled = $GLOBALS["disabled"];
         $edit = $GLOABLS["edit"];
-        $id = $GLOBALS["id"];
-        $faecher = $GLOBALS["faecher"];
-        $position = $GLOBALS["position"];
+        $id = $GLOBALS["userdb"]["id"];
+        $faecher = $GLOBALS["userdb"]["faecher"];
+        $position = $GLOBALS["userdb"]["role"];
         require_once "$root/sites/credentials.php";
         $conn = get_connection();
     ?>
@@ -22,14 +22,14 @@
                 <?php
                     if($GLOBALS["user.administration"]){
                     echo'
-                    <input type="text" width="" placeholder="Benutzername*" name="benutzername" title="Benutzername" value="'.$GLOBALS["username"].'" '. (($disabled or $ownedit)?"disabled":"").'><br>
+                    <input type="text" width="" placeholder="Benutzername*" name="benutzername" title="Benutzername" value="'.$GLOBALS["userdb"]["username"].'" '. (($disabled or $ownedit)?"disabled":"").'><br>
                     <div style="display: flex;margin: auto;">
-                        <input style="width: 100px;margin-right: 5px;display: inline-block;" type="text" width="" placeholder="Titel" name="titel" title="Titel" value="'.$GLOBALS["titel"].'">
-                        <input style="margin-left: 5px; margin-right: 0;display: inline-block;"type="text" width="" placeholder="Vorname*" name="vorname" title="Vorname" value="'.$GLOBALS["vorname"].'" '. (($disabled or $ownedit)?"disabled":"").' required>
+                        <input style="width: 100px;margin-right: 5px;display: inline-block;" type="text" width="" placeholder="Titel" name="titel" title="Titel" value="'.$GLOBALS["userdb"]["titel"].'">
+                        <input style="margin-left: 5px; margin-right: 0;display: inline-block;"type="text" width="" placeholder="Vorname*" name="vorname" title="Vorname" value="'.$GLOBALS["userdb"]["vorname"].'" '. (($disabled or $ownedit)?"disabled":"").' required>
                     </div>
                     <br>
-                    <input type="text" placeholder="Nachname*" name="nachname" title="Nachname" value="'.$GLOBALS["nachname"].'" '. (($disabled or $ownedit)?"disabled":"").' required><br>
-                    <input type="email" placeholder="Email*" name="email" title="Email" value="'.$GLOBALS["email"].'" '. (($disabled or $ownedit)?"disabled":"").' required><br>
+                    <input type="text" placeholder="Nachname*" name="nachname" title="Nachname" value="'.$GLOBALS["userdb"]["nachname"].'" '. (($disabled or $ownedit)?"disabled":"").' required><br>
+                    <input type="email" placeholder="Email*" name="email" title="Email" value="'.$GLOBALS["userdb"]["email"].'" '. (($disabled or $ownedit)?"disabled":"").' required><br>
                     <div class="position">
                         <label class="heading2">Position</label>
                         <ul style="margin-bottom: 0">';
@@ -51,7 +51,7 @@
                     <label class="heading2">Fächer</label>
                         <ul>';
                             $lehrerfaecher = array();
-                            foreach ($faecher as $fach){
+                            foreach (explode(";", $GLOBALS["userdb"]["faecher"]) as $fach){
                                 $lehrerfaecher[$fach] = true;
                             }
                             $faecherlist = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/files/site-ressources/faecher-liste.json"), true);
@@ -73,15 +73,15 @@
                 <?php
                     if($ownedit){
                         echo'
-                        <input type="text" name="display_vorname" placeholder="Sichtbarer Vorname" title="Sichtbarer Vorname" value="'.$GLOBALS["display_vorname"].'"><br>
+                        <input type="text" name="display_vorname" placeholder="Sichtbarer Vorname" title="Sichtbarer Vorname" value="'.$GLOBALS["userdb"]["display_vorname"].'"><br>
                         <div class="grow-wrap">
-                        <textarea name="beschreibung" columns="50%" class="normal" onInput="this.parentNode.dataset.replicatedValue = this.value" placeholder="Infotext (Optional)" title="Infotext" '.(($disabled)? "disabled":"").'>'.$GLOBALS["infotext"].'</textarea>
+                        <textarea name="beschreibung" columns="50%" class="normal" onInput="this.parentNode.dataset.replicatedValue = this.value" placeholder="Infotext (Optional)" title="Infotext" '.(($disabled)? "disabled":"").'>'.$GLOBALS["userdb"]["infotext"].'</textarea>
                         </div>
                         <br>
                         ';
                     }
                 ?>
-                <!-- <textarea rows="10" columns="50%" placeholder="Infotext (Optional)" name="beschreibung" <?php if($disabled){echo "disabled";} ?>><?php echo $GLOBALS["infotext"]; ?></textarea><br> -->
+                <!-- <textarea rows="10" columns="50%" placeholder="Infotext (Optional)" name="beschreibung" <?php //if($disabled){echo "disabled";} ?>><?php //echo $GLOBALS["infotext"]; ?></textarea><br> -->
                 <!-- <input type="date" placeholder="Geburtstag (Optional)" name="geburtstag" value="<?php //echo $GLOBALS["date"]; ?>" Optional <?php //if($disabled){echo "disabled";} ?>><br> -->
                 <!-- <?php //dropzone("pictureUpload", array("jpg","jpeg","png", "webp"), "site-ressources/lehrer-bilder/", strtolower(str_replace(" ","_",$_POST["vorname"])."_".str_replace(" ","_",$_POST["nachname"])), false, false, true); ?>
                 <style>/* #drop_zone{width: 90%} */</style>
@@ -210,7 +210,7 @@
                         <div>
                         ');
                         $GLOBALS["file_exists"] = false;
-                        $imgpath = "/files/site-ressources/lehrer-bilder/" . strtolower(str_replace(" ","_",$GLOBALS["vorname"])."_".str_replace(" ","_",$GLOBALS["nachname"])).".";
+                        $imgpath = "/files/site-ressources/lehrer-bilder/" . strtolower(str_replace(" ","_",$GLOBALS["userdb"]["vorname"])."_".str_replace(" ","_",$GLOBALS["userdb"]["nachname"])).".";
                         $phppath = $root.$imgpath;
                         foreach(array("jpg","jpeg","png", "webp") as $extens){
                             if (file_exists($phppath.$extens)) {
@@ -346,7 +346,7 @@
                     unlink($root.$imgpath);
                 }
                 if($ownedit) {
-                    uploadfile("site-ressources/lehrer-bilder/", array("jpg","jpeg","png", "webp"), "pictureUpload", strtolower(str_replace(" ","_",$GLOBALS["vorname"])."_".str_replace(" ","_",$GLOBALS["nachname"])), "lehrer.own");
+                    uploadfile("site-ressources/lehrer-bilder/", array("jpg","jpeg","png", "webp"), "pictureUpload", strtolower(str_replace(" ","_",$GLOBALS["userdb"]["vorname"])."_".str_replace(" ","_",$GLOBALS["userdb"]["nachname"])), "lehrer.own");
                 } else {
                     uploadfile("site-ressources/lehrer-bilder/", array("jpg","jpeg","png", "webp"), "pictureUpload", strtolower(str_replace(" ","_",$vorname)."_".str_replace(" ","_",$nachname)), "lehrer.all");
                 }
