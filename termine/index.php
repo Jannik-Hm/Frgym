@@ -137,6 +137,13 @@
   $event_array = array();
   $calendars = getcalendars($GLOBALS["tokens"]["readonly"]["access_token"], $GLOBALS["tokens"]["readonly"]["token_type"], $GLOBALS["tokens"]["readonly"]["refresh_token"], $GLOBALS["tokens"]["readonly"]["client_id"], $GLOBALS["tokens"]["readonly"]["client_secret"]);
   $eventcounter = 0;
+  // TODO: add permission system to calendar access
+  // require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+  // $result = mysqli_query(getsqlconnection,'SELECT id, '.$perm.' FROM calendars WHERE '.$perm.' = 1;');
+  // if ($result->num_rows > 0) {
+  //     $calendars = array_keys($result->fetch_assoc());
+  // }
+  // TODO: admin selector for permissions: https://stackoverflow.com/questions/30569666/update-if-exists-else-insert-in-sql
   foreach ($calendars["items"] as $calendar){
     if($calendar["summary"] == "support@frgym.de"){continue;}
     // echo("Kalendar: ".$calendar["summary"]."<br>");
