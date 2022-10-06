@@ -230,6 +230,22 @@
 
             let weekdays = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
+            var mapObj = {
+              'Beratung der Schulleitung': "SD",
+              'möglicher Termin für Elternversammlung': "EV",
+              Schulfahrt: "SF",
+              Betriebspraktikum: "BP",
+              'Projektwoche Klasse 7': "PT7",
+              Schulkonferenz:"SK",
+              'Schülerkonferenz':"SÜ",
+              Elternkonferenz:"EK",
+              Klassenkonferenz:"KK",
+              Lehrerkonferenz:"LK",
+              Klausur:"K"
+            };
+
+            var feiertag = "Feiertage in Deutschland";
+
             var jahrspanne = []; // TODO: Monat und Jahr in String --> split
 
             var displayedmonths = [8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7];
@@ -346,8 +362,20 @@
             // }
 
             function displayevent(table, date, month, text, color, calendar){
+              var re = new RegExp(Object.keys(mapObj).join("|"),"gi");
+              text = text.replace(re, function(matched){
+                return mapObj[matched];
+              });
+              if(calendar == feiertag){
+                  for(var k=2; k<table[date][month%6].text.length; k++){
+                      delete table[date][month%6].text[k];
+                  }
+              }
+              if(typeof table[date][month%6].text[2] !== 'undefined' && table[date][month%6].text[2].calendar == feiertag){
+                  return;
+              }
               if(text !== "" && text !== null){
-                if(table[date][month % 6].text.length >= 3){
+                if(table[date][month % 6].text.length >= 3 && calendar != feiertag){
                     table[date][month % 6].text.push({text: ' /', color: ''});
                 }
                 table[date][month % 6].text.push({text: ' '+text, color: color, calendar: calendar});
@@ -491,6 +519,10 @@
             console.log(globaltable);
 
             var dd = {
+              info: {
+                  title: 'Schulkalender '+jahrspanne[0]+"/"+jahrspanne[1].toString().substring(jahrspanne[1].toString().length-2),
+                  author: 'Friedrich-Gymnasium Luckenwalde',
+              },
                 // a string or { width: number, height: number }
               pageSize: 'A4',
 
@@ -499,7 +531,7 @@
 
               // [left, top, right, bottom] or [horizontal, vertical] or just a number for equal margins
               pageMargins: [ 40, 40, 40, 40 ],
-              header: {text: 'Schulkalender 2022/23', margin: [40, 21, 0, 0], fontSize: 16, bold: true},
+              header: {text: 'Schulkalender '+jahrspanne[0]+"/"+jahrspanne[1].toString().substring(jahrspanne[1].toString().length-2), margin: [40, 21, 0, 0], fontSize: 16, bold: true},
               footer: {
                   columns: [
                       {text: 'SD - Beratung der Schulleitung\nEV - möglicher Termin für Elternversammlung\nSF - Schulfahrt'},
