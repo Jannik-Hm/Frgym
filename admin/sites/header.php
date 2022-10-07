@@ -38,7 +38,7 @@
             }
             ?>
             <li><a href="/admin/faecher-editor/faecher-liste.php">Fächer</a></li>
-            <li id="admin-profile-dropdwn" class="drop-menu" style="width: 150px;display: inline; float: right; margin-right: 0px">
+            <li id="admin-profile-dropdwn" class="drop-menu">
                 <a href="#" style="padding-top: 0; padding-bottom:0">
                     <i class="fas fa-user-circle" style="font-size:40px;margin-top:5px;margin-bottom: 5px; margin-right: 5px"></i>
                     <!-- <img src="/files/site-ressources/lehrer-bilder/placeholder.webp" style="height:40px;margin-top:5px;border-radius:25px; margin-right: 5px"> -->

@@ -89,6 +89,18 @@ nav ul#mobile li ul#mobile-list .drop-menu ul {
     z-index: auto;
 }
 
+nav ul li#admin-profile-dropdwn {
+    float: right;
+    width: 150px;
+    display: inline;
+    margin-right: 0px
+}
+
+nav ul li ul#mobile-list li#admin-profile-dropdwn,
+nav ul li ul#Sonstiges li#admin-profile-dropdwn {
+    float: none;
+}
+
 footer {
     display: block;
     width: 100%;
