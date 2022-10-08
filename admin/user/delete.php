@@ -37,8 +37,8 @@
             $id = $_GET["id"];
             require_once "$root/sites/credentials.php";
             $conn = get_connection();
-            $result = mysqli_query($conn, "SELECT vorname, nachname FROM lehrer WHERE id='{$id}'");
-            if ($disabled==false){$insert = mysqli_query($conn, "DELETE FROM lehrer WHERE id='{$id}'");}
+            $result = mysqli_query($conn, "SELECT vorname, nachname FROM users WHERE id='{$id}'");
+            if ($disabled==false){$insert = mysqli_query($conn, "DELETE FROM users WHERE id='{$id}'");}
             if ($insert) {
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
@@ -46,7 +46,7 @@
                     $nachname = $row["nachname"];
                 }
                 echo '<script type="text/javascript">window.location = "/admin/user/"</script>';
-                $phppath = "$root/files/site-ressources/lehrer-bilder/" . strtolower(str_replace(" ","_",$vorname)."_".str_replace(" ","_",$nachname))."."; //TODO: Get Lehrer Name
+                $phppath = "$root/files/site-ressources/lehrer-bilder/" . strtolower(str_replace(" ","_",$vorname)."_".str_replace(" ","_",$nachname)).".";
                 if (file_exists($phppath."jpg")) {
                     unlink($phppath."jpg");
                 }elseif (file_exists($phpath."jpeg")) {

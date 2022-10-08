@@ -73,7 +73,7 @@
                             }
                             $faecher = substr($faecher, 3);
                             echo("<tr onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">");
-                            echo("<td>" . $row["titel"]. " " . $row["vorname"] . " " . $row["nachname"] . "</td>");
+                            echo("<td>" . $row["titel"]. " " . ((isset($row["display_vorname"])) ? $row["display_vorname"] : $row["vorname"]) . " " . $row["nachname"] . "</td>");
                             echo("<td>" . $faecher . "</td>");
                             echo("</a></tr>");
                         }
@@ -112,7 +112,7 @@
                         // }
                         #$date = explode("-", $row["datum"])[2] . "." . explode("-", $row["datum"])[1] . "." . explode("-", $row["datum"])[0];
                         echo("<section>");
-                        echo("<h1>" . $row["titel"] . " " . $row["vorname"] . " " . $row["nachname"] . "</h1>");
+                        echo("<h1>" . $row["titel"] . " " . ((isset($row["display_vorname"])) ? $row["display_vorname"] : $row["vorname"]) . " " . $row["nachname"] . "</h1>");
                         echo("<h3>" . $row["position"] . "</h3>");
                         $imgdir = "/files/site-ressources/lehrer-bilder/";
                         $imgpath = $imgdir . strtolower(str_replace(" ","_",$row["vorname"])."_".str_replace(" ","_",$row["nachname"])).".";

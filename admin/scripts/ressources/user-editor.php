@@ -294,7 +294,9 @@
 
     <?php
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
-        if($GLOBALS["edit"]){
+        if($ownedit && !$GLOBALS["user.administration"]){
+            confirmation("Änderungen erfolgreich!", "Dein Profil wurde erfolgreich aktualisiert.", "Zurück zur Startseite", "/admin/");
+        }elseif($GLOBALS["edit"]){
             confirmation("Änderungen erfolgreich!", "Der Benutzer wurde erfolgreich aktualisiert.", "Zurück zur Übersicht", "/admin/user/");
         }else{
             confirmation("Hinzufügen erfolgreich!", "Der Benutzer wurde erfolgreich hinzugefügt.<br>Passwort: ", "Weiteren Lehrer hinzufügen", "/admin/user/add/", "Zurück zur Übersicht", "/admin/user/");
@@ -310,18 +312,20 @@
         $nachname = $_POST["nachname"];
         $email = $_POST["email"];
         $position = $_POST["position"];
-        $faecher_array = $_POST["chk_group"];
-        $faecher = "";
+        if(isset($_POST["chk_group"])){
+            $faecher_array = $_POST["chk_group"];
+            $faecher = "";
+            for ($i=0; $i < count($faecher_array); $i++) {
+                $faecher = $faecher.$faecher_array[$i];
+                if ($i < count($faecher_array)-1) {
+                    $faecher = $faecher.";";
+                }
+            }
+        }
         $infotext = $_POST["beschreibung"];
         $geburtstag = $_POST["geburtstag"];
         $conn = getsqlconnection();
         $passwort = $_POST["passwort"]; //TODO: when switch to ajax change submission of plain text password
-        for ($i=0; $i < count($faecher_array); $i++) {
-            $faecher = $faecher.$faecher_array[$i];
-            if ($i < count($faecher_array)-1) {
-                $faecher = $faecher.";";
-            }
-        }
         if($GLOBALS["edit"]){
             if(isset($_POST["submit"])) {
                 if($GLOBALS["user.administration"] && $ownedit){
@@ -329,7 +333,7 @@
                 }elseif($GLOBALS["user.administration"]){
                     $insert = mysqli_query($conn, "UPDATE users SET username='{$username}', titel=NULLIF('{$titel}', ''), vorname='{$vorname}', nachname='{$nachname}', email='{$email}', role='{$position}', faecher='{$faecher}' WHERE id='{$id}'");
                 }else{
-                    $insert = mysqli_query($conn, "UPDATE users SET display_vorname=NULLIF('{$displayvorname}', '') beschreibung=NULLIF('{$infotext}', '') WHERE id='{$id}'");
+                    $insert = mysqli_query($conn, "UPDATE users SET display_vorname=NULLIF('{$displayvorname}', ''), infotext=NULLIF('{$infotext}', '') WHERE id='{$id}'");
                 }
             }
         }else{
@@ -340,16 +344,11 @@
         }
         if ($insert) {
             echo("<script>$('#confirmtext').html($('#confirmtext').html()+'".$_POST["passwortorigin"]."');$('.confirm').show();</script>");
-            if($GLOBALS["image-upload-edit"]){
+            if($ownedit){
                 if($_POST['deletefile'] == 'true' && $GLOBALS["file_exists"]){ //delete File if delete is true
-                    echo("deletefile");
                     unlink($root.$imgpath);
                 }
-                if($ownedit) {
-                    uploadfile("site-ressources/lehrer-bilder/", array("jpg","jpeg","png", "webp"), "pictureUpload", strtolower(str_replace(" ","_",$GLOBALS["userdb"]["vorname"])."_".str_replace(" ","_",$GLOBALS["userdb"]["nachname"])), "lehrer.own");
-                } else {
-                    uploadfile("site-ressources/lehrer-bilder/", array("jpg","jpeg","png", "webp"), "pictureUpload", strtolower(str_replace(" ","_",$vorname)."_".str_replace(" ","_",$nachname)), "lehrer.all");
-                }
+                uploadfile("site-ressources/lehrer-bilder/", array("jpg","jpeg","png", "webp"), "pictureUpload", strtolower(str_replace(" ","_",$GLOBALS["userdb"]["vorname"])."_".str_replace(" ","_",$GLOBALS["userdb"]["nachname"])), "lehrer.own");
             }
         }
     }
