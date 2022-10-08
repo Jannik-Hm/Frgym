@@ -53,7 +53,7 @@
                     <li><a href="/admin/user/edit/?id=<?php echo $_SESSION["user_id"] ?>">
                         Profil<i class="fas fa-user" style="margin-left: 8px;"></i>
                     </a></li>
-                    <li><a href="">
+                    <li><a href="/admin/user/change_password.php">
                         Passwort ändern<i class="fas fa-key" style="margin-left: 5px;"></i>
                     </a></li>
                 </ul>
