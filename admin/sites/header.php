@@ -14,8 +14,8 @@
                     <a href="#"> Benutzerverwaltung <i
                             class="fa fa-angle-down"></i></a>
                     <ul>
-                        <li><a href="/admin/lehrer/">Übersicht</a></li>
-                        <li><a href="/admin/lehrer/add/">Hinzufügen</a></li>
+                        <li><a href="/admin/user/">Übersicht</a></li>
+                        <li><a href="/admin/user/add/">Hinzufügen</a></li>
                     </ul>
                 </li>
                 ');
@@ -50,11 +50,11 @@
                             Abmelden<i class="fa-solid fa-arrow-right-from-bracket" style="margin-left: 5px;color: lightcoral;"></i>
                         </a>
                     </li>
-                    <li><a href="/admin/lehrer/edit/?id=<?php echo $_SESSION["user_id"] ?>">
+                    <li><a href="/admin/user/edit/?id=<?php echo $_SESSION["user_id"] ?>">
                         Profil<i class="fas fa-user" style="margin-left: 8px;"></i>
                     </a></li>
                     <li><a href="">
-                        Einstellungen<i class="fas fa-cog" style="margin-left: 5px;"></i>
+                        Passwort ändern<i class="fas fa-key" style="margin-left: 5px;"></i>
                     </a></li>
                 </ul>
             </li>

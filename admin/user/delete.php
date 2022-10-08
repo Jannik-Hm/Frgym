@@ -45,7 +45,7 @@
                     $vorname = $row["vorname"];
                     $nachname = $row["nachname"];
                 }
-                echo '<script type="text/javascript">window.location = "/admin/lehrer/"</script>';
+                echo '<script type="text/javascript">window.location = "/admin/user/"</script>';
                 $phppath = "$root/files/site-ressources/lehrer-bilder/" . strtolower(str_replace(" ","_",$vorname)."_".str_replace(" ","_",$nachname))."."; //TODO: Get Lehrer Name
                 if (file_exists($phppath."jpg")) {
                     unlink($phppath."jpg");

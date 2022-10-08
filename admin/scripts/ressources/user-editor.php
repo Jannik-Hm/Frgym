@@ -295,9 +295,9 @@
     <?php
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         if($GLOBALS["edit"]){
-            confirmation("Änderungen erfolgreich!", "Der Benutzer wurde erfolgreich aktualisiert.", "Zurück zur Übersicht", "/admin/lehrer/");
+            confirmation("Änderungen erfolgreich!", "Der Benutzer wurde erfolgreich aktualisiert.", "Zurück zur Übersicht", "/admin/user/");
         }else{
-            confirmation("Hinzufügen erfolgreich!", "Der Benutzer wurde erfolgreich hinzugefügt.<br>Passwort: ", "Weiteren Lehrer hinzufügen", "/admin/lehrer/add/", "Zurück zur Übersicht", "/admin/lehrer/");
+            confirmation("Hinzufügen erfolgreich!", "Der Benutzer wurde erfolgreich hinzugefügt.<br>Passwort: ", "Weiteren Lehrer hinzufügen", "/admin/user/add/", "Zurück zur Übersicht", "/admin/user/");
         }
     ?>
 
