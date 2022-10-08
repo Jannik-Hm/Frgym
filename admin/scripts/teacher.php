@@ -8,7 +8,7 @@
         $GLOBALS["id"] = $id;
         if($edit){
             $conn = getsqlconnection();
-            $sql = "SELECT * FROM users_neu WHERE id = " . $id . ";";
+            $sql = "SELECT * FROM users WHERE id = " . $id . ";";
             $result = mysqli_query($conn,$sql);
             $myArray = array();
             if ($result->num_rows > 0) {

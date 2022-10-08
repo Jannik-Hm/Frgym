@@ -325,17 +325,17 @@
         if($GLOBALS["edit"]){
             if(isset($_POST["submit"])) {
                 if($GLOBALS["user.administration"] && $ownedit){
-                    $insert = mysqli_query($conn, "UPDATE users_neu SET username='{$username}', titel=NULLIF('{$titel}', ''), vorname='{$vorname}', nachname='{$nachname}', email='{$email}', role='{$position}', faecher='{$faecher}', display_vorname=NULLIF('{$displayvorname}', ''), infotext=NULLIF('{$infotext}', '') WHERE id='{$id}'");
+                    $insert = mysqli_query($conn, "UPDATE users SET username='{$username}', titel=NULLIF('{$titel}', ''), vorname='{$vorname}', nachname='{$nachname}', email='{$email}', role='{$position}', faecher='{$faecher}', display_vorname=NULLIF('{$displayvorname}', ''), infotext=NULLIF('{$infotext}', '') WHERE id='{$id}'");
                 }elseif($GLOBALS["user.administration"]){
-                    $insert = mysqli_query($conn, "UPDATE users_neu SET username='{$username}', titel=NULLIF('{$titel}', ''), vorname='{$vorname}', nachname='{$nachname}', email='{$email}', role='{$position}', faecher='{$faecher}' WHERE id='{$id}'");
+                    $insert = mysqli_query($conn, "UPDATE users SET username='{$username}', titel=NULLIF('{$titel}', ''), vorname='{$vorname}', nachname='{$nachname}', email='{$email}', role='{$position}', faecher='{$faecher}' WHERE id='{$id}'");
                 }else{
-                    $insert = mysqli_query($conn, "UPDATE users_neu SET display_vorname=NULLIF('{$displayvorname}', '') beschreibung=NULLIF('{$infotext}', '') WHERE id='{$id}'");
+                    $insert = mysqli_query($conn, "UPDATE users SET display_vorname=NULLIF('{$displayvorname}', '') beschreibung=NULLIF('{$infotext}', '') WHERE id='{$id}'");
                 }
             }
         }else{
             if(isset($_POST["submit"]) && $GLOBALS["user.administration"]) {
                 // $insert = mysqli_query($conn, "INSERT INTO lehrer (vorname, nachname, email, position, faecher, beschreibung) VALUES ('{$vorname}', '{$nachname}', '{$email}', NULLIF('{$position}', ''), '{$faecher}', NULLIF('{$infotext}', ''))");
-                $insert = mysqli_query($conn, "INSERT INTO users_neu (username, titel, display_vorname, vorname, nachname, password_hash, email, role, faecher, infotext) VALUES ('{$username}', NULLIF('{$titel}', ''), NULLIF('{$displayvorname}', ''), '{$vorname}', '{$nachname}', '{$passwort}', '{$email}', '{$position}', '{$faecher}', NULLIF('{$infotext}', ''))");
+                $insert = mysqli_query($conn, "INSERT INTO users (username, titel, display_vorname, vorname, nachname, password_hash, email, role, faecher, infotext) VALUES ('{$username}', NULLIF('{$titel}', ''), NULLIF('{$displayvorname}', ''), '{$vorname}', '{$nachname}', '{$passwort}', '{$email}', '{$position}', '{$faecher}', NULLIF('{$infotext}', ''))");
             }
         }
         if ($insert) {

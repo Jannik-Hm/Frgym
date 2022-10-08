@@ -71,8 +71,8 @@
             if(!isset($_GET["id"])) {
             //output every user
                 
-                $sql = "SELECT * FROM users_neu WHERE role!='Admin' ORDER BY nachname ASC";
-                $result = mysqli_query($conn,$sql); 
+                $sql = "SELECT * FROM users ORDER BY nachname ASC";
+                $result = mysqli_query($conn,$sql);
                 $myArray = array();
                 if ($result->num_rows > 0) {
 
@@ -83,7 +83,7 @@
                     echo('<th class="email">Email</th>');
                     echo('<th class="position">Position</th>');
                     echo('<th class="faecher">Fächer</th>');
-                    echo('<th class="date">An der Schule seit</th>');
+                    // echo('<th class="date">An der Schule seit</th>');
                     echo('<th class="editrow"></th>');
                     if( ! ($disabledall)){ echo('<th class="deleterow"></th>'); }
                     echo('</tr>');
@@ -102,7 +102,7 @@
                         echo("<td class='email' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["email"] . "</td>");
                         echo("<td class='position' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $row["role"] . "</td>");
                         echo("<td class='faecher' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $faecher . "</td>");
-                        echo("<td class='date' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $date . "</td>");
+                        // echo("<td class='date' onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">" . $date . "</td>");
                         if( !( $disabledall ) || ($lehrer_own == 1 && $_SESSION["vorname"] == $row["vorname"] && $_SESSION["nachname"] == $row["nachname"])){
                             echo("<td title='Bearbeiten' class='editrow' onclick=\"window.location='/admin/lehrer/edit?id=" .$row["id"] . "'\"><i class='fas fa-edit'></i></td>");
                             if( ! ($disabledall)){
@@ -120,37 +120,16 @@
                     die("0 results.");
                 }
             }
-            function faecherReplace($faecher) {
-                $faecher = str_replace("DE", "Deutsch", $faecher);
-                $faecher = str_replace("MA", "Mathe", $faecher);
-                $faecher = str_replace("EN", "Englisch", $faecher);
-                $faecher = str_replace("BI", "Biologie", $faecher);
-                $faecher = str_replace("CH", "Chemie", $faecher);
-                $faecher = str_replace("DS", "Darstellendes Spiel", $faecher);
-                $faecher = str_replace("RE", "Evangelischer Religionsunterricht", $faecher);
-                $faecher = str_replace("FR", "Franzöisch", $faecher);
-                $faecher = str_replace("EK", "Erdkunde", $faecher);
-                $faecher = str_replace("GE", "Geschichte", $faecher);
-                $faecher = str_replace("EG", "Gesellschaftswissenschaften", $faecher);
-                $faecher = str_replace("IF", "Informatik", $faecher);
-                $faecher = str_replace("RK", "Katholischer Religionsunterricht", $faecher);
-                $faecher = str_replace("KU", "Kunst", $faecher);
-                $faecher = str_replace("LA", "Latein", $faecher);
-                $faecher = str_replace("LE", "Lebensgestaltung-Ethik-Religionskunde", $faecher);
-                $faecher = str_replace("MU", "Musik", $faecher);
-                $faecher = str_replace("NW", "Naturwissenschaften", $faecher);
-                $faecher = str_replace("PH", "Physik", $faecher);
-                $faecher = str_replace("PB", "Politische Bildung", $faecher);
-                $faecher = str_replace("PO", "Polnisch", $faecher);
-                $faecher = str_replace("RU", "Russisch", $faecher);
-                $faecher = str_replace("SN", "Spanisch", $faecher);
-                $faecher = str_replace("SP", "Sport", $faecher);
-                $faecher = str_replace("TR", "Türkisch", $faecher);
-                $faecher = str_replace("AL", "Wirtschaft-Arbeit-Technik", $faecher);
-                $faecher = str_replace("WW", "Wirtschaftswissenschaften", $faecher);
-                return $faecher;
-            }
-
+            // $faecherlist = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/files/site-ressources/faecher-liste.json"), true);
+            // $shortfacharray = array();
+            // $longfacharray = array();
+            // foreach($faecherlist as $fachbereich){
+            //     foreach($fachbereich["faecher"] as $fach){
+            //         array_push($shortfacharray, $fach["short"]);
+            //         array_push($longfacharray, str_replace(["Gesellschafts-wissenschaften", "<br>"],["Gesellschaftswissenschaften", " / "],$fach["name"]));
+            //     }
+            // }
+            // $faecher = str_replace($shortfacharray, $longfacharray, $faecher);
         ?>
         
         </table>

@@ -54,7 +54,7 @@
                 if(!isset($_GET["id"])) {
                 //output every lehrer 
                     
-                    $sql = "SELECT * FROM lehrer ORDER BY nachname ASC;";
+                    $sql = "SELECT * FROM users WHERE role!='Admin' ORDER BY nachname ASC;";
                     $result = mysqli_query($conn,$sql); 
                     $myArray = array();
                     if ($result->num_rows > 0) {
@@ -73,7 +73,7 @@
                             }
                             $faecher = substr($faecher, 3);
                             echo("<tr onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">");
-                            echo("<td>" . $row["vorname"] . " " . $row["nachname"] . "</td>");
+                            echo("<td>" . $row["titel"]. " " . $row["vorname"] . " " . $row["nachname"] . "</td>");
                             echo("<td>" . $faecher . "</td>");
                             echo("</a></tr>");
                         }
@@ -82,7 +82,7 @@
                     }
                 } else {
                     
-                    $sql = "SELECT * FROM lehrer WHERE id = " . $_GET['id'] . ";";
+                    $sql = "SELECT * FROM users WHERE id = " . $_GET['id'] . ";";
                     $result = mysqli_query($conn,$sql); 
                     $myArray = array();
                     if ($result->num_rows > 0) {
@@ -97,13 +97,22 @@
                                 $faecher = $faecher . " & " . $faecherlist[$i];
                             }
                         };
-                        $faecher = faecherReplace($faecher);
-                        if(isset($row["datum"])){
-                            $date = date_diff(date_create($row["datum"]), date_create(date("Y-m-d")));
+                        $faecherlist = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/files/site-ressources/faecher-liste.json"), true);
+                        $shortfacharray = array();
+                        $longfacharray = array();
+                        foreach($faecherlist as $fachbereich){
+                            foreach($fachbereich["faecher"] as $fach){
+                                array_push($shortfacharray, $fach["short"]);
+                                array_push($longfacharray, str_replace(["Gesellschafts-wissenschaften", "<br>"],["Gesellschaftswissenschaften", " / "],$fach["name"]));
+                            }
                         }
+                        $faecher = str_replace($shortfacharray, $longfacharray, $faecher);
+                        // if(isset($row["datum"])){
+                        //     $date = date_diff(date_create($row["datum"]), date_create(date("Y-m-d")));
+                        // }
                         #$date = explode("-", $row["datum"])[2] . "." . explode("-", $row["datum"])[1] . "." . explode("-", $row["datum"])[0];
                         echo("<section>");
-                        echo("<h1>" . $row["vorname"] . " " . $row["nachname"] . "</h1>");
+                        echo("<h1>" . $row["titel"] . " " . $row["vorname"] . " " . $row["nachname"] . "</h1>");
                         echo("<h3>" . $row["position"] . "</h3>");
                         $imgdir = "/files/site-ressources/lehrer-bilder/";
                         $imgpath = $imgdir . strtolower(str_replace(" ","_",$row["vorname"])."_".str_replace(" ","_",$row["nachname"])).".";
@@ -120,9 +129,9 @@
                         }
                         echo("<img src='".$imgpath."' id=\"lehrerimg\">");
                         echo("<h2>" . $faecher . "</h2>");
-                        if(isset($date)) {
-                            echo("<h4>" . $date->format("Seit %y Jahren dabei") . "</h4>");
-                        }
+                        // if(isset($date)) {
+                        //     echo("<h4>" . $date->format("Seit %y Jahren dabei") . "</h4>");
+                        // }
                         echo("<a href=\"mailto:" . $row["email"] . "\"><button class='email-btn'><i class='fas fa-at'></i> E-Mail</button></a>");
                         echo("<p>" . $row["beschreibung"] . "</p>");
                         echo("</section>");
@@ -130,37 +139,6 @@
                         die("0 results.");
                     }
                 }
-                function faecherReplace($faecher) {
-                    $faecher = str_replace("DE", "Deutsch", $faecher);
-                    $faecher = str_replace("MA", "Mathe", $faecher);
-                    $faecher = str_replace("EN", "Englisch", $faecher);
-                    $faecher = str_replace("BI", "Biologie", $faecher);
-                    $faecher = str_replace("CH", "Chemie", $faecher);
-                    $faecher = str_replace("DS", "Darstellendes Spiel", $faecher);
-                    $faecher = str_replace("RE", "Evangelischer Religionsunterricht", $faecher);
-                    $faecher = str_replace("FR", "Französisch", $faecher);
-                    $faecher = str_replace("EK", "Erdkunde", $faecher);
-                    $faecher = str_replace("GE", "Geschichte", $faecher);
-                    $faecher = str_replace("EG", "Gesellschaftswissenschaften", $faecher);
-                    $faecher = str_replace("IF", "Informatik", $faecher);
-                    $faecher = str_replace("RK", "Katholischer Religionsunterricht", $faecher);
-                    $faecher = str_replace("KU", "Kunst", $faecher);
-                    $faecher = str_replace("LA", "Latein", $faecher);
-                    $faecher = str_replace("LE", "Lebensgestaltung-Ethik-Religionskunde", $faecher);
-                    $faecher = str_replace("MU", "Musik", $faecher);
-                    $faecher = str_replace("NW", "Naturwissenschaften", $faecher);
-                    $faecher = str_replace("PH", "Physik", $faecher);
-                    $faecher = str_replace("PB", "Politische Bildung", $faecher);
-                    $faecher = str_replace("PO", "Polnisch", $faecher);
-                    $faecher = str_replace("RU", "Russisch", $faecher);
-                    $faecher = str_replace("SN", "Spanisch", $faecher);
-                    $faecher = str_replace("SP", "Sport", $faecher);
-                    $faecher = str_replace("TR", "Türkisch", $faecher);
-                    $faecher = str_replace("AL", "Wirtschaft-Arbeit-Technik", $faecher);
-                    $faecher = str_replace("WW", "Wirtschaftswissenschaften", $faecher);
-                    return $faecher;
-                }
-
             ?>
 
             </table>
