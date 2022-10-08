@@ -148,7 +148,7 @@
     if($calendar["summary"] == "support@frgym.de"){continue;}
     // echo("Kalendar: ".$calendar["summary"]."<br>");
     foreach (getcalevents($calendar["id"], $GLOBALS["tokens"]["readonly"]["access_token"], $GLOBALS["tokens"]["readonly"]["token_type"], $GLOBALS["tokens"]["readonly"]["refresh_token"], $GLOBALS["tokens"]["readonly"]["client_id"], $GLOBALS["tokens"]["readonly"]["client_secret"])["items"] as $entry){
-      $name = trim(str_replace(["Erster", "Zweiter", "Dritter", "Vierter", "der", "Deutschen", "Neujahrstag"], ["1.", "2.", "3.", "4.", "d.", "Dt.", "Neujahr"], str_replace(["(regionaler Feiertag)", "Halloween", "St. Martin", "Volkstrauertag", "Totensonntag", "Heilige Drei Könige", "Valentinstag", "Rosenmontag", "Faschingsdienstag", "Aschermittwoch", "Palmsonntag", "Jahrestag der Befreiung vom Nationalsozialismus", "Internationaler Frauentag", "Vatertag", "Fronleichnam", "Allerheiligen", "Mariä Himmelfahrt", "Nikolaustag", "Gründonnerstag", "Karsamstag", "Muttertag"], "", (preg_match("(Bayern|Sachsen|Sommerzeit|Thüringen)", $entry["summary"]) === 1) ? "" : $entry["summary"])));
+      $name = trim(str_replace(["Erster", "Zweiter", "Dritter", "Vierter", "der", "Deutschen", "Neujahrstag"], ["1.", "2.", "3.", "4.", "d.", "Dt.", "Neujahr"], str_replace(["(regionaler Feiertag)", "Halloween", "St. Martin", "Volkstrauertag", "Totensonntag", "Heilige Drei Könige", "Valentinstag", "Rosenmontag", "Faschingsdienstag", "Aschermittwoch", "Palmsonntag", "Jahrestag der Befreiung vom Nationalsozialismus", "Internationaler Frauentag", "Vatertag", "Fronleichnam", "Allerheiligen", "Mariä Himmelfahrt", "Nikolaustag", "Gründonnerstag", "Karsamstag", "Muttertag"], NULL, (preg_match("(Bayern|Sachsen|Sommerzeit|Thüringen)", $entry["summary"]) === 1) ? "" : $entry["summary"])));
       $event_array[$eventcounter] = array();
       $event_array[$eventcounter]["name"] = $name;
       $event_array[$eventcounter]["color"] = $calendar["backgroundColor"];
@@ -230,6 +230,8 @@
 
             let weekdays = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
+            firstaweekdate = [22, 8, 2022];
+
             var mapObj = {
               'Beratung der Schulleitung': "SD",
               'möglicher Termin für Elternversammlung': "EV",
@@ -243,6 +245,8 @@
               Lehrerkonferenz:"LK",
               Klausur:"K"
             };
+
+            var feriencal = "Ferien";
 
             var feiertag = "Feiertage in Deutschland";
 
@@ -306,20 +310,25 @@
                 table[0][i].text = table[0][i].text + " "+ jahr;
                 var monthlength = new Date(jahr, displayedmonths[monthmodifier+i], 0).getDate();
                 for(var j = 1; j <= 31; j++){
+                    table[j][i]["columns"] = [];
+                    table[j][i]["columns"][0] = {};
                     if (j<=monthlength){
                         var dayofweek = new Date(jahr, displayedmonths[monthmodifier+i]-1, j).getDay();
-                        table[j][i]["text"] = [j, {text: ' '+weekdays[dayofweek]}];
+                        table[j][i].columns[0]["text"] = [j, {text: ' '+weekdays[dayofweek]}];
+                        if(dayofweek === 1){
+                            table[j][i].columns[0].text[1].monthlength = monthlength;
+                        }
                         if(dayofweek === 6){
-                            table[j][i].bold = true;
+                            table[j][i].columns[0].bold = true;
                             table[j][i].fillColor = '#E8E5A0';
                         }else if(dayofweek === 0){
-                            table[j][i].bold = true;
+                            table[j][i].columns[0].bold = true;
                             table[j][i].fillColor = '#E8D0A0';
                         }else{
-                            table[j][i].bold = false;
+                            table[j][i].columns[0].bold = false;
                         }
                     }else{
-                        table[j][i].text = null;
+                        table[j][i].columns[0].text = null;
                         table[j][i].fillColor = '#B8B8B8';
                     }
 
@@ -362,23 +371,36 @@
             // }
 
             function displayevent(table, date, month, text, color, calendar){
+              if(text == "" || text == null){
+                return;
+              }
               var re = new RegExp(Object.keys(mapObj).join("|"),"gi");
               text = text.replace(re, function(matched){
                 return mapObj[matched];
               });
+              var isferien = false;
               if(calendar == feiertag){
-                  for(var k=2; k<table[date][month%6].text.length; k++){
-                      delete table[date][month%6].text[k];
+                  for(var k=2; k<table[date][month%6].columns[0].text.length; k++){
+                      if(table[date][month%6].columns[0].text[k].calendar == feriencal){
+                        isferien = true;
+                      }
+                      delete table[date][month%6].columns[0].text[k];
                   }
+                  table[date][month % 6].columns[0].text[2] = {text: ' '+text, color: color, calendar: calendar, isferien: (isferien ? true : false)};
+                  return;
               }
-              if(typeof table[date][month%6].text[2] !== 'undefined' && table[date][month%6].text[2].calendar == feiertag){
+              if(typeof table[date][month%6].columns[0].text[2] !== 'undefined' && table[date][month%6].columns[0].text[2].calendar == feiertag){
+                  if(calendar == feriencal){
+                    table[date][month % 6].columns[0].text[2].isferien = true;
+                  }
                   return;
               }
               if(text !== "" && text !== null){
-                if(table[date][month % 6].text.length >= 3 && calendar != feiertag){
-                    table[date][month % 6].text.push({text: ' /', color: ''});
+                if(table[date][month % 6].columns[0].text.length >= 3 && calendar != feiertag){
+                    table[date][month % 6].columns[0].text.push({text: ' /', color: ''});
                 }
-                table[date][month % 6].text.push({text: ' '+text, color: color, calendar: calendar});
+                if(calendar == feriencal){isferien = true;}
+                table[date][month % 6].columns[0].text.push({text: ' '+text, color: color, calendar: calendar, isferien: (isferien ? true : false)});
               }
             }
 
@@ -517,6 +539,46 @@
             displayevents(apiinput);
 
             console.log(globaltable);
+            var aweekcounter = 0;
+            for(var cal=0; cal<globaltable.length; cal++){
+              for(var mon=0; mon<globaltable[cal][0].length; mon++){
+                for(var day=1; day<globaltable[cal].length; day++){
+                  if(globaltable[cal][day][mon].columns[0].text != null && globaltable[cal][day][mon].columns[0].text[1].text == " "+weekdays[1]){
+                    if(cal == 0 && mon < displayedmonths.findIndex(x => x === firstaweekdate[1])){
+                      continue;
+                    }else if(cal == 0 && mon == displayedmonths.findIndex(x => x === firstaweekdate[1]) && day < firstaweekdate[0]){
+                      continue;
+                    }else if(typeof globaltable[cal][day][mon].columns[0].text[2] != "undefined" && globaltable[cal][day][mon].columns[0].text[2].isferien){
+                      if(globaltable[cal][day][mon].columns[0].text[1].monthlength - day >= 5){
+                        friday = day+4
+                        if(typeof globaltable[cal][friday][mon].columns[0].text[2] != "undefined" && globaltable[cal][friday][mon].columns[0].text[2].isferien){
+                          continue;
+                        }
+                      }else{
+                        friday = 5 - globaltable[cal][day][mon].columns[0].text[1].monthlength + day - 1;
+                        if(mon+1 < 6){
+                          var nextmon = mon + 1;
+                          var nextcal = cal;
+                        }else{
+                          var nextmon = mon + 1 - 6;
+                          var nextcal = cal+1;
+                        }
+                        if(nextcal > 1){continue;}
+                        if(typeof globaltable[nextcal][friday][nextmon].columns[0].text[2] != "undefined" && globaltable[nextcal][friday][nextmon].columns[0].text[2].isferien){
+                          continue;
+                        }
+                      }
+                    }
+                    if(aweekcounter % 2 == 0){
+                      globaltable[cal][day][mon].columns[1] = {text: "A", alignment: "right", width: "auto"};
+                    }else{
+                      globaltable[cal][day][mon].columns[1] = {text: "B", alignment: "right", width: "auto"};
+                    }
+                    aweekcounter++;
+                  }
+                }
+              }
+            }
 
             var dd = {
               info: {
