@@ -538,12 +538,31 @@
 
             displayevents(apiinput);
 
+            Date.prototype.getWeekNumber = function(){
+              var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
+              var dayNum = d.getUTCDay() || 7;
+              d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+              var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+              return Math.ceil((((d - yearStart) / 86400000) + 1)/7)
+            };
+
             console.log(globaltable);
             var aweekcounter = 0;
             for(var cal=0; cal<globaltable.length; cal++){
               for(var mon=0; mon<globaltable[cal][0].length; mon++){
                 for(var day=1; day<globaltable[cal].length; day++){
                   if(globaltable[cal][day][mon].columns[0].text != null && globaltable[cal][day][mon].columns[0].text[1].text == " "+weekdays[1]){
+                    globaltable[cal][day][mon].columns[1] = {text: [], alignment: "right", width: "auto", fontSize: 8};
+                    if(cal == 0 && mon == 0 && day<= 7){
+                      var startweeknum = new Date(jahrspanne[cal], displayedmonths[mon]-1, day).getWeekNumber();
+                    }else{
+                      if(displayedmonths[mon+(6*cal)] == 1 && day <= 7){
+                        startweeknum = 1;
+                      }else{
+                        startweeknum++;
+                      }
+                    }
+                    globaltable[cal][day][mon].columns[1].text.push(startweeknum);
                     if(cal == 0 && mon < displayedmonths.findIndex(x => x === firstaweekdate[1])){
                       continue;
                     }else if(cal == 0 && mon == displayedmonths.findIndex(x => x === firstaweekdate[1]) && day < firstaweekdate[0]){
@@ -570,9 +589,9 @@
                       }
                     }
                     if(aweekcounter % 2 == 0){
-                      globaltable[cal][day][mon].columns[1] = {text: "A", alignment: "right", width: "auto"};
+                      globaltable[cal][day][mon].columns[1].text.unshift("A ");
                     }else{
-                      globaltable[cal][day][mon].columns[1] = {text: "B", alignment: "right", width: "auto"};
+                      globaltable[cal][day][mon].columns[1].text.unshift("B ");
                     }
                     aweekcounter++;
                   }
