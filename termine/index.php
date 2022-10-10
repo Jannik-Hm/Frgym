@@ -621,7 +621,7 @@
                       {text: 'SÜ - Schülerkonferenz\nEK - Elternkonferenz\nKK - Klassenkonferenz'},
                       {text: 'LK - Lehrerkonferenz\nK - Klausur'}
                   ],
-                  margin: [50, 0, 0, 0],
+                  margin: [50, -10, 0, 0],
                   fontSize: 9
               },
               content: [
