@@ -17,7 +17,9 @@
             <div class="contact-page">
                 <h1>Kontakt</h1>
                 <div class="adresse">
-                    <div class="mapdiv"><iframe class="map" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9806.967546925716!2d13.175272!3d52.0844284!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x619e482eecee030f!2sFriedrich-Gymnasium!5e0!3m2!1sde!2sde!4v1642010959150!5m2!1sde!2sde" loading="lazy"></iframe></div>
+                    <div class="mapdiv">
+                        <a href="https://goo.gl/maps/GTaQhKzZJifwcoYo9"><img class="map" src="/files/site-ressources/map.png" style="object-fit: cover"></a>
+                    </div>
                     <div class="adresse-text">
                         <i class="fas fa-map-marker-alt"><p>Adresse</p></i>
                         <p>Parkstraße 59<br>14943 Luckenwalde</p>
