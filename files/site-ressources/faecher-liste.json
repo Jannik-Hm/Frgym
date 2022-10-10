@@ -35,7 +35,7 @@
     "fachbereich4" : {
         "name": "Künstlerische Fächer",
         "faecher": {
-            "fach1": {"name": "Darstellendes Spiel", "short": "DS", "filename": "DS", "pic-url": "https://www.ardenne-gymnasium.de/media/icon_darstellendes_spiel.svg", "dark-image": true},
+            "fach1": {"name": "Darstellendes Spiel", "short": "DS", "filename": "DS", "pic-url": "https://www.svgrepo.com/svg/91469/theatre-masks", "dark-image": true},
             "fach2": {"name": "Kunst", "short": "KU", "filename": "Kunst", "pic-url": "https://publicdomainvectors.org/de/kostenlose-vektorgrafiken/Pinsel-Paletten/40255.html", "dark-image": false},
             "fach3": {"name": "Musik", "short": "MU", "filename": "Musik", "pic-url": "https://svgsilh.com/image/2073069.html", "dark-image": true}
         }
