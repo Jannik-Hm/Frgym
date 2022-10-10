@@ -47,14 +47,14 @@
                 <ul>
                     <li id="logout-btn">
                         <a style="cursor: pointer" onclick="logout()">
-                            Abmelden<i class="fa-solid fa-arrow-right-from-bracket" style="margin-left: 5px;color: lightcoral;"></i>
+                            <i class="fa-solid fa-arrow-right-from-bracket" style="color: lightcoral;"></i><p>Abmelden</p>
                         </a>
                     </li>
                     <li><a href="/admin/user/edit/?id=<?php echo $_SESSION["user_id"] ?>">
-                        Profil<i class="fas fa-user" style="margin-left: 8px;"></i>
+                        <i class="fas fa-user"></i><p>Profil</p>
                     </a></li>
                     <li><a href="/admin/user/change_password.php">
-                        Passwort ändern<i class="fas fa-key" style="margin-left: 5px;"></i>
+                        <i class="fas fa-key"></i><p>Passwort ändern</p>
                     </a></li>
                 </ul>
             </li>

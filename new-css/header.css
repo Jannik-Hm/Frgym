@@ -91,7 +91,7 @@ nav ul#mobile li ul#mobile-list .drop-menu ul {
 
 nav ul li#admin-profile-dropdwn {
     float: right;
-    width: 180px;
+    width: 190px;
     display: inline;
     margin-right: 0px
 }
@@ -99,6 +99,15 @@ nav ul li#admin-profile-dropdwn {
 nav ul li ul#mobile-list li#admin-profile-dropdwn,
 nav ul li ul#Sonstiges li#admin-profile-dropdwn {
     float: none;
+}
+
+li#admin-profile-dropdwn ul li a i {
+    margin-right: 10px;
+}
+
+li#admin-profile-dropdwn ul li a p {
+    display: inline;
+    margin: 0;
 }
 
 footer {
