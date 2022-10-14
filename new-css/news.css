@@ -86,6 +86,10 @@ div.news ul li {
   border-radius: 5px;
   height: 30px;
   margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  opacity: 1;
 }
 
 .singlenews h1, .singlenews h5, .singlenews p {

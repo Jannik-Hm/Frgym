@@ -216,6 +216,10 @@ div.faecher-selector-popup {
     background-color: rgb(205, 211, 210);
     color:#000;
     width: 100px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    opacity: 1;
 }
 
 .grow-wrap {

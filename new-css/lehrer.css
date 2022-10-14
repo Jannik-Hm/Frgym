@@ -45,6 +45,10 @@
     height: 38px;
     box-sizing: border-box;
     width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    opacity: 1;
   }
   
   .add-input form label#changepic,

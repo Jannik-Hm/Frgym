@@ -16,6 +16,10 @@ input[type="password"] {
     display: block;
     margin: auto;
     margin-top: 20px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    opacity: 1;
 }
 
 /* Custom Checkbox */
