@@ -1,3 +1,15 @@
 ErrorDocument 404 /404/
 ErrorDocument 403 /
 ErrorDocument 401 /
+
+# Deny access to .htaccess
+
+<Files .htaccess>
+Order deny,allow
+Deny from all
+</Files>
+
+# Deny access to secrets directory
+
+RewriteEngine On
+RewriteRule (^|/)secrets(/|$) - [F]

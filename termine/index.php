@@ -15,7 +15,7 @@
     <body>
       <?php include_once "$root/sites/header.html"; ?>
           <?php
-          $GLOBALS["tokens"] = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/GoogleApisecrets.json"), true);
+          $GLOBALS["tokens"] = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/secrets/GoogleApisecrets.json"), true);
 
           function getnewtoken($refresh_token, $client_id, $client_secret){
             $curlrefresh = curl_init();
@@ -74,7 +74,7 @@
               $access_token = getnewtoken($refresh_token, $client_id, $client_secret);
               if(isset($access_token)){
                 $GLOBALS["tokens"]["readonly"]["access_token"] = $access_token;;
-                file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/GoogleApisecrets.json", json_encode($GLOBALS["tokens"]));
+                file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/secrets/GoogleApisecrets.json", json_encode($GLOBALS["tokens"]));
               }
               if($i < 2){
                 goto begin;
@@ -121,7 +121,7 @@
               $access_token = getnewtoken($refresh_token, $client_id, $client_secret);
               if(isset($access_token)){
                 $GLOBALS["tokens"]["readonly"]["access_token"] = $access_token;;
-                file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/GoogleApisecrets.json", json_encode($GLOBALS["tokens"]));
+                file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/secrets/GoogleApisecrets.json", json_encode($GLOBALS["tokens"]));
               }
               if($i < 2){
                 goto begin;
