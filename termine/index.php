@@ -209,10 +209,19 @@
           $(\".readmorebox\").show();
           $(\"#termintest\").html(\"".$entry["name"]."\");
           $(\"#termintest1\").html(\"".$entry["eventtype"]."\");
-          $(\"#popuptime\").html(\"".(($entry["istime"]) ? date('d.m.Y H:i', $entry["start"]) : date('d.m.Y', $entry["start"])).$endtext."\");
+          $(\"#popuptime\").html(\"".(($entry["istime"]) ? date('d.m.Y H:i', $entry["start"]) : date('d.m.Y', $entry["start"])).$endtext."\");");
+          if(isset($entry["description"]) && $entry["eventtype"] != "Feiertage in Deutschland"){
+            echo("$(\"#popupdesc\").html(\"".$entry["description"]."\");$(\"#description\").show();");
+          }else{
+            echo("$(\"#description\").hide();");
+          }
+          if(isset($entry["location"])){
+            echo("$(\"#popuploc\").html(\"".$entry["location"]."\");$(\"#location\").show();");
+          }else{
+            echo("$(\"#location\").hide();");
+          }
+          echo("
           $(\"#popuptermincolordiv\").css(\"background-color\",\"".$entry["color"]."\");
-          console.log(\"".$entry["description"].$entry["location"]."\");
-          // TODO: add location and description to popup
           '>
           <div class='termindiv'><i class='termincolori'><div style='background-color:".$entry["color"].";'></div></i><span>");
         echo ($entry["name"]. " ");
@@ -673,6 +682,18 @@
                             <p>
                                 <i class="far fa-clock"></i>
                                 <span id="popuptime" style="margin-left: 6px;"></span>
+                            </p>
+                        </div>
+                        <div style="margin-top: 10px" id="location">
+                            <p>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span id="popuploc" style="margin-left: 6px;"></span>
+                            </p>
+                        </div>
+                        <div style="margin-top: 10px; font-size: 16px" id="description">
+                            <p>
+                                <i class="fas fa-align-justify"></i>
+                                <span id="popupdesc" style="margin-left: 6px;"></span>
                             </p>
                         </div>
                     </div>
