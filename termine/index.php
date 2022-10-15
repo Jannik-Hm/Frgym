@@ -145,7 +145,7 @@
   // }
   // TODO: admin selector for permissions: https://stackoverflow.com/questions/30569666/update-if-exists-else-insert-in-sql
   foreach ($calendars["items"] as $calendar){
-    if($calendar["summary"] == "support@frgym.de"){continue;}
+    // if($calendar["summary"] == "support@frgym.de"){continue;}
     // echo("Kalendar: ".$calendar["summary"]."<br>");
     foreach (getcalevents($calendar["id"], $GLOBALS["tokens"]["readonly"]["access_token"], $GLOBALS["tokens"]["readonly"]["token_type"], $GLOBALS["tokens"]["readonly"]["refresh_token"], $GLOBALS["tokens"]["readonly"]["client_id"], $GLOBALS["tokens"]["readonly"]["client_secret"])["items"] as $entry){
       $name = trim(str_replace(["Erster", "Zweiter", "Dritter", "Vierter", "der", "Deutschen", "Neujahrstag"], ["1.", "2.", "3.", "4.", "d.", "Dt.", "Neujahr"], str_replace(["(regionaler Feiertag)", "Halloween", "St. Martin", "Volkstrauertag", "Totensonntag", "Heilige Drei Könige", "Valentinstag", "Rosenmontag", "Faschingsdienstag", "Aschermittwoch", "Palmsonntag", "Jahrestag der Befreiung vom Nationalsozialismus", "Internationaler Frauentag", "Vatertag", "Fronleichnam", "Allerheiligen", "Mariä Himmelfahrt", "Nikolaustag", "Gründonnerstag", "Karsamstag", "Muttertag"], NULL, (preg_match("(Bayern|Sachsen|Sommerzeit|Thüringen)", $entry["summary"]) === 1) ? "" : $entry["summary"])));
@@ -153,6 +153,8 @@
       $event_array[$eventcounter]["name"] = $name;
       $event_array[$eventcounter]["color"] = $calendar["backgroundColor"];
       $event_array[$eventcounter]["eventtype"] = $calendar["summary"];
+      $event_array[$eventcounter]["description"] = $entry["description"];
+      $event_array[$eventcounter]["location"] = $entry["location"];
       if(isset($entry["start"]["dateTime"]) && isset($entry["end"]["dateTime"])){
         $event_array[$eventcounter]["start"] = strtotime($entry["start"]["dateTime"]);
         $event_array[$eventcounter]["end"] = strtotime($entry["end"]["dateTime"]);
@@ -208,7 +210,10 @@
           $(\"#termintest\").html(\"".$entry["name"]."\");
           $(\"#termintest1\").html(\"".$entry["eventtype"]."\");
           $(\"#popuptime\").html(\"".(($entry["istime"]) ? date('d.m.Y H:i', $entry["start"]) : date('d.m.Y', $entry["start"])).$endtext."\");
-          $(\"#popuptermincolordiv\").css(\"background-color\",\"".$entry["color"]."\")'>
+          $(\"#popuptermincolordiv\").css(\"background-color\",\"".$entry["color"]."\");
+          console.log(\"".$entry["description"].$entry["location"]."\");
+          // TODO: add location and description to popup
+          '>
           <div class='termindiv'><i class='termincolori'><div style='background-color:".$entry["color"].";'></div></i><span>");
         echo ($entry["name"]. " ");
         if($daysleft < 1){
