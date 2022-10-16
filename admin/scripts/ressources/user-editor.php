@@ -22,14 +22,14 @@
                 <?php
                     if($GLOBALS["user.administration"]){
                     echo'
-                    <input type="text" width="" placeholder="Benutzername*" name="benutzername" title="Benutzername" value="'.$GLOBALS["userdb"]["username"].'" '. (($disabled or $ownedit)?"disabled":"").'><br>
+                    <input type="text" width="" placeholder="Benutzername*" name="benutzername" title="Benutzername" value="'.$GLOBALS["userdb"]["username"].'" '. (($disabled)?"disabled":"").'><br>
                     <div style="display: flex;margin: auto;">
                         <input style="width: 100px;margin-right: 5px;display: inline-block;" type="text" width="" placeholder="Titel" name="titel" title="Titel" value="'.$GLOBALS["userdb"]["titel"].'">
-                        <input style="margin-left: 5px; margin-right: 0;display: inline-block;"type="text" width="" placeholder="Vorname*" name="vorname" title="Vorname" value="'.$GLOBALS["userdb"]["vorname"].'" '. (($disabled or $ownedit)?"disabled":"").' required>
+                        <input style="margin-left: 5px; margin-right: 0;display: inline-block;"type="text" width="" placeholder="Vorname*" name="vorname" title="Vorname" value="'.$GLOBALS["userdb"]["vorname"].'" '. (($disabled)?"disabled":"").' required>
                     </div>
                     <br>
-                    <input type="text" placeholder="Nachname*" name="nachname" title="Nachname" value="'.$GLOBALS["userdb"]["nachname"].'" '. (($disabled or $ownedit)?"disabled":"").' required><br>
-                    <input type="email" placeholder="Email*" name="email" title="Email" value="'.$GLOBALS["userdb"]["email"].'" '. (($disabled or $ownedit)?"disabled":"").' required><br>
+                    <input type="text" placeholder="Nachname*" name="nachname" title="Nachname" value="'.$GLOBALS["userdb"]["nachname"].'" '. (($disabled)?"disabled":"").' required><br>
+                    <input type="email" placeholder="Email*" name="email" title="Email" value="'.$GLOBALS["userdb"]["email"].'" '. (($disabled)?"disabled":"").' required><br>
                     <div class="position">
                         <label class="heading2">Position</label>
                         <ul style="margin-bottom: 0">';
@@ -41,7 +41,7 @@
                                 }
                             }
                             foreach($roles as $role){
-                                echo('<li><label class="customradio"><input type="radio" name="position" value="'.$role.'"'. (($position == $role) ? "checked ":"") . (($disabled or $ownedit)? "disabled":"").'><span class="radiochk"></span>'.$role.'</label></li>');
+                                echo('<li><label class="customradio"><input type="radio" name="position" value="'.$role.'"'. (($position == $role) ? "checked ":"") . (($disabled)? "disabled":"").'><span class="radiochk"></span>'.$role.'</label></li>');
                             }
                             echo'
                             <br>
@@ -106,7 +106,7 @@
                 <!-- New Dropzone -->
                 <?php
                     if($ownedit){
-                        $accepted_files = array("jpg","jpeg","png", "webp");
+                        $accepted_files = array("jpg","jpeg","png", "webp", "JPG", "JPEG", "PNG", "WEBP");
                         $accept_string = "";
                         foreach($accepted_files as $accepted_type) {
                             $accept_string = $accept_string.".".$accepted_type.",";
@@ -186,7 +186,7 @@
                                         fileReader.readAsDataURL(fileInput.files[0]);
                                         var fileName = fileInput.value; //Check of Extension
                                         var extension = fileName.substring(fileName.lastIndexOf(".") + 1);
-                                        if ((extension == "jpg" || extension == "jpeg" || extension == "png" || extension == "webp")){
+                                        if ((extension.toLowerCase() == "jpg" || extension.toLowerCase() == "jpeg" || extension.toLowerCase() == "png" || extension.toLowerCase() == "webp")){
                                             document.getElementById("invalidfiletype").style.display = "none";
                                             document.getElementById("img_preview").style.display = "";
                                         }else{
@@ -212,7 +212,7 @@
                         $GLOBALS["file_exists"] = false;
                         $imgpath = "/files/site-ressources/lehrer-bilder/" . strtolower(str_replace(" ","_",$GLOBALS["userdb"]["vorname"])."_".str_replace(" ","_",$GLOBALS["userdb"]["nachname"])).".";
                         $phppath = $root.$imgpath;
-                        foreach(array("jpg","jpeg","png", "webp") as $extens){
+                        foreach($accepted_files as $extens){
                             if (file_exists($phppath.$extens)) {
                                 $imgpath = $imgpath.$extens;
                                 $GLOBALS["file_exists"] = true;
@@ -348,7 +348,7 @@
                 if($_POST['deletefile'] == 'true' && $GLOBALS["file_exists"]){ //delete File if delete is true
                     unlink($root.$imgpath);
                 }
-                uploadfile("site-ressources/lehrer-bilder/", array("jpg","jpeg","png", "webp"), "pictureUpload", strtolower(str_replace(" ","_",$GLOBALS["userdb"]["vorname"])."_".str_replace(" ","_",$GLOBALS["userdb"]["nachname"])), "lehrer.own");
+                uploadfile("site-ressources/lehrer-bilder/", $accepted_files, "pictureUpload", strtolower(str_replace(" ","_",$GLOBALS["userdb"]["vorname"])."_".str_replace(" ","_",$GLOBALS["userdb"]["nachname"])), "lehrer.own");
             }
         }
     }
