@@ -210,7 +210,7 @@
           $(\"#termintest\").html(\"".$entry["name"]."\");
           $(\"#termintest1\").html(\"".$entry["eventtype"]."\");
           $(\"#popuptime\").html(\"".(($entry["istime"]) ? date('d.m.Y H:i', $entry["start"]) : date('d.m.Y', $entry["start"])).$endtext."\");
-          $(\"#ics #icslink\").attr(\"href\", geticsuri(\"bla@frgym.de\", \"1666075858\", \"".$entry["start"]."\", \"".$entry["end"]."\", \"".$entry["name"]."\", \"".(($entry["eventtype"] == "Feiertage in Deutschland") ? NULL : $entry["description"])."\", \"".$entry["location"]."\"));
+          $(\"#ics #icslink\").attr(\"href\", geticsuri(\"bla@frgym.de\", \"1666075858\", \"".!$entry["istime"]."\", \"".$entry["start"]."\", \"".$entry["end"]."\", \"".$entry["name"]."\", \"".(($entry["eventtype"] == "Feiertage in Deutschland") ? NULL : $entry["description"])."\", \"".$entry["location"]."\"));
           $(\"#ics #icslink\").attr(\"download\", \"".$entry["name"].".ics\");");
           if(isset($entry["description"]) && $entry["eventtype"] != "Feiertage in Deutschland"){
             echo("$(\"#popupdesc\").html(\"".$entry["description"]."\");$(\"#description\").show();");
@@ -238,7 +238,7 @@
       }
     ?>
     <script>
-      function geticsuri(id, datestamp, start, end, summary, description=null, location=null){
+      function geticsuri(id, datestamp, dayevent, start, end, summary, description=null, location=null){
           var ics = [];
           ics.push("BEGIN:VCALENDAR");
           ics.push("VERSION:2.0");
@@ -248,9 +248,14 @@
           ics.push("UID:"+id);
           ics.push("DTSTAMP:"+datestamp);
           var start = new Date(Number(start*1000));
-          ics.push("DTSTART;TZID=Europe/Berlin:"+start.getFullYear()+(start.getMonth()+1)+start.getDate()+"T"+("0" + start.getHours()).slice(-2)+("0" + start.getMinutes()).slice(-2)+("0" + start.getSeconds()).slice(-2));
           var end = new Date(Number(end*1000));
-          ics.push("DTEND;TZID=Europe/Berlin:"+end.getFullYear()+(end.getMonth()+1)+end.getDate()+"T"+("0" + end.getHours()).slice(-2)+("0" + end.getMinutes()).slice(-2)+("0" + end.getSeconds()).slice(-2));
+          if(dayevent){
+            ics.push("DTSTART;VALUE=DATE:"+start.getFullYear()+(start.getMonth()+1)+start.getDate());
+            ics.push("DTEND;VALUE=DATE:"+end.getFullYear()+(end.getMonth()+1)+end.getDate());
+          }else{
+            ics.push("DTSTART;TZID=Europe/Berlin:"+start.getFullYear()+(start.getMonth()+1)+start.getDate()+"T"+("0" + start.getHours()).slice(-2)+("0" + start.getMinutes()).slice(-2)+("0" + start.getSeconds()).slice(-2));
+            ics.push("DTEND;TZID=Europe/Berlin:"+end.getFullYear()+(end.getMonth()+1)+end.getDate()+"T"+("0" + end.getHours()).slice(-2)+("0" + end.getMinutes()).slice(-2)+("0" + end.getSeconds()).slice(-2));
+          }
           ics.push("SUMMARY:"+summary);
           if(description != null){
             ics.push("DESCRIPTION:"+description);
@@ -262,7 +267,7 @@
           ics.push("END:VCALENDAR");
           var icsstring = ics.join("\r\n");
           return "data:text/calendar;charset=utf8," + escape(icsstring);
-      } // TODO: fix day events
+      }
       console.log(geticsuri("bla@frgym.de", "1666075858", "1666137600", "1666224000", "Test", "Testdescr", "Aula"));
         $(function() {
             $('.test').click(function(event) {
