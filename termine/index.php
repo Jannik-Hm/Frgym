@@ -209,7 +209,9 @@
           $(\".readmorebox\").show();
           $(\"#termintest\").html(\"".$entry["name"]."\");
           $(\"#termintest1\").html(\"".$entry["eventtype"]."\");
-          $(\"#popuptime\").html(\"".(($entry["istime"]) ? date('d.m.Y H:i', $entry["start"]) : date('d.m.Y', $entry["start"])).$endtext."\");");
+          $(\"#popuptime\").html(\"".(($entry["istime"]) ? date('d.m.Y H:i', $entry["start"]) : date('d.m.Y', $entry["start"])).$endtext."\");
+          $(\"#ics #icslink\").attr(\"href\", geticsuri(\"bla@frgym.de\", \"1666075858\", \"".$entry["start"]."\", \"".$entry["end"]."\", \"".$entry["name"]."\", \"".(($entry["eventtype"] == "Feiertage in Deutschland") ? NULL : $entry["description"])."\", \"".$entry["location"]."\"));
+          $(\"#ics #icslink\").attr(\"download\", \"".$entry["name"].".ics\");");
           if(isset($entry["description"]) && $entry["eventtype"] != "Feiertage in Deutschland"){
             echo("$(\"#popupdesc\").html(\"".$entry["description"]."\");$(\"#description\").show();");
           }else{
@@ -235,6 +237,61 @@
         echo("</span></div></a>");
       }
     ?>
+    <script>
+      function geticsuri(id, datestamp, start, end, summary, description=null, location=null){
+          var ics = [];
+          ics.push("BEGIN:VCALENDAR");
+          ics.push("VERSION:2.0");
+          ics.push("PRODID:-//Frgym//Schultermin//DE");
+          ics.push("METHOD: Publish");
+          ics.push("BEGIN:VEVENT");
+          ics.push("UID:"+id);
+          ics.push("DTSTAMP:"+datestamp);
+          var start = new Date(Number(start*1000));
+          ics.push("DTSTART;TZID=Europe/Berlin:"+start.getFullYear()+(start.getMonth()+1)+start.getDate()+"T"+("0" + start.getHours()).slice(-2)+("0" + start.getMinutes()).slice(-2)+("0" + start.getSeconds()).slice(-2));
+          var end = new Date(Number(end*1000));
+          ics.push("DTEND;TZID=Europe/Berlin:"+end.getFullYear()+(end.getMonth()+1)+end.getDate()+"T"+("0" + end.getHours()).slice(-2)+("0" + end.getMinutes()).slice(-2)+("0" + end.getSeconds()).slice(-2));
+          ics.push("SUMMARY:"+summary);
+          if(description != null){
+            ics.push("DESCRIPTION:"+description);
+          }
+          if(location != null){
+            ics.push("LOCATION:"+location);
+          }
+          ics.push("END:VEVENT");
+          ics.push("END:VCALENDAR");
+          var icsstring = ics.join("\r\n");
+          return "data:text/calendar;charset=utf8," + escape(icsstring);
+      } // TODO: fix day events
+      console.log(geticsuri("bla@frgym.de", "1666075858", "1666137600", "1666224000", "Test", "Testdescr", "Aula"));
+        $(function() {
+            $('.test').click(function(event) {
+                event.preventDefault();
+
+                // Format: https://docs.fileformat.com/email/ics/
+                var icsMSG = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\n";
+                icsMSG += "PRODID:-//Frgym//Schultermin//DE\r\n";
+                icsMSG += "METHOD: Publish\r\n";
+                icsMSG += "BEGIN:VEVENT\r\n";
+                icsMSG += "UID:0592dfb7-a4cb-437e-88c2-4a26d9446e88\r\n"
+                icsMSG += "DTSTAMP:1666075858\r\n";
+                icsMSG += "DTSTART;TZID=Europe/Berlin:20230214T101500\r\n";
+                icsMSG += "DTEND;TZID=Europe/Berlin:20230214T233000\r\n";
+                icsMSG += "SUMMARY:Our Meeting Office\r\n";
+                icsMSG += "LOCATION:Aula\r\n";
+                icsMSG += "END:VEVENT\r\nEND:VCALENDAR";
+                var title = "newEvent.ics";
+                var uri = "data:text/calendar;charset=utf8," + escape(icsMSG);
+                var link = $("<a>", {
+                  href: uri,
+                  download: title,
+                  target: "_BLANK"
+                }).html("").appendTo("body");
+                link.get(0).click();
+                link.remove();
+            });
+          });
+    </script>
     </div>
   </section>
         <script>
@@ -694,6 +751,12 @@
                             <p>
                                 <i class="fas fa-align-justify"></i>
                                 <span id="popupdesc" style="margin-left: 6px;"></span>
+                            </p>
+                        </div>
+                        <div style="margin-top: 10px; font-size: 16px" id="ics">
+                            <p>
+                                <i class="far fa-calendar-plus"></i>
+                                <a id="icslink" href="" download="" target="_BLANK"><span style="margin-left: 6px;">In Kalender importieren</span></a>
                             </p>
                         </div>
                     </div>
