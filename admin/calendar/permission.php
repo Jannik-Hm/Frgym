@@ -150,17 +150,17 @@
                                 }
                             ?>
                             </table>
-                            <input style="cursor: pointer;" type="button" name="submit" onclick="save();" value="Speichern">
+                            <input style="cursor: pointer;" type="button" name="submit" class="submit" onclick="save();" value="Speichern">
                     </form>
                     <script>
                         function save(){
-                            console.log(JSON.stringify($("input[type='checkbox']").serializeArray()));
-                            $.post("https://frgym.greenygames.de/admin/api/calendar.php", {action: "updateperm", permdata: JSON.stringify($("input[type='checkbox']").serializeArray())}, success);
+                            $.post("https://frgym.greenygames.de/admin/api/calendar.php", {action: "updateperm", permdata: JSON.stringify($("input[type='checkbox']").serializeArray()), username: "<?php echo $_SESSION["username"] ?>", password_hash: "<?php echo $_SESSION["password"] ?>"}, success);
                         }
                         function success(data){
                             if(JSON.parse(data).success){
                                 $('.confirm').show();
                             }else{
+                                console.log(data);
                                 $('#errormessage').show();
                             }
                         }
@@ -170,23 +170,6 @@
         </div>
         <?php
         confirmation("Änderung erfolgreich!", "Die Kalendar-Berechtigungen wurden erfolgreich aktualisiert.", "Zurück zur Startseite", "/admin/");
-        // if(isset($_POST["submit"])) {
-        //     // $conn = getsqlconnection();
-        //     // $sql = $conn->prepare("");
-        //     // $sql->bind_param("sss", null, null, null);
-        //     // $sql->execute();
-        //     // if($sql->affected_rows != 0){
-        //     //     echo("<script>$('.confirm').show();</script>");
-        //     // }else{
-        //     //     echo("<script></script>");
-        //     // }
-        //     foreach($roles as $role){
-        //         if(!isset($_POST[$role])){
-        //             $_POST[$role] = array();
-        //         }
-        //         echo(implode(";", $_POST[$role]));
-        //     }
-        // }
         ?>
         <?php include_once "$root/sites/footer.html" ?>
     </body>
