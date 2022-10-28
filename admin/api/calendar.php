@@ -16,12 +16,14 @@
             $calstring = implode(";", $calid);
             $sql->bind_param("sss", $role, $calstring, $calstring);
             $sql->execute();
-            $response["sql"] = $sql;
             if($sql->affected_rows != 0){
-                $response["success"] = true;
-            }else{
-                $response["success"] = false;
+                $affected = true;
             }
+        }
+        if($affected){
+            $response["success"] = true;
+        }else{
+            $response["success"] = false;
         }
     }elseif($app == "getperms"){
         $sql = mysqli_query(getsqlconnection(), "SELECT * FROM calendars");

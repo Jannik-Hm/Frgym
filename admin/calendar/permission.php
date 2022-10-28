@@ -154,10 +154,10 @@
                     </form>
                     <script>
                         function save(){
+                            console.log(JSON.stringify($("input[type='checkbox']").serializeArray()));
                             $.post("https://frgym.greenygames.de/admin/api/calendar.php", {action: "updateperm", permdata: JSON.stringify($("input[type='checkbox']").serializeArray())}, success);
                         }
                         function success(data){
-                            console.log(data);
                             if(JSON.parse(data).success){
                                 $('.confirm').show();
                             }else{
