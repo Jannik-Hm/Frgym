@@ -43,6 +43,9 @@
                     }
                 }
             }
+            function deleteuser(id){
+                $.post("https://frgym.greenygames.de/admin/api/user.php", {action: "delete", id: id, username: "<?php echo $_SESSION["username"] ?>", password_hash: "<?php echo $_SESSION["password"] ?>"}, function() {window.location.reload();});
+            }
         </script>
     </head>
     <body>
@@ -106,7 +109,7 @@
                         if( !( $disabledall ) || ($lehrer_own == 1 && $_SESSION["vorname"] == $row["vorname"] && $_SESSION["nachname"] == $row["nachname"])){
                             echo("<td title='Bearbeiten' class='editrow' onclick=\"window.location='/admin/user/edit?id=" .$row["id"] . "'\"><i class='fas fa-edit'></i></td>");
                             if( ! ($disabledall)){
-                                echo("<td title='Löschen' class='deleterow' onclick=\"$('#confirmdelete').attr('href', '/admin/user/delete.php?id=".$row['id']."');$('#confirmdeletefirst').attr('href', '/admin/user/delete.php?id=".$row['id']."');$('.confirm').show();document.getElementById('confirmtext').innerHTML='Möchtest du den Lehrer &#34;".$row["vorname"]." ".$row["nachname"]."&#34; wirklich löschen?'\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
+                                echo("<td title='Löschen' class='deleterow' onclick=\"$('#confirmdelete, #confirmdeletefirst').attr('onclick', 'deleteuser(".$row['id'].")');$('#confirmtext').html('Möchtest du den Lehrer &#34;".$row["vorname"]." ".$row["nachname"]."&#34; wirklich löschen?');$('.confirm').show();\"><i class='fas fa-trash red' style='color:#F75140'></i></td>");
                             }
                             // else{
                                 // echo("<td><i class='fas fa-trash red' style='color:#F75140;color:transparent'></i></td>");

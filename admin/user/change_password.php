@@ -45,7 +45,7 @@
                         <input type="password" id="pass_new_check" placeholder="Neues Passwort wiederholen" onkeyup="checkmatch();" required>
                         <input type="hidden" id="pass_old_hash" name="pass_old_hash">
                         <input type="hidden" id="pass_new_hash" name="pass_new_hash">
-                        <input style="cursor: pointer;" type="submit" name="submit" value="Speichern">
+                        <input style="cursor: pointer;" type="button" name="submit" class="submit" onclick="save()" value="Speichern">
                         <p id="errormessage" style="display:none; text-align:center">Fehler bei der Aktualisierung. Bitte überprüfen sie das eingegebene Passwort.</p>
                     </form>
                     <script>
@@ -64,23 +64,24 @@
                         function genhash(rawinputid, hashinputid) {
                             $("#"+hashinputid).val(sha256($("#"+rawinputid).val()));
                         }
+                        function save(){
+                            $.post("https://frgym.greenygames.de/admin/api/user.php", {action: "changepassword", newpassword_hash: sha256($("#pass_new").val()), username: "<?php echo $_SESSION["username"] ?>", password_hash: sha256($("#pass_old").val())}, success);
+                        }
+                        function success(data){
+                            if(JSON.parse(data).success){
+                                $('.confirm .confirmation a').attr("onclick", "logout();");
+                                $('.confirm').show();
+                            }else{
+                                console.log(data);
+                                $('#errormessage').show();
+                            }
+                        }
                     </script>
                 </div>
             </section>
         </div>
         <?php
-        confirmation("Änderung erfolgreich!", "Dein Passwort wurde erfolgreich aktualisiert.", "Zurück zur Startseite", "/admin/");
-        if(isset($_POST["submit"])) {
-            $conn = getsqlconnection();
-            $sql = $conn->prepare("UPDATE users SET password_hash=? WHERE id=? && password_hash=?;");
-            $sql->bind_param("sss", $_POST["pass_new_hash"], $_SESSION["user_id"], $_POST["pass_old_hash"]);
-            $sql->execute();
-            if($sql->affected_rows != 0){
-                echo("<script>$('.confirm').show();</script>");
-            }else{
-                echo("<script>$('#errormessage').show();</script>");
-            }
-        }
+        confirmation("Änderung erfolgreich!", "Dein Passwort wurde erfolgreich aktualisiert.<br>Bitte melde dich mit deinem neuen Passwort wieder an.", "Login-Seite", NULL);
         ?>
         <?php include_once "$root/sites/footer.html" ?>
     </body>

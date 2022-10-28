@@ -24,47 +24,114 @@
             $response["error"] = "Missing id";
         }
     }elseif($app == "add"){
-        $response["performed"] = "add";
-        $conn = getsqlconnection();
-        $sql = $conn->prepare("INSERT INTO users (username, titel, vorname, nachname, password_hash, email, role, faecher) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $sql->bind_param("ssssssss", $_POST["addusername"], $_POST["titel"], $_POST["vorname"], $_POST["nachname"], $_POST["generatedpassword"], $_POST["email"], $_POST["position"], $_POST["faecher"]);
-        $sql->execute();
-        if($sql->affected_rows != 0){
-            $response["data"] = true;
+        $user = verifyapi($username, $password);
+        if(!is_array($user)){
+            $response["error"] = $user;
         }else{
-            $response["data"] = false;
+            if($user["perms"]["user.administration"] == 1){
+                $response["performed"] = "add";
+                $conn = getsqlconnection();
+                $displayname = mb_substr($_POST["vorname"], 0, 1).".";
+                $sql = $conn->prepare("INSERT INTO users (username, titel, vorname, nachname, display_vorname, password_hash, email, role, faecher) VALUES (?, NULLIF(?, ''), ?, ?, ?, ?, ?, ?, NULLIF(?, ''))");
+                $sql->bind_param("sssssssss", $_POST["addusername"], $_POST["titel"], $_POST["vorname"], $_POST["nachname"], $displayname, $_POST["generatedpassword"], $_POST["email"], $_POST["position"], $_POST["faecher"]);
+                $sql->execute();
+                if($sql->affected_rows != 0){
+                    $response["success"] = true;
+                }else{
+                    $response["success"] = false;
+                }
+            }else{
+                $response["error"] = "Missing priviliges";
+            }
         }
     }elseif($app == "adminupdate"){
-        $response["performed"] = "update";
-        $response["id"] = $id;
-        $response["username"] = $_POST["addusername"];
-        $response["titel"] = $_POST["titel"];
-        $response["vorname"] = $_POST["vorname"];
-        $response["nachname"] = $_POST["nachname"];
-        $response["email"] = $_POST["email"];
-        $response["position"] = $_POST["position"];
-        $response["faecher"] = $_POST["faecher"];
-    }elseif($app == "selfupdate"){
-        $response["performed"] = "update";
-        $response["id"] = $id;
-        $response["displayname"] = $_POST["displayname"];
-        $response["description"] = $_POST["description"];
-    }elseif($app == "delete"){
-        $response["performed"] = "delete user";
-        if(isset($id)){
-            $response["data"] = mysqli_query(getsqlconnection(), "DELETE FROM users WHERE id='".$id."'");
+        $user = verifyapi($username, $password);
+        if(!is_array($user)){
+            $response["error"] = $user;
         }else{
-            $response["error"] = "Missing id";
+            if($user["perms"]["user.administration"] == 1){
+                $response["performed"] = "update";
+                $conn = getsqlconnection();
+                $sql = $conn->prepare("UPDATE users SET username=?, titel=NULLIF(?, ''), vorname=?, nachname=?, email=?, role=?, faecher=NULLIF(?, '') WHERE id=?");
+                $sql->bind_param("ssssssss", $_POST["addusername"], $_POST["titel"], $_POST["vorname"], $_POST["nachname"], $_POST["email"], $_POST["position"], $_POST["faecher"], $id);
+                $sql->execute();
+                if($sql->affected_rows != 0){
+                    $response["success"] = true;
+                }else{
+                    $response["success"] = false;
+                }
+            }else{
+                $response["error"] = "Missing priviliges";
+            }
+        }
+    }elseif($app == "selfupdate"){
+        $user = verifyapi($username, $password);
+        if(!is_array($user)){
+            $response["error"] = $user;
+        }else{
+            if($user["id"] == $id){
+                $response["performed"] = "update";
+                $conn = getsqlconnection();
+                $sql = $conn->prepare("UPDATE users SET display_vorname=NULLIF(?, ''), infotext=NULLIF(?, '') WHERE id=?");
+                $sql->bind_param("sss", $_POST["displayname"], $_POST["description"], $id);
+                $sql->execute();
+                if($sql->affected_rows != 0){
+                    $response["success"] = true;
+                }else{
+                    $response["success"] = false;
+                }
+            }else{
+                $response["error"] = "Missing priviliges";
+            }
+        }
+    }elseif($app == "delete"){
+        $user = verifyapi($username, $password);
+        if(!is_array($user)){
+            $response["error"] = $user;
+        }else{
+            if($user["perms"]["user.administration"] == 1){
+                $response["performed"] = "delete user";
+                if(isset($id)){
+                    $conn = getsqlconnection();
+                    $sql = $conn->prepare("DELETE FROM users WHERE id=?");
+                    $sql->bind_param("s", $id);
+                    $sql->execute();
+                    if($sql->affected_rows != 0){
+                        $response["success"] = true;
+                    }else{
+                        $response["success"] = false;
+                    }
+                }else{
+                    $response["error"] = "Missing id";
+                }
+            }else{
+                $response["error"] = "Missing priviliges";
+            }
         }
     }elseif($app == "changepassword"){
-        $response["id"] = $_POST["id"];
-        $response["oldpassword"] = $_POST["password"];
-        $response["newpassword"] = $_POST["newpassword"];
-        $response["performed"] = "changedpassword";
+        $user = verifyapi($username, $password);
+        if(!is_array($user)){
+            $response["error"] = $user;
+        }else{
+            $response["performed"] = "changedpassword";
+            $conn = getsqlconnection();
+            $sql = $conn->prepare("UPDATE users SET password_hash=? WHERE id=? && password_hash=?;");
+            $sql->bind_param("sss", $_POST["newpassword_hash"], $user["id"], $password);
+            $sql->execute();
+            if($sql->affected_rows != 0){
+                $response["success"] = true;
+            }else{
+                $response["success"] = false;
+            }
+        }
+    }elseif($app == "testverification"){
+        $user = verifyapi($username, $password);
+        if(!is_array($user)){
+            $response["error"] = $user;
+        }
+        $response["user"] = $user;
     }else{
         $response["error"] = "Application unknown";
     }
-    $response["success"] = true;
     echo json_encode($response);
-    // TODO: add user verification
 ?>
