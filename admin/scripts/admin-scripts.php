@@ -18,6 +18,32 @@
         return get_connection();
     }
 
+    function verifyapi($username, $passhash) {
+        $conn = getsqlconnection();
+        $sql = $conn->prepare("SELECT id, vorname, nachname, role FROM users WHERE username=? AND password_hash=?;");
+        $sql->bind_param("ss", $username, $passhash);
+        $sql->execute();
+        $response["username"] = $username;
+        $response["password_hash"] = $passhash;
+        $data = $sql->get_result()->fetch_assoc();
+        if(is_array($data)){
+            foreach($data as $key => $value){
+                $response[$key] = $value;
+            }
+            $sql = $conn->prepare("SELECT * FROM roles WHERE name=?;");
+            $sql->bind_param("s", $response["role"]);
+            $sql->execute();
+            $perms = $sql->get_result()->fetch_assoc();
+            foreach($perms as $key => $value){
+                if($key == "name" || $key == "id")continue;
+                $response["perms"][$key] = $value;
+            }
+        }else{
+            return "verification failed";
+        }
+        return $response;
+    }
+
     function getperm() {
         verifylogin();
 
