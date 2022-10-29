@@ -315,7 +315,8 @@
 
                 function save() {
                     var faecher = '';
-                    $("input[name='chk_group[]']").serializeArray().forEach(function(value){faecher += value.value+";"})
+                    $("input[name='chk_group[]']").serializeArray().forEach(function(value){faecher += value.value+";"});
+                    faecher = faecher.replace(/;+$/, '');
     
                     <?php
                         if($GLOBALS["edit"]){
