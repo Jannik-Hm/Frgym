@@ -10,6 +10,8 @@
         $select = mysqli_query(getsqlconnection(), "SELECT * FROM users ".(($incadmin) ? "" : "WHERE role!='Admin' ")."ORDER BY nachname ASC");
         $response["data"] = [];
         while ($db_field = mysqli_fetch_assoc($select)) {
+            unset($db_field["password_hash"]);
+            unset($db_field["username"]);
             array_push($response["data"], $db_field);
         }
     }elseif($app == "getbyid"){
@@ -19,7 +21,9 @@
             $sql = $conn->prepare("SELECT * FROM users WHERE id=?");
             $sql->bind_param("s", $id);
             $sql->execute();
-            $response["data"] = mysqli_fetch_assoc($sql->get_result());
+            $db_field = mysqli_fetch_assoc($sql->get_result());
+            unset($db_field["password_hash"]);
+            $response["data"] = $db_field;
         }else{
             $response["error"] = "Missing id";
         }
