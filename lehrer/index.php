@@ -115,7 +115,7 @@
                         echo("<h1>" . $row["titel"] . " " . ((isset($row["display_vorname"])) ? $row["display_vorname"] : $row["vorname"]) . " " . $row["nachname"] . "</h1>");
                         echo("<h3>" . $row["position"] . "</h3>");
                         $imgdir = "/files/site-ressources/lehrer-bilder/";
-                        $imgpath = $imgdir . strtolower(str_replace(" ","_",$row["vorname"])."_".str_replace(" ","_",$row["nachname"])).".";
+                        $imgpath = $imgdir . $_GET["id"].".";
                         if (file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath."jpg")) {
                             $imgpath = $imgpath."jpg";
                         }elseif (file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath."jpeg")) {
