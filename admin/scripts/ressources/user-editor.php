@@ -269,7 +269,6 @@
                 if(!$GLOBALS["edit"]){
                     echo("
                     <input type='hidden' name='passwort' id='passwort'>
-                    <input type='hidden' name='passwortorigin' id='passwortorigin'> <!-- can be removed when switch to ajax -->
                     <script>
                     function generatePassword() {
                         var length = 16,
@@ -282,13 +281,64 @@
                     }
                     var password_gen = generatePassword();
                     $('#passwort').val(sha256(password_gen));
-                    $('#passwortorigin').val(password_gen);
                     </script>
                     ");
                 }
                 ?>
-                <input style="cursor: pointer;" type="submit" name="submit" <?php if($disabled){echo "disabled";} ?> value="Speichern">
+                <input style="cursor: pointer;" type="button" onclick="save()" name="submit" <?php if($disabled){echo "disabled";} ?> value="Speichern">
             </form>
+            <script>
+
+                function success(data){
+                    if(JSON.parse(data).success){
+                        <?php
+                            if(!$GLOBALS["edit"] && $GLOBALS["user.administration"]){
+                                echo '$("#confirmtext").html($("#confirmtext").html()+password_gen);';
+                            }
+                        ?>
+                        $('.confirm').show();
+                    }
+                }
+
+                function save() {
+                    var faecher = '';
+                    $("input[name='chk_group[]']").serializeArray().forEach(function(value){faecher += value.value+";"})
+    
+                    <?php
+                        if($GLOBALS["edit"]){
+                            if($GLOBALS["user.administration"]){ // Admin Settings API call
+                                echo '$.post("https://frgym.greenygames.de/admin/api/user.php", {action: "adminupdate", addusername: $("input[name=\'benutzername\']").val(), titel: $("input[name=\'titel\']").val(), vorname: $("input[name=\'vorname\']").val(), nachname: $("input[name=\'nachname\']").val(), email: $("input[name=\'email\']").val(), position: $("input[name=\'position\']").serializeArray()[0].value, faecher: faecher, id: "'.$_GET["id"].'", username: "'.$_SESSION["username"].'", password_hash: "'.$_SESSION["password"].'"}, success);';
+                            }
+                            if($ownedit){ // Personal Settings Api call & picture upload TODO: change picture name to id instead of changable name
+                                echo '
+                                    $.post("https://frgym.greenygames.de/admin/api/user.php", {action: "selfupdate", description: $("textarea[name=\'beschreibung\']").val(), displayname: $("input[name=\'display_vorname\']").val(), id: "'.$_GET["id"].'", username: "'.$_SESSION["username"].'", password_hash: "'.$_SESSION["password"].'"}, success);
+                                    var data = new FormData();
+                                    data.append("uploaddir", "site-ressources/lehrer-bilder/");
+                                    data.append("deletefile", $("#deletefile").val());
+                                    data.append("existingfilename", "'.basename($imgpath).'");
+                                    data.append("username", "'.$_SESSION["username"].'");
+                                    data.append("password_hash", "'.$_SESSION["password"].'");
+                                    data.append("filenameoverride", "'.strtolower(str_replace(" ","_",$GLOBALS["userdb"]["vorname"])."_".str_replace(" ","_",$GLOBALS["userdb"]["nachname"])).'");
+                                    data.append("files[]", $("#pictureUpload")[0].files[0]);
+                                    $.ajax({
+                                        url: "https://frgym.greenygames.de/admin/api/file-upload.php",
+                                        data: data,
+                                        type: "post",
+                                        processData: false,
+                                        contentType: false
+                                    })
+                                ';
+                            }
+                        }else{
+                            if($GLOBALS["user.administration"]) { // Add user api call
+                                echo '
+                                    $.post("https://frgym.greenygames.de/admin/api/user.php", {action: "add", addusername: $("input[name=\'benutzername\']").val(), titel: $("input[name=\'titel\']").val(), vorname: $("input[name=\'vorname\']").val(), nachname: $("input[name=\'nachname\']").val(), generatedpassword: $("input[name=\'passwort\']").val(), email: $("input[name=\'email\']").val(), position: $("input[name=\'position\']").serializeArray()[0].value, faecher: faecher, username: "'.$_SESSION["username"].'", password_hash: "'.$_SESSION["password"].'"}, success);
+                                ';
+                            }
+                        }
+                    ?>
+                }
+            </script>
         </div>
     </section>
 
@@ -299,58 +349,7 @@
         }elseif($GLOBALS["edit"]){
             confirmation("Änderungen erfolgreich!", "Der Benutzer wurde erfolgreich aktualisiert.", "Zurück zur Übersicht", "/admin/user/");
         }else{
-            confirmation("Hinzufügen erfolgreich!", "Der Benutzer wurde erfolgreich hinzugefügt.<br>Passwort: ", "Weiteren Lehrer hinzufügen", "/admin/user/add/", "Zurück zur Übersicht", "/admin/user/");
+            confirmation("Hinzufügen erfolgreich!", "Der Benutzer wurde erfolgreich hinzugefügt.<br>Passwort: ", "Weiteren Nutzer hinzufügen", "/admin/user/add/", "Zurück zur Übersicht", "/admin/user/");
         }
-    ?>
-
-    <?php
-        if(isset($_POST["submit"])) {
-        $username = $_POST["benutzername"];
-        $titel = $_POST["titel"];
-        $displayvorname = $_POST["display_vorname"];
-        $vorname = $_POST["vorname"];
-        $nachname = $_POST["nachname"];
-        $email = $_POST["email"];
-        $position = $_POST["position"];
-        if(isset($_POST["chk_group"])){
-            $faecher_array = $_POST["chk_group"];
-            $faecher = "";
-            for ($i=0; $i < count($faecher_array); $i++) {
-                $faecher = $faecher.$faecher_array[$i];
-                if ($i < count($faecher_array)-1) {
-                    $faecher = $faecher.";";
-                }
-            }
-        }
-        $infotext = $_POST["beschreibung"];
-        $geburtstag = $_POST["geburtstag"];
-        $conn = getsqlconnection();
-        $passwort = $_POST["passwort"]; //TODO: when switch to ajax change submission of plain text password
-        if($GLOBALS["edit"]){
-            if(isset($_POST["submit"])) {
-                if($GLOBALS["user.administration"] && $ownedit){
-                    $insert = mysqli_query($conn, "UPDATE users SET username='{$username}', titel=NULLIF('{$titel}', ''), vorname='{$vorname}', nachname='{$nachname}', email='{$email}', role='{$position}', faecher='{$faecher}', display_vorname=NULLIF('{$displayvorname}', ''), infotext=NULLIF('{$infotext}', '') WHERE id='{$id}'");
-                }elseif($GLOBALS["user.administration"]){
-                    $insert = mysqli_query($conn, "UPDATE users SET username='{$username}', titel=NULLIF('{$titel}', ''), vorname='{$vorname}', nachname='{$nachname}', email='{$email}', role='{$position}', faecher='{$faecher}' WHERE id='{$id}'");
-                }else{
-                    $insert = mysqli_query($conn, "UPDATE users SET display_vorname=NULLIF('{$displayvorname}', ''), infotext=NULLIF('{$infotext}', '') WHERE id='{$id}'");
-                }
-            }
-        }else{
-            if(isset($_POST["submit"]) && $GLOBALS["user.administration"]) {
-                // $insert = mysqli_query($conn, "INSERT INTO lehrer (vorname, nachname, email, position, faecher, beschreibung) VALUES ('{$vorname}', '{$nachname}', '{$email}', NULLIF('{$position}', ''), '{$faecher}', NULLIF('{$infotext}', ''))");
-                $insert = mysqli_query($conn, "INSERT INTO users (username, titel, display_vorname, vorname, nachname, password_hash, email, role, faecher, infotext) VALUES ('{$username}', NULLIF('{$titel}', ''), NULLIF('{$displayvorname}', ''), '{$vorname}', '{$nachname}', '{$passwort}', '{$email}', '{$position}', '{$faecher}', NULLIF('{$infotext}', ''))");
-            }
-        }
-        if ($insert) {
-            echo("<script>$('#confirmtext').html($('#confirmtext').html()+'".$_POST["passwortorigin"]."');$('.confirm').show();</script>");
-            if($ownedit){
-                if($_POST['deletefile'] == 'true' && $GLOBALS["file_exists"]){ //delete File if delete is true
-                    unlink($root.$imgpath);
-                }
-                uploadfile("site-ressources/lehrer-bilder/", $accepted_files, "pictureUpload", strtolower(str_replace(" ","_",$GLOBALS["userdb"]["vorname"])."_".str_replace(" ","_",$GLOBALS["userdb"]["nachname"])), "lehrer.own");
-            }
-        }
-    }
     ?>
 </section>
