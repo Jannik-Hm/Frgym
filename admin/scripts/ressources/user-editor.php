@@ -9,10 +9,6 @@
     <?php
         $ownedit = $GLOBALS["ownedit"];
         $disabled = $GLOBALS["disabled"];
-        $edit = $GLOABLS["edit"];
-        $id = $GLOBALS["userdb"]["id"];
-        $faecher = $GLOBALS["userdb"]["faecher"];
-        $position = $GLOBALS["userdb"]["role"];
         require_once "$root/sites/credentials.php";
         $conn = get_connection();
     ?>
@@ -22,14 +18,14 @@
                 <?php
                     if($GLOBALS["user.administration"]){
                     echo'
-                    <input type="text" width="" placeholder="Benutzername*" name="benutzername" title="Benutzername" value="'.$GLOBALS["userdb"]["username"].'" '. (($disabled)?"disabled":"").'><br>
+                    <input type="text" width="" placeholder="Benutzername*" name="benutzername" title="Benutzername" '. (($disabled)?"disabled":"").'><br>
                     <div style="display: flex;margin: auto;">
-                        <input style="width: 100px;margin-right: 5px;display: inline-block;" type="text" width="" placeholder="Titel" name="titel" title="Titel" value="'.$GLOBALS["userdb"]["titel"].'">
-                        <input style="margin-left: 5px; margin-right: 0;display: inline-block;"type="text" width="" placeholder="Vorname*" name="vorname" title="Vorname" value="'.$GLOBALS["userdb"]["vorname"].'" '. (($disabled)?"disabled":"").' required>
+                        <input style="width: 100px;margin-right: 5px;display: inline-block;" type="text" width="" placeholder="Titel" name="titel" title="Titel">
+                        <input style="margin-left: 5px; margin-right: 0;display: inline-block;"type="text" width="" placeholder="Vorname*" name="vorname" title="Vorname" '. (($disabled)?"disabled":"").' required>
                     </div>
                     <br>
-                    <input type="text" placeholder="Nachname*" name="nachname" title="Nachname" value="'.$GLOBALS["userdb"]["nachname"].'" '. (($disabled)?"disabled":"").' required><br>
-                    <input type="email" placeholder="Email*" name="email" title="Email" value="'.$GLOBALS["userdb"]["email"].'" '. (($disabled)?"disabled":"").' required><br>
+                    <input type="text" placeholder="Nachname*" name="nachname" title="Nachname" '. (($disabled)?"disabled":"").' required><br>
+                    <input type="email" placeholder="Email*" name="email" title="Email" '. (($disabled)?"disabled":"").' required><br>
                     <div class="position">
                         <label class="heading2">Position</label>
                         <ul style="margin-bottom: 0">';
@@ -41,7 +37,7 @@
                                 }
                             }
                             foreach($roles as $role){
-                                echo('<li><label class="customradio"><input type="radio" name="position" value="'.$role.'"'. (($position == $role) ? "checked ":"") . (($disabled)? "disabled":"").'><span class="radiochk"></span>'.$role.'</label></li>');
+                                echo('<li><label class="customradio"><input type="radio" name="position" value="'.$role.'"'. (($disabled)? "disabled":"").'><span class="radiochk"></span>'.$role.'</label></li>');
                             }
                             echo'
                             <br>
@@ -50,17 +46,13 @@
                     <div class="faecher">
                     <label class="heading2">Fächer</label>
                         <ul>';
-                            $lehrerfaecher = array();
-                            foreach (explode(";", $GLOBALS["userdb"]["faecher"]) as $fach){
-                                $lehrerfaecher[$fach] = true;
-                            }
                             $faecherlist = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/files/site-ressources/faecher-liste.json"), true);
                             foreach($faecherlist as $fachbereich){
                                 echo '
                                 <ul>
                                     <label class="heading">'.$fachbereich["name"].'</label>';
                                     foreach($fachbereich["faecher"] as $fach){
-                                        echo '<li><label class="chkbx_label"><input type="checkbox" name="chk_group[]" value="'.$fach["short"].'"'.(($lehrerfaecher[$fach["short"]])?"checked ":"").(($disabled)? "disabled":"").'><span class="chkbx"></span>'.str_replace(["Gesellschafts-wissenschaften", "<br>"],["Gesellschaftswissenschaften", " / "],$fach["name"]).'</label></li>';
+                                        echo '<li><label class="chkbx_label"><input type="checkbox" name="chk_group[]" value="'.$fach["short"].'"'.(($disabled)? "disabled":"").'><span class="chkbx"></span>'.str_replace(["Gesellschafts-wissenschaften", "<br>"],["Gesellschaftswissenschaften", " / "],$fach["name"]).'</label></li>';
                                     }
                                 echo '</ul>';
                             }
@@ -73,9 +65,9 @@
                 <?php
                     if($ownedit){
                         echo'
-                        <input type="text" name="display_vorname" placeholder="Sichtbarer Vorname" title="Sichtbarer Vorname" value="'.$GLOBALS["userdb"]["display_vorname"].'"><br>
+                        <input type="text" name="display_vorname" placeholder="Sichtbarer Vorname" title="Sichtbarer Vorname"><br>
                         <div class="grow-wrap">
-                        <textarea name="beschreibung" columns="50%" class="normal" onInput="this.parentNode.dataset.replicatedValue = this.value" placeholder="Infotext (Optional)" title="Infotext" '.(($disabled)? "disabled":"").'>'.$GLOBALS["userdb"]["infotext"].'</textarea>
+                        <textarea name="beschreibung" columns="50%" class="normal" onInput="this.parentNode.dataset.replicatedValue = this.value" placeholder="Infotext (Optional)" title="Infotext" '.(($disabled)? "disabled":"").'></textarea>
                         </div>
                         <br>
                         ';
@@ -106,11 +98,8 @@
                 <!-- New Dropzone -->
                 <?php
                     if($ownedit){
-                        $accepted_files = array("jpg","jpeg","png", "webp", "JPG", "JPEG", "PNG", "WEBP");
-                        $accept_string = "";
-                        foreach($accepted_files as $accepted_type) {
-                            $accept_string = $accept_string.".".$accepted_type.",";
-                        }
+                        $accepted_files = array("jpg","jpeg","png", "webp");
+                        $accept_string = implode(",", $accepted_files);
                         echo ('
                         <input type="file" name="pictureUpload[]" id="pictureUpload" accept="'.$accept_string.'" hidden>
                         <div id="dropzone_new" class="normal" ondragover="dragOverHandler(event);" style="">
@@ -210,7 +199,7 @@
                         <div>
                         ');
                         $GLOBALS["file_exists"] = false;
-                        $imgpath = "/files/site-ressources/lehrer-bilder/" . strtolower(str_replace(" ","_",$GLOBALS["userdb"]["vorname"])."_".str_replace(" ","_",$GLOBALS["userdb"]["nachname"])).".";
+                        $imgpath = "/files/site-ressources/lehrer-bilder/" . $_GET["id"].".";
                         $phppath = $root.$imgpath;
                         foreach($accepted_files as $extens){
                             if (file_exists($phppath.$extens)) {
@@ -289,6 +278,30 @@
             </form>
             <script>
 
+                function setdata(data){
+                    Object.entries(JSON.parse(data).data).forEach(function(val) {
+                        if(val[0] == "username"){
+                            $("input[name='benutzername']").val(val[1]);
+                        }else if(val[0] == "role"){
+                            $("input[name='position']").attr("checked", null);
+                            $("input[name='position'][value='"+val[1]+"']").prop("checked", true);
+                        }else if(val[0] == "faecher"){
+                            $("input[name='chk_group[]']").prop("checked", false);
+                            if(val[1] != null){
+                                val[1].split(";").forEach(function(val) {
+                                    $("input[name='chk_group[]'][value='"+val+"']").prop("checked", true);
+                                });
+                            }
+                        }else if(val[0] == "infotext"){
+                            $("textarea[name='beschreibung']").val(val[1]);
+                        }else{
+                            $("input[name='"+val[0]+"']").val(val[1]);
+                        }
+                    })
+                }
+
+                $.post("https://frgym.greenygames.de/admin/api/user.php", {action: "getbyid", id: "<?php echo $_GET["id"] ?>"}, setdata);
+
                 function success(data){
                     if(JSON.parse(data).success){
                         <?php
@@ -318,7 +331,7 @@
                                     data.append("existingfilename", "'.basename($imgpath).'");
                                     data.append("username", "'.$_SESSION["username"].'");
                                     data.append("password_hash", "'.$_SESSION["password"].'");
-                                    data.append("filenameoverride", "'.strtolower(str_replace(" ","_",$GLOBALS["userdb"]["vorname"])."_".str_replace(" ","_",$GLOBALS["userdb"]["nachname"])).'");
+                                    data.append("filenameoverride", "'.$_GET["id"].'");
                                     data.append("files[]", $("#pictureUpload")[0].files[0]);
                                     $.ajax({
                                         url: "https://frgym.greenygames.de/admin/api/file-upload.php",
