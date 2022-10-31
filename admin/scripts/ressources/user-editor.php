@@ -327,6 +327,7 @@
                                 echo '
                                     $.post("https://frgym.greenygames.de/admin/api/user.php", {action: "selfupdate", description: $("textarea[name=\'beschreibung\']").val(), displayname: $("input[name=\'display_vorname\']").val(), id: "'.$_GET["id"].'", username: "'.$_SESSION["username"].'", password_hash: "'.$_SESSION["password"].'"}, success);
                                     var data = new FormData();
+                                    data.append("action", "file-upload");
                                     data.append("uploaddir", "site-ressources/lehrer-bilder/");
                                     data.append("deletefile", $("#deletefile").val());
                                     data.append("existingfilename", "'.basename($imgpath).'");

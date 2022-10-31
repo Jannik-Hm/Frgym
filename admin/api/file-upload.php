@@ -59,31 +59,34 @@
         }
     }
 
-    $user = verifyapi($username, $password);
-    if(!is_array($user)){
-        $response["error"] = $user;
-    }else{
-        if(!is_null($user["id"])){
-            $response["performed"] = "uploadfile";
-            $fileinputname = "files";
-            $accepted_files = array("jpg","jpeg","png", "webp", "pdf", "docx", "doc");
-
-            if(!is_null($_POST["existingfilename"])){
-                $existingfilename = $_POST["existingfilename"];
-            }else{
-                $existingfilename = basename($_FILES[$fileinputname]["name"][$i]);
-            }
-            $filepath = realpath($_SERVER["DOCUMENT_ROOT"])."/files/".$_POST["uploaddir"]."/".$existingfilename;
-
-            if(filter_var($_POST['deletefile'], FILTER_VALIDATE_BOOLEAN) && file_exists($filepath)){ //delete File if delete is true
-                unlink($filepath);
-            }
-            if(!is_null($_FILES[$fileinputname])){
-                uploadfile($_POST["uploaddir"], $accepted_files, $fileinputname, $_POST["filenameoverride"]);
-            }
+    if($_POST["action"] == "file-upload"){
+        $user = verifyapi($username, $password);
+        if(!is_array($user)){
+            $response["error"] = $user;
         }else{
-            $response["error"][] = "Missing authentication";
+            if(!is_null($user["id"])){
+                $response["performed"] = "uploadfile";
+                $fileinputname = "files";
+                $accepted_files = array("jpg","jpeg","png", "webp", "pdf", "docx", "doc");
+    
+                if(!is_null($_POST["existingfilename"])){
+                    $existingfilename = $_POST["existingfilename"];
+                }else{
+                    $existingfilename = basename($_FILES[$fileinputname]["name"][$i]);
+                }
+                $filepath = realpath($_SERVER["DOCUMENT_ROOT"])."/files/".$_POST["uploaddir"]."/".$existingfilename;
+    
+                if(filter_var($_POST['deletefile'], FILTER_VALIDATE_BOOLEAN) && file_exists($filepath)){ //delete File if delete is true
+                    unlink($filepath);
+                }
+                if(!is_null($_FILES[$fileinputname])){
+                    uploadfile($_POST["uploaddir"], $accepted_files, $fileinputname, $_POST["filenameoverride"]);
+                }
+            }else{
+                $response["error"][] = "Missing authentication";
+            }
         }
     }
+
     echo json_encode($response);
 ?>
