@@ -56,7 +56,7 @@ section a button i {
 }
 
 .parallax {
-    background-image: url("/img/front.webp");
+    background-image: url("/files/site-ressources/schul-bilder/main.jpg");
 
     position: relative;
     height: 100vh;
@@ -79,7 +79,7 @@ section a button i {
     width: 100%;
     height: 100%;
     z-index: 0;
-    background-color: rgba(133, 133, 133, 0.5);
+    background-color: rgba(133, 133, 133, 0.25);
 }
 
 @media only screen and (max-device-width: 1366px) {
@@ -106,7 +106,7 @@ section a button i {
     border-radius: 50px;
 }
 
-#mainSecond > div > div > p a {
+#mainSecond>div>div>p a {
     text-decoration: underline dotted #3d859c 1px;
 }
 
@@ -155,18 +155,18 @@ section a button i {
     position: relative;
 }
 
-#mainSecond > div {
+#mainSecond>div {
     display: flex;
     align-items: center;
 }
 
-#mainSecond > div > div:nth-child(2) {
+#mainSecond>div>div:nth-child(2) {
     /* width: 34%; */
     margin: auto;
     padding: 30px 0px 30px 0px;
 }
 
-#mainSecond > div > div:nth-child(2) > p:nth-child(1) {
+#mainSecond>div>div:nth-child(2)>p:nth-child(1) {
     border: 1px solid #3d859c;
     border-radius: 20px;
     width: fit-content;
@@ -176,13 +176,14 @@ section a button i {
     font-size: 25px;
 }
 
-#mainSecond > div > div:first-child,
-#mainSecond > div div:last-child {
+#mainSecond>div>div:first-child,
+#mainSecond>div div:last-child {
     width: 33%;
 }
 
-#mainSecond > div > div:first-child > img,
-#mainSecond > div div:last-child > img {
+#mainSecond>div>div:first-child>img,
+#mainSecond>div div:last-child>img {
+    max-height: 200px;
     width: auto;
     height: 60%;
     margin: auto 45px;
@@ -198,17 +199,17 @@ section a button i {
     position: relative;
 }
 
-#mainThird > div {
+#mainThird>div {
     padding: 60px 0px 0px 0px;
 }
 
-#mainThird > div > p {
+#mainThird>div>p {
     text-align: justify;
     padding: 30px 0px;
     margin: 0px 10vw;
 }
 
-#mainThird > div > p:nth-child(1) {
+#mainThird>div>p:nth-child(1) {
     border: 1px solid #3d859c;
     border-radius: 20px;
     width: fit-content;
@@ -226,11 +227,11 @@ section a button i {
     position: relative;
 }
 
-#mainFourth > div:nth-child(1) {
+#mainFourth>div:nth-child(1) {
     padding-top: 60px;
 }
 
-#mainFourth > div:nth-child(2) {
+#mainFourth>div:nth-child(2) {
     display: flex;
     padding: 30px 0px 30px 0px;
     flex-direction: row;
@@ -240,7 +241,7 @@ section a button i {
     align-items: stretch;
 }
 
-#mainFourth > div:nth-child(2) > div {
+#mainFourth>div:nth-child(2)>div {
     background-color: rgb(213, 231, 229);
     border-radius: 20px;
     width: fit-content;
@@ -248,13 +249,13 @@ section a button i {
     margin: 15px;
 }
 
-#mainFourth > div p {
+#mainFourth>div p {
     text-align: justify;
     padding: 30px 0px;
     margin: 0px 10vw;
 }
 
-#mainFourth > div:nth-child(1) > p:nth-child(1) {
+#mainFourth>div:nth-child(1)>p:nth-child(1) {
     border: 1px solid #3d859c;
     border-radius: 20px;
     width: fit-content;
@@ -264,7 +265,7 @@ section a button i {
     font-size: 25px;
 }
 
-#mainFourth > div:nth-child(2) > div > p:nth-child(1) {
+#mainFourth>div:nth-child(2)>div>p:nth-child(1) {
     font-size: 17px;
     border-bottom: 1px dashed #3d859c;
     padding: 0px;
@@ -272,7 +273,7 @@ section a button i {
     width: fit-content;
 }
 
-#mainFourth > div:nth-child(2) > div > img {
+#mainFourth>div:nth-child(2)>div>img {
     border-radius: 10px;
 }
 
@@ -288,7 +289,7 @@ section a button i {
     padding-top: 40px;
 }
 
-#mainNews > div:nth-child(1) > p:nth-child(1) {
+#mainNews>div:nth-child(1)>p:nth-child(1) {
     border: 1px solid #3d859c;
     border-radius: 20px;
     width: fit-content;
@@ -300,8 +301,9 @@ section a button i {
 }
 
 @media only screen and (max-width: 900px) {
-    #mainSecond > div > div:first-child,
-    #mainSecond > div div:last-child {
+
+    #mainSecond>div>div:first-child,
+    #mainSecond>div div:last-child {
         display: none;
     }
 }
@@ -382,22 +384,26 @@ p {
     color: var(--textcolor);
 }
 
-html, body {
+html,
+body {
     background-color: var(--backgroundcolor);
     color: var(--textcolor);
 }
 
 @media (prefers-color-scheme: dark) {
+
     #mainSecond,
     #mainFourth {
         background-color: #1a1a1a;
     }
+
     #mainThird,
     #mainNews,
-    #mainFourth > div:nth-child(2) > div {
+    #mainFourth>div:nth-child(2)>div {
         background-color: #282828;
     }
-    .parallax::after{
-        background-color: rgba(71, 71, 71, 0.5);
+
+    .parallax::after {
+        background-color: rgba(71, 71, 71, 0.25);
     }
 }
