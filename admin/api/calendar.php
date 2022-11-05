@@ -5,6 +5,17 @@
     $password = $_POST["password_hash"];
     $incadmin = filter_var($_POST["includeadmins"], FILTER_VALIDATE_BOOLEAN);
     $id = $_POST["id"];
+    function getcalperms() {
+        $responsearray = array();
+        $sql = mysqli_query(getsqlconnection(), "SELECT * FROM calendars");
+        while($db_field = mysqli_fetch_assoc($sql)){
+            $temparray = array();
+            $temparray["role"] = $db_field["role"];
+            $temparray["calendars"] = explode(";", $db_field["calendars"]);
+            $responsearray[] = $temparray;
+        }
+        return $responsearray;
+    }
     if($app == "updateperm"){
         $user = verifyapi($username, $password);
         if(!is_array($user)){
@@ -36,10 +47,27 @@
             }
         }
     }elseif($app == "getperms"){
-        $sql = mysqli_query(getsqlconnection(), "SELECT * FROM calendars");
-        while($db_field = mysqli_fetch_assoc($sql)){
-            $response["data"][] = $db_field;
+        $response["data"] = getcalperms();
+    }elseif($app == "getcaldata"){
+        $calarray = array();
+        $permarray = getcalperms();
+        $roles = array_column($permarray, 'role');
+        if(isset($username) && isset($password) && $username != "" && $password != "" && $username != NULL && $password != NULL){
+            if($username == "schueler"){
+                $roleindex = array_search('Schüler*in', $roles);
+            }else{
+                $user = verifyapi($username, $password);
+                if(!is_array($user)){
+                    $response["error"] = $user;
+                }else{
+                    $roleindex = array_search($user["role"], $roles);
+                }
+            }
+        }else{
+            $roleindex = array_search('Öffentlich', $roles);
         }
+        $calarray = $permarray[$roleindex];
+        $response["data"] = $calarray;
     }else{
         $response["error"] = "Application unknown";
     }

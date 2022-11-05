@@ -119,7 +119,7 @@
                 <script>
                     function checkboxes(data){
                         JSON.parse(data).data.forEach(function(entry) {
-                            entry.calendars.split(";").forEach(function(calendar){
+                            entry.calendars.forEach(function(calendar){
                                 $('input[type="checkbox"][name="'+entry.role+'[]"][value="'+calendar+'"]').attr("checked", "checked");
                             })
                         })

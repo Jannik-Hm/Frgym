@@ -38,51 +38,79 @@
               return $newtokenarray["access_token"];
           }
 
-          function getcalendars($access_token, $token_type, $refresh_token, $client_id, $client_secret) {
-            $i = 0;
-            begin:
-            $i++;
+          function getcalids() {
             $curl = curl_init();
 
+            $username = "";
+            $password_hash = "";
+
             curl_setopt_array($curl, [
-              CURLOPT_URL => "https://www.googleapis.com/calendar/v3/users/me/calendarList",
+              CURLOPT_URL => "https://frgym.greenygames.de/admin/api/calendar.php",
               CURLOPT_RETURNTRANSFER => true,
               CURLOPT_ENCODING => "",
               CURLOPT_MAXREDIRS => 10,
               CURLOPT_TIMEOUT => 30,
               CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-              CURLOPT_CUSTOMREQUEST => "GET",
-              CURLOPT_POSTFIELDS => "",
+              CURLOPT_CUSTOMREQUEST => "POST",
+              CURLOPT_POSTFIELDS => "-----011000010111000001101001\r\nContent-Disposition: form-data; name=\"action\"\r\n\r\ngetcaldata\r\n-----011000010111000001101001\r\nContent-Disposition: form-data; name=\"username\"\r\n\r\n".$username."\r\n-----011000010111000001101001\r\nContent-Disposition: form-data; name=\"password_hash\"\r\n\r\n".$password_hash."\r\n-----011000010111000001101001--\r\n",
               CURLOPT_HTTPHEADER => [
-                "Authorization: ".$token_type." ".$access_token.""
+                "Content-Type: multipart/form-data; boundary=---011000010111000001101001"
               ],
             ]);
-
             $response = curl_exec($curl);
-            $err = curl_error($curl);
-
-            if($err){
-              echo("test2");
-            }
-
             curl_close($curl);
+            return json_decode($response, true)["data"]["calendars"];
+          }
 
-            $result = json_decode($response, true);
-
-            if($result["error"]["code"] == 401) {
-              echo("newtoken");
-              $access_token = getnewtoken($refresh_token, $client_id, $client_secret);
-              if(isset($access_token)){
-                $GLOBALS["tokens"]["readonly"]["access_token"] = $access_token;;
-                file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/secrets/GoogleApisecrets.json", json_encode($GLOBALS["tokens"]));
+          function getcalendars($access_token, $token_type, $refresh_token, $client_id, $client_secret) {
+            $responsearray = array();
+            foreach(getcalids() as $calid){
+              $i = 0;
+              begin:
+              $i++;
+              $curl = curl_init();
+  
+              curl_setopt_array($curl, [
+                CURLOPT_URL => "https://www.googleapis.com/calendar/v3/users/me/calendarList/".urlencode($calid),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_POSTFIELDS => "",
+                CURLOPT_HTTPHEADER => [
+                  "Authorization: ".$token_type." ".$access_token.""
+                ],
+              ]);
+  
+              $response = curl_exec($curl);
+              $err = curl_error($curl);
+  
+              if($err){
+                echo("test2");
               }
-              if($i < 2){
-                goto begin;
+  
+              curl_close($curl);
+  
+              $result = json_decode($response, true);
+  
+              if($result["error"]["code"] == 401) {
+                echo("newtoken");
+                $access_token = getnewtoken($refresh_token, $client_id, $client_secret);
+                if(isset($access_token)){
+                  $GLOBALS["tokens"]["readonly"]["access_token"] = $access_token;;
+                  file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/secrets/GoogleApisecrets.json", json_encode($GLOBALS["tokens"]));
+                }
+                if($i < 2){
+                  goto begin;
+                }
+                return;
+              }else{
+                $responsearray[] = $result;
               }
-              return;
-            }else{
-              return $result;
             }
+            return $responsearray;
           }
 
           function getcalevents($calid, $access_token, $token_type, $refresh_token, $client_id, $client_secret){
@@ -144,7 +172,7 @@
   //     $calendars = array_keys($result->fetch_assoc());
   // }
   // TODO: admin selector for permissions: https://stackoverflow.com/questions/30569666/update-if-exists-else-insert-in-sql
-  foreach ($calendars["items"] as $calendar){
+  foreach ($calendars as $calendar){
     // if($calendar["summary"] == "support@frgym.de"){continue;}
     // echo("Kalendar: ".$calendar["summary"]."<br>");
     foreach (getcalevents($calendar["id"], $GLOBALS["tokens"]["readonly"]["access_token"], $GLOBALS["tokens"]["readonly"]["token_type"], $GLOBALS["tokens"]["readonly"]["refresh_token"], $GLOBALS["tokens"]["readonly"]["client_id"], $GLOBALS["tokens"]["readonly"]["client_secret"])["items"] as $entry){
