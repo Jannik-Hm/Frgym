@@ -320,8 +320,11 @@
         <img id="img_preview_'.$contentnum.$GLOBALS["id"].'" src=""></img>';
         if(!$viewer) {
             echo '<div style="display: none" onclick="event.stopPropagation();resetupload(\''.$contentnum.$GLOBALS["id"].'\');" class="popupCloseButton">&times;</div>';
-            echo '<p>Datei hochladen</p>
-            </div>
+            echo '<p>Datei hochladen</p>';
+        }
+        echo '</div>';
+        if($viewer){
+            echo '
             <!-- <div id="submitbtn" onclick=\'$("#file_upload").submit()\' style="display:none">
                 <p>
                 </p>

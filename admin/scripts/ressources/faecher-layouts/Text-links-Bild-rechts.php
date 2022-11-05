@@ -8,7 +8,7 @@
             $row = $result->fetch_assoc();
         }
         if($GLOBALS["viewer"]){
-            echo '<p>'.nl2br($row["content2"]).'</p>';
+            echo '<p style="width: 75%;text-align: left;">'.nl2br($row["content1"]).'</p>';
         }else{
             echo '
             <div class="grow-wrap" style="width: 75%">

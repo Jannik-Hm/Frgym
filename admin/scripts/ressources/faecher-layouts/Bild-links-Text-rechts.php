@@ -13,7 +13,7 @@
         }else{
             echo '
             <div class="grow-wrap" style="width: 75%">
-                <textarea name="content2" id="content2'.$GLOBALS["id"].'" class="normal" onInput="this.parentNode.dataset.replicatedValue = this.value" placeholder="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse, nostrum autem reiciendis quidem quaerat in non laboriosam distinctio officia debitis similique laudantium ducimus doloribus numquam natus error minus eos cupiditate." disabled>'.$row["content1"].'</textarea>
+                <textarea name="content2" id="content2'.$GLOBALS["id"].'" class="normal" onInput="this.parentNode.dataset.replicatedValue = this.value" placeholder="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse, nostrum autem reiciendis quidem quaerat in non laboriosam distinctio officia debitis similique laudantium ducimus doloribus numquam natus error minus eos cupiditate." disabled>'.$row["content2"].'</textarea>
                 <input name="contenttype" type="text" value="Bild-links-Text-rechts" hidden></input>
             </div>
             ';
