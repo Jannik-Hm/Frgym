@@ -210,7 +210,7 @@
           $(\"#termintest\").html(\"".$entry["name"]."\");
           $(\"#termintest1\").html(\"".$entry["eventtype"]."\");
           $(\"#popuptime\").html(\"".(($entry["istime"]) ? date('d.m.Y H:i', $entry["start"]) : date('d.m.Y', $entry["start"])).$endtext."\");
-          $(\"#ics #icslink\").attr(\"href\", geticsuri(\"bla@frgym.de\", \"1666075858\", \"".!$entry["istime"]."\", \"".$entry["start"]."\", \"".$entry["end"]."\", \"".$entry["name"]."\", \"".(($entry["eventtype"] == "Feiertage in Deutschland") ? NULL : $entry["description"])."\", \"".$entry["location"]."\"));
+          $(\"#ics #icslink\").attr(\"href\", geticsuri(\"bla@frgym.de\", Date().now, \"".!$entry["istime"]."\", \"".$entry["start"]."\", \"".$entry["end"]."\", \"".($entry["name"])."\", \"".(($entry["eventtype"] == "Feiertage in Deutschland") ? NULL : $entry["description"])."\", \"".$entry["location"]."\"));
           $(\"#ics #icslink\").attr(\"download\", \"".$entry["name"].".ics\");");
           if(isset($entry["description"]) && $entry["eventtype"] != "Feiertage in Deutschland"){
             echo("$(\"#popupdesc\").html(\"".$entry["description"]."\");$(\"#description\").show();");
@@ -242,60 +242,31 @@
           var ics = [];
           ics.push("BEGIN:VCALENDAR");
           ics.push("VERSION:2.0");
-          ics.push("PRODID:-//Frgym//Schultermin//DE");
-          ics.push("METHOD: Publish");
+          ics.push("PRODID:-// https://frgym.de// Schultermin //DE");
+          ics.push("METHOD:PUBLISH");
           ics.push("BEGIN:VEVENT");
-          ics.push("UID:"+id);
           ics.push("DTSTAMP:"+datestamp);
           var start = new Date(Number(start*1000));
           var end = new Date(Number(end*1000));
           if(dayevent){
-            ics.push("DTSTART;VALUE=DATE:"+start.getFullYear()+(start.getMonth()+1)+start.getDate());
-            ics.push("DTEND;VALUE=DATE:"+end.getFullYear()+(end.getMonth()+1)+end.getDate());
+            ics.push("DTSTART;VALUE=DATE:"+start.getFullYear()+("0" + (start.getMonth()+1)).slice(-2)+("0" + start.getDate()).slice(-2));
+            ics.push("DTEND;VALUE=DATE:"+end.getFullYear()+("0" + (end.getMonth()+1)).slice(-2)+("0" + end.getDate()).slice(-2));
           }else{
-            ics.push("DTSTART;TZID=Europe/Berlin:"+start.getFullYear()+(start.getMonth()+1)+start.getDate()+"T"+("0" + start.getHours()).slice(-2)+("0" + start.getMinutes()).slice(-2)+("0" + start.getSeconds()).slice(-2));
-            ics.push("DTEND;TZID=Europe/Berlin:"+end.getFullYear()+(end.getMonth()+1)+end.getDate()+"T"+("0" + end.getHours()).slice(-2)+("0" + end.getMinutes()).slice(-2)+("0" + end.getSeconds()).slice(-2));
+            ics.push("DTSTART;TZID=Europe/Berlin:"+start.getFullYear()+("0" + (start.getMonth()+1)).slice(-2)+("0" + start.getDate()).slice(-2)+"T"+("0" + start.getHours()).slice(-2)+("0" + start.getMinutes()).slice(-2)+("0" + start.getSeconds()).slice(-2));
+            ics.push("DTEND;TZID=Europe/Berlin:"+end.getFullYear()+("0" + (end.getMonth()+1)).slice(-2)+("0" + end.getDate()).slice(-2)+"T"+("0" + end.getHours()).slice(-2)+("0" + end.getMinutes()).slice(-2)+("0" + end.getSeconds()).slice(-2));
           }
-          ics.push("SUMMARY:"+summary);
-          if(description != null){
-            ics.push("DESCRIPTION:"+description);
+          ics.push("SUMMARY;CHARSET=UTF-8:"+unescape(encodeURI(summary)));
+          if(description != null && description != ""){
+            ics.push("DESCRIPTION;CHARSET=UTF-8:"+unescape(encodeURI(description)));
           }
-          if(location != null){
-            ics.push("LOCATION:"+location);
+          if(location != null && location != ""){
+            ics.push("LOCATION;CHARSET=UTF-8:"+unescape(encodeURI(location)));
           }
           ics.push("END:VEVENT");
           ics.push("END:VCALENDAR");
           var icsstring = ics.join("\r\n");
           return "data:text/calendar;charset=utf8," + escape(icsstring);
       }
-      console.log(geticsuri("bla@frgym.de", "1666075858", "1666137600", "1666224000", "Test", "Testdescr", "Aula"));
-        $(function() {
-            $('.test').click(function(event) {
-                event.preventDefault();
-
-                // Format: https://docs.fileformat.com/email/ics/
-                var icsMSG = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\n";
-                icsMSG += "PRODID:-//Frgym//Schultermin//DE\r\n";
-                icsMSG += "METHOD: Publish\r\n";
-                icsMSG += "BEGIN:VEVENT\r\n";
-                icsMSG += "UID:0592dfb7-a4cb-437e-88c2-4a26d9446e88\r\n"
-                icsMSG += "DTSTAMP:1666075858\r\n";
-                icsMSG += "DTSTART;TZID=Europe/Berlin:20230214T101500\r\n";
-                icsMSG += "DTEND;TZID=Europe/Berlin:20230214T233000\r\n";
-                icsMSG += "SUMMARY:Our Meeting Office\r\n";
-                icsMSG += "LOCATION:Aula\r\n";
-                icsMSG += "END:VEVENT\r\nEND:VCALENDAR";
-                var title = "newEvent.ics";
-                var uri = "data:text/calendar;charset=utf8," + escape(icsMSG);
-                var link = $("<a>", {
-                  href: uri,
-                  download: title,
-                  target: "_BLANK"
-                }).html("").appendTo("body");
-                link.get(0).click();
-                link.remove();
-            });
-          });
     </script>
     </div>
   </section>
@@ -702,6 +673,14 @@
               },
               content: [
                 {
+                  layout: {
+                    hLineWidth: function (i, node) {
+                      return (i === 0 || i === node.table.body.length) ? 0.6 : 0.3;
+                    },
+                    vLineWidth: function (i, node) {
+                      return (i === 0 || i === node.table.widths.length) ? 0.6 : 0.3;
+                    },
+                  },
                   table: {
                     // headers are automatically repeated if the table spans over multiple pages
                     // you can declare how many rows should be treated as headers
@@ -711,9 +690,17 @@
                     body: globaltable[0]
                   },
                   pageBreak: "after",
-                  fontSize: 9
+                  fontSize: 9.5
                 },
                 {
+                  layout: {
+                    hLineWidth: function (i, node) {
+                      return (i === 0 || i === node.table.body.length) ? 0.6 : 0.3;
+                    },
+                    vLineWidth: function (i, node) {
+                      return (i === 0 || i === node.table.widths.length) ? 0.6 : 0.3;
+                    },
+                  },
                   table: {
                     // headers are automatically repeated if the table spans over multiple pages
                     // you can declare how many rows should be treated as headers
@@ -722,7 +709,7 @@
 
                     body: globaltable[1]
                   },
-                  fontSize: 9
+                  fontSize: 9.5
                 }
               ]
 
