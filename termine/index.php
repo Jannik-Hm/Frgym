@@ -15,35 +15,9 @@
     <body>
       <?php include_once "$root/sites/header.html"; ?>
           <?php
-          $GLOBALS["tokens"] = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/secrets/GoogleApisecrets.json"), true);
-
-          function getnewtoken($refresh_token, $client_id, $client_secret){
-            $curlrefresh = curl_init();
-
-              curl_setopt_array($curlrefresh, [
-                CURLOPT_URL => "https://oauth2.googleapis.com/token?client_id=".$client_id."&client_secret=".$client_secret."&grant_type=refresh_token&refresh_token=".$refresh_token."",
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 30,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "POST",
-                CURLOPT_POSTFIELDS => "",
-              ]);
-
-              $newtoken = curl_exec($curlrefresh);
-              $newtokenarray = json_decode($newtoken, true);
-
-              curl_close($curlrefresh);
-              return $newtokenarray["access_token"];
-          }
-
-          function getcalids() {
-            $curl = curl_init();
-
             $username = "";
             $password_hash = "";
-
+            $curl = curl_init();
             curl_setopt_array($curl, [
               CURLOPT_URL => "https://frgym.greenygames.de/admin/api/calendar.php",
               CURLOPT_RETURNTRANSFER => true,
@@ -52,164 +26,23 @@
               CURLOPT_TIMEOUT => 30,
               CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
               CURLOPT_CUSTOMREQUEST => "POST",
-              CURLOPT_POSTFIELDS => "-----011000010111000001101001\r\nContent-Disposition: form-data; name=\"action\"\r\n\r\ngetcaldata\r\n-----011000010111000001101001\r\nContent-Disposition: form-data; name=\"username\"\r\n\r\n".$username."\r\n-----011000010111000001101001\r\nContent-Disposition: form-data; name=\"password_hash\"\r\n\r\n".$password_hash."\r\n-----011000010111000001101001--\r\n",
+              CURLOPT_POSTFIELDS => "-----011000010111000001101001\r\nContent-Disposition: form-data; name=\"action\"\r\n\r\ngeteventlist\r\n-----011000010111000001101001\r\nContent-Disposition: form-data; name=\"username\"\r\n\r\n".$username."\r\n-----011000010111000001101001\r\nContent-Disposition: form-data; name=\"password_hash\"\r\n\r\n".$password_hash."\r\n-----011000010111000001101001--\r\n",
+              CURLOPT_COOKIE => "userid_login=7e41d17fb0044b4586ea2772cb7057db",
               CURLOPT_HTTPHEADER => [
                 "Content-Type: multipart/form-data; boundary=---011000010111000001101001"
               ],
             ]);
             $response = curl_exec($curl);
-            curl_close($curl);
-            return json_decode($response, true)["data"]["calendars"];
-          }
-
-          function getcalendars($access_token, $token_type, $refresh_token, $client_id, $client_secret) {
-            $responsearray = array();
-            foreach(getcalids() as $calid){
-              $i = 0;
-              begin:
-              $i++;
-              $curl = curl_init();
-  
-              curl_setopt_array($curl, [
-                CURLOPT_URL => "https://www.googleapis.com/calendar/v3/users/me/calendarList/".urlencode($calid),
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 30,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "GET",
-                CURLOPT_POSTFIELDS => "",
-                CURLOPT_HTTPHEADER => [
-                  "Authorization: ".$token_type." ".$access_token.""
-                ],
-              ]);
-  
-              $response = curl_exec($curl);
-              $err = curl_error($curl);
-  
-              if($err){
-                echo("test2");
-              }
-  
-              curl_close($curl);
-  
-              $result = json_decode($response, true);
-  
-              if($result["error"]["code"] == 401) {
-                echo("newtoken");
-                $access_token = getnewtoken($refresh_token, $client_id, $client_secret);
-                if(isset($access_token)){
-                  $GLOBALS["tokens"]["readonly"]["access_token"] = $access_token;;
-                  file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/secrets/GoogleApisecrets.json", json_encode($GLOBALS["tokens"]));
-                }
-                if($i < 2){
-                  goto begin;
-                }
-                return;
-              }else{
-                $responsearray[] = $result;
-              }
-            }
-            return $responsearray;
-          }
-
-          function getcalevents($calid, $access_token, $token_type, $refresh_token, $client_id, $client_secret){
-            $i = 0;
-            begin:
-            $i++;
-            $curl = curl_init();
-
-            curl_setopt_array($curl, [
-              CURLOPT_URL => "https://www.googleapis.com/calendar/v3/calendars/".urlencode($calid)."/events?maxResults=2000",
-              CURLOPT_RETURNTRANSFER => true,
-              CURLOPT_ENCODING => "",
-              CURLOPT_MAXREDIRS => 10,
-              CURLOPT_TIMEOUT => 30,
-              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-              CURLOPT_CUSTOMREQUEST => "GET",
-              CURLOPT_POSTFIELDS => "",
-              CURLOPT_HTTPHEADER => [
-                "Authorization: ".$token_type." ".$access_token.""
-              ],
-            ]);
-
-            $response = curl_exec($curl);
             $err = curl_error($curl);
-
-            if($err){
-              echo("test2");
-            }
-
             curl_close($curl);
-
-            $result = json_decode($response, true);
-
-            if($result["error"]["code"] == 401) {
-              echo("newtoken");
-              $access_token = getnewtoken($refresh_token, $client_id, $client_secret);
-              if(isset($access_token)){
-                $GLOBALS["tokens"]["readonly"]["access_token"] = $access_token;;
-                file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/secrets/GoogleApisecrets.json", json_encode($GLOBALS["tokens"]));
-              }
-              if($i < 2){
-                goto begin;
-              }
-              return;
-            }else{
-              return $result;
+            $event_array = json_decode($response, true)["data"];
+            $event_string = "[";
+            foreach($event_array as $entry){
+              if($entry["name"] == "" || $entry["name"] == NULL) continue;
+              $event_string = $event_string."['".$entry["name"]."', new Date(".json_encode(date('Y/m/d H:i:s', $entry["start"]))."), new Date(".json_encode(date('Y/m/d H:i:s', $entry["end"]))."), '".$entry["color"]."', '".$entry["eventtype"]."', ".$entry["istime"]."],";
             }
-          }
-          // $Konferenzen = getcalevents("hsjgf6vsu77oe0kugcabr8btog@group.calendar.google.com", $tokens["readonly"]["access_token"], $tokens["readonly"]["token_type"], $tokens["readonly"]["refresh_token"], $tokens["readonly"]["client_id"], $tokens["readonly"]["client_secret"], $tokens);
-  // echo (print_r($Konferenzen["items"][0]));
-  // echo print_r($Konferenzen);
-  $event_array = array();
-  $calendars = getcalendars($GLOBALS["tokens"]["readonly"]["access_token"], $GLOBALS["tokens"]["readonly"]["token_type"], $GLOBALS["tokens"]["readonly"]["refresh_token"], $GLOBALS["tokens"]["readonly"]["client_id"], $GLOBALS["tokens"]["readonly"]["client_secret"]);
-  $eventcounter = 0;
-  // TODO: add permission system to calendar access
-  // require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
-  // $result = mysqli_query(getsqlconnection,'SELECT id, '.$perm.' FROM calendars WHERE '.$perm.' = 1;');
-  // if ($result->num_rows > 0) {
-  //     $calendars = array_keys($result->fetch_assoc());
-  // }
-  // TODO: admin selector for permissions: https://stackoverflow.com/questions/30569666/update-if-exists-else-insert-in-sql
-  foreach ($calendars as $calendar){
-    // if($calendar["summary"] == "support@frgym.de"){continue;}
-    // echo("Kalendar: ".$calendar["summary"]."<br>");
-    foreach (getcalevents($calendar["id"], $GLOBALS["tokens"]["readonly"]["access_token"], $GLOBALS["tokens"]["readonly"]["token_type"], $GLOBALS["tokens"]["readonly"]["refresh_token"], $GLOBALS["tokens"]["readonly"]["client_id"], $GLOBALS["tokens"]["readonly"]["client_secret"])["items"] as $entry){
-      $name = trim(str_replace(["Erster", "Zweiter", "Dritter", "Vierter", "der", "Deutschen", "Neujahrstag"], ["1.", "2.", "3.", "4.", "d.", "Dt.", "Neujahr"], str_replace(["(regionaler Feiertag)", "Halloween", "St. Martin", "Volkstrauertag", "Totensonntag", "Heilige Drei Könige", "Valentinstag", "Rosenmontag", "Faschingsdienstag", "Aschermittwoch", "Palmsonntag", "Jahrestag der Befreiung vom Nationalsozialismus", "Internationaler Frauentag", "Vatertag", "Fronleichnam", "Allerheiligen", "Mariä Himmelfahrt", "Nikolaustag", "Gründonnerstag", "Karsamstag", "Muttertag"], NULL, (preg_match("(Bayern|Sachsen|Sommerzeit|Thüringen)", $entry["summary"]) === 1) ? "" : $entry["summary"])));
-      $event_array[$eventcounter] = array();
-      $event_array[$eventcounter]["name"] = $name;
-      $event_array[$eventcounter]["color"] = $calendar["backgroundColor"];
-      $event_array[$eventcounter]["eventtype"] = $calendar["summary"];
-      $event_array[$eventcounter]["description"] = $entry["description"];
-      $event_array[$eventcounter]["location"] = $entry["location"];
-      if(isset($entry["start"]["dateTime"]) && isset($entry["end"]["dateTime"])){
-        $event_array[$eventcounter]["start"] = strtotime($entry["start"]["dateTime"]);
-        $event_array[$eventcounter]["end"] = strtotime($entry["end"]["dateTime"]);
-        $event_array[$eventcounter]["istime"] = true;
-      }else{
-        $event_array[$eventcounter]["start"] = strtotime($entry["start"]["date"]);
-        $event_array[$eventcounter]["end"] = strtotime($entry["end"]["date"]);
-        $event_array[$eventcounter]["istime"] = false;
-      }
-      $eventcounter++;
-    }
-  }
-  $eventcounter = 0;
-   // Sort event_array by begin date
-  $keys = array_column($event_array, 'start');
-  array_multisort($keys, SORT_ASC, $event_array);
-  $event_string = "[";
-  foreach($event_array as $entry){
-    if($entry["name"] == "" || $entry["name"] == NULL) continue;
-    $event_string = $event_string."['".$entry["name"]."', new Date(".json_encode(date('Y/m/d H:i:s', $entry["start"]))."), new Date(".json_encode(date('Y/m/d H:i:s', $entry["end"]))."), '".$entry["color"]."', '".$entry["eventtype"]."', ".$entry["istime"]."],";
-  }
-  $event_string = $event_string."]";
-  // echo($event_string);
-  // echo $event_string;
-  // echo("<script>console.log(".$event_string.")</script>");
-
-?>
+            $event_string = $event_string."]";
+          ?>
   <br>
   <section>
     <div class="terminelistdiv">
@@ -326,7 +159,7 @@
 
             var feiertag = "Feiertage in Deutschland";
 
-            var jahrspanne = []; // TODO: Monat und Jahr in String --> split
+            var jahrspanne = [];
 
             var displayedmonths = [8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7];
 
@@ -411,40 +244,6 @@
                 }
             }
               }
-
-
-
-            // apiinput.forEach(displayevent);
-
-            // function displayevent(item){
-            //     // TODO: add for loop for all events longer than 1 day
-            //     // TODO: shortnames for multiple events on same day
-            //     var month = displayedmonths.findIndex(x => x === item[1].getMonth()+1);
-            //     if(globaltable[0][Number(item[1].getDate())][month].text.length >= 3){
-            //         globaltable[0][Number(item[1].getDate())][month].text.push({text: ' /', color: ''});
-            //     }
-            //     globaltable[0][Number(item[1].getDate())][month].text.push({text: ' '+item[0], color: item[3]});
-            // }
-
-            // console.log(globaltable)
-
-            // for(var i=0; i<apiinput.length; i++){
-            //     var year = apiinput[i][1].getFullYear();
-            //     if(year >= jahrspanne[0]){
-            //         var month = displayedmonths.findIndex(x => x === apiinput[i][1].getMonth()+1);
-            //         console.log(apiinput[i][0]+displayedmonths[month]);
-            //         var monthmodifier = (year-jahrspanne[0])*12;
-            //         console.log(apiinput[i][0]+monthmodifier);
-            //         var monthmodifier = monthmodifier + displayedmonths[month] - displayedmonths[0];
-            //         console.log(apiinput[i][0]+monthmodifier);
-            //         var table = Math.floor(monthmodifier/6);
-            //         console.log(table);
-            //         if(globaltable[table][Number(apiinput[i][1].getDate())][month % 6].text.length >= 3){
-            //             globaltable[table][Number(apiinput[i][1].getDate())][month % 6].text.push({text: ' /', color: ''});
-            //         }
-            //         globaltable[table][Number(apiinput[i][1].getDate())][month % 6].text.push({text: ' '+apiinput[i][0], color: apiinput[i][3]});
-            //     }
-            // }
 
             function displayevent(table, date, month, text, color, calendar){
               if(text == "" || text == null){
@@ -586,28 +385,14 @@
                           }
                         }else{
                             if(input[i][0] !== "" && input[i][0] !== null && input[i][0] !== undefined){
-                              // console.log("jahr"+year);
                               var monthmodifier = (year-jahrspanne[0])*12;
-                              // console.log("jahrmodifier"+monthmodifier);
-                              // console.log(input[i][0]+monthmodifier);
                               monthmodifier = monthmodifier + displayedmonths[termin.begin.month] - displayedmonths[0];
-                              // console.log(input[i][0]+monthmodifier);
-                              // if(monthmodifier<0){continue;}
-                              // console.log("m"+termin.begin.month)
-                              // console.log(monthmodifier);
                               var table = Math.floor(monthmodifier/6);
-                              // console.log(monthmodifier/6);
-                              // console.log(table);
-                              // console.log(input[i][0]+displayedmonths[termin.begin.month] + "d"+termin.begin.date+"m"+m);
                               if(globaltable[table] !== undefined){
                                 displayevent(globaltable[table], termin.begin.date, termin.begin.month, input[i][0], input[i][3], input[i][4]);
                               }
                             }
                         }
-                        // console.log(input[i][0]+displayedmonths[termin.begin.month] + "d"+termin.begin.date+"m"+m);
-                        // console.log("Jahresunterschied" + yeardifference);
-                        // console.log("Monatsunterschied" + (monthdifference));
-                        // console.log(table);
                     }
                 }
             }
