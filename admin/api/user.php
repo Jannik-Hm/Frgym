@@ -7,11 +7,12 @@
     $id = $_POST["id"];
     if($app == "getall"){
         $response["performed"] = "getall";
-        $select = mysqli_query(getsqlconnection(), "SELECT * FROM users ".(($incadmin) ? "" : "WHERE role!='Admin' ")."ORDER BY nachname ASC");
+        $select = mysqli_query(getsqlconnection(), "SELECT * FROM users WHERE is_enabled=1 ".(($incadmin) ? "" : "AND role!='Admin' ")."ORDER BY nachname ASC");
         $response["data"] = [];
         while ($db_field = mysqli_fetch_assoc($select)) {
             unset($db_field["password_hash"]);
             unset($db_field["username"]);
+            unset($db_field["is_enabled"]);
             array_push($response["data"], $db_field);
         }
     }elseif($app == "getbyid"){
@@ -23,6 +24,7 @@
             $sql->execute();
             $db_field = mysqli_fetch_assoc($sql->get_result());
             unset($db_field["password_hash"]);
+            unset($db_field["is_enabled"]);
             $response["data"] = $db_field;
         }else{
             $response["error"] = "Missing id";
@@ -97,7 +99,7 @@
                 $response["performed"] = "delete user";
                 if(isset($id)){
                     $conn = getsqlconnection();
-                    $sql = $conn->prepare("DELETE FROM users WHERE id=?");
+                    $sql = $conn->prepare("UPDATE users SET is_enabled=0 WHERE id=?");
                     $sql->bind_param("s", $id);
                     $sql->execute();
                     if($sql->affected_rows != 0){

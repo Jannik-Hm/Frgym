@@ -20,23 +20,45 @@
 
     function verifyapi($username, $passhash) {
         $conn = getsqlconnection();
-        $sql = $conn->prepare("SELECT id, vorname, nachname, role FROM users WHERE username=? AND password_hash=?;");
+        $sql = $conn->prepare("SELECT id, is_enabled, vorname, nachname, role, `fachbereich-verwaltung`, `ag-verwaltung` FROM users WHERE username=? AND password_hash=?;");
         $sql->bind_param("ss", $username, $passhash);
         $sql->execute();
         $response["username"] = $username;
         $response["password_hash"] = $passhash;
         $data = $sql->get_result()->fetch_assoc();
         if(is_array($data)){
-            foreach($data as $key => $value){
-                $response[$key] = $value;
-            }
-            $sql = $conn->prepare("SELECT * FROM roles WHERE name=?;");
-            $sql->bind_param("s", $response["role"]);
-            $sql->execute();
-            $perms = $sql->get_result()->fetch_assoc();
-            foreach($perms as $key => $value){
-                if($key == "name" || $key == "id")continue;
-                $response["perms"][$key] = $value;
+            if($data["is_enabled"]){
+                foreach($data as $key => $value){
+                    if($key == "fachbereich-verwaltung"){
+                        $fachbereich = explode(";", $value);
+                    }elseif($key == "ag-verwaltung"){
+                        $ags = explode(";", $value);
+                    }else{
+                        $response[$key] = $value;
+                    }
+                }
+                $sql = $conn->prepare("SELECT * FROM roles WHERE name=?;");
+                $sql->bind_param("s", $response["role"]);
+                $sql->execute();
+                $perms = $sql->get_result()->fetch_assoc();
+                foreach($perms as $key => $value){
+                    if($key == "name" || $key == "id")continue;
+                    $response["perms"][$key] = $value;
+                }
+                if(isset($fachbereich)){
+                    foreach($fachbereich as $fach){
+                        $response["perms"]["fachbereich"][$fach] = true;
+                    }
+                }
+                if(isset($ags)){
+                    foreach($ags as $ag){
+                        if($ag != ""){
+                            $response["perms"]["ags"][$ag] = true;
+                        }
+                    }
+                }
+            }else{
+                return "account disabled";
             }
         }else{
             return "verification failed";
