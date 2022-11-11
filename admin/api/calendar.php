@@ -84,13 +84,9 @@
             ]);
             $response = curl_exec($curl);
             $err = curl_error($curl);
-            if($err){
-                echo("curlerror");
-            }
             curl_close($curl);
             $result = json_decode($response, true);
             if($result["error"]["code"] == 401) {
-                echo("newtoken");
                 $access_token = getnewtoken($refresh_token, $client_id, $client_secret);
                 if(isset($access_token)){
                 $GLOBALS["tokens"]["readonly"]["access_token"] = $access_token;;
@@ -127,13 +123,9 @@
         ]);
         $response = curl_exec($curl);
         $err = curl_error($curl);
-        if($err){
-            echo("curlerror");
-        }
         curl_close($curl);
         $result = json_decode($response, true);
         if($result["error"]["code"] == 401) {
-            echo("newtoken");
             $access_token = getnewtoken($refresh_token, $client_id, $client_secret);
             if(isset($access_token)){
                 $GLOBALS["tokens"]["readonly"]["access_token"] = $access_token;;
