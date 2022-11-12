@@ -34,114 +34,102 @@
     </head>
     <body>
             <?php
-
-                include_once realpath($_SERVER["DOCUMENT_ROOT"])."/sites/header.html"
-
-            ?>
-
-            <!--<div style="border: 1px solid grey; border-radius: 50px; width: 150px; min-height:200px;" class="lehrer">
-                <img src="" style="border:1px solid black; border-radius: 15px; width:100px; height:150px; align-self: center;">
-                <h4>Vorname Nachname</h4>
-                <p>Fächer(kürzel)</p>
-            </div>-->
-
-
-
-            <?php
-                require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
-                $conn = getsqlconnection();
-
-                if(!isset($_GET["id"])) {
-                //output every lehrer 
-                    
-                    $sql = "SELECT * FROM users WHERE role!='Admin' ORDER BY nachname ASC;";
-                    $result = mysqli_query($conn,$sql); 
-                    $myArray = array();
-                    if ($result->num_rows > 0) {
-
-                        echo('<input type="text" id="lehrerTableSearch" onkeyup="searchTable();" placeholder="Suche nach Namen...">');
-                        include_once ("./faecherfilter.php");
-                        echo('<table id="lehrerTable">');
-                        echo('<tr class="tableHeader">');
-                        echo('<th>Name</th>');
-                        echo('<th>Fächer</th>');
-                        echo('</tr>');
-                        while($row = $result->fetch_assoc()) {
-                            $faecher = "";
-                            foreach (explode(";", $row["faecher"]) as $fach) {
-                                $faecher = $faecher . " & " . $fach;
-                            }
-                            $faecher = substr($faecher, 3);
-                            echo("<tr onclick=\"window.location='/lehrer/?id=" . $row["id"] . "'\">");
-                            echo("<td>" . $row["titel"]. " " . ((isset($row["display_vorname"])) ? $row["display_vorname"] : $row["vorname"]) . " " . $row["nachname"] . "</td>");
-                            echo("<td>" . $faecher . "</td>");
-                            echo("</a></tr>");
-                        }
-                    } else {
-                        die("0 results.");
+                include_once realpath($_SERVER["DOCUMENT_ROOT"])."/sites/header.html";
+                if(!isset($_GET["id"])){
+                    echo('<input type="text" id="lehrerTableSearch" onkeyup="searchTable();" placeholder="Suche nach Namen...">');
+                    include_once ("./faecherfilter.php");
+                    echo('
+                        <table id="lehrerTable">
+                            <tr class="tableHeader">
+                                <th>Name</th>
+                                <th>Fächer</th>
+                            </tr>
+                        </table>
+                    ');
+                }else{
+                    echo("<section>");
+                    echo("<h1 id='name'></h1>");
+                    echo("<h3 id='position'></h3>");
+                    $imgdir = "/files/site-ressources/lehrer-bilder/";
+                    $imgpath = $imgdir . $_GET["id"].".";
+                    if (file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath."jpg")) {
+                        $imgpath = $imgpath."jpg";
+                    }elseif (file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath."jpeg")) {
+                        $imgpath = $imgpath."jpeg";
+                    }elseif (file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath."png")) {
+                        $imgpath = $imgpath."png";
+                    }elseif (file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath."webp")) {
+                        $imgpath = $imgpath."webp";
+                    }else{
+                        $imgpath = $imgdir."placeholder.webp";
                     }
-                } else {
-                    
-                    $sql = "SELECT * FROM users WHERE id = " . $_GET['id'] . ";";
-                    $result = mysqli_query($conn,$sql); 
-                    $myArray = array();
-                    if ($result->num_rows > 0) {
-                        $row = $result->fetch_assoc();
-                        $faecherlist = explode(";", $row["faecher"]);
-                        for ($i=0; $i<count($faecherlist);$i++){
-                            if($i==0){
-                                $faecher = $faecherlist[$i];
-                            }elseif($i<(count($faecherlist)-1)){
-                                $faecher = $faecher . ", " . $faecherlist[$i];
-                            }else{
-                                $faecher = $faecher . " & " . $faecherlist[$i];
-                            }
-                        };
-                        $faecherlist = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/files/site-ressources/faecher-liste.json"), true);
-                        $shortfacharray = array();
-                        $longfacharray = array();
-                        foreach($faecherlist as $fachbereich){
-                            foreach($fachbereich["faecher"] as $fach){
-                                array_push($shortfacharray, $fach["short"]);
-                                array_push($longfacharray, str_replace(["Gesellschafts-wissenschaften", "<br>"],["Gesellschaftswissenschaften", " / "],$fach["name"]));
-                            }
-                        }
-                        $faecher = str_replace($shortfacharray, $longfacharray, $faecher);
-                        // if(isset($row["datum"])){
-                        //     $date = date_diff(date_create($row["datum"]), date_create(date("Y-m-d")));
-                        // }
-                        #$date = explode("-", $row["datum"])[2] . "." . explode("-", $row["datum"])[1] . "." . explode("-", $row["datum"])[0];
-                        echo("<section>");
-                        echo("<h1>" . $row["titel"] . " " . ((isset($row["display_vorname"])) ? $row["display_vorname"] : $row["vorname"]) . " " . $row["nachname"] . "</h1>");
-                        echo("<h3>" . $row["position"] . "</h3>");
-                        $imgdir = "/files/site-ressources/lehrer-bilder/";
-                        $imgpath = $imgdir . $_GET["id"].".";
-                        if (file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath."jpg")) {
-                            $imgpath = $imgpath."jpg";
-                        }elseif (file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath."jpeg")) {
-                            $imgpath = $imgpath."jpeg";
-                        }elseif (file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath."png")) {
-                            $imgpath = $imgpath."png";
-                        }elseif (file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath."webp")) {
-                            $imgpath = $imgpath."webp";
-                        }else{
-                            $imgpath = $imgdir."placeholder.webp";
-                        }
-                        echo("<img src='".$imgpath."' id=\"lehrerimg\">");
-                        echo("<h2>" . $faecher . "</h2>");
-                        // if(isset($date)) {
-                        //     echo("<h4>" . $date->format("Seit %y Jahren dabei") . "</h4>");
-                        // }
-                        echo("<a href=\"mailto:" . $row["email"] . "\"><button class='email-btn'><i class='fas fa-at'></i> E-Mail</button></a>");
-                        echo("<p>" . $row["beschreibung"] . "</p>");
-                        echo("</section>");
-                    } else {
-                        die("0 results.");
-                    }
+                    echo("<img src='".$imgpath."' id=\"lehrerimg\">");
+                    echo("<h2 id='faecher'></h2>");
+                    echo("<a id='maillink'><button class='email-btn'><i class='fas fa-at'></i> E-Mail</button></a>");
+                    echo("<p id='description'></p>");
+                    echo("</section>");
                 }
             ?>
 
-            </table>
+            <script>
+                var id = <?php echo ((isset($_GET["id"]))?$_GET["id"]:"null") ?>;
+                if(id == null){
+                    var ajax = $.post("https://frgym.greenygames.de/admin/api/user.php", {"action": "getall"}, function(data){console.log(ajax.status); createuserlist(JSON.parse(data)["data"]);});
+                    function createuserlist(data){
+                        data.forEach(function(val, key){
+                            var faecher = "";
+                            var faecherlist = val["faecher"].split(";");
+                            faecherlist.forEach(function(val, key){
+                                faecher += " "+val;
+                                if(key == faecherlist.length-1){
+                                    return;
+                                }else if(key == faecherlist.length-2){
+                                    faecher += " &";
+                                }else{
+                                    faecher += ",";
+                                }
+                            })
+                            $("#lehrerTable").append("<tr onclick=\"window.location='/lehrer/?id="+val["id"]+"'\"><td>"+((val["titel"]!=null)?val["titel"]+" ":"")+((val["display_vorname"]!=null)?val["display_vorname"]:val["vorname"])+" "+val["nachname"]+"</td><td>"+faecher.trim()+"</td></tr>");
+                        });
+                    }
+                }else{
+                    function facharrays(fachlist, data){
+                        var array = [[],[]];
+                            Object.values(fachlist).forEach(function(val){
+                            Object.values(val.faecher).forEach(function(val){
+                                array[0].push(val.name.replace("<br>", " / ").replace("Gesellschafts-wissenschaften", "Gesellschaftswissenschaften"));
+                                array[1].push(val.short);
+                            })
+                        })
+                        var replacestring = "";
+                        array[0].forEach(function(val,key){
+                            replacestring += ".replace('"+array[1][key]+"','"+array[0][key]+"')";
+                        });
+                        faecher = Function("data", "return data.faecher"+replacestring+"");
+                        faecherstring = "";
+                        faecherlist = faecher(data).split(";");
+                        faecherlist.forEach(function(val, key){
+                            faecherstring += " "+val;
+                            if(key == faecherlist.length-1){
+                                return;
+                            }else if(key == faecherlist.length-2){
+                                faecherstring += " &";
+                            }else{
+                                faecherstring += ",";
+                            }
+                        })
+                        $("#faecher").html(faecherstring);
+                    }
+                    var ajax = $.post("https://frgym.greenygames.de/admin/api/user.php", {"action": "getbyid", "id": id}, function(data){console.log(ajax.status); console.log(JSON.parse(data)["data"]);createuserprofile(JSON.parse(data)["data"]);});
+                    function createuserprofile(data){
+                        $("#name").html(((data.titel!=null)?data["titel"]+" ":"")+((data["display_vorname"]!=null)?data["display_vorname"]:data["vorname"])+" "+data["nachname"]);
+                        $("#position").html(data.role);
+                        $("#maillink").attr("href", "mailto:"+data.email);
+                        $("#description").html(data.infotext);
+                        fetch("/files/site-ressources/faecher-liste.json").then(response => {return response.json();}).then(jsondata => facharrays(jsondata, data));
+                    }
+                }
+            </script>
         <?php include_once realpath($_SERVER["DOCUMENT_ROOT"])."/sites/footer.html" ?>
     </body>
 </html>
