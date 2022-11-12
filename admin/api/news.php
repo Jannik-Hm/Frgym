@@ -22,6 +22,7 @@
             $db_field = mysqli_fetch_assoc($sql->get_result());
             $response["data"] = $db_field;
         }else{
+            http_response_code(400);
             $response["error"] = "Missing id";
         }
     }elseif($app == "add"){
@@ -41,6 +42,7 @@
                     $response["success"] = false;
                 }
             }else{
+                http_response_code(403);
                 $response["error"] = "Missing priviliges";
             }
         }
@@ -66,6 +68,7 @@
                     $response["success"] = false;
                 }
             }else{
+                http_response_code(403);
                 $response["error"] = "Missing priviliges";
             }
         }
@@ -91,10 +94,12 @@
                     $response["success"] = false;
                 }
             }else{
+                http_response_code(403);
                 $response["error"] = "Missing priviliges";
             }
         }
     }else{
+        http_response_code(404);
         $response["error"] = "Application unknown";
     }
     echo json_encode($response);

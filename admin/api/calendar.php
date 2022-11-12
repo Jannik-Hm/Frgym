@@ -149,6 +149,11 @@
                 $tempeventarray["name"] = trim(str_replace(["Erster", "Zweiter", "Dritter", "Vierter", "der", "Deutschen", "Neujahrstag"], ["1.", "2.", "3.", "4.", "d.", "Dt.", "Neujahr"], str_replace(["(regionaler Feiertag)", "Halloween", "St. Martin", "Volkstrauertag", "Totensonntag", "Heilige Drei Könige", "Valentinstag", "Rosenmontag", "Faschingsdienstag", "Aschermittwoch", "Palmsonntag", "Jahrestag der Befreiung vom Nationalsozialismus", "Internationaler Frauentag", "Vatertag", "Fronleichnam", "Allerheiligen", "Mariä Himmelfahrt", "Nikolaustag", "Gründonnerstag", "Karsamstag", "Muttertag"], NULL, (preg_match("(Bayern|Sachsen|Sommerzeit|Thüringen)", $entry["summary"]) === 1) ? "" : $entry["summary"])));
                 if($tempeventarray["name"] == "" || $tempeventarray["name"] == NULL) continue;
                 $tempeventarray["description"] = str_replace("\nWenn Sie Gedenktage ausblenden möchten, rufen Sie die Google Kalender-Einstellungen auf > Feiertage in Deutschland", "", $entry["description"]);
+                if(strpos($tempeventarray["description"], "Feiertag") !== false){
+                    $tempeventarray["description"] = "Feiertag";
+                }elseif(strpos($tempeventarray["description"], "Gedenktag") !== false){
+                    $tempeventarray["description"] = "Gedenktag";
+                }
                 $tempeventarray["location"] = $entry["location"];
                 if(isset($entry["start"]["dateTime"]) && isset($entry["end"]["dateTime"])){
                     $tempeventarray["start"] = strtotime($entry["start"]["dateTime"]);
@@ -194,6 +199,7 @@
                     $response["success"] = false;
                 }
             }else{
+                http_response_code(403);
                 $response["error"] = "Missing priviliges";
                 $response["success"] = false;
             }
@@ -215,6 +221,9 @@
                 foreach($event as $key => $value){
                     $temparray[$key] = (($value == "")?NULL:$value);
                 }
+                // Adjust php date format to javascript date format
+                $temparray["start"] = $temparray["start"]*1000;
+                $temparray["end"] = $temparray["end"]*1000;
                 $temparray["color"] = $cal["backgroundColor"];
                 $temparray["eventtype"] = $cal["summary"];
                 array_push($event_array, $temparray);
@@ -225,6 +234,7 @@
         array_multisort($keys, SORT_ASC, $event_array);
         $response["data"] = $event_array;
     }else{
+        http_response_code(404);
         $response["error"] = "Application unknown";
     }
     echo json_encode($response);

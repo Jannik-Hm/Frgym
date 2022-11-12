@@ -58,9 +58,11 @@
                     }
                 }
             }else{
+                http_response_code(403);
                 return "account disabled";
             }
         }else{
+            http_response_code(401);
             return "verification failed";
         }
         return $response;
