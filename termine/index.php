@@ -10,10 +10,6 @@ session_start();
     $root = realpath($_SERVER["DOCUMENT_ROOT"]);
     include_once "$root/sites/head.html"
     ?>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/vfs_fonts.js"></script>
-    <script src="/js/calpdfgen.js"></script>
-    <script src="/js/getcaldata.js"></script>
     <link rel="stylesheet" href="/new-css/termine.css">
     <title>Termine - Friedrich-Gymnasium Luckenwalde</title>
 </head>
@@ -23,6 +19,10 @@ session_start();
   <br>
   <section>
     <div class="terminelistdiv" style="display: none">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/vfs_fonts.js"></script>
+    <script src="/js/calpdfgen.js"></script>
+    <script src="/js/getcaldata.js"></script>
     <script>
       var schueler = <?php echo (isset($_GET["schueler"]))?($_GET["schueler"]):("null") ?>;
       if(schueler){
