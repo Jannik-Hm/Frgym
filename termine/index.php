@@ -18,6 +18,9 @@
   <section>
     <div class="terminelistdiv">
     <script>
+      $(window).on('load', function() {
+        $(".terminelistdiv, #pdfbtn").hide();
+      });
       var ajax = $.post("https://frgym.greenygames.de/admin/api/calendar.php", {"action": "geteventlist", "username":"","password_hash":""}, function(data){console.log(ajax.status); processcaldata(JSON.parse(data)["data"]);});
       function geticsuri(id, datestamp, dayevent, start, end, summary, description=null, location=null){
           var ics = [];
@@ -91,9 +94,14 @@
           ((val["location"] != null)?"$(\"#popuploc\").html(\""+val["location"]+"\");$(\"#location\").show();":"$(\"#location\").hide();")+
           "$(\"#popuptermincolordiv\").css(\"background-color\",\""+val["color"]+"\");'><div class='termindiv'><i class='termincolori'><div style='background-color:"+val["color"]+";'></div></i><span>"+val["name"]+" "+daysleftspan+"</span></div></a>");
         });
+        $(".terminelistdiv, #pdfbtn").show();
+        $(".loadingscreen").hide();
       }
     </script>
     </div>
+  </section>
+  <style>@keyframes spin {0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); }}</style>
+  <section class="loadingscreen" style="position: absolute;background-color: rgba(0,0,0,0.4);top: 0;bottom: 0;display: flex;"><div class="loading" style="border: 16px solid #f3f3f3; /* Light grey */border-top: 16px solid #3498db; /* Blue */border-radius: 50%;width: 120px;height: 120px;animation: spin 2s linear infinite;position: relative;margin: auto;"></div>
   </section>
         <script>
             // playground requires you to assign document definition to a variable called dd
