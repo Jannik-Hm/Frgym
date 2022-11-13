@@ -118,7 +118,7 @@
             <section style="text-align: left; width: clamp(360px, 95%, 2500px);">
                 <script>
                     function checkboxes(data){
-                        JSON.parse(data).data.forEach(function(entry) {
+                        JSON.parse(data).forEach(function(entry) {
                             entry.calendars.forEach(function(calendar){
                                 $('input[type="checkbox"][name="'+entry.role+'[]"][value="'+calendar+'"]').attr("checked", "checked");
                             })
