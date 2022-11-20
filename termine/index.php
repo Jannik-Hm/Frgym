@@ -29,7 +29,7 @@ session_start();
         // TODO: Ask for Schuelercalendar password
         getcaldata("schueler", "schuelerpassword");
       }else{
-        getcaldata("<?php echo (isset($_SESSION["user_id"]))?$_SESSION["username"]:"" ?>", "<?php echo (isset($_SESSION["user_id"]))?$_SESSION["password"]:"" ?>");
+        getcaldata(null, null);
       }
     </script>
     </div>

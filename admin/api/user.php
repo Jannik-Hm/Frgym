@@ -1,5 +1,6 @@
 <?php
     require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+    setsession();
     $app = $_POST["action"];
     $username = $_POST["username"];
     $password = $_POST["password_hash"];

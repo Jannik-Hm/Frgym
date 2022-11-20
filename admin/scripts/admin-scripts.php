@@ -21,7 +21,11 @@
     function verifyapi($username, $passhash) {
         $conn = getsqlconnection();
         $sql = $conn->prepare("SELECT id, is_enabled, vorname, nachname, role, `fachbereich-verwaltung`, `ag-verwaltung` FROM users WHERE username=? AND password_hash=?;");
-        $sql->bind_param("ss", $username, $passhash);
+        if(isset($_SESSION["user_id"]) && (is_null($username) || is_null($passhash))){
+            $sql->bind_param("ss", $_SESSION["username"], $_SESSION["password"]);
+        }else{
+            $sql->bind_param("ss", $username, $passhash);
+        }
         $sql->execute();
         $response["username"] = $username;
         $response["password_hash"] = $passhash;

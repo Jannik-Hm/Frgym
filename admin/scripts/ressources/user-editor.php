@@ -321,18 +321,16 @@
                     <?php
                         if($GLOBALS["edit"]){
                             if($GLOBALS["user.administration"]){ // Admin Settings API call
-                                echo '$.post("https://frgym.greenygames.de/admin/api/user.php", {action: "adminupdate", addusername: $("input[name=\'benutzername\']").val(), titel: $("input[name=\'titel\']").val(), vorname: $("input[name=\'vorname\']").val(), nachname: $("input[name=\'nachname\']").val(), email: $("input[name=\'email\']").val(), position: $("input[name=\'position\']").serializeArray()[0].value, faecher: faecher, id: "'.$_GET["id"].'", username: "'.$_SESSION["username"].'", password_hash: "'.$_SESSION["password"].'"}, success);';
+                                echo '$.post("https://frgym.greenygames.de/admin/api/user.php", {action: "adminupdate", addusername: $("input[name=\'benutzername\']").val(), titel: $("input[name=\'titel\']").val(), vorname: $("input[name=\'vorname\']").val(), nachname: $("input[name=\'nachname\']").val(), email: $("input[name=\'email\']").val(), position: $("input[name=\'position\']").serializeArray()[0].value, faecher: faecher, id: "'.$_GET["id"].'"}, success);';
                             }
                             if($ownedit){ // Personal Settings Api call & picture upload TODO: change picture name to id instead of changable name
                                 echo '
-                                    $.post("https://frgym.greenygames.de/admin/api/user.php", {action: "selfupdate", description: $("textarea[name=\'beschreibung\']").val(), displayname: $("input[name=\'display_vorname\']").val(), id: "'.$_GET["id"].'", username: "'.$_SESSION["username"].'", password_hash: "'.$_SESSION["password"].'"}, success);
+                                    $.post("https://frgym.greenygames.de/admin/api/user.php", {action: "selfupdate", description: $("textarea[name=\'beschreibung\']").val(), displayname: $("input[name=\'display_vorname\']").val(), id: "'.$_GET["id"].'"}, success);
                                     var data = new FormData();
                                     data.append("action", "file-upload");
                                     data.append("uploaddir", "site-ressources/lehrer-bilder/");
                                     data.append("deletefile", $("#deletefile").val());
                                     data.append("existingfilename", "'.basename($imgpath).'");
-                                    data.append("username", "'.$_SESSION["username"].'");
-                                    data.append("password_hash", "'.$_SESSION["password"].'");
                                     data.append("filenameoverride", "'.$_GET["id"].'");
                                     data.append("files[]", $("#pictureUpload")[0].files[0]);
                                     $.ajax({
@@ -347,7 +345,7 @@
                         }else{
                             if($GLOBALS["user.administration"]) { // Add user api call
                                 echo '
-                                    $.post("https://frgym.greenygames.de/admin/api/user.php", {action: "add", addusername: $("input[name=\'benutzername\']").val(), titel: $("input[name=\'titel\']").val(), vorname: $("input[name=\'vorname\']").val(), nachname: $("input[name=\'nachname\']").val(), generatedpassword: $("input[name=\'passwort\']").val(), email: $("input[name=\'email\']").val(), position: $("input[name=\'position\']").serializeArray()[0].value, faecher: faecher, username: "'.$_SESSION["username"].'", password_hash: "'.$_SESSION["password"].'"}, success);
+                                    $.post("https://frgym.greenygames.de/admin/api/user.php", {action: "add", addusername: $("input[name=\'benutzername\']").val(), titel: $("input[name=\'titel\']").val(), vorname: $("input[name=\'vorname\']").val(), nachname: $("input[name=\'nachname\']").val(), generatedpassword: $("input[name=\'passwort\']").val(), email: $("input[name=\'email\']").val(), position: $("input[name=\'position\']").serializeArray()[0].value, faecher: faecher}, success);
                                 ';
                             }
                         }

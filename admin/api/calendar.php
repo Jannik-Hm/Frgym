@@ -1,5 +1,6 @@
 <?php
     require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+    setsession();
     $GLOBALS["tokens"] = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/secrets/GoogleApisecrets.json"), true);
     $app = $_POST["action"];
     $username = $_POST["username"];
@@ -37,7 +38,11 @@
                 }
             }
         }else{
-            $roleindex = array_search('Öffentlich', $roles);
+            if(isset($_SESSION["user_id"])){
+                $roleindex = array_search($user["role"], $roles);
+            }else{
+                $roleindex = array_search('Öffentlich', $roles);
+            }
         }
         $calarray = $permarray[$roleindex];
         $response["data"] = $calarray;

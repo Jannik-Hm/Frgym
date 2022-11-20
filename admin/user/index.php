@@ -44,7 +44,7 @@
                 }
             }
             function deleteuser(id){
-                $.post("https://frgym.greenygames.de/admin/api/user.php", {action: "delete", id: id, username: "<?php echo $_SESSION["username"] ?>", password_hash: "<?php echo $_SESSION["password"] ?>"}, function() {window.location.reload();});
+                $.post("https://frgym.greenygames.de/admin/api/user.php", {action: "delete", id: id}, function() {window.location.reload();});
             }
         </script>
     </head>
@@ -74,7 +74,7 @@
             if(!isset($_GET["id"])) {
             //output every user
                 
-                $sql = "SELECT * FROM users ORDER BY nachname ASC";
+                $sql = "SELECT * FROM users WHERE is_enabled=1 ORDER BY nachname ASC";
                 $result = mysqli_query($conn,$sql);
                 $myArray = array();
                 if ($result->num_rows > 0) {

@@ -154,7 +154,7 @@
                     </form>
                     <script>
                         function save(){
-                            $.post("https://frgym.greenygames.de/admin/api/calendar.php", {action: "updateperm", permdata: JSON.stringify($("input[type='checkbox']").serializeArray()), username: "<?php echo $_SESSION["username"] ?>", password_hash: "<?php echo $_SESSION["password"] ?>"}, success);
+                            $.post("https://frgym.greenygames.de/admin/api/calendar.php", {action: "updateperm", permdata: JSON.stringify($("input[type='checkbox']").serializeArray())}, success);
                         }
                         function success(data){
                             if(JSON.parse(data).success){
