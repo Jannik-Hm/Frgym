@@ -6,7 +6,73 @@
     $password = $_POST["password_hash"];
     $incadmin = filter_var($_POST["includeadmins"], FILTER_VALIDATE_BOOLEAN);
     $id = $_POST["id"];
-    if($app == "getall"){
+    if($app == "getheader"){
+        $user = verifyapi($username, $password);
+        $responsestring = "";
+        if($user["perms"]["user.administration"]){
+            $responsestring .= '
+            <li class="drop-menu">
+                <a href="#"> Benutzerverwaltung <i
+                        class="fa fa-angle-down"></i></a>
+                <ul style="display: none">
+                    <li><a href="/admin/user/">Übersicht</a></li>
+                    <li><a href="/admin/user/add/">Hinzufügen</a></li>
+                </ul>
+            </li>';
+        }
+        if($user["perms"]["news.all"] || $user["perms"]["news.own"]){
+            $responsestring .= '
+            <li class="drop-menu">
+                <a href="#"> News <i class="fa fa-angle-down"></i></a>
+                <ul style="display: none">
+                    <li><a href="/admin/news/">News-Blog</a></li>
+                    <li><a href="/admin/news/add/">Hinzufügen</a></li>
+                </ul>
+            </li>';
+        }
+        if($user["perms"]["docs"]){
+            $responsestring .= '<li><a href="/admin/dokumente/">Dokumente</a></li>';
+        }
+        $responsestring .= '<li><a href="/admin/faecher-editor/faecher-liste.php">Fächer</a></li>';
+        $response["data"] = $responsestring;
+    }elseif($app == "login"){
+        $user = verifyapi($username, $password);
+        if(!is_array($user)){
+            $response["error"] = $user;
+        }else{
+            $_SESSION["username"] = $username;
+            $_SESSION["password"] = $password;
+            $_SESSION["user_id"] = $user["id"];
+            $_SESSION["vorname"] = $user["vorname"];
+            $_SESSION["nachname"] = $user["nachname"];
+            $_SESSION["role"] = $user["role"];
+            $_SESSION["lastlogin"] = $user["lastlogin"];
+            $lastlogin = mysqli_query(getsqlconnection(), "UPDATE users SET lastlogin='".date("Y-m-d H:i")."' WHERE id='".$user["id"]."';");
+            $response = "login successful";
+            http_response_code(200);
+        }
+    }elseif($app == "logout"){
+        $user = verifyapi($username, $password);
+        if(!is_array($user)){
+            $response["error"] = $user;
+        }else{
+            $_SESSION = array();
+            if (ini_get("session.use_cookies")) {
+                $params = session_get_cookie_params();
+                setcookie(session_name(), '', time() - 42000, $params["path"],
+                    $params["domain"], $params["secure"], $params["httponly"]
+                );
+            }
+            $destroy = session_destroy();
+            if(true){
+                $response = "logout successful";
+                http_response_code(200);
+            }else{
+                $response["error"] = "logout failed";
+                http_response_code(400);
+            }
+        }
+    }elseif($app == "getall"){
         $response["performed"] = "getall";
         $select = mysqli_query(getsqlconnection(), "SELECT * FROM users WHERE is_enabled=1 ".(($incadmin) ? "" : "AND role!='Admin' ")."ORDER BY nachname ASC");
         $response["data"] = [];
