@@ -4,7 +4,8 @@ input[type="number"],
 input[type="date"],
 label#file,
 input[type="submit"],
-input[type="password"] {
+input[type="password"],
+input[type="button"] {
     outline: none;
     border: none;
     border-radius: 10px;
@@ -28,8 +29,8 @@ input[type="password"] {
 .customradio {
     display: block;
     position: relative;
-    padding-left: 20px!important;
-    margin-bottom: 7px!important;
+    padding-left: 20px !important;
+    margin-bottom: 7px !important;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -61,18 +62,18 @@ input[type="password"] {
 }
 
 /* On mouse-over, add a grey background color */
-.chkbx_label:hover input[type="checkbox"] ~ .chkbx,
-.customradio:hover input[type="radio"] ~ .radiochk {
+.chkbx_label:hover input[type="checkbox"]~.chkbx,
+.customradio:hover input[type="radio"]~.radiochk {
     background-color: #ccc;
 }
 
 /* When the checkbox is checked, add a blue background */
-.chkbx_label input[type="checkbox"]:checked ~ .chkbx,
-.customradio input[type="radio"]:checked ~ .radiochk {
+.chkbx_label input[type="checkbox"]:checked~.chkbx,
+.customradio input[type="radio"]:checked~.radiochk {
     background-color: #4ba5c2;
 }
 
-  /* Create the checkmark/indicator (hidden when not checked) */
+/* Create the checkmark/indicator (hidden when not checked) */
 .chkbx_label .chkbx:after,
 .customradio .radiochk:after {
     content: "";
@@ -80,13 +81,13 @@ input[type="password"] {
     display: none;
 }
 
-  /* Show the checkmark when checked */
-.chkbx_label input[type="checkbox"]:checked ~ .chkbx:after,
-.customradio input[type="radio"]:checked ~ .radiochk:after {
+/* Show the checkmark when checked */
+.chkbx_label input[type="checkbox"]:checked~.chkbx:after,
+.customradio input[type="radio"]:checked~.radiochk:after {
     display: block;
 }
 
-  /* Style the checkmark/indicator */
+/* Style the checkmark/indicator */
 .chkbx_label .chkbx:after {
     left: 4.25px;
     top: 2px;
@@ -109,13 +110,13 @@ input[type="password"] {
 
 /* Style the indicator (dot/circle) */
 
-.customradio .radiochk:after{
+.customradio .radiochk:after {
     left: 3.5px;
     top: 3.5px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: white;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
 }
 
 /* Custom Radio Button END */
@@ -124,7 +125,8 @@ input[type="text"] {
     padding-left: 10px;
 }
 
-input[type="submit"] {
+input[type="submit"],
+input[type="button"] {
     cursor: pointer;
 }
 
@@ -145,6 +147,7 @@ textarea {
     /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
     display: grid;
 }
+
 .grow-wrap::after {
     /* Note the weird space! Needed to preventy jumpy behavior */
     content: attr(data-replicated-value) " ";
@@ -153,13 +156,15 @@ textarea {
     /* Hidden from view, clicks, and screen readers */
     visibility: hidden;
 }
-.grow-wrap > textarea {
+
+.grow-wrap>textarea {
     /* You could leave this, but after a user resizes, then it ruins the auto sizing */
     resize: none;
     /* Firefox shows scrollbar on growth, you can hide like this. */
     overflow: hidden;
 }
-.grow-wrap > textarea,
+
+.grow-wrap>textarea,
 .grow-wrap::after {
     /* Identical styling required!! */
     border: 1px solid black;
@@ -167,8 +172,8 @@ textarea {
     font: inherit;
     /* Place on top of each other */
     grid-area: 1 / 1 / 2 / 2;
-    min-height: 60px!important;
-    height: auto!important;
+    min-height: 60px !important;
+    height: auto !important;
 }
 
 .showform {
@@ -183,7 +188,9 @@ textarea {
 }
 
 @media (prefers-color-scheme: light) {
-    .showform { background-color: rgb(205, 211, 210); }
+    .showform {
+        background-color: rgb(205, 211, 210);
+    }
 }
 
 .showform p {
@@ -199,6 +206,7 @@ input[type="number"],
 input[type="date"],
 label#file,
 input[type="submit"],
+input[type="button"],
 input[type="password"] {
     background: var(--inputbackground);
     color: var(--inputcolor);

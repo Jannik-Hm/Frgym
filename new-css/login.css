@@ -21,20 +21,20 @@
 
 #loginForm input[type="text"],
 #loginForm input[type="password"] {
-    width: clamp(200px,90%,800px);
+    width: clamp(200px, 90%, 800px);
     height: 45px;
     padding: 20px 10px;
     outline: none;
 }
 
-#loginForm input[type="submit"] {
+#loginForm input[type="button"] {
     margin-top: 15px;
-    width: clamp(150px,70%,400px);
+    width: clamp(150px, 70%, 400px);
     height: 50px;
     cursor: pointer;
 }
 
-#loginForm input[type="submit"]:hover {
+#loginForm input[type="button"]:hover {
     transform: scale(1.05);
     box-shadow: 5px 5px 5px lightgrey;
 }
@@ -61,30 +61,33 @@
 .loginwelcome,
 #loginForm input,
 #loginForm ::placeholder {
-  color: rgb(102, 102, 102);
-  opacity: 1;
+    color: rgb(102, 102, 102);
+    opacity: 1;
 }
 
 #loginForm input[type="text"],
 #loginForm input[type="password"],
 #loginForm input[type="submit"] {
-  background: rgb(205, 211, 210);
+    background: rgb(205, 211, 210);
 }
 
 .loginform #wronginput {
-  color: rgb(233, 94, 75);
+    color: rgb(233, 94, 75);
 }
 
 @media (prefers-color-scheme: dark) {
+
     .loginwelcome,
     #loginForm input {
         color: rgb(235, 235, 235);
     }
+
     #loginForm input[type="text"],
     #loginForm input[type="password"],
     #loginForm input[type="submit"] {
         background: rgb(122, 133, 131);
     }
+
     #loginForm ::placeholder {
         color: rgb(182, 182, 182);
         opacity: 1;
