@@ -27,7 +27,7 @@
             <form method=POST id="loginForm">
                 <input type="text" placeholder=" Loginname*" id="username" required><br>
                 <input type="password" width="" placeholder=" Passwort*" id="password" required><br>
-                <input type="button" onclick="$.post('https:\/\/frgym.greenygames.de/admin/api/user.php', {action: 'login', username: $('#username').val(), password_hash: sha256($('#password').val())}, function(data){handleresponse(JSON.parse(data));}).always(function (jqXHR){if(jqXHR.status != 200){$('#wronginput').show()};});;" value="Login">
+                <input type="button" onclick="$.post('https:\/\/frgym.greenygames.de/admin/api/user.php', {action: 'login', username: $('#username').val(), password_hash: sha256($('#password').val())}, function(data){handleresponse(JSON.parse(data));}).always(function (jqXHR){if(typeof jqXHR.status !== 'undefined'){$('#wronginput').show()};});" value="Login">
             </form>
             <div id="wronginput" style="display: none"><p>Fehler bei der Anmeldung!</p></div>
         </div>
