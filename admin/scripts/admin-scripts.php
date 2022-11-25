@@ -28,7 +28,6 @@
         }
         $sql->execute();
         $response["username"] = $username;
-        $response["password_hash"] = $passhash;
         $data = $sql->get_result()->fetch_assoc();
         if(is_array($data)){
             if($data["is_enabled"]){
