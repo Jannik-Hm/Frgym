@@ -2,6 +2,7 @@
     require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
     $username = $_POST["username"];
     $password = $_POST["password_hash"];
+    $app = $_POST["action"];
 
     function uploadfile($dir, $accepted_files, $inputname, $filenameoverride = null){
         $target_dir = $_SERVER["DOCUMENT_ROOT"]."/files/".$dir;
@@ -58,8 +59,29 @@
             }
         }
     }
+    function delete_directory($dirname) {
+        if (is_dir($dirname)){
+        $dir_handle = opendir($dirname);
+        }
+        if (!$dir_handle){
+        return false;
+        }
+        while($file = readdir($dir_handle)) {
+        if ($file != "." && $file != "..") {
+        if (!is_dir($dirname."/".$file))
+        unlink($dirname."/".$file);
+        else
+        delete_directory($dirname.'/'.$file);
+        }
+        }
+        closedir($dir_handle);
+        rmdir($dirname);
+        return true;
+    }
 
-    if($_POST["action"] == "file-upload"){
+
+
+    if($app == "file-upload"){
         $user = verifyapi($username, $password);
         if(!is_array($user)){
             $response["error"] = $user;
@@ -75,7 +97,7 @@
                     $existingfilename = basename($_FILES[$fileinputname]["name"][$i]);
                 }
                 $filepath = realpath($_SERVER["DOCUMENT_ROOT"])."/files/".$_POST["uploaddir"]."/".$existingfilename;
-    
+
                 if(filter_var($_POST['deletefile'], FILTER_VALIDATE_BOOLEAN) && file_exists($filepath)){ //delete File if delete is true
                     unlink($filepath);
                 }
@@ -86,6 +108,45 @@
                 $response["error"][] = "Missing authentication";
             }
         }
+    }elseif($app == "delete-file"){
+        $user = verifyapi($username, $password);
+        if(!is_array($user)){
+            $response["error"] = $user;
+        }else{
+            $path = $_SERVER["DOCUMENT_ROOT"]."/files/".$_POST["path"];
+            if(is_dir($path)) {
+                delete_directory($path);
+            } else if (is_file($path)){
+                if(unlink($path)){
+                    $response["success"] = true;
+                }else{
+                    $response["success"] = false;
+                }
+            }else{
+                $response["success"] = false;
+            }
+        }
+    }elseif($app == "rename-file"){
+        $filelocation = $_SERVER["DOCUMENT_ROOT"]."/files/";
+        $newname = trim($_POST["newfilename"]);
+        if(pathinfo($_POST["filepath"], PATHINFO_EXTENSION) != null){
+            $newname = $newname.".".pathinfo($_POST["filepath"], PATHINFO_EXTENSION);
+        }
+        $newpath = $filelocation.pathinfo($_POST["filepath"], PATHINFO_DIRNAME)."/";
+        if(rename($filelocation.$_POST["filepath"], $newpath.$newname)) {
+            $response["success"] = true;
+        }else{
+            $response["success"] = false;
+        }
+    }elseif($app == "move-file"){
+        if(rename($_SERVER["DOCUMENT_ROOT"]."/files/".$_POST["filepath"], $_SERVER["DOCUMENT_ROOT"]."/files/".$_POST["newpath"])){
+            $response["success"] = true;
+        }else{
+            $response["success"] = false;
+        }
+    }else{
+        http_response_code(404);
+        $response["error"] = "Application unknown";
     }
 
     echo json_encode($response);
