@@ -50,6 +50,7 @@
                 }
                 if(isset($fachbereich)){
                     foreach($fachbereich as $fach){
+                        if($fach == "") continue;
                         $response["perms"]["fachbereich"][$fach] = true;
                     }
                 }
