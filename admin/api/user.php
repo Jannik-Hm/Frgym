@@ -35,6 +35,13 @@
         }
         $responsestring .= '<li><a href="/admin/faecher-editor/faecher-liste.php">Fächer</a></li>';
         $response["data"] = $responsestring;
+    }elseif($app == "getperms"){
+        $user = verifyapi($username, $password);
+        if(!is_array($user)){
+            $response["error"] = $user;
+        }else{
+            $response["data"] = $user["perms"];
+        }
     }elseif($app == "login"){
         $user = verifyapi($username, $password);
         if(!is_array($user)){
