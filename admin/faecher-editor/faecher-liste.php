@@ -31,7 +31,7 @@
                             <ul class="faecherlist">';
                             foreach($fachbereich["faecher"] as $fach){
                                 if($fach["dark-image"]){$darkpath = '<source srcset="/files/site-ressources/faecher-icons/'.$fach["filename"].'-Dark.svg" media="(prefers-color-scheme: dark)">';}else{$darkpath = NULL;}
-                                echo '<a title="Fach Bearbeiten" href="/admin/faecher-editor/?fach='.$fach["name"].'"><li class="fach"><div><picture>'.$darkpath.'<img src="/files/site-ressources/faecher-icons/'.$fach["filename"].'.svg" class="fachimg"></picture><br><span>'.$fach["name"].'</span></div></li></a>';
+                                echo '<a title="Fach Bearbeiten" href="/admin/faecher-editor/?fach='.$fach["short"].'"><li class="fach"><div><picture>'.$darkpath.'<img src="/files/site-ressources/faecher-icons/'.$fach["filename"].'.svg" class="fachimg"></picture><br><span>'.$fach["name"].'</span></div></li></a>';
                             }
                         echo '
                             </ul>

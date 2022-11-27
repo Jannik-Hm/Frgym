@@ -45,7 +45,7 @@
                         <label class="fachbereich">'.$fachbereich["name"].'</label><br>
                         <ul class="faecherlist">';
                         foreach($fachbereich["faecher"] as $fach){
-                            if($visibilitylist[$fach["name"]] == "visible"){$link = "href='".$_SERVER['PHP_SELF']."?fach=".$fach["name"]."'";}else{$link = NULL;}
+                            if($visibilitylist[$fach["name"]] == "visible"){$link = "href='".$_SERVER['PHP_SELF']."?fach=".$fach["short"]."'";}else{$link = NULL;}
                             if($fach["dark-image"]){$darkpath = '<source srcset="/files/site-ressources/faecher-icons/'.$fach["filename"].'-Dark.svg" media="(prefers-color-scheme: dark)">';}else{$darkpath = NULL;}
                             echo '<a '.$link.'><li class="fach"><figcaption>i</figcaption><object><a href="'.$fach["pic-url"].'" class="imgsource">'.$fach["pic-url"].'</a class="imgsource"></object><div><picture>'.$darkpath.'<img src="/files/site-ressources/faecher-icons/'.$fach["filename"].'.svg" class="fachimg"></picture><br><span>'.$fach["name"].'</span></div></li></a>';
                         }
