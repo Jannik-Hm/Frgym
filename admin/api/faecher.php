@@ -1,5 +1,6 @@
 <?php
     require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+    setsession();
     $app = $_POST["action"];
     $username = $_POST["username"];
     $password = $_POST["password_hash"];
@@ -7,7 +8,13 @@
     $content = $_POST["content"];
     $db = "faecher2";
 
+// TODO: Update layouts to new API
+// TODO: Update file upload/management to ajax
 
+
+    function ajaxsave($contenttype, $content){
+        return '$.post("/admin/api/faecher.php", {action: "saveelement", id: this.id, fach: this.fach, contenttype: "'.$contenttype.'", content: JSON.stringify('.$content.')}, function(){resetedit()})'; //TODO: Add Action when saved
+    }
     function getelementsdata($db, $fach){
         $result = mysqli_query(getsqlconnection(), "SELECT id, contenttype, content FROM ".$db." WHERE fach='".$fach."' AND contenttype!='visibility' ORDER BY LENGTH(position), POSITION ASC");
         $data = [];
@@ -24,41 +31,44 @@
         }
         return $data;
     }
-    function create_segment($segmenttype, $existingid = NULL, $data, $editor=false) {
+    function create_segment($segmenttype, $existingid = NULL, $data, $fach, $editor=false) {
+        $savefunction = "";
         $viewer = !$editor;
         if(isset($existingid)){
-            $GLOBALS["id"] = $existingid;
+            $id = $existingid;
         }else{
-            $GLOBALS["id"] = uniqid();
+            $id = uniqid();
         }
         echo '
-        <li style="margin-bottom: 10px; padding: 10px; padding-bottom: 40px; border: 2px solid #fff; border-radius: 15px" title="'.$segmenttype.'" id="'.$GLOBALS["id"].'">
+        <li style="margin-bottom: 10px; padding: 10px; padding-bottom: 40px; border: 2px solid #fff; border-radius: 15px" title="'.$segmenttype.'" id="'.$id.'">
             <form method="POST" enctype="multipart/form-data">';
                 include(realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/faecher-layouts/$segmenttype.php");
                 if($editor) echo '
-                <input name="id" type="text" value="'.$GLOBALS["id"].'" hidden></input>
+                <input name="id" type="text" value="'.$id.'" hidden></input>
                 <input name="edit" type="checkbox" checked hidden></input>
                 <div style="margin: auto; margin-right: 5px; display: inline-block; float: right; margin-top: 5px;">
-                    <btn class="button" style="cursor:pointer; display: inline-block; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="deleteelement(\''.$GLOBALS["id"].'\')" id="'.$GLOBALS["id"].'delete">Löschen</btn>
-                    <btn class="button" style="cursor:pointer; display: inline-block; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="resetedit(); edit(\''.$GLOBALS["id"].'\');" id="'.$GLOBALS["id"].'edit">Bearbeiten</btn>
-                    <input class="button" style="cursor: pointer; display: none" type="reset" name="" onclick="resetedit()" value="Abbrechen" id="'.$GLOBALS["id"].'abort">
-                    <input class="button"style="cursor: pointer; display: none" type="button" name="submit" value="Speichern" id="'.$GLOBALS["id"].'save">
+                    <btn class="button" style="cursor:pointer; display: inline-block; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="segment'.$id.'.delete()" id="'.$id.'delete">Löschen</btn>
+                    <btn class="button" style="cursor:pointer; display: inline-block; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="resetedit(); segment'.$id.'.edit();" id="'.$id.'edit">Bearbeiten</btn>
+                    <input class="button" style="cursor: pointer; display: none" type="reset" name="" onclick="resetedit()" value="Abbrechen" id="'.$id.'abort">
+                    <btn class="button" style="cursor: pointer; display: none; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="segment'.$id.'.save();" id="'.$id.'save">Speichern</btn>
                 </div>';
                 echo'
             </form>
         </li>';
         if($editor) echo'
         <script>
-            function deleteelement(elementid) {
-                $.post("/admin/api/faecher.php", {action: "removeelement", id: elementid, fach: "'.$fach.'"}, function(){$(\'#\'+elementid).remove()});
-            }
-            // location.reload(); return false;
-            function edit(id) {
-                $(\'#\'+id+\'edit\').hide();
-                $(\'#\'+id+\'abort\').show();
-                $(\'#\'+id+\'save\').show();
-                $(\'[id*="\'+id+\'"][id*="content"]\').attr(\'class\', \'edit\');
-                $(\'[id*="\'+id+\'"][id*="content"]\').removeAttr(\'disabled\');
+            var segment'.$id.' = {
+                id: "'.$id.'",
+                fach: "'.$fach.'",
+                delete: function(){$.post("/admin/api/faecher.php", {action: "removeelement", id: this.id, fach: this.fach}, function(){$(\'#\'+elementid).remove()});},
+                edit: function(){
+                    $(\'#\'+this.id+\'edit\').hide();
+                    $(\'#\'+this.id+\'abort\').show();
+                    $(\'#\'+this.id+\'save\').show();
+                    $(\'[id*="\'+this.id+\'"][id*="content"]\').attr(\'class\', \'edit\');
+                    $(\'[id*="\'+this.id+\'"][id*="content"]\').removeAttr(\'disabled\');
+                },
+                save: Function(\''.$savefunction.'\'),
             }
             function resetedit() {
                 $(\'[id*="edit"]\').show();
@@ -144,7 +154,7 @@
             }
         }
         foreach(getelementsdata($db, $fach) as $entry){
-            create_segment($entry["contenttype"], $entry["id"], $entry["content"], $editor);
+            create_segment($entry["contenttype"], $entry["id"], $entry["content"], $fach, $editor);
         }
         return;
         // Accept Data: $.post("https://frgym.greenygames.de/admin/api/faecher.php", {"action": "getfachelements", "fach": fach, "editor": true/false}, function(data){$(list).append(data)})
@@ -160,7 +170,7 @@
                 $sql->bind_param("sss", $id, $fach, $_POST["contenttype"]);
                 $sql->execute();
                 if($sql->affected_rows != 0){
-                    create_segment($_POST["contenttype"], $id, null, true);
+                    create_segment($_POST["contenttype"], $id, null, $fach, true);
                     return;
                 }else{
                     $response["success"] = false;
