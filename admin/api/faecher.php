@@ -13,10 +13,14 @@
 
 
     function ajaxsave($contenttype, $content){
-        return '$.post("/admin/api/faecher.php", {action: "saveelement", id: this.id, fach: this.fach, contenttype: "'.$contenttype.'", content: JSON.stringify('.$content.')}, function(){resetedit()})'; //TODO: Add Action when saved
+        return 'var id=this.id; var fach = this.fach;$.post("/admin/api/faecher.php", {action: "saveelement", id: id, fach: fach, contenttype: "'.$contenttype.'", content: JSON.stringify('.$content.')}, function(){console.log(id);$.post("/admin/api/faecher.php", {action: "getfachelementbyid", fach: fach, editor: true, id: id}, function(data){$("#"+id).replaceWith(data)});resetedit()})'; //TODO: Add Action when saved
     }
     function getelementsdata($db, $fach){
-        $result = mysqli_query(getsqlconnection(), "SELECT id, contenttype, content FROM ".$db." WHERE fach='".$fach."' AND contenttype!='visibility' ORDER BY LENGTH(position), POSITION ASC");
+        $conn = getsqlconnection();
+        $sql = $conn->prepare("SELECT id, contenttype, content FROM ".$db." WHERE fach=? AND contenttype!='visibility' ORDER BY LENGTH(position), POSITION ASC");
+        $sql->bind_param("s", $fach);
+        $sql->execute();
+        $result = $sql->get_result();
         $data = [];
         while ($db_field = mysqli_fetch_assoc($result)) {
             $temparray = array();
@@ -29,6 +33,24 @@
             }
             array_push($data, $temparray);
         }
+        return $data;
+    }
+    function getelementsdatabyid($db, $fach, $id){
+        $conn = getsqlconnection();
+        $sql = $conn->prepare("SELECT id, contenttype, content FROM ".$db." WHERE fach=? AND contenttype!='visibility' AND id=? ORDER BY LENGTH(position), POSITION ASC");
+        $sql->bind_param("ss", $fach, $id);
+        $sql->execute();
+        $data = [];
+        $db_field = mysqli_fetch_assoc($sql->get_result());
+        $temparray = array();
+        foreach($db_field as $key => $entry){
+            if($key == "content"){
+                $temparray[$key] = json_decode($entry, true);
+            }else{
+                $temparray[$key] = $entry;
+            }
+        }
+        array_push($data, $temparray);
         return $data;
     }
     function create_segment($segmenttype, $existingid = NULL, $data, $fach, $editor=false) {
@@ -158,6 +180,24 @@
         }
         return;
         // Accept Data: $.post("https://frgym.greenygames.de/admin/api/faecher.php", {"action": "getfachelements", "fach": fach, "editor": true/false}, function(data){$(list).append(data)})
+    }elseif($app == "getfachelementbyid"){
+        $editor = filter_var($_POST["editor"], FILTER_VALIDATE_BOOLEAN);
+        if($editor){
+            $user = verifyapi($username, $password);
+            if(!is_array($user)){
+                $editor = false;
+            }else{
+                if(!$user["perms"]["fachbereich"][$fach] && !$user["perms"]["fachbereich"]["admin"]){
+                    $editor = false;
+                    $response["error"] = "missing priviliges";
+                    http_response_code(403);
+                }
+            }
+        }
+        foreach(getelementsdatabyid($db, $fach, $_POST["id"]) as $entry){
+            create_segment($entry["contenttype"], $entry["id"], $entry["content"], $fach, $editor);
+        }
+        return;
     }elseif($app == "createelement"){
         $user = verifyapi($username, $password);
         if(!is_array($user)){
