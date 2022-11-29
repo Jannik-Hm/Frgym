@@ -13,7 +13,7 @@
 
 
     function ajaxsave($contenttype, $content){
-        return 'var id=this.id; var fach = this.fach;$.post("/admin/api/faecher.php", {action: "saveelement", id: id, fach: fach, contenttype: "'.$contenttype.'", content: JSON.stringify('.$content.')}, function(){console.log(id);$.post("/admin/api/faecher.php", {action: "getfachelementbyid", fach: fach, editor: true, id: id}, function(data){$("#"+id).replaceWith(data)});resetedit()})'; //TODO: Add Action when saved
+        return 'var id=this.id; var fach = this.fach;$.post("/admin/api/faecher.php", {action: "saveelement", id: id, fach: fach, contenttype: "'.$contenttype.'", content: JSON.stringify('.$content.')}, function(){console.log(id);$.post("/admin/api/faecher.php", {action: "getfachelementbyid", fach: fach, editor: true, id: id}, function(data){$("#"+id).replaceWith(data);$("#"+id).parent().dragndrop("unload");$("#"+id).parent().dragndrop();});resetedit();})'; //TODO: Add Action when saved
     }
     function getelementsdata($db, $fach){
         $conn = getsqlconnection();
