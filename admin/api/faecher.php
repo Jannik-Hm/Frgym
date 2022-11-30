@@ -117,7 +117,7 @@
                 $paramarray = array();
                 foreach($positionarray as $key => $value){
                     $sqlquery .= " SELECT ? as id, ? as position";
-                    $paramtype .= "ii";
+                    $paramtype .= "si";
                     array_push($paramarray, $value["id"], $value["index"]);
                     if($key < count($positionarray)-1){
                         $sqlquery .= " UNION ALL";
@@ -128,7 +128,7 @@
                 $sql = $conn->prepare($sqlquery);
                 $sql->bind_param($paramtype,...$paramarray);
                 $sql->execute();
-                if($sql->affected_rows != 0){
+                if($sql->affected_rows != 0 && $sql->affected_rows != NULL){
                     $response["success"] = true;
                 }else{
                     $response["success"] = false;

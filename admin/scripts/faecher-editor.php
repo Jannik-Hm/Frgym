@@ -1,6 +1,6 @@
 <?php
 
-    function segment_selector() {
+    function segment_selector($elementlistid) {
         $layouts = scandir(realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/faecher-layouts/");
         echo("
         <link rel='stylesheet' href='/new-css/faecher.css'>
@@ -25,17 +25,12 @@
                     }
                     echo("
                     <script>
-                        function reloaddragndrop() {
-                            $('.test').dragndrop('reload');
-                        }
-
                         function addelement(layout) {
-                            $.get('/admin/scripts/ressources/faecher-layout-add.php?fach=".$_GET["fach"]."&layout='+layout,function(response){
-                                $('.test').append(response);
+                            $.post('/admin/api/faecher.php', {action: 'createelement', fach: '".$_GET["fach"]."', contenttype: layout},function(response){
+                                $('".$elementlistid."').append(response);
+                                $('".$elementlistid."').dragndrop('unload'); $('".$elementlistid."').dragndrop(); save_order();
                             });
                             $('.faecher-selector-popup').hide();
-                            setTimeout(() => reloaddragndrop(), 500);
-                            setTimeout(() => save_order(), 500);
                         }
                     </script>
                     </ul>
@@ -59,17 +54,7 @@
                     positions[i]["index"] = $(this).index();
                     i++;
                 })
-                $.ajax({
-                    url: "/admin/scripts/ressources/faecher-layout-order.php",
-                    type: "post",
-                    data : {
-                        positions: JSON.stringify(positions)
-                    },
-                    dataType: "json",
-                    success: function(data)
-                    {
-                    }
-                });
+                $.post("/admin/api/faecher.php", {action: "updateorder", fach: "'.$_GET["fach"].'", positions: JSON.stringify(positions)}, function(data){});
             }
 
             $("'.$tableidentifier.'").dragndrop({
