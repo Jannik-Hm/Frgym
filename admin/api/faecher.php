@@ -265,9 +265,9 @@
         }else{
             if($user["perms"]["fachbereich"][$fach] || $user["perms"]["fachbereich"]["admin"]){
                 $conn = getsqlconnection();
-                $sqlquery = "INSERT INTO ".$db." (id, contenttype, content, fach) values (?, ?, ?, ?) ON DUPLICATE KEY UPDATE id=?, contenttype=?, content=?, fach=?;";
+                $sqlquery = "INSERT INTO ".$db." (id, contenttype, content, fach) values (?, 'visibility', ?, ?) ON DUPLICATE KEY UPDATE contenttype='visibility', content=?, fach=?;";
                 $sql = $conn->prepare($sqlquery);
-                $sql->bind_param("ssssssss", $_POST["id"], "visibility", $_POST["visibility"], $_POST["fach"], $_POST["id"], "visibility", $_POST["visibility"], $_POST["fach"]);
+                $sql->bind_param("sssss", $_POST["id"], $_POST["visibility"], $_POST["fach"], $_POST["visibility"], $_POST["fach"]);
                 $sql->execute();
                 if($sql->affected_rows != 0){
                     http_response_code(200);

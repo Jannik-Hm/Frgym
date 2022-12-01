@@ -40,132 +40,6 @@
         ");
     }
 
-    function dragndrop($tableidentifier) {
-        echo '
-        <script src="/js/jquery.dragndrop.js"></script>
-        <script>
-            function save_order() {
-                console.log("test");
-                var positions = {};
-                var i = 0;
-                $("'.$tableidentifier.' li").each(function () {
-                    positions[i] = {};
-                    positions[i]["id"] = this.id;
-                    positions[i]["index"] = $(this).index();
-                    i++;
-                })
-                $.post("/admin/api/faecher.php", {action: "updateorder", fach: "'.$_GET["fach"].'", positions: JSON.stringify(positions)}, function(data){});
-            }
-
-            $("'.$tableidentifier.'").dragndrop({
-                onDrop: function( element, droppedElement ) {
-                    save_order();
-                }
-            });
-        </script>';
-
-    }
-
-    function makevisible() {
-        require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
-        $result = mysqli_query(getsqlconnection(), "SELECT id, content1 FROM faecher WHERE fach=\"{$_GET["fach"]}\" AND contenttype='visibility'");
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $id = $row["id"];
-            $content1 = $row["content1"];
-        }else{
-            $id = uniqid();
-            mysqli_query(getsqlconnection(), "INSERT INTO faecher (id, fach, position, contenttype) VALUES (\"{$id}\", \"{$_GET['fach']}\", \"\", \"visibility\")");
-        }
-        if ($content1 == "visible") $checked="checked";
-        echo '
-        <style>
-            .chkbx_label,
-            .customradio {
-                display: block;
-                position: relative;
-                padding-left: 20px!important;
-                margin-bottom: 7px!important;
-                cursor: pointer;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
-            
-            .chkbx_label input[type="checkbox"] {
-                display: none;
-            }
-            
-            .chkbx_label .chkbx,
-            .customradio .radiochk {
-                position: absolute;
-                left: 2px;
-                height: 15px;
-                width: 15px;
-                background-color: #eee;
-            }
-            
-            .chkbx_label .chkbx {
-                border-radius: 3px;
-                top: 1px;
-            }
-            
-            .customradio .radiochk {
-                border-radius: 50%;
-                top: 5px;
-            }
-            
-            /* On mouse-over, add a grey background color */
-            .chkbx_label:hover input[type="checkbox"] ~ .chkbx,
-            .customradio:hover input[type="radio"] ~ .radiochk {
-                background-color: #ccc;
-            }
-
-            /* When the checkbox is checked, add a blue background */
-            .chkbx_label input[type="checkbox"]:checked ~ .chkbx,
-            .customradio input[type="radio"]:checked ~ .radiochk {
-                background-color: #4ba5c2;
-            }
-            
-            /* Create the checkmark/indicator (hidden when not checked) */
-            .chkbx_label .chkbx:after,
-            .customradio .radiochk:after {
-                content: "";
-                position: absolute;
-                display: none;
-            }
-            
-            /* Show the checkmark when checked */
-            .chkbx_label input[type="checkbox"]:checked ~ .chkbx:after,
-            .customradio input[type="radio"]:checked ~ .radiochk:after {
-                display: block;
-            }
-
-            /* Style the checkmark/indicator */
-            .chkbx_label .chkbx:after {
-                left: 4.25px;
-                top: 2px;
-                width: 3px;
-                height: 6px;
-                border: solid white;
-                border-width: 0 3px 3px 0;
-                -webkit-transform: rotate(45deg);
-                -ms-transform: rotate(45deg);
-                transform: rotate(45deg);
-            }
-        </style>
-        <section style="padding: 10px; margin: auto; margin-top: 25px; margin-bottom: 25px; border-radius: 15px; width: clamp(300px, 25vw, 600px);background-color: var(--inputbackground);">
-            <form method="POST" enctype="multipart/form-data" style="display: inline-flex">
-                <label class="chkbx_label" style="margin: auto; width: fit-content; margin-right: 15px"><input type="checkbox" name="content1" value="visible"'.$checked.'><span class="chkbx"></span>Öffentlich sichtbar</label>
-                <input name="id" type="hidden" value="'.$id.'"></input>
-                <input name="contenttype" type="hidden" value="visibility"></input>
-                <input class="button"style="cursor: pointer; margin-left: 15px" type="submit" name="submit" value="Speichern">
-            </form>
-        </section>
-        ';
-    }
-
     function save_segment() {
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         if(isset($_POST["submit"])) {
@@ -268,7 +142,7 @@
         </li>';
     }
 
-    function faecher_img_dropzone($contentnum, $accepted_files, $uploaddir, $viewer) {
+    function faecher_img_dropzone($contentnum, $accepted_files, $uploaddir, $viewer) { // TODO: Update to use file API + fix dropzones
         $accept_string = "";
         foreach($accepted_files as $accepted_type) {
             $accept_string = $accept_string.".".$accepted_type.",";
