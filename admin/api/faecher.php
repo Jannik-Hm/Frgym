@@ -86,7 +86,7 @@
                 edit: function(){
                     $(\'#\'+this.id+\'edit\').hide();
                     $(\'#\'+this.id+\'abort\').show();
-                    $(\'#\'+this.id+\'save\').show();
+                    $(\'#\'+this.id+\'save\').css("display", "inline-block");
                     $(\'[id*="\'+this.id+\'"][id*="content"]\').attr(\'class\', \'edit\');
                     $(\'[id*="\'+this.id+\'"][id*="content"]\').removeAttr(\'disabled\');
                 },
