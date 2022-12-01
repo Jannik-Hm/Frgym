@@ -13,6 +13,8 @@
             <input name="contenttype" type="text" value="Text" hidden></input>
         </div>
         ';
-        $savefunction .= ajaxsave("Text", '[$("#content1'.$id.'").val()]');
+        if(!$preview){
+            $savefunction .= ajaxsave("Text", '[$("#content1'.$id.'").val()]');
+        }
     }
 ?>
