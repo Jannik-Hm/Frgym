@@ -1,8 +1,11 @@
 <?php
     require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+    setsession();
     $username = $_POST["username"];
     $password = $_POST["password_hash"];
     $app = $_POST["action"];
+
+    $file_perm = json_decode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/admin/resources/file-perm.json"), true);
 
     function uploadfile($dir, $accepted_files, $inputname, $filenameoverride = null){
         $target_dir = $_SERVER["DOCUMENT_ROOT"]."/files/".$dir;
@@ -87,24 +90,30 @@
             $response["error"] = $user;
         }else{
             if(!is_null($user["id"])){
-                $response["performed"] = "uploadfile";
-                $fileinputname = "files";
-                $accepted_files = array("jpg","jpeg","png", "webp", "pdf", "docx", "doc");
-    
-                if(!is_null($_POST["existingfilename"])){
-                    $existingfilename = $_POST["existingfilename"];
-                }else{
-                    $existingfilename = basename($_FILES[$fileinputname]["name"][$i]);
-                }
-                $filepath = realpath($_SERVER["DOCUMENT_ROOT"])."/files/".$_POST["uploaddir"]."/".$existingfilename;
+                if($user["perms"][$file_perm[trim($_POST["uploaddir"], "/")]["perm"]] || ($file_perm[trim($_POST["uploaddir"], "/")]["dir-description"] == "faecher" && $user["perms"]["fachbereich"][$_POST["fach"]] && $_POST["fach"] != null && $_POST["fach"] != "") || ($file_perm[trim($_POST["uploaddir"], "/")]["dir-description"] == "profile-picture")){
+                    $response["performed"] = "uploadfile";
+                    $fileinputname = "files";
+                    $accepted_files = array("jpg","jpeg","png", "webp", "pdf", "docx", "doc");
 
-                if(filter_var($_POST['deletefile'], FILTER_VALIDATE_BOOLEAN) && file_exists($filepath)){ //delete File if delete is true
-                    unlink($filepath);
-                }
-                if(!is_null($_FILES[$fileinputname])){
-                    uploadfile($_POST["uploaddir"], $accepted_files, $fileinputname, $_POST["filenameoverride"]);
+                    if(!is_null($_POST["existingfilename"])){
+                        $existingfilename = $_POST["existingfilename"];
+                    }else{
+                        $existingfilename = basename($_FILES[$fileinputname]["name"][$i]);
+                    }
+                    $filepath = realpath($_SERVER["DOCUMENT_ROOT"])."/files/".$_POST["uploaddir"]."/".$existingfilename;
+
+                    if(filter_var($_POST['deletefile'], FILTER_VALIDATE_BOOLEAN) && file_exists($filepath)){ //delete File if delete is true
+                        unlink($filepath);
+                    }
+                    if(!is_null($_FILES[$fileinputname])){
+                        uploadfile($_POST["uploaddir"], $accepted_files, $fileinputname, $_POST["filenameoverride"]);
+                    }
+                }else{
+                    http_response_code(403);
+                    $response["error"][] = "Missing permission";
                 }
             }else{
+                http_response_code(401);
                 $response["error"][] = "Missing authentication";
             }
         }
