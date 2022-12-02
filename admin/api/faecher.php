@@ -69,35 +69,38 @@
                 <input name="id" type="text" value="'.$id.'" hidden></input>
                 <input name="edit" type="checkbox" checked hidden></input>
                 <div style="margin: auto; margin-right: 5px; display: inline-block; float: right; margin-top: 5px;">
-                    <btn class="button" style="cursor:pointer; display: inline-block; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="segment'.$id.'.delete()" id="'.$id.'delete">Löschen</btn>
-                    <btn class="button" style="cursor:pointer; display: inline-block; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="resetedit(); segment'.$id.'.edit();" id="'.$id.'edit">Bearbeiten</btn>
-                    <input class="button" style="cursor: pointer; display: none" type="reset" name="" onclick="resetedit()" value="Abbrechen" id="'.$id.'abort">
-                    <btn class="button" style="cursor: pointer; display: none; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="segment'.$id.'.save();" id="'.$id.'save">Speichern</btn>
+                    <btn class="button" style="cursor:pointer; display: inline-block; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="segment[\''.$id.'\'].delete()" id="'.$id.'delete">Löschen</btn>
+                    <btn class="button" style="cursor:pointer; display: inline-block; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="resetedit(); segment[\''.$id.'\'].edit();" id="'.$id.'edit">Bearbeiten</btn>
+                    <input class="button" style="cursor: pointer; display: none" type="reset" name="" onclick="resetedit();segment[\''.$id.'\'].editactive = false;" value="Abbrechen" id="'.$id.'abort">
+                    <btn class="button" style="cursor: pointer; display: none; text-align: center; box-sizing: border-box; padding: 7px 0;" onclick="segment[\''.$id.'\'].save();" id="'.$id.'save">Speichern</btn>
                 </div>';
                 echo'
             </form>
         </li>';
         if($editor) echo'
         <script>
-            var segment'.$id.' = {
+            segment["'.$id.'"] = {
                 id: "'.$id.'",
                 fach: "'.$fach.'",
-                delete: function(){$.post("/admin/api/faecher.php", {action: "removeelement", id: this.id, fach: this.fach}, function(){$(\'#\'+elementid).remove()});},
+                delete: function(){id=this.id;$.post("/admin/api/faecher.php", {action: "removeelement", id: this.id, fach: this.fach}, function(){$(\'#\'+id).remove()});},
                 edit: function(){
+                    this.editactive = true;
                     $(\'#\'+this.id+\'edit\').hide();
                     $(\'#\'+this.id+\'abort\').show();
                     $(\'#\'+this.id+\'save\').css("display", "inline-block");
-                    $(\'[id*="\'+this.id+\'"][id*="content"]\').attr(\'class\', \'edit\');
-                    $(\'[id*="\'+this.id+\'"][id*="content"]\').removeAttr(\'disabled\');
+                    $(\'[id*="\'+this.id+\'"]\').find(\'[name="content"]\').attr(\'class\', \'edit\');
+                    $(\'[id*="\'+this.id+\'"]\').find(\'[name="content"]\').removeAttr(\'disabled\');
                 },
                 save: Function(\''.$savefunction.'\'),
+                editactive: false
             }
             function resetedit() {
+                Object.keys(segment).forEach(function(data){segment[data].editactive = false});
                 $(\'[id*="edit"]\').show();
                 $(\'[id*="abort"]\').hide();
                 $(\'[id*="save"]\').hide();
-                $(\'[id*="content"]\').attr(\'class\', \'normal\');
-                $(\'[id*="content"]\').attr(\'disabled\', true);
+                $(\'[name="content"]\').attr(\'class\', \'normal\');
+                $(\'[name="content"]\').attr(\'disabled\', true);
             }
         </script>';
         // TODO: reset unsaved changes
