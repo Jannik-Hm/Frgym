@@ -46,7 +46,7 @@
                 $perms = $sql->get_result()->fetch_assoc();
                 foreach($perms as $key => $value){
                     if($key == "name" || $key == "id")continue;
-                    if($key == "fach.administration")$fachbereich = ["admin"];
+                    if($key == "fach.administration" && $value == 1)$fachbereich = ["admin"];
                     $response["perms"][$key] = $value;
                 }
                 if(isset($fachbereich)){
