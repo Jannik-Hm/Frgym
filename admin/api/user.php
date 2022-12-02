@@ -87,6 +87,9 @@
             unset($db_field["password_hash"]);
             unset($db_field["username"]);
             unset($db_field["is_enabled"]);
+            unset($db_field["fachbereich-verwaltung"]);
+            unset($db_field["ag-verwaltung"]);
+            unset($db_field["lastlogin"]);
             array_push($response["data"], $db_field);
         }
     }elseif($app == "getbyid"){
@@ -99,6 +102,9 @@
             $db_field = mysqli_fetch_assoc($sql->get_result());
             unset($db_field["password_hash"]);
             unset($db_field["is_enabled"]);
+            unset($db_field["fachbereich-verwaltung"]);
+            unset($db_field["ag-verwaltung"]);
+            unset($db_field["lastlogin"]);
             $response["data"] = $db_field;
         }else{
             http_response_code(400);
