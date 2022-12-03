@@ -90,7 +90,7 @@
             $response["error"] = $user;
         }else{
             if(!is_null($user["id"])){
-                if($user["perms"][$file_perm[trim($_POST["uploaddir"], "/")]["perm"]] || ($file_perm[trim($_POST["uploaddir"], "/")]["dir-description"] == "faecher" && $user["perms"]["fachbereich"][$_POST["fach"]] && $_POST["fach"] != null && $_POST["fach"] != "") || ($file_perm[trim($_POST["uploaddir"], "/")]["dir-description"] == "profile-picture")){
+                if($user["perms"][$file_perm[trim($_POST["uploaddir"], "/")]["perm"]] || ($file_perm[trim($_POST["uploaddir"], "/")]["dir-description"] == "faecher" && (($user["perms"]["fachbereich"][$_POST["fach"]] && $_POST["fach"] != null && $_POST["fach"] != "") || $user["perms"]["fachbereich"]["admin"])) || ($file_perm[trim($_POST["uploaddir"], "/")]["dir-description"] == "profile-picture")){
                     $response["performed"] = "uploadfile";
                     $fileinputname = "files";
                     $accepted_files = array("jpg","jpeg","png", "webp", "pdf", "docx", "doc");
