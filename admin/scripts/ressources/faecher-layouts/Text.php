@@ -14,7 +14,9 @@
         </div>
         ';
         if(!$preview){
-            $savefunction .= ajaxsave("Text", '[$("#content1'.$id.'").val()]');
+            $savefunction .= ajaxsave("Text", '[$("#content1'.$id.'").val()]', $id);
+            $donefunction = 'load = $.post("/admin/api/faecher.php", {action: "getfachelementbyid", fach: fach, editor: true, id: id}, function(data){$("#"+id).replaceWith(data);$("#"+id).parent().dragndrop("unload");$("#"+id).parent().dragndrop();});';
+            $savefunction .= "$.when(ajaxsave[\"".$id."\"]).done(function(){".$donefunction."});";
         }
     }
 ?>

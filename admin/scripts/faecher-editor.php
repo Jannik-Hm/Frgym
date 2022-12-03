@@ -169,11 +169,14 @@
 
     function faecher_img_dropzone($segmentid, $id, $contentnum, $accepted_files, $existingfile, $viewer) { // TODO: Update to use file API + fix dropzones + proper reset to show preivew again (refactored drop-zone itself, missing upload api call)
         $accept_string = "";
+        $extension_check = "";
         foreach($accepted_files as $accepted_type) {
-            $accept_string = $accept_string.".".$accepted_type.",";
+            $extension_check .= "extension == '".$accepted_type."' || ";
+            $accept_string .= ".".$accepted_type.",";
         }
+        $extension_check = trim($extension_check, "|| ");
         $GLOBALS["accepted_files"] = $accepted_files;
-        $GLOBALS["uploaddir"] = "/files/site-ressources/faecher-pictures/";
+        $uploaddir = "/site-ressources/faecher-pictures/";
         echo '
         <style>
             [id*=drop_zone] {text-align: center; border: none; width: 100%;  padding: 0;  border-radius: 15px; background-color: none ; position: relative}
@@ -194,7 +197,7 @@
         if(!$viewer) {
             echo '
                 <style>[id*=drop_zone] {background-image: url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'15\' ry=\'15\' stroke=\'%23fff\' stroke-width=\'5\' stroke-dasharray=\'6%2c 14\' stroke-dashoffset=\'14\' stroke-linecap=\'square\'/%3e%3c/svg%3e");}</style>
-                <input type="file" name="content" id="'.$id.'picture" accept="'.$accept_string.'" hidden disabled>
+                <input type="file" name="content" id="'.$id.'input" accept="'.$accept_string.'" hidden disabled>
             ';
         }
         echo '
@@ -208,9 +211,9 @@
         if(!$viewer){
             echo '
             <script>
-                load.success(function(){segment["'.$segmentid.'"]["'.$id.'"] = {delete: false, file_exists: false, contentnum: "'.$contentnum.'", imgpath: "", old_id: ""};});
+                load.success(function(){segment["'.$segmentid.'"]["'.$id.'"] = {id: "'.$id.'", delete: false, file_exists: false, contentnum: "'.$contentnum.'", imgpath: "", old_id: "", uploadname: "", filename: ""};});
                 var dropzone = $("#drop_zone'.$id.'");
-                var fileinput = $("#'.$id.'picture");
+                var fileinput = $("#'.$id.'input");
                     // click input file field
                     dropzone.on(\'click\', function () {
                         if(segment["'.$segmentid.'"].editactive){
@@ -243,7 +246,7 @@
                     function resetupload(id) {
                         dropzone.children(".popupCloseButton").hide();
                         dropzone.children("p").html("Datei hochladen");
-                        $("#"+id+"picture").val("");
+                        $("#"+id+"input").val("");
                         $("#"+id+"").val("");
                     }
     
@@ -253,9 +256,17 @@
                             e.preventDefault();
                             if (fileinput[0].getAttribute("disabled") == null) {
                                 let files = e.originalEvent.dataTransfer.files
-                                if (files.length) {
+                                filename = files[0].name;
+                                var extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
+                                if (files.length && ('.$extension_check.')) {
+                                    var newfilename = (segment["'.$segmentid.'"]["'.$id.'"].id); //(segment["'.$segmentid.'"]["'.$id.'"].file_exists) ? segment["'.$segmentid.'"]["'.$id.'"].old_id :
+                                    segment["'.$segmentid.'"]["'.$id.'"].filename = newfilename;
+                                    segment["'.$segmentid.'"]["'.$id.'"].uploadname = newfilename+"."+extension;
                                     fileinput.prop("files", files);
                                     onupload("'.$id.'");
+                                }else{
+                                    segment["'.$segmentid.'"]["'.$id.'"].filename = "";
+                                    segment["'.$segmentid.'"]["'.$id.'"].uploadname = "";
                                 }
                             }
                         }
@@ -264,6 +275,11 @@
                     // trigger file submission behavior
                     fileinput.on("change", function (e) {
                     if (e.target.files.length) {
+                        filename = e.target.files[0].name;
+                        var extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
+                        var newfilename = (segment["'.$segmentid.'"]["'.$id.'"].id); //(segment["'.$segmentid.'"]["'.$id.'"].file_exists) ? segment["'.$segmentid.'"]["'.$id.'"].old_id :
+                        segment["'.$segmentid.'"]["'.$id.'"].filename = newfilename;
+                        segment["'.$segmentid.'"]["'.$id.'"].uploadname = newfilename+"."+extension;
                         onupload("'.$id.'");
                     }
                     })
@@ -278,8 +294,8 @@
                             };
                             fileReader.readAsDataURL(fileInput.files[0]);
                             var fileName = fileInput.value; //Check of Extension
-                            var extension = fileName.substring(fileName.lastIndexOf(".") + 1);
-                            if ((extension == "jpg" || extension == "jpeg" || extension == "png" || extension == "webp")){
+                            var extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+                            if ('.$extension_check.'){
                                 document.getElementById("invalidfiletype").style.display = "none";
                                 document.getElementById("preview").style.display = "";
                             }else{
@@ -290,7 +306,7 @@
                     };
                     function rmimage(id) { // TODO: Delete Picture button not removing picture from server and fix img replacing
                         dropzone.children("p").html("Datei hochladen");
-                        segment["'.$segmentid.'"]["'.$id.'"].delete = true;
+                        segment["'.$segmentid.'"]["'.$id.'"].delete = "true";
                         $("#img_preview_"+id).hide();
                         dropzone.children("p").show();
                         document.getElementById("invalidfiletype").style.display = "none";
@@ -304,15 +320,15 @@
         echo '<div id="preview">';
         require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
         $GLOBALS["file_exists"] = false;
-        $imgpath = $GLOBALS["uploaddir"] . $existingfile;
+        $imgpath = "/files".$uploaddir . $existingfile;
         if ($existingfile != NULL && file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath)) {
-            echo '<script>segment["'.$segmentid.'"]["'.$id.'"].file_exists = true</script>';
+            echo '<script>load.success(function(){segment["'.$segmentid.'"]["'.$id.'"].file_exists = true;})</script>';
             $GLOBALS["file_exists"] = true;
         }
         if($GLOBALS["file_exists"]){echo('
             <script>
                 $("#img_preview_'.$id.'").attr("src", "'.$imgpath.'");
-                load.success(function(){segment["'.$segmentid.'"]["'.$id.'"]["old_id"] ='.str_replace(".".strtolower(pathinfo(basename($existingfile),PATHINFO_EXTENSION)), "", $existingfile).'});
+                load.success(function(){segment["'.$segmentid.'"]["'.$id.'"]["old_id"] = "'.pathinfo($existingfile, PATHINFO_FILENAME).'"});
             </script>
             ');}
         if(!$viewer) {
@@ -327,12 +343,14 @@
             echo '
             <script>
                 function onupload(id) {
-                    imagePreview($("#"+id+"picture")[0], id);';
-                    if($GLOBALS["file_exists"] == "true"){echo 'segment["'.$segmentid.'"]["'.$id.'"].delete = true;';}
+                    imagePreview($("#"+id+"input")[0], id);';
+                    if($GLOBALS["file_exists"] == "true"){echo 'load.success(function(){segment["'.$segmentid.'"]["'.$id.'"].delete = "true";})';}
                     echo '
                     dropzone.children(".popupCloseButton").show();
                 }
             </script>';
+            $savestring = 'var data = new FormData(); data.append("action", "file-upload"); data.append("fach", segment["'.$segmentid.'"].fach); data.append("uploaddir", "'.$uploaddir.'"); data.append("deletefile", segment["'.$segmentid.'"]["'.$id.'"].delete); data.append("existingfilename", "'. $existingfile.'"); data.append("filenameoverride", segment["'.$segmentid.'"]["'.$id.'"].filename); data.append("files[]", $("#'.$id.'input")[0].files[0]); for (var pair of data.entries()) {console.log(pair[0]); console.log(pair[1]);}; ajaxsave["'.$id.'"] = $.ajax({url: "/admin/api/file-upload.php", data: data, type: "post", processData: false, contentType: false, complete: function(success){console.log(success)}});';
+            return $savestring;
         }
     }
 
