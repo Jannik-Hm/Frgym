@@ -12,8 +12,8 @@
 // TODO: Update file upload/management to ajax
 
 
-    function ajaxsave($contenttype, $content){
-        return 'var id=this.id; var fach = this.fach;$.post("/admin/api/faecher.php", {action: "saveelement", id: id, fach: fach, contenttype: "'.$contenttype.'", content: JSON.stringify('.$content.')}, function(){console.log(id);$.post("/admin/api/faecher.php", {action: "getfachelementbyid", fach: fach, editor: true, id: id}, function(data){$("#"+id).replaceWith(data);$("#"+id).parent().dragndrop("unload");$("#"+id).parent().dragndrop();});resetedit();})'; //TODO: Add Action when saved
+    function ajaxsave($contenttype, $content, $ajaxvar){
+        return 'var id=this.id; var fach = this.fach; ajaxsave["'.$ajaxvar.'"] = $.post("/admin/api/faecher.php", {action: "saveelement", id: id, fach: fach, contenttype: "'.$contenttype.'", content: JSON.stringify('.$content.')}, function(){console.log(id);resetedit();});'; //TODO: Add Action when saved
     }
     function getelementsdata($db, $fach){
         $conn = getsqlconnection();
@@ -146,17 +146,22 @@
             $response["error"] = $user;
         }else{
             if($user["perms"]["fachbereich"][$fach] || $user["perms"]["fachbereich"]["admin"]){
-                $conn = getsqlconnection();
-                $sqlquery = "INSERT INTO ".$db." (id, contenttype, content, fach) values (?, ?, ?, ?) ON DUPLICATE KEY UPDATE contenttype=?, content=?, fach=?;";
-                $sql = $conn->prepare($sqlquery);
-                $sql->bind_param("sssssss", $_POST["id"], $_POST["contenttype"], $_POST["content"], $_POST["fach"],  $_POST["contenttype"], $_POST["content"], $_POST["fach"]);
-                $sql->execute();
-                if($sql->affected_rows != 0){
-                    http_response_code(200);
+                if(json_encode(getelementsdatabyid($db, $_POST["fach"], $_POST["id"])[0]["content"]) == $_POST["content"]){
                     $response["success"] = true;
+                    http_response_code(200);
                 }else{
-                    http_response_code(400);
-                    $response["success"] = false;
+                    $conn = getsqlconnection();
+                    $sqlquery = "INSERT INTO ".$db." (id, contenttype, content, fach) values (?, ?, ?, ?) ON DUPLICATE KEY UPDATE contenttype=?, content=?, fach=?;";
+                    $sql = $conn->prepare($sqlquery);
+                    $sql->bind_param("sssssss", $_POST["id"], $_POST["contenttype"], $_POST["content"], $_POST["fach"],  $_POST["contenttype"], $_POST["content"], $_POST["fach"]);
+                    $sql->execute();
+                    if($sql->affected_rows != 0){
+                        http_response_code(200);
+                        $response["success"] = true;
+                    }else{
+                        http_response_code(400);
+                        $response["success"] = false;
+                    }
                 }
             }else{
                 $response["error"] = "missing priviliges";
