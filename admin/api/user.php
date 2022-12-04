@@ -36,6 +36,18 @@
         if(isset($user["perms"]["fachbereich"]) && count($user["perms"]["fachbereich"])>0){
             $responsestring .= '<li><a href="/admin/faecher-editor/faecher-liste.php">Fächer</a></li>';
         }
+        if($user["perms"]["calendar.administration"]){
+            $responsestring .= '
+            <li class="drop-menu">
+                <a href="#">Kalendar <i class="fa fa-angle-down"></i></a>
+                <ul style="display: none">
+                    <li><a href="/admin/calendar/">Kalendar</a></li>
+                    <li><a href="/admin/calendar/permission.php">Berechtigungen</a></li>
+                </ul>
+            </li>';
+        }else{
+            $responsestring .= '<li><a href="/admin/calendar/">Kalendar</a></li>';
+        }
         $response["data"] = $responsestring;
     }elseif($app == "getperms"){
         $user = verifyapi($username, $password);
