@@ -2,7 +2,7 @@
     require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/faecher-editor.php";
     require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
     $dropzone_id = uniqid();
-    $save1 = faecher_img_dropzone($id, $dropzone_id, "content1", array("jpg","jpeg","png", "webp"), $data[0], $viewer);
+    $save1 = faecher_img_dropzone($id, $dropzone_id, "content1", array("jpg","jpeg","png", "webp"), $data[0], $viewer, $preview);
     if(!$viewer && !$preview){
         $savefunction .= $save1[0];
         $savefunction .= ajaxsave("Bild-Banner", '['.$save1[1].']', $id);

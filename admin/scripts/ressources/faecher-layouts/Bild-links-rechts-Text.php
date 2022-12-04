@@ -5,7 +5,7 @@
         $dropzone_id1 = uniqid();
         $dropzone_id2 = uniqid();
         echo('<style>#drop_zone'.$dropzone_id1.',#drop_zone'.$dropzone_id2.' {width: 25%; min-height: 200px; background-size: 100%;} [id*=drop_zone] [id*=img_preview] {max-height: 400px; }</style>');
-        $save1 = faecher_img_dropzone($id, $dropzone_id1, "content1", array("jpg","jpeg","png", "webp"), $data[0], $viewer);
+        $save1 = faecher_img_dropzone($id, $dropzone_id1, "content1", array("jpg","jpeg","png", "webp"), $data[0], $viewer, $preview);
         if($viewer){
             echo '<p>'.nl2br($data[1]).'</p>';
         }else{
@@ -15,7 +15,7 @@
             </div>
             ';
         }
-        $save2 = faecher_img_dropzone($id, $dropzone_id2, "content3", array("jpg","jpeg","png", "webp"), $data[2], $viewer);
+        $save2 = faecher_img_dropzone($id, $dropzone_id2, "content3", array("jpg","jpeg","png", "webp"), $data[2], $viewer, $preview);
         if(!$preview && !$viewer){
             $savefunction .= $save1[0];
             $savefunction .= $save2[0];

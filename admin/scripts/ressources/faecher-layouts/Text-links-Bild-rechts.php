@@ -13,7 +13,7 @@
             </div>
             ';
         }
-        $save1 = faecher_img_dropzone($id, $dropzone_id, "content2", array("jpg","jpeg","png", "webp"), $data[1], $viewer);
+        $save1 = faecher_img_dropzone($id, $dropzone_id, "content2", array("jpg","jpeg","png", "webp"), $data[1], $viewer, $preview);
         if(!$preview && !$viewer){
             $savefunction .= $save1[0];
             $savefunction .= ajaxsave("Text-links-Bild-rechts", '[$("#content1'.$id.'").val(), '.$save1[1].']', $id);
