@@ -121,7 +121,7 @@
                         if(data.data.content=="visible"){
                             selector.prop("checked", true);
                         }
-                        $("#setvisibility").click(function(){$.post("/admin/api/faecher.php", {action: "setvisibility", id: data.data.id, fach: "<?php echo $_GET["fach"] ?>", visibility: (($("#6312324aad247").is(":checked")) ? "visible":"")}, function(data){console.log(data)})});
+                        $("#setvisibility").click(function(){$.post("/admin/api/faecher.php", {action: "setvisibility", id: data.data.id, fach: "<?php echo $_GET["fach"] ?>", visibility: (($("#"+data.data.id).is(":checked")) ? "visible":"")}, function(data){console.log(data)})});
                     }
                 </script>
             </div>
