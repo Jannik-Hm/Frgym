@@ -33,7 +33,9 @@
         if($user["perms"]["docs"]){
             $responsestring .= '<li><a href="/admin/dokumente/">Dokumente</a></li>';
         }
-        $responsestring .= '<li><a href="/admin/faecher-editor/faecher-liste.php">Fächer</a></li>';
+        if(isset($user["perms"]["fachbereich"]) && count($user["perms"]["fachbereich"])>0){
+            $responsestring .= '<li><a href="/admin/faecher-editor/faecher-liste.php">Fächer</a></li>';
+        }
         $response["data"] = $responsestring;
     }elseif($app == "getperms"){
         $user = verifyapi($username, $password);
