@@ -124,7 +124,7 @@
                             })
                         })
                     }
-                    $.post("https://frgym.greenygames.de/admin/api/calendar.php", {action: "getperms"}, checkboxes);
+                    $.post("/admin/api/calendar.php", {action: "getperms"}, checkboxes);
                 </script>
                 <div class="add-input reset-pass">
                     <form method="POST" enctype="multipart/form-data" style="margin-top: 25px">
@@ -154,7 +154,7 @@
                     </form>
                     <script>
                         function save(){
-                            $.post("https://frgym.greenygames.de/admin/api/calendar.php", {action: "updateperm", permdata: JSON.stringify($("input[type='checkbox']").serializeArray())}, success);
+                            $.post("/admin/api/calendar.php", {action: "updateperm", permdata: JSON.stringify($("input[type='checkbox']").serializeArray())}, success);
                         }
                         function success(data){
                             if(JSON.parse(data).success){

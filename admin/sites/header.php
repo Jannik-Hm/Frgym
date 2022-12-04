@@ -7,7 +7,7 @@
             <li><a href="/admin/" id="homenav">Home</a></li>
             <script>$(document).ready(function (){loadlinks()} );
                 function loadlinks(){
-                    $.post("https://frgym.greenygames.de/admin/api/user.php", {action: "getheader"}, function(data){$(JSON.parse(data)["data"]).insertBefore("#admin-profile-dropdwn"); slide()})
+                    $.post("/admin/api/user.php", {action: "getheader"}, function(data){$(JSON.parse(data)["data"]).insertBefore("#admin-profile-dropdwn"); slide()})
                 }
                 function slide() {
                     $('.drop-menu ul').hide();
@@ -68,6 +68,6 @@
     </script>
     <script>
         function logout() {
-            $.post('https:\/\/frgym.greenygames.de/admin/api/user.php', {action: 'logout'}).always(function (jqXHR){if(typeof jqXHR.status == 'undefined'){location.href = "/admin/login/";};});
+            $.post('/admin/api/user.php', {action: 'logout'}).always(function (jqXHR){if(typeof jqXHR.status == 'undefined'){location.href = "/admin/login/";};});
         }
     </script>
