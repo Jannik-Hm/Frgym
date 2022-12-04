@@ -1,9 +1,8 @@
 <?php
-    session_name("userid_login");
-    session_start();
-    if(!isset($_SESSION["user_id"])) {
-        header("Location: /admin/login/");
-    }
+    require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
+    setsession();
+    verifylogin();
+    $user = verifyapi(null, null);
 ?>
 <!DOCTYPE html>
 <html lang="de-DE" prefix="og: https://ogp.me/ns#" xmlns:og="http://opengraphprotocol.org/schema/">
@@ -16,14 +15,14 @@
         </head>
         <body>
             <?php
+            $fachbereichcount = count($user["perms"]["fachbereich"]);
             include_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/sites/header.php";
-            require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
-            getperm();
-            if($GLOBALS["fachbereich"] != "admin"){
-                echo("<script>window.location.href='/admin/faecher-editor/?fach=".$GLOBALS["fachbereich"]."'</script>");
-            }else{
+            if($fachbereichcount == 1 && !$user["perms"]["fachbereich"]["admin"]){
+                echo("<script>window.location.href='/admin/faecher-editor/?fach=".array_keys($user["perms"]["fachbereich"])[0]."'</script>");
+            }elseif($fachbereichcount > 1 || $user["perms"]["fachbereich"]["admin"]){
                 echo '<section class="faecher">';
-                    $faecher = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/files/site-ressources/faecher-liste.json"), true);
+                $faecher = json_decode(file_get_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/files/site-ressources/faecher-liste.json"), true);
+                if($user["perms"]["fachbereich"]["admin"]){
                     foreach($faecher as $fachbereich){
                         echo '
                             <div class="bereichdiv">
@@ -38,7 +37,27 @@
                         </div>
                         ';
                     }
+                }else{
+                    foreach($faecher as $fachbereich){
+                        echo '
+                            <div class="bereichdiv">
+                            <label class="fachbereich">'.$fachbereich["name"].'</label><br>
+                            <ul class="faecherlist">';
+                            foreach($fachbereich["faecher"] as $fach){
+                                if($user["perms"]["fachbereich"][$fach["short"]]){
+                                    if($fach["dark-image"]){$darkpath = '<source srcset="/files/site-ressources/faecher-icons/'.$fach["filename"].'-Dark.svg" media="(prefers-color-scheme: dark)">';}else{$darkpath = NULL;}
+                                    echo '<a title="Fach Bearbeiten" href="/admin/faecher-editor/?fach='.$fach["short"].'"><li class="fach"><div><picture>'.$darkpath.'<img src="/files/site-ressources/faecher-icons/'.$fach["filename"].'.svg" class="fachimg"></picture><br><span>'.$fach["name"].'</span></div></li></a>';
+                                }
+                            }
+                        echo '
+                            </ul>
+                        </div>
+                        ';
+                    }
+                }
             echo '</section>';
+            }else{
+                echo '<script>$(".no_perm").show()</script>';
             }
             ?>
             </div>
