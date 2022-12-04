@@ -323,15 +323,16 @@
             $GLOBALS["file_exists"] = false;
             $imgpath = "/files".$uploaddir . $existingfile;
             if ($existingfile != NULL && file_exists(realpath($_SERVER["DOCUMENT_ROOT"]).$imgpath)) {
-                echo '<script>load.success(function(){segment["'.$segmentid.'"]["'.$id.'"].file_exists = true;})</script>';
+                if(!$viewer) echo '<script>load.success(function(){segment["'.$segmentid.'"]["'.$id.'"].file_exists = true;})</script>';
                 $GLOBALS["file_exists"] = true;
             }
-            if($GLOBALS["file_exists"]){echo('
+            if($GLOBALS["file_exists"]){
+                echo'
                 <script>
-                    $("#img_preview_'.$id.'").attr("src", "'.$imgpath.'");
-                    load.success(function(){segment["'.$segmentid.'"]["'.$id.'"]["old_id"] = "'.pathinfo($existingfile, PATHINFO_FILENAME).'"});
-                </script>
-                ');}
+                    $("#img_preview_'.$id.'").attr("src", "'.$imgpath.'");';
+                if(!$viewer) echo'load.success(function(){segment["'.$segmentid.'"]["'.$id.'"]["old_id"] = "'.pathinfo($existingfile, PATHINFO_FILENAME).'"});';
+                echo '</script>
+                ';}
             if(!$viewer) {
                 echo '
                 <script>load.success(function(){segment["'.$segmentid.'"]["'.$id.'"].imgpath = "'.$imgpath.'"});</script>
