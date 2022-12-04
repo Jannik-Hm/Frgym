@@ -92,7 +92,9 @@ div.news ul li {
   opacity: 1;
 }
 
-.singlenews h1, .singlenews h5, .singlenews p {
+.singlenews h1,
+.singlenews h5,
+.singlenews p {
   text-align: left;
   padding-left: 20px;
 }
@@ -229,7 +231,7 @@ div[class^="readmorebox"] .helper {
   vertical-align: middle;
 }
 
-div[class^="readmorebox"] > div {
+div[class^="readmorebox"]>div {
   margin-top: 25px;
   margin-bottom: 25px;
   box-shadow: 10px 10px 60px #555;
@@ -282,16 +284,17 @@ div[class^="readmorebox"] [class^="popupCloseButton"] {
   padding: 4px 4px;
 }
 
-.add-input-news form input, .add-input-news form textarea {
+.add-input-news form input,
+.add-input-news form textarea {
   border: none;
   outline: none;
   border-bottom: 2px solid #3d859c;
   overflow: none;
   font-size: 16px;
   padding: 4px 4px;
-  -moz-border-radius: 1px;
-  -webkit-border-radius: 1px;
-  border-radius: 1px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
   width: clamp(300px, 95%, 1000px);
 }
 
@@ -390,13 +393,7 @@ div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news h5 {
   margin-bottom: 10px;
 }
 
-div.newsslidershow
-  div.slider
-  div.newsslides
-  div[class^="newsslide"]
-  .news
-  h5
-  p {
+div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news h5 p {
   margin-top: 0px;
   margin-bottom: 1px;
   margin-left: 0px;
@@ -408,34 +405,16 @@ div.newsslidershow
   display: inline-block;
 }
 
-div.newsslidershow
-  div.slider
-  div.newsslides
-  div[class^="newsslide"]
-  .news
-  h5
-  p
-  span {
+div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news h5 p span {
   display: inline-block;
 }
 
-div.newsslidershow
-  div.slider
-  div.newsslides
-  div[class^="newsslide"]
-  .news
-  h5
-  .time {
+div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news h5 .time {
   margin-left: 5px;
   margin-right: 5px;
 }
 
-div.newsslidershow
-  div.slider
-  div.newsslides
-  div[class^="newsslide"]
-  .news
-  a[class^="readmore"] {
+div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news a[class^="readmore"] {
   cursor: pointer;
   /* color: rgb(221, 221, 221); */
   display: inline-block;
@@ -468,15 +447,15 @@ div.newsslidershow div.slider .manual-btn:hover {
   background: #40d3dc;
 }
 
-div.newsslidershow div.slider #radio1:checked ~ .newsslide1 {
+div.newsslidershow div.slider #radio1:checked~.newsslide1 {
   margin-left: 0px;
 }
 
-div.newsslidershow div.slider #radio2:checked ~ .newsslide1 {
+div.newsslidershow div.slider #radio2:checked~.newsslide1 {
   margin-left: calc(-20% - 20px);
 }
 
-div.newsslidershow div.slider #radio3:checked ~ .newsslide1 {
+div.newsslidershow div.slider #radio3:checked~.newsslide1 {
   margin-left: calc(-40% - 40px);
 }
 
@@ -497,38 +476,19 @@ div.newsslidershow div.slider div.newsslides .navigation-auto div {
   transition: 1s;
 }
 
-div.newsslidershow
-  div.slider
-  div.newsslides
-  .navigation-auto
-  div:not(:last-child) {
+div.newsslidershow div.slider div.newsslides .navigation-auto div:not(:last-child) {
   margin-right: 40px;
 }
 
-div.newsslidershow
-  div.slider
-  div.newsslides
-  #radio1:checked
-  ~ .navigation-auto
-  .auto-btn1 {
+div.newsslidershow div.slider div.newsslides #radio1:checked~.navigation-auto .auto-btn1 {
   background: #40d3dc;
 }
 
-div.newsslidershow
-  div.slider
-  div.newsslides
-  #radio2:checked
-  ~ .navigation-auto
-  .auto-btn2 {
+div.newsslidershow div.slider div.newsslides #radio2:checked~.navigation-auto .auto-btn2 {
   background: #40d3dc;
 }
 
-div.newsslidershow
-  div.slider
-  div.newsslides
-  #radio3:checked
-  ~ .navigation-auto
-  .auto-btn3 {
+div.newsslidershow div.slider div.newsslides #radio3:checked~.navigation-auto .auto-btn3 {
   background: #40d3dc;
 }
 
@@ -540,6 +500,7 @@ div.newsslidershow
     height: fit-content;
     position: relative;
   }
+
   div.newsslidershow div.slider div.navigation-manual,
   div.newsslidershow div.slider div.newsslides .navigation-auto {
     width: 90%;
@@ -553,9 +514,11 @@ div.newsslidershow
     right: 50%;
     transform: translate(-50%);
   }
+
   div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news {
     text-align: center;
   }
+
   div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news p {
     margin-bottom: 40px;
   }
@@ -575,17 +538,36 @@ div.pagination a {
   color: #fff;
 }
 
-.add-input-news form label, .add-input-news form input, .add-input-news form textarea, .add-input-news form ::placeholder, .fa-edit, .newssettings label {
+.add-input-news form label,
+.add-input-news form input,
+.add-input-news form textarea,
+.add-input-news form ::placeholder,
+.fa-edit,
+.newssettings label {
   color: var(--newstextcolor);
   opacity: 1;
- /* Firefox */
+  /* Firefox */
 }
 
-.add-input-news form input, .add-input-news form textarea, .newssettings select, .newssettings input[type="submit"], .singlenews, .newssettings select, div.pagination, div[class^="readmorebox"] > div, div[class^="readmorebox"] [class^="popupCloseButton"], div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news {
+.add-input-news form input,
+.add-input-news form textarea,
+.newssettings select,
+.newssettings input[type="submit"],
+.singlenews,
+.newssettings select,
+div.pagination,
+div[class^="readmorebox"]>div,
+div[class^="readmorebox"] [class^="popupCloseButton"],
+div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news {
   background: var(--newsbackground);
 }
 
-.singlenews h5 p, .newspopup h5, .newspopup h5 p, .singlenews a[class^="readmore"], div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news h5 p, div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news a[class^="readmore"] {
+.singlenews h5 p,
+.newspopup h5,
+.newspopup h5 p,
+.singlenews a[class^="readmore"],
+div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news h5 p,
+div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news a[class^="readmore"] {
   color: var(--newstextcolor);
 }
 
@@ -594,21 +576,44 @@ div.pagination a:hover {
 }
 
 @media (prefers-color-scheme: dark) {
-  .add-input-news form label, .add-input-news form input, .add-input-news form textarea, .add-input-news form ::placeholder, .newssettings select, .newssettings input[type="submit"], .fa-edit, .newssettings label {
+
+  .add-input-news form label,
+  .add-input-news form input,
+  .add-input-news form textarea,
+  .add-input-news form ::placeholder,
+  .newssettings select,
+  .newssettings input[type="submit"],
+  .fa-edit,
+  .newssettings label {
     color: var(--newstextcolor);
     opacity: 1;
     /* Firefox */
   }
 
-  .add-input-news form input, .add-input-news form textarea {
+  .add-input-news form input,
+  .add-input-news form textarea {
     border-bottom: none;
   }
 
-  .add-input-news form input, .add-input-news form textarea, .newssettings select, .newssettings input[type="submit"], .singlenews, .newssettings select, div.pagination, div[class^="readmorebox"] > div, div[class^="readmorebox"] [class^="popupCloseButton"], div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news {
+  .add-input-news form input,
+  .add-input-news form textarea,
+  .newssettings select,
+  .newssettings input[type="submit"],
+  .singlenews,
+  .newssettings select,
+  div.pagination,
+  div[class^="readmorebox"]>div,
+  div[class^="readmorebox"] [class^="popupCloseButton"],
+  div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news {
     background: var(--newsbackground);
   }
 
-  .singlenews h5 p, .newspopup h5, .newspopup h5 p, .singlenews a[class^="readmore"], div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news h5 p, div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news a[class^="readmore"] {
+  .singlenews h5 p,
+  .newspopup h5,
+  .newspopup h5 p,
+  .singlenews a[class^="readmore"],
+  div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news h5 p,
+  div.newsslidershow div.slider div.newsslides div[class^="newsslide"] .news a[class^="readmore"] {
     color: var(--newstextcolor);
   }
 }
