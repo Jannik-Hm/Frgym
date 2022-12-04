@@ -1,0 +1,31 @@
+{
+    "document-page": {
+        "path": "document-page",
+        "perm": "docs",
+        "accepted-files": [
+            "jpg",
+            "png",
+            "webp",
+            "pdf",
+            "docx"
+        ]
+    },
+    "site-ressources/faecher-pictures": {
+        "path": "site-ressources/faecher-pictures",
+        "dir-description": "faecher",
+        "accepted-files": [
+            "jpg",
+            "png",
+            "webp"
+        ]
+    },
+    "site-ressources/lehrer-bilder": {
+        "path": "site-ressources/lehrer-bilder",
+        "dir-description": "profile-picture",
+        "accepted-files": [
+            "jpg",
+            "png",
+            "webp"
+        ]
+    }
+}

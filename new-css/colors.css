@@ -1,0 +1,19 @@
+:root {
+    --textcolor: rgb(102, 102, 102);
+    --newsbackground: rgb(205, 211, 210);
+    --newstextcolor: rgb(129, 129, 129);
+    --inputcolor: rgb(102, 102, 102);
+    --inputbackground: rgb(205, 211, 210);
+    --terminbackground: rgb(225 225 225);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --backgroundcolor: rgb(71, 71, 71);
+        --textcolor: #fff;
+        --newsbackground: rgb(122, 133, 131);
+        --newstextcolor: rgb(221, 221, 221);
+        --inputcolor: #fff;
+        --inputbackground: rgb(122, 133, 131);
+        --terminbackground: rgb(156 156 156);
+    }
+}

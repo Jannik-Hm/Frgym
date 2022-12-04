@@ -18,6 +18,61 @@
         return get_connection();
     }
 
+    function verifyapi($username, $passhash) {
+        $conn = getsqlconnection();
+        $sql = $conn->prepare("SELECT id, is_enabled, vorname, nachname, role, `fachbereich-verwaltung`, `ag-verwaltung`, lastlogin FROM users WHERE username=? AND password_hash=?;");
+        if(isset($_SESSION["user_id"]) && (is_null($username) || is_null($passhash))){
+            $sql->bind_param("ss", $_SESSION["username"], $_SESSION["password"]);
+        }else{
+            $sql->bind_param("ss", $username, $passhash);
+        }
+        $sql->execute();
+        $response["username"] = $username;
+        $data = $sql->get_result()->fetch_assoc();
+        if(is_array($data)){
+            if($data["is_enabled"]){
+                foreach($data as $key => $value){
+                    if($key == "fachbereich-verwaltung"){
+                        $fachbereich = explode(";", $value);
+                    }elseif($key == "ag-verwaltung"){
+                        $ags = explode(";", $value);
+                    }else{
+                        $response[$key] = $value;
+                    }
+                }
+                $sql = $conn->prepare("SELECT * FROM roles WHERE name=?;");
+                $sql->bind_param("s", $response["role"]);
+                $sql->execute();
+                $perms = $sql->get_result()->fetch_assoc();
+                foreach($perms as $key => $value){
+                    if($key == "name" || $key == "id")continue;
+                    if($key == "fach.administration" && $value == 1)$fachbereich = ["admin"];
+                    $response["perms"][$key] = $value;
+                }
+                if(isset($fachbereich)){
+                    foreach($fachbereich as $fach){
+                        if($fach == "") continue;
+                        $response["perms"]["fachbereich"][$fach] = true;
+                    }
+                }
+                if(isset($ags)){
+                    foreach($ags as $ag){
+                        if($ag != ""){
+                            $response["perms"]["ags"][$ag] = true;
+                        }
+                    }
+                }
+            }else{
+                http_response_code(403);
+                return "account disabled";
+            }
+        }else{
+            http_response_code(401);
+            return "verification failed";
+        }
+        return $response;
+    }
+
     function getperm() {
         verifylogin();
 
@@ -27,7 +82,8 @@
 
         require_once "$root/sites/credentials.php";
 
-        $role = get_role($_SESSION["user_id"]);
+        $fachbereich = explode(",", get_role($_SESSION["user_id"]))[1];
+        $role = explode(",", get_role($_SESSION["user_id"]))[0];
 
         $sqlperm = ("SELECT * FROM roles WHERE name='".$role."';");
         $perms = mysqli_query(get_connection(), $sqlperm);
@@ -38,10 +94,14 @@
             $GLOBALS["news.all"] = $row["news.all"];
             $GLOBALS["lehrer.own"] = $row["lehrer.own"];
             $GLOBALS["lehrer.all"] = $row["lehrer.all"];
+            $GLOBALS["user.administration"] = $row["user.administration"];
         }
         if($GLOBALS["included-noperm"] == false){
             include_once "$root/admin/no-permission.html";
             $GLOBALS["included-noperm"] = true;
+        }
+        if($GLOBALS["lehrer.own"]){
+            $GLOBALS["fachbereich"] = $fachbereich;
         }
     }
 

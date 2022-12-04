@@ -129,3 +129,208 @@
         color: #000;
     }
 }
+
+#faecher-selector btn {
+    width: 25%;
+    padding: 25px 50px;
+    background-color: rgb(122, 133, 131);
+    display: block;
+    margin: auto;
+    border-radius: 15px;
+    cursor: pointer
+}
+
+/* Layout Popup */
+
+div.faecher-selector-popup {
+    margin-left: 0;
+    display: none;
+    height: 100%;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+  div.faecher-selector-popup .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+  div.faecher-selector-popup > div {
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    box-shadow: 10px 10px 60px #555;
+    display: inline-block;
+    height: auto;
+    max-width: 900px;
+    min-height: 100px;
+    vertical-align: middle;
+    width: 85%;
+    position: relative;
+    border-radius: 8px;
+    padding: 5px 5%;
+  }
+  div.faecher-selector-popup-list a {
+    border-radius: 15px;
+    border: 0px;
+    padding: 20px 30px;
+    width: 300px;
+    display: inline-block;
+    margin: auto;
+    margin-bottom: 30px;
+    cursor: pointer;
+  }
+
+  div.faecher-selector-popup div.popupCloseButton {
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+  }
+
+  /* Faecher Editor */
+
+  .button {
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    align-self: center;
+    position: relative;
+    height: 30px;
+    font-size: 15px;
+    margin: auto;
+    background-color: rgb(205, 211, 210);
+    color:#000;
+    width: 100px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    opacity: 1;
+}
+
+.grow-wrap {
+  /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
+  display: grid;
+  }
+  .grow-wrap::after {
+  /* Note the weird space! Needed to preventy jumpy behavior */
+  content: attr(data-replicated-value) " ";
+  /* This is how textarea text behaves */
+  white-space: pre-wrap;
+  /* Hidden from view, clicks, and screen readers */
+  visibility: hidden;
+  }
+  .grow-wrap > textarea {
+  /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+  resize: none;
+  /* Firefox shows scrollbar on growth, you can hide like this. */
+  overflow: hidden;
+  }
+  .grow-wrap > textarea,
+  .grow-wrap::after {
+  /* Identical styling required!! */
+  border: 1px solid black;
+  padding: 0.5rem;
+  font: inherit;
+  /* Place on top of each other */
+  grid-area: 1 / 1 / 2 / 2;
+  }
+  li p {
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
+  textarea.normal, li p{
+      border: none;background: none;color: #000;
+  }
+  textarea.edit{
+      border-radius: 10px;
+      border: none;
+  }
+
+  li.layout-select-btn {
+    background-color: rgb(173 185 183);
+    width: 150px;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    text-align: center!important;
+    font-size: 20px;
+}
+
+  /* colors */
+
+  .button, textarea.edit {
+    background-color: rgb(205, 211, 210)!important;
+  }
+  [id*=drop_zone].edit {
+    background-color: #9ba09f;
+  }
+  .button, textarea.edit, [id*=drop_zone].edit p, textarea::placeholder {
+    color:#000!important;
+  }
+
+  textarea.normal, textarea::placeholder, p {
+    color: rgb(226, 226, 226)!important;
+  }
+  
+  div.faecher-selector-popup {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  div.faecher-selector-popup > div {
+    background: rgb(205, 211, 210);
+  }
+  
+  div.faecher-selector-popup-list {
+    color: rgb(102, 102, 102);
+  }
+  
+  div.faecher-selector-popup-list a.back {
+    background-color: #39bd60;
+  }
+
+  div.faecher-selector-popup div.popupCloseButton:hover {
+    background-color: #fff;
+  }
+  
+  div.faecher-selector-popup div.popupCloseButton {
+    background: rgb(205, 211, 210);
+  }
+
+  @media (prefers-color-scheme: light) {
+    .button, textarea.edit, [id*=drop_zone].edit {
+      background-color: rgb(157, 164, 163)!important;
+    }
+    .button, textarea.edit, [id*=drop_zone].edit p {
+      color: rgb(226, 226, 226)!important;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    div.faecher-selector-popup > div {
+      background-color: rgb(122, 133, 131);
+    }
+  
+    div.faecher-selector-popup-list {
+      color: rgb(226, 226, 226);
+    }
+
+    div.faecher-selector-popup div.popupCloseButton {
+      background: rgb(122, 133, 131);
+    }
+  }

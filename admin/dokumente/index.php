@@ -16,7 +16,7 @@
     <body>
         <?php
 
-            include_once "$root/admin/sites/header.html";
+            include_once "$root/admin/sites/header.php";
             if(isset($_GET["dir"])){
                 $dir = "/".$_GET["dir"];
             }else{

@@ -29,14 +29,14 @@
         <section id="mainSecond">
             <div>
                 <div>
-                    <img src="https://via.placeholder.com/200?text=Placeholder">
+                    <img src="/files/site-ressources/schul-bilder/detail-1.jpg">
                 </div>
                 <div>
                     <p>Adresse</p>
                     <p>Parkstraße 59<br>14943 Luckenwalde<br><br>Telefon: <a href="tel:+493371632569">03371-632569</a><br>Fax: <a href="tel:+493371641060">03371-641060</a><br><a href="mailto:s120534@schulen.brandenburg.de">E-Mail</a> </p>
                 </div>
                 <div>
-                    <img src="https://via.placeholder.com/200?text=Placeholder">
+                    <img src="/files/site-ressources/schul-bilder/detail-2.jpg">
                 </div>
             </div>
             <span class="line"></span>

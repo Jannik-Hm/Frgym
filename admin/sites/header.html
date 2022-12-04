@@ -2,13 +2,13 @@
     <link rel="stylesheet" href="/new-css/header.css">
     <nav class="header">
         <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="/" id="homenav">Home</a></li>
             <li><a href="/admin/">Startseite-Admin</a></li>
             <li class="drop-menu">
-                <a href="#"> Lehrer <i
+                <a href="#"> Benutzerverwaltung <i
                         class="fa fa-angle-down"></i></a>
                 <ul>
-                    <li><a href="/admin/lehrer/">Liste</a></li>
+                    <li><a href="/admin/lehrer/">Übersicht</a></li>
                     <li><a href="/admin/lehrer/add/">Hinzufügen</a></li>
                 </ul>
             </li>
@@ -20,16 +20,30 @@
                 </ul>
             </li>
             <li><a href="/admin/dokumente/">Dokumente</a></li>
-            <li style="display: inline; float: right;" id="logout-btn">
-                <a onclick="logout()">
-                    <i class="fa-solid fa-arrow-right-from-bracket" style="color: lightcoral;"></i>
+            <li><a href="/admin/faecher-editor/faecher-liste.php">Fächer</a></li>
+            <li id="admin-profile-dropdwn" class="drop-menu" style="width: 150px;display: inline; float: right; margin-right: 0px">
+                <a href="#" style="padding-top: 0; padding-bottom:0">
+                    <i class="fas fa-user-circle" style="font-size:40px;margin-top:5px;margin-bottom: 5px; margin-right: 5px"></i>
+                    <!-- <img src="/files/site-ressources/lehrer-bilder/placeholder.webp" style="height:40px;margin-top:5px;border-radius:25px; margin-right: 5px"> -->
+                    <i style="position: absolute;top:20px; margin-bottom:0" class="fa fa-angle-down"></i>
                 </a>
+                <ul>
+                    <li id="logout-btn">
+                        <a style="cursor: pointer" onclick="logout()">
+                            Abmelden<i class="fa-solid fa-arrow-right-from-bracket" style="margin-left: 5px;color: lightcoral;"></i>
+                        </a>
+                    </li>
+                    <li><a href="/admin/lehrer/edit/?id=">
+                        Profil<i class="fas fa-user" style="margin-left: 8px;"></i>
+                    </a></li>
+                    <li><a href="">
+                        Einstellungen<i class="fas fa-cog" style="margin-left: 5px;"></i>
+                    </a></li>
+                </ul>
             </li>
             <li class="drop-menu" id="Sonstiges-Button">
                 <a href="#"> Sonstiges <i class="fa fa-angle-down"></i></a>
                 <ul id="Sonstiges">
-    
-    
                 </ul>
             </li>
         </ul>
@@ -49,7 +63,8 @@
 
         console.log(document.cookie);
         if (location.href.match("/admin/login/")) {
-            document.getElementById('logout-btn').style.display = 'none';
+            $(".header ul li a").hide();
+            $("#homenav").show();
         }
     </script>
     <script>

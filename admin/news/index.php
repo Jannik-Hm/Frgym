@@ -18,7 +18,7 @@
     <body>
         <div class="bodyDiv">
         <?php
-            include_once "$root/admin/sites/header.html";
+            include_once "$root/admin/sites/header.php";
             require_once "$root/admin/scripts/news.php";
 
             list_news(true);

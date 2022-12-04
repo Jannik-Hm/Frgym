@@ -21,7 +21,7 @@
     <body>
         <div class="bodyDiv">
             <?php
-                include_once "$root/admin/sites/header.html";
+                include_once "$root/admin/sites/header.php";
 
                 if(isset($_SESSION["user_id"])) {
                     echo("<h1 id=\"adminMain\"><span>Willkommen</span> <span>" . $_SESSION["vorname"] . " " . $_SESSION["nachname"] . "</span></h1>");
