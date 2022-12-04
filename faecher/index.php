@@ -42,7 +42,7 @@
                 <section style="height: 25px"></section>
                 <ul class="test" style="border: none; list-style: none; padding: 25px; margin-left: 50px; margin-right: 50px; background-color: var(--inputbackground); border-radius: 15px; color: var(--inputcolor);">
                     <li><p style="font-size: 40px; height: 40px; margin-bottom: 20px">Fachbereich '.$fachname.'</p></li>
-                    <script>$.post("/admin/api/faecher.php", {"action": "getfachelements", "fach": "DE"}, function(data){$(".test").append(data);})</script>
+                    <script>$.post("/admin/api/faecher.php", {"action": "getfachelements", "fach": "'.$_GET["fach"].'"}, function(data){$(".test").append(data);})</script>
                 </ul>';
             }else{
                 echo '<section class="faecher">';
