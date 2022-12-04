@@ -2,48 +2,48 @@
     "fachbereich1" : {
         "name": "Sprachwissenschaften",
         "faecher": {
-            "fach1": {"name": "Deutsch", "short": "DE", "filename": "Deutsch", "pic-url": "https://freesvg.org/stack-of-books-vector-clip-art", "dark-image": false},
-            "fach2": {"name": "Englisch", "short": "EN", "filename": "Englisch", "pic-url": "https://en.wikipedia.org/wiki/File:English_language.svg", "dark-image": false},
-            "fach3": {"name": "Französisch", "short": "FR", "filename": "Französisch", "pic-url": "https://commons.wikimedia.org/wiki/File:France_flag_waving_icon.svg", "dark-image": false},
-            "fach4": {"name": "Russisch", "short": "RU", "filename": "Russisch", "pic-url": "https://freesvg.org/flag-of-the-russian-federation-vector-graphics", "dark-image": false},
-            "fach5": {"name": "Latein", "short": "LA", "filename": "Latein", "pic-url": "https://svgsilh.com/image/161704.html", "dark-image": false}
+            "DE": {"name": "Deutsch", "short": "DE", "filename": "Deutsch", "pic-url": "https://freesvg.org/stack-of-books-vector-clip-art", "dark-image": false},
+            "EN": {"name": "Englisch", "short": "EN", "filename": "Englisch", "pic-url": "https://en.wikipedia.org/wiki/File:English_language.svg", "dark-image": false},
+            "FR": {"name": "Französisch", "short": "FR", "filename": "Französisch", "pic-url": "https://commons.wikimedia.org/wiki/File:France_flag_waving_icon.svg", "dark-image": false},
+            "RU": {"name": "Russisch", "short": "RU", "filename": "Russisch", "pic-url": "https://freesvg.org/flag-of-the-russian-federation-vector-graphics", "dark-image": false},
+            "LA": {"name": "Latein", "short": "LA", "filename": "Latein", "pic-url": "https://svgsilh.com/image/161704.html", "dark-image": false}
         }
     },
     "fachbereich2" : {
         "name": "Naturwissenschaften",
         "faecher": {
-            "fach1": {"name": "Mathematik", "short": "MA", "filename": "Mathematik", "pic-url": "https://de.wikipedia.org/wiki/Datei:Math.svg", "dark-image": false},
-            "fach2": {"name": "Biologie", "short": "BI", "filename": "Biologie", "pic-url": "https://www.labbe.de/blog/Ruth-Patrick", "dark-image": false},
-            "fach3": {"name": "Chemie", "short": "CH", "filename": "Chemie", "pic-url": "https://svgsilh.com/de/image/1073363.html", "dark-image": true},
-            "fach4": {"name": "Physik", "short": "PH", "filename": "Physik", "pic-url": "https://svgsilh.com/de/image/148441.html", "dark-image": true},
-            "fach5": {"name": "Informatik", "short": "IF", "filename": "Informatik", "pic-url": "https://www.svgrepo.com/svg/28224/programming", "dark-image": true},
-            "fach6": {"name": "Naturwissenschaften", "short": "NW", "filename": "Naturwissenschaften", "pic-url": "https://svgsilh.com/image/2099128.html", "dark-image": true}
+            "MA": {"name": "Mathematik", "short": "MA", "filename": "Mathematik", "pic-url": "https://de.wikipedia.org/wiki/Datei:Math.svg", "dark-image": false},
+            "BI": {"name": "Biologie", "short": "BI", "filename": "Biologie", "pic-url": "https://www.labbe.de/blog/Ruth-Patrick", "dark-image": false},
+            "CH": {"name": "Chemie", "short": "CH", "filename": "Chemie", "pic-url": "https://svgsilh.com/de/image/1073363.html", "dark-image": true},
+            "PH": {"name": "Physik", "short": "PH", "filename": "Physik", "pic-url": "https://svgsilh.com/de/image/148441.html", "dark-image": true},
+            "IF": {"name": "Informatik", "short": "IF", "filename": "Informatik", "pic-url": "https://www.svgrepo.com/svg/28224/programming", "dark-image": true},
+            "NW": {"name": "Naturwissenschaften", "short": "NW", "filename": "Naturwissenschaften", "pic-url": "https://svgsilh.com/image/2099128.html", "dark-image": true}
         }
     },
     "fachbereich3" : {
         "name": "Gesellschaftswissenschaften",
         "faecher": {
-            "fach1": {"name": "Erdkunde", "short": "EK", "filename": "Erdkunde", "pic-url": "https://svgsilh.com/image/158348.html", "dark-image": true},
-            "fach2": {"name": "Geschichte", "short": "GE", "filename": "Geschichte", "pic-url": "https://svgsilh.com/image/33963.html", "dark-image": false},
-            "fach3": {"name": "Politische Bildung", "short": "PB", "filename": "PB", "pic-url": "https://svgsilh.com/image/32310.html", "dark-image": true},
-            "fach4": {"name": "Gesellschafts-wissenschaften", "short": "EG", "filename": "Gesellschaftswissenschaften", "pic-url": "https://publicdomainvectors.org/en/vectoriales-gratuitas/Diosa-de-la-justicia-signo-vector-de-la-imagen/16404.html", "dark-image": true},
-            "fach5": {"name": "Religion", "short": "RE", "filename": "RE", "pic-url": "https://commons.wikimedia.org/wiki/File:Religion_icon.svg", "dark-image": true},
-            "fach6": {"name": "Lebensgestaltung-Ethik-Religionskunde", "short": "LE", "filename": "LER", "pic-url": "https://unterrichten.zum.de/index.php?title=Datei:Buch-Icon.svg&veaction=edit&redlink=1", "dark-image": true},
-            "fach7": {"name": "Wirtschaft-Arbeit-Technik<br>Wirtschaftswissenschaften", "short": "AL/WW", "filename": "WAT", "pic-url": "https://commons.wikimedia.org/wiki/File:Euro_sign.svg", "dark-image": true}
+            "EK": {"name": "Erdkunde", "short": "EK", "filename": "Erdkunde", "pic-url": "https://svgsilh.com/image/158348.html", "dark-image": true},
+            "GE": {"name": "Geschichte", "short": "GE", "filename": "Geschichte", "pic-url": "https://svgsilh.com/image/33963.html", "dark-image": false},
+            "PB": {"name": "Politische Bildung", "short": "PB", "filename": "PB", "pic-url": "https://svgsilh.com/image/32310.html", "dark-image": true},
+            "EG": {"name": "Gesellschafts-wissenschaften", "short": "EG", "filename": "Gesellschaftswissenschaften", "pic-url": "https://publicdomainvectors.org/en/vectoriales-gratuitas/Diosa-de-la-justicia-signo-vector-de-la-imagen/16404.html", "dark-image": true},
+            "RE": {"name": "Religion", "short": "RE", "filename": "RE", "pic-url": "https://commons.wikimedia.org/wiki/File:Religion_icon.svg", "dark-image": true},
+            "LE": {"name": "Lebensgestaltung-Ethik-Religionskunde", "short": "LE", "filename": "LER", "pic-url": "https://unterrichten.zum.de/index.php?title=Datei:Buch-Icon.svg&veaction=edit&redlink=1", "dark-image": true},
+            "AL/WW": {"name": "Wirtschaft-Arbeit-Technik<br>Wirtschaftswissenschaften", "short": "AL/WW", "filename": "WAT", "pic-url": "https://commons.wikimedia.org/wiki/File:Euro_sign.svg", "dark-image": true}
         }
     },
     "fachbereich4" : {
         "name": "Künstlerische Fächer",
         "faecher": {
-            "fach1": {"name": "Darstellendes Spiel", "short": "DS", "filename": "DS", "pic-url": "https://www.svgrepo.com/svg/91469/theatre-masks", "dark-image": true},
-            "fach2": {"name": "Kunst", "short": "KU", "filename": "Kunst", "pic-url": "https://publicdomainvectors.org/de/kostenlose-vektorgrafiken/Pinsel-Paletten/40255.html", "dark-image": false},
-            "fach3": {"name": "Musik", "short": "MU", "filename": "Musik", "pic-url": "https://svgsilh.com/image/2073069.html", "dark-image": true}
+            "DS": {"name": "Darstellendes Spiel", "short": "DS", "filename": "DS", "pic-url": "https://www.svgrepo.com/svg/91469/theatre-masks", "dark-image": true},
+            "KU": {"name": "Kunst", "short": "KU", "filename": "Kunst", "pic-url": "https://publicdomainvectors.org/de/kostenlose-vektorgrafiken/Pinsel-Paletten/40255.html", "dark-image": false},
+            "MU": {"name": "Musik", "short": "MU", "filename": "Musik", "pic-url": "https://svgsilh.com/image/2073069.html", "dark-image": true}
         }
     },
     "fachbereich5" : {
         "name": "Sonstige",
         "faecher": {
-            "fach1": {"name": "Sport", "short": "SP", "filename": "Sport", "pic-url": "https://svgsilh.com/image/309539.html", "dark-image": false}
+            "SP": {"name": "Sport", "short": "SP", "filename": "Sport", "pic-url": "https://svgsilh.com/image/309539.html", "dark-image": false}
         }
     }
 }

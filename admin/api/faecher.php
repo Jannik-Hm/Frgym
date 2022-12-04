@@ -266,6 +266,13 @@
         }else{
             $response["data"] = array("id"=> uniqid(), "content"=> null);
         }
+    }elseif($app == "getallvisibility"){
+        $sql = mysqli_query(getsqlconnection(), "SELECT id, content, fach FROM ".$db." WHERE contenttype='visibility'");
+        $facharray = array();
+        while($result = mysqli_fetch_assoc($sql)){
+            $facharray[$result["fach"]] = $result["content"];
+        }
+        $response["data"] = $facharray;
     }elseif($app == "setvisibility"){
         $user = verifyapi($username, $password);
         if(!is_array($user)){
