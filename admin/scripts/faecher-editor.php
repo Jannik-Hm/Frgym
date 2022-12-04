@@ -26,7 +26,7 @@
                     echo("
                     <script>
                         function addelement(layout) {
-                            $.post('/admin/api/faecher.php', {action: 'createelement', fach: '".$_GET["fach"]."', contenttype: layout},function(response){
+                            load = $.post('/admin/api/faecher.php', {action: 'createelement', fach: '".$_GET["fach"]."', contenttype: layout},function(response){
                                 $('".$elementlistid."').append(response);
                                 $('".$elementlistid."').dragndrop('unload'); $('".$elementlistid."').dragndrop(); save_order();
                             });
@@ -204,25 +204,24 @@
         <div id="drop_zone'.$id.'" name="content" class="normal" style="">
             <img id="img_preview_'.$id.'" src=""></img>';
         if(!$viewer) {
-            echo '<div style="display: none" onclick="event.stopPropagation();resetupload(\''.$id.'\');" class="popupCloseButton">&times;</div>';
+            echo '<div style="display: none" onclick="event.stopPropagation();segment["'.$segmentid.'"]["'.$id.'"].resetupload(\''.$id.'\');" class="popupCloseButton">&times;</div>';
             echo '<p>Datei hochladen</p>';
         }
         echo '</div>';
         if(!$viewer){
             echo '
             <script>
-                load.success(function(){segment["'.$segmentid.'"]["'.$id.'"] = {id: "'.$id.'", delete: false, file_exists: false, contentnum: "'.$contentnum.'", imgpath: "", old_id: "", uploadname: "", filename: ""};});
-                var dropzone = $("#drop_zone'.$id.'");
-                var fileinput = $("#'.$id.'input");
+                load.success(function(){
+                    segment["'.$segmentid.'"]["'.$id.'"] = {id: "'.$id.'", delete: false, file_exists: false, contentnum: "'.$contentnum.'", imgpath: "", old_id: "", uploadname: "", filename: "", dropzone: $("#drop_zone'.$id.'"), fileinput: $("#'.$id.'input")};
                     // click input file field
-                    dropzone.on(\'click\', function () {
+                    segment["'.$segmentid.'"]["'.$id.'"].dropzone.on(\'click\', function () {
                         if(segment["'.$segmentid.'"].editactive){
-                            fileinput.trigger("click");
+                            segment["'.$segmentid.'"]["'.$id.'"].fileinput.trigger("click");
                         }
                     })
     
                     // prevent default browser behavior
-                    dropzone.on("drag dragstart dragend dragover dragenter dragleave drop", function(e) {
+                    segment["'.$segmentid.'"]["'.$id.'"].dropzone.on("drag dragstart dragend dragover dragenter dragleave drop", function(e) {
                         if(segment["'.$segmentid.'"].editactive){
                             e.preventDefault();
                             e.stopPropagation();
@@ -230,31 +229,31 @@
                     })
     
                     // add visual drag information
-                        dropzone.on("dragover", function() {
+                    segment["'.$segmentid.'"]["'.$id.'"].dropzone.on("dragover", function() {
                             if(segment["'.$segmentid.'"].editactive){
                                 if(window.matchMedia("(prefers-color-scheme: dark)").matches){
-                                    dropzone.attr("style", "background-color: #676565");
+                                    segment["'.$segmentid.'"]["'.$id.'"].dropzone.attr("style", "background-color: #676565");
                                 }else{
-                                    dropzone.attr("style", "background-color: rgb(174, 178, 178)");
+                                    segment["'.$segmentid.'"]["'.$id.'"].dropzone.attr("style", "background-color: rgb(174, 178, 178)");
                                 }
                             }
                         })
-                        dropzone.on("dragleave", function() {
-                            dropzone.attr("style", "background-color: ");
+                        segment["'.$segmentid.'"]["'.$id.'"].dropzone.on("dragleave", function() {
+                            segment["'.$segmentid.'"]["'.$id.'"].dropzone.attr("style", "background-color: ");
                         })
 
-                    function resetupload(id) {
-                        dropzone.children(".popupCloseButton").hide();
-                        dropzone.children("p").html("Datei hochladen");
+                        segment["'.$segmentid.'"]["'.$id.'"].resetupload = function(id) {
+                        segment["'.$segmentid.'"]["'.$id.'"].dropzone.children(".popupCloseButton").hide();
+                        segment["'.$segmentid.'"]["'.$id.'"].dropzone.children("p").html("Datei hochladen");
                         $("#"+id+"input").val("");
                         $("#"+id+"").val("");
                     }
     
                     // catch file drop and add it to input
-                    dropzone.on("drop", e => {
+                    segment["'.$segmentid.'"]["'.$id.'"].dropzone.on("drop", e => {
                         if(segment["'.$segmentid.'"].editactive){
                             e.preventDefault();
-                            if (fileinput[0].getAttribute("disabled") == null) {
+                            if (segment["'.$segmentid.'"]["'.$id.'"].fileinput[0].getAttribute("disabled") == null) {
                                 let files = e.originalEvent.dataTransfer.files
                                 filename = files[0].name;
                                 var extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
@@ -262,8 +261,8 @@
                                     var newfilename = (segment["'.$segmentid.'"]["'.$id.'"].id); //(segment["'.$segmentid.'"]["'.$id.'"].file_exists) ? segment["'.$segmentid.'"]["'.$id.'"].old_id :
                                     segment["'.$segmentid.'"]["'.$id.'"].filename = newfilename;
                                     segment["'.$segmentid.'"]["'.$id.'"].uploadname = newfilename+"."+extension;
-                                    fileinput.prop("files", files);
-                                    onupload("'.$id.'");
+                                    segment["'.$segmentid.'"]["'.$id.'"].fileinput.prop("files", files);
+                                    segment["'.$segmentid.'"]["'.$id.'"].onupload("'.$id.'");
                                 }else{
                                     segment["'.$segmentid.'"]["'.$id.'"].filename = "";
                                     segment["'.$segmentid.'"]["'.$id.'"].uploadname = "";
@@ -273,24 +272,24 @@
                     });
     
                     // trigger file submission behavior
-                    fileinput.on("change", function (e) {
+                    segment["'.$segmentid.'"]["'.$id.'"].fileinput.on("change", function (e) {
                     if (e.target.files.length) {
                         filename = e.target.files[0].name;
                         var extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
                         var newfilename = (segment["'.$segmentid.'"]["'.$id.'"].id); //(segment["'.$segmentid.'"]["'.$id.'"].file_exists) ? segment["'.$segmentid.'"]["'.$id.'"].old_id :
                         segment["'.$segmentid.'"]["'.$id.'"].filename = newfilename;
                         segment["'.$segmentid.'"]["'.$id.'"].uploadname = newfilename+"."+extension;
-                        onupload("'.$id.'");
+                        segment["'.$segmentid.'"]["'.$id.'"].onupload("'.$id.'");
                     }
                     })
-                    function imagePreview(fileInput, id) {
+                    segment["'.$segmentid.'"]["'.$id.'"].imagePreview = function(fileInput, id) {
                         if (fileInput.files && fileInput.files[0]) {
                             var fileReader = new FileReader();
                             fileReader.onload = function (event) {
                                 var imgpreview = $("#img_preview_"+id);
                                 imgpreview.attr("src", event.target.result);
                                 imgpreview.show();
-                                dropzone.children("p").hide();
+                                segment["'.$segmentid.'"]["'.$id.'"].dropzone.children("p").hide();
                             };
                             fileReader.readAsDataURL(fileInput.files[0]);
                             var fileName = fileInput.value; //Check of Extension
@@ -304,16 +303,17 @@
                             }
                         }
                     };
-                    function rmimage(id) { // TODO: Delete Picture button not removing picture from server and fix img replacing
-                        dropzone.children("p").html("Datei hochladen");
+                    segment["'.$segmentid.'"]["'.$id.'"].rmimage = function(id) { // TODO: Delete Picture button not removing picture from server and fix img replacing
+                        segment["'.$segmentid.'"]["'.$id.'"].dropzone.children("p").html("Datei hochladen");
                         segment["'.$segmentid.'"]["'.$id.'"].delete = "true";
                         $("#img_preview_"+id).hide();
-                        dropzone.children("p").show();
+                        segment["'.$segmentid.'"]["'.$id.'"].dropzone.children("p").show();
                         document.getElementById("invalidfiletype").style.display = "none";
                     }
-                    dropzone.children(".popupCloseButton").click(function() {
-                        rmimage("'.$id.'");
+                    segment["'.$segmentid.'"]["'.$id.'"].dropzone.children(".popupCloseButton").click(function() {
+                        segment["'.$segmentid.'"]["'.$id.'"].rmimage("'.$id.'");
                     })
+                });
             </script>';
         }
 
@@ -339,17 +339,19 @@
         echo '</div>';
         if(!$viewer){
             echo '<div id="invalidfiletype" style="display:none;"><p>Nur .jpg, .jpeg, .png und .webp Dateien sind erlaubt!</p></div>';
-            if($GLOBALS["file_exists"]){echo("<script>dropzone.children('p').hide();$('#drop_zone".$id." .popupCloseButton').show();</script>");}
+            if($GLOBALS["file_exists"]){echo("<script>load.success(function(){segment['".$segmentid."']['".$id."'].dropzone.children('p').hide();$('#drop_zone".$id." .popupCloseButton').show();});</script>");}
             echo '
             <script>
-                function onupload(id) {
-                    imagePreview($("#"+id+"input")[0], id);';
+            load.success(function() {
+                segment["'.$segmentid.'"]["'.$id.'"].onupload = function(id) {
+                    segment["'.$segmentid.'"]["'.$id.'"].imagePreview($("#"+id+"input")[0], id);';
                     if($GLOBALS["file_exists"] == "true"){echo 'load.success(function(){segment["'.$segmentid.'"]["'.$id.'"].delete = "true";})';}
                     echo '
-                    dropzone.children(".popupCloseButton").show();
+                    segment["'.$segmentid.'"]["'.$id.'"].dropzone.children(".popupCloseButton").show();
                 }
+            });
             </script>';
-            $savestring = 'var data = new FormData(); data.append("action", "file-upload"); data.append("fach", segment["'.$segmentid.'"].fach); data.append("uploaddir", "'.$uploaddir.'"); data.append("deletefile", segment["'.$segmentid.'"]["'.$id.'"].delete); data.append("existingfilename", "'. $existingfile.'"); data.append("filenameoverride", segment["'.$segmentid.'"]["'.$id.'"].filename); data.append("files[]", $("#'.$id.'input")[0].files[0]); for (var pair of data.entries()) {console.log(pair[0]); console.log(pair[1]);}; ajaxsave["'.$id.'"] = $.ajax({url: "/admin/api/file-upload.php", data: data, type: "post", processData: false, contentType: false, complete: function(success){console.log(success)}});';
+            $savestring = ['var data = new FormData(); data.append("action", "file-upload"); data.append("fach", segment["'.$segmentid.'"].fach); data.append("uploaddir", "'.$uploaddir.'"); data.append("deletefile", segment["'.$segmentid.'"]["'.$id.'"].delete); data.append("existingfilename", "'. $existingfile.'"); data.append("filenameoverride", segment["'.$segmentid.'"]["'.$id.'"].filename); data.append("files[]", $("#'.$id.'input")[0].files[0]); for (var pair of data.entries()) {console.log(pair[0]); console.log(pair[1]);}; if(!(segment["'.$segmentid.'"]["'.$id.'"].file_exists && !segment["'.$segmentid.'"]["'.$id.'"].delete)){ajaxsave["'.$id.'"] = $.ajax({url: "/admin/api/file-upload.php", data: data, type: "post", processData: false, contentType: false, complete: function(success){console.log(success)}});};', '((!(segment["'.$segmentid.'"]["'.$id.'"].file_exists && !segment["'.$segmentid.'"]["'.$id.'"].delete)) ? segment["'.$segmentid.'"]["'.$id.'"].uploadname : "'.$existingfile.'")'];
             return $savestring;
         }
     }
