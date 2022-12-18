@@ -93,16 +93,6 @@
     z-index: +2;
 }
 
-.faecher div.bereichdiv ul li.fach figcaption:hover ~ div img.fachimg,
-.faecher div.bereichdiv ul li.fach figcaption:hover ~ div span,
-.faecher div.bereichdiv ul li.fach figcaption:focus-within ~ div img.fachimg {
-    filter: blur(2px);
-}
-
-.faecher div.bereichdiv ul li.fach figcaption:hover ~ object a.imgsource {
-    display: inline-block;
-}
-
 .faecher div.bereichdiv ul li.fach a.imgsource {
     word-wrap: break-word;
     width: 220px;

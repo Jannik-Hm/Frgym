@@ -62,6 +62,10 @@
                     ';
                 }
                 echo '</section>';
+                echo '<script>
+                    $("li.fach figcaption").mouseenter(function(){$(this).siblings("object").children().show();$(this).siblings("div").css({"filter":"blur(2px)"})});
+                    $("li.fach").mouseleave(function(){$(this).children("object").children().hide();$(this).children("div").css({"filter":"none"})});
+                </script>';
             }
             include_once realpath($_SERVER["DOCUMENT_ROOT"])."/sites/footer.html"
             ?>
