@@ -4,7 +4,7 @@
         "faecher": {
             "DE": {"name": "Deutsch", "short": "DE", "filename": "Deutsch", "pic-url": "https://freesvg.org/stack-of-books-vector-clip-art", "dark-image": false},
             "EN": {"name": "Englisch", "short": "EN", "filename": "Englisch", "pic-url": "https://en.wikipedia.org/wiki/File:English_language.svg", "dark-image": false},
-            "FR": {"name": "Französisch", "short": "FR", "filename": "Französisch", "pic-url": "https://commons.wikimedia.org/wiki/File:France_flag_waving_icon.svg", "dark-image": false},
+            "FR": {"name": "Französisch", "short": "FR", "filename": "Franzoesisch", "pic-url": "https://commons.wikimedia.org/wiki/File:France_flag_waving_icon.svg", "dark-image": false},
             "RU": {"name": "Russisch", "short": "RU", "filename": "Russisch", "pic-url": "https://freesvg.org/flag-of-the-russian-federation-vector-graphics", "dark-image": false},
             "LA": {"name": "Latein", "short": "LA", "filename": "Latein", "pic-url": "https://svgsilh.com/image/161704.html", "dark-image": false}
         }
