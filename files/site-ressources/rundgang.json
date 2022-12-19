@@ -1,0 +1,120 @@
+{
+    "filelocation": "/files/site-ressources/schul-bilder/",
+    "default-pic": "main-2.jpg",
+    "ressources": {
+        "Altbau": [
+            {
+                "filename": "main.jpg",
+                "description": ""
+            },
+            {
+                "filename": "eingangsbereich-1.jpg",
+                "description": ""
+            },
+            {
+                "filename": "eingangsbereich-2.jpg",
+                "description": ""
+            },
+            {
+                "filename": "foyer.jpg",
+                "description": ""
+            },
+            {
+                "filename": "treppen-eingang.jpg",
+                "description": ""
+            },
+            {
+                "filename": "sitzecke-aula.jpg",
+                "description": ""
+            },
+            {
+                "filename": "aula.jpg",
+                "description": "Kernstück des Altbaus ist die Aula."
+            },
+            {
+                "filename": "trophaen.jpg",
+                "description": ""
+            }
+        ],
+        "Neubau": [
+            {
+                "filename": "cafeteria.jpg",
+                "description": ""
+            },
+            {
+                "filename": "aussenblick-cafeteria.jpg",
+                "description": ""
+            },
+            {
+                "filename": "aussenblick-bio.jpg",
+                "description": ""
+            }
+        ],
+        "Räume": [
+            {
+                "filename": "musik.jpg",
+                "description": ""
+            },
+            {
+                "filename": "bio-1.jpg",
+                "description": ""
+            },
+            {
+                "filename": "bio-2.jpg",
+                "description": ""
+            },
+            {
+                "filename": "computerraum.jpg",
+                "description": ""
+            },
+            {
+                "filename": "r321.jpg",
+                "description": ""
+            }
+        ],
+        "Sporthalle": [
+            {
+                "filename": "aussenblick-sport.jpg",
+                "description": ""
+            },
+            {
+                "filename": "sport-1.jpg",
+                "description": ""
+            },
+            {
+                "filename": "sport-2.jpg",
+                "description": ""
+            },
+            {
+                "filename": "sport-3.jpg",
+                "description": ""
+            }
+        ],
+        "Außengelände": [
+            {
+                "filename": "fahrradstaender.jpg",
+                "description": ""
+            },
+            {
+                "filename": "fussball-feld.jpg",
+                "description": ""
+            },
+            {
+                "filename": "blick-neubau.jpg",
+                "description": ""
+            },
+            {
+                "filename": "aussen-sportbaum.jpg",
+                "description": ""
+            },
+            {
+                "filename": "gruenes-klassenzimmer.jpg",
+                "description": ""
+            },
+            {
+                "filename": "innenhof.jpg",
+                "description": ""
+            }
+        ]
+    }
+}
