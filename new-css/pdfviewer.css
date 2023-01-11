@@ -1,0 +1,115 @@
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#toolbar {
+    display: flex;
+    align-items: center;
+    background-color: var(--newsbackground);
+    color: #fff;
+    padding: 0.5em;
+}
+
+#toolbar div {
+    margin-left: auto;
+    margin-right: 0;
+    font-size: 20px
+}
+
+#toolbar button,
+#page-mode input {
+    color: currentColor;
+    background-color: transparent;
+    font: inherit;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    padding: 0.25em 0.5em;
+}
+
+#toolbar button:hover,
+#toolbar button:focus,
+#page-mode input:hover,
+#page-mode input:focus {
+    color: lightGreen;
+}
+
+#page-mode {
+    display: flex;
+    align-items: center;
+    padding: 0.25em 0.5em;
+}
+
+#viewport-container {
+    flex: 1;
+    /* background: var(--backgroundcolor); */
+    overflow: visible;
+    scrollbar-width: none;
+    /* Hide Scrollbar Firefox */
+    -ms-overflow-style: none;
+    /* Hide Scrollbar IE */
+    height: fit-content;
+    min-width: fit-content;
+    margin-top: 10px;
+}
+
+#viewport {
+    /* width: 1000px; */
+    /* width: clamp(300px, 95%, 1000px); */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    overflow: scroll;
+
+    scrollbar-width: none;
+    /* Hide Scrollbar Firefox */
+    -ms-overflow-style: none;
+    /* Hide Scrollbar IE */
+}
+
+#viewport::-webkit-scrollbar,
+#viewport-container::-webkit-scrollbar {
+    /* Hide Scrollbar Chrome,... */
+    display: none
+}
+
+#viewport>div {
+    text-align: center;
+    width: 100%;
+}
+
+#viewport canvas {
+    width: 100%;
+    box-shadow: 0 2px 5px gray;
+}
+
+.textLayer {
+    position: absolute;
+    text-align: initial;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    line-height: 1;
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    text-size-adjust: none;
+    transform-origin: 0 0;
+    z-index: 2;
+}
+
+.textLayer div {
+    transform-origin: left;
+    position: absolute;
+    text-align: inherit;
+    white-space: pre;
+    color: transparent;
+}
+
+iframe#downloadprev {
+    width: 0;
+    height: 0;
+}
