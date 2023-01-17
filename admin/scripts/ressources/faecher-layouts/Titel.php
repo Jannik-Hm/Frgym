@@ -1,7 +1,7 @@
 <?php
     require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
-    if($GLOBALS["viewer"]){
-        echo '<p style="font-size: 40px; height: 40px;">'.nl2br($data[0]).'</p>';
+    if($viewer){
+        echo '<span style="font-size: 40px; height: 40px;">'.nl2br($data[0]).'</span>';
     }else{
         echo '
         <div class="grow-wrap">
@@ -10,7 +10,7 @@
         ';
         if(!$preview){
             $savefunction .= ajaxsave("Titel", '[$("#content1'.$id.'").val()]', $id);
-            $donefunction = 'load = $.post("/admin/api/faecher.php", {action: "getfachelementbyid", fach: fach, editor: true, id: id}, function(data){$("#"+id).replaceWith(data);$("#"+id).parent().dragndrop("unload");$("#"+id).parent().dragndrop();});';
+            $donefunction = 'load = $.post("/admin/api/faecher.php", {action: "getfachelementbyid", fach: fach, editor: true, id: id}, function(data){$("#"+id).replaceWith(data);$("#"+id).parent().dragndrop("unload");$("#"+id).parent().dragndrop();$("textarea").each(function() {autosizetext(this)}).on("input", function() {autosizetext(this)});});';
             $savefunction .= "$.when(ajaxsave[\"".$id."\"]).done(function(){".$donefunction."});";
         }
     }

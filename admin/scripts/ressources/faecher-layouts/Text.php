@@ -5,7 +5,7 @@
         $row = $result->fetch_assoc();
     }
     if($viewer){
-        echo '<p>'.nl2br($data[0]).'</p>';
+        echo '<span>'.nl2br($data[0]).'</span>';
     }else{
         echo '
         <div class="grow-wrap">
@@ -14,7 +14,7 @@
         ';
         if(!$preview){
             $savefunction .= ajaxsave("Text", '[$("#content1'.$id.'").val()]', $id);
-            $donefunction = 'load = $.post("/admin/api/faecher.php", {action: "getfachelementbyid", fach: fach, editor: true, id: id}, function(data){$("#"+id).replaceWith(data);$("#"+id).parent().dragndrop("unload");$("#"+id).parent().dragndrop();});';
+            $donefunction = 'load = $.post("/admin/api/faecher.php", {action: "getfachelementbyid", fach: fach, editor: true, id: id}, function(data){$("#"+id).replaceWith(data);$("#"+id).parent().dragndrop("unload");$("#"+id).parent().dragndrop();$("textarea").each(function() {autosizetext(this)}).on("input", function() {autosizetext(this)});});';
             $savefunction .= "$.when(ajaxsave[\"".$id."\"]).done(function(){".$donefunction."});";
         }
     }

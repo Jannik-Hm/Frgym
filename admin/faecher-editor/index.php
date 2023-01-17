@@ -23,7 +23,7 @@
                 echo '
                 <section style="height: 25px"></section>
                 <ul class="test" style="list-style: none; padding: 25px; margin-left: 50px; margin-right: 50px; background-color: var(--inputbackground); border-radius: 15px; color: var(--inputcolor);">';
-                echo '<script>var ajaxsave = {}; var segment = {};load = $.post("/admin/api/faecher.php", {"action": "getfachelements", "fach": "'.$_GET["fach"].'", "editor": true}, function(data){$(".test").append(data);$(".test").dragndrop("reload");})</script>';
+                echo '<script>var ajaxsave = {}; var segment = {};load = $.post("/admin/api/faecher.php", {"action": "getfachelements", "fach": "'.$_GET["fach"].'", "editor": true}, function(data){$(".test").append(data);$(".test").dragndrop("reload");$("textarea").each(function() {autosizetext(this)}).on("input", function() {autosizetext(this)});})</script>';
                 echo '</ul>';
                 require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/faecher-editor.php";
                 dragndrop(".test");
@@ -113,6 +113,10 @@
                     </form>
                 </section>
                 <script>
+                    function autosizetext(item){
+                        item.style.height = 0;
+                        item.style.height = ( item.scrollHeight ) + "px";
+                    }
                     $.post("/admin/api/faecher.php", {action: "getvisibility", fach: "<?php echo $_GET["fach"] ?>"}, getvisibility);
                     function getvisibility(data){
                         data=JSON.parse(data);
