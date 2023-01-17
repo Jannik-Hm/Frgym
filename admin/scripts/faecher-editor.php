@@ -18,7 +18,7 @@
                         if(is_file(realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/faecher-layouts/".$layout) && $layout!="test.php"){
                             echo("
                             <li class='layout-select-btn' style='text-align: left' onclick='addelement(\"".pathinfo($layout, PATHINFO_FILENAME)."\")' onmouseover='$(\"#layout-preview\").attr(\"src\", \"/admin/scripts/ressources/faecher-layout-preview.php?layout=".pathinfo($layout, PATHINFO_FILENAME)."\");$(\"#layout-preview\").show()' onmouseout='$(\"#layout-preview\").hide()'>
-                                ".pathinfo($layout, PATHINFO_FILENAME)."
+                                ".str_replace(["Ue", "ue"], ["Ü", "ü"], pathinfo($layout, PATHINFO_FILENAME))."
                             </li>
                             ");
                         }
@@ -313,7 +313,10 @@
                         }
                         segment["'.$segmentid.'"]["'.$id.'"].dropzone.children(".popupCloseButton").click(function() {
                             segment["'.$segmentid.'"]["'.$id.'"].rmimage("'.$id.'");
-                        })
+                        });
+                        segment["'.$segmentid.'"]["'.$id.'"].previewadjustheight = function() {
+                            segment["'.$segmentid.'"]["'.$id.'"].dropzone.css("min-height", "0").css("height", "fit-content");
+                        }
                     });
                 </script>';
             }
@@ -330,7 +333,10 @@
                 echo'
                 <script>
                     $("#img_preview_'.$id.'").attr("src", "'.$imgpath.'");';
-                if(!$viewer) echo'load.success(function(){segment["'.$segmentid.'"]["'.$id.'"]["old_id"] = "'.pathinfo($existingfile, PATHINFO_FILENAME).'"});';
+                if(!$viewer) echo'load.success(function(){
+                    segment["'.$segmentid.'"]["'.$id.'"]["old_id"] = "'.pathinfo($existingfile, PATHINFO_FILENAME).'";
+                    segment["'.$segmentid.'"]["'.$id.'"].previewadjustheight();
+                });';
                 echo '</script>
                 ';}
             if(!$viewer) {
@@ -350,6 +356,7 @@
                         if($GLOBALS["file_exists"] == "true"){echo 'load.success(function(){segment["'.$segmentid.'"]["'.$id.'"].delete = "true";})';}
                         echo '
                         segment["'.$segmentid.'"]["'.$id.'"].dropzone.children(".popupCloseButton").show();
+                        segment["'.$segmentid.'"]["'.$id.'"].previewadjustheight();
                     }
                 });
                 </script>';
