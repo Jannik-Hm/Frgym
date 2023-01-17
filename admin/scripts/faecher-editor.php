@@ -18,7 +18,7 @@
                         if(is_file(realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/faecher-layouts/".$layout) && $layout!="test.php"){
                             echo("
                             <li class='layout-select-btn' style='text-align: left' onclick='addelement(\"".pathinfo($layout, PATHINFO_FILENAME)."\")' onmouseover='$(\"#layout-preview\").attr(\"src\", \"/admin/scripts/ressources/faecher-layout-preview.php?layout=".pathinfo($layout, PATHINFO_FILENAME)."\");$(\"#layout-preview\").show()' onmouseout='$(\"#layout-preview\").hide()'>
-                                ".pathinfo($layout, PATHINFO_FILENAME)."
+                                ".str_replace(["Ue", "ue"], ["Ü", "ü"], pathinfo($layout, PATHINFO_FILENAME))."
                             </li>
                             ");
                         }
