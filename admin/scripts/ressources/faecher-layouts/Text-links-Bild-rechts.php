@@ -5,7 +5,7 @@
         $dropzone_id = uniqid();
         echo('<style>#drop_zone'.$dropzone_id.' {width: 25%; min-height: 200px; background-size: 100%;} [id*=drop_zone] [id*=img_preview] {max-height: 400px; }</style>');
         if($viewer){
-            echo '<p style="width: 75%;text-align: left;">'.nl2br($data[0]).'</p>';
+            echo '<span style="width: 75%;text-align: left;padding: 0 10px 0 0; margin: 0 auto;">'.nl2br($data[0]).'</span>';
         }else{
             echo '
             <div class="grow-wrap" style="width: 75%">
@@ -17,7 +17,7 @@
         if(!$preview && !$viewer){
             $savefunction .= $save1[0];
             $savefunction .= ajaxsave("Text-links-Bild-rechts", '[$("#content1'.$id.'").val(), '.$save1[1].']', $id);
-            $donefunction = 'load = $.post("/admin/api/faecher.php", {action: "getfachelementbyid", fach: fach, editor: true, id: id}, function(data){$("#"+id).replaceWith(data);$("#"+id).parent().dragndrop("unload");$("#"+id).parent().dragndrop();});';
+            $donefunction = 'load = $.post("/admin/api/faecher.php", {action: "getfachelementbyid", fach: fach, editor: true, id: id}, function(data){$("#"+id).replaceWith(data);$("#"+id).parent().dragndrop("unload");$("#"+id).parent().dragndrop();$("textarea").each(function() {autosizetext(this)}).on("input", function() {autosizetext(this)});});';
             $savefunction .= "$.when(ajaxsave[\"".$id."\"], ajaxsave[\"".$dropzone_id."\"]).done(function(){".$donefunction."});";
         }
     ?>

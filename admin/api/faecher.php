@@ -61,8 +61,13 @@
         }else{
             $id = uniqid();
         }
+        $elementborderstyle;
+        if($editor){
+            $elementborderstyle = "padding-bottom: 40px; border: 2px solid #fff; ";
+            $title = $segmenttype;
+        }
         echo '
-        <li style="margin-bottom: 10px; padding: 10px; padding-bottom: 40px; border: 2px solid #fff; border-radius: 15px" title="'.$segmenttype.'" id="'.$id.'">
+        <li style="padding: 10px; border-radius: 15px; margin-bottom: 10px;'.$elementborderstyle.'" title="'.$title.'" id="'.$id.'">
             <form method="POST" enctype="multipart/form-data">';
                 include(realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/ressources/faecher-layouts/$segmenttype.php");
                 if($editor) echo '

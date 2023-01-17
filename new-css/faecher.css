@@ -63,6 +63,7 @@
     left: 0;
     right: 0;
     bottom: 10px;
+    text-align: center;
 }
 
 .faecher div.bereichdiv ul li.fach div img.fachimg {
@@ -91,16 +92,6 @@
     cursor: pointer;
     color: #fff;
     z-index: +2;
-}
-
-.faecher div.bereichdiv ul li.fach figcaption:hover ~ div img.fachimg,
-.faecher div.bereichdiv ul li.fach figcaption:hover ~ div span,
-.faecher div.bereichdiv ul li.fach figcaption:focus-within ~ div img.fachimg {
-    filter: blur(2px);
-}
-
-.faecher div.bereichdiv ul li.fach figcaption:hover ~ object a.imgsource {
-    display: inline-block;
 }
 
 .faecher div.bereichdiv ul li.fach a.imgsource {
@@ -249,12 +240,16 @@ div.faecher-selector-popup {
   /* Place on top of each other */
   grid-area: 1 / 1 / 2 / 2;
   }
-  li p {
+  li span, li p {
     margin-bottom: 0px;
     margin-top: 0px;
+    display: block;
   }
-  textarea.normal, li p{
-      border: none;background: none;color: #000;
+  textarea.normal, li span, li p{
+      border: none;
+      background: none;
+      text-align:left;
+      /* color: #000; */
   }
   textarea.edit{
       border-radius: 10px;
@@ -284,8 +279,8 @@ div.faecher-selector-popup {
     color:#000!important;
   }
 
-  textarea.normal, textarea::placeholder, p {
-    color: rgb(226, 226, 226)!important;
+  textarea.normal, textarea::placeholder, span, p {
+    color: var(--textcolor)!important;
   }
   
   div.faecher-selector-popup {
