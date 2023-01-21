@@ -105,8 +105,9 @@ li#admin-profile-dropdwn ul li a i {
     margin-right: 10px;
 }
 
-li#admin-profile-dropdwn ul li a p {
+li#admin-profile-dropdwn ul li a span {
     display: inline;
+    color: #fff!important;
     margin: 0;
 }
 
@@ -157,7 +158,7 @@ footer a:hover {
 
 footer p,
 footer a {
-    color: #fff;
+    color: #fff!important;
 }
 
 @media only screen and (max-width: 850px) {
