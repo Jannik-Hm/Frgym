@@ -124,7 +124,7 @@
 #faecher-selector btn {
     width: 25%;
     padding: 25px 50px;
-    background-color: rgb(122, 133, 131);
+    background-color: var(--inputbackground);
     display: block;
     margin: auto;
     border-radius: 15px;
