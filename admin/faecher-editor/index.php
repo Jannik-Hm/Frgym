@@ -14,6 +14,22 @@
             <link rel="stylesheet" href="/new-css/faecher.css">
         </head>
         <body>
+            <script>
+            // javascript text for getting selected area and adding custom text at beginning and end for future custom right click menu
+            // var s = window.getSelection();
+            // function insertat2pos(text, pos1, insert1, pos2, insert2){
+            //     var a = s.anchorNode.textContent;
+            //     var position = s.anchorOffset;
+            //     text = [text.slice(0, pos1), insert1, text.slice(pos1)].join('');
+            //     text = [text.slice(0, pos2+insert1.length), insert2, text.slice(pos2+insert1.length)].join('');
+            //     return text;
+            // }
+            // document.getElementsByClassName("test")[0].addEventListener("contextmenu", function(e) {
+            //     // add custom popup and then change inserted text appropiately
+            //     s.anchorNode.textContent = insertat2pos(s.anchorNode.textContent, s.anchorOffset, "test1", s.extentOffset, "test2");
+            //     e.preventDefault();
+            // });
+            </script>
             <?php
             include_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/sites/header.php";
             require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/admin-scripts.php";
@@ -23,7 +39,7 @@
                 echo '
                 <section style="height: 25px"></section>
                 <ul class="test" style="list-style: none; padding: 25px; margin-left: 50px; margin-right: 50px; background-color: var(--inputbackground); border-radius: 15px; color: var(--inputcolor);">';
-                echo '<script>var ajaxsave = {}; var segment = {};load = $.post("/admin/api/faecher.php", {"action": "getfachelements", "fach": "'.$_GET["fach"].'", "editor": true}, function(data){$(".test").append(data);$(".test").dragndrop("reload");$("textarea").each(function() {autosizetext(this)}).on("input", function() {autosizetext(this)});})</script>';
+                echo '<script>var ajaxsave = {}; var segment = {};load = $.post("/admin/api/faecher.php", {"action": "getfachelements", "fach": "'.$_GET["fach"].'", "editor": true}, function(data){$(".test").append(data);$(".test").dragndrop("reload");$("textarea").each(function() {autosizetext(this)}).on("input", function() {autosizetext(this)});$("btn[id*=edit]").click(function() {$(".test").dragndrop();$(".test").dragndrop("unload")});$("input[id*=abort]").click(function() {$(".test").dragndrop()})})</script>';
                 echo '</ul>';
                 require_once realpath($_SERVER["DOCUMENT_ROOT"])."/admin/scripts/faecher-editor.php";
                 dragndrop(".test");

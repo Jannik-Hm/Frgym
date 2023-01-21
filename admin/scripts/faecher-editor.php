@@ -182,7 +182,7 @@
             [id*=drop_zone] {text-align: center; border: none; width: 100%;  padding: 0;  border-radius: 15px; background-color: none ; position: relative}
             [id*=drop_zone].edit {cursor: pointer;}
             [id*=drop_zone].edit:hover {background-color: #676565}
-            [id*=drop_zone] p {padding: 15px 0}
+            [id*=drop_zone] p {padding: 15px 0; text-align: center}
             [id*=drop_zone] .popupCloseButton {position: absolute; right: -15px; top: -15px; display: inline-block; font-weight: bold; font-size: 25px; line-height: 30px; width: 30px; height: 30px; text-align: center; background-color: rgb(122, 133, 131); border-radius: 50px; border: 3px solid #999; color: #414141;}
             [id*=drop_zone] .popupCloseButton:hover {background-color: #fff;}
             [id*=drop_zone] .popupCloseButton {visibility: hidden}
