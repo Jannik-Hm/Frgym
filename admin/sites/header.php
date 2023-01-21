@@ -7,7 +7,7 @@
             <li><a href="/admin/" id="homenav">Home</a></li>
             <script>$(document).ready(function (){loadlinks()} );
                 function loadlinks(){
-                    $.post("/admin/api/user.php", {action: "getheader"}, function(data){$(JSON.parse(data)["data"]).insertBefore("#admin-profile-dropdwn"); slide()})
+                    $.post("https://<?php echo $_SERVER["HTTP_HOST"] ?>/admin/api/user.php", {action: "getheader"}, function(data){$(JSON.parse(data)["data"]).insertBefore("#admin-profile-dropdwn"); slide()})
                 }
                 function slide() {
                     $('.drop-menu ul').hide();
@@ -31,14 +31,14 @@
                 <ul style="display: none">
                     <li id="logout-btn">
                         <a style="cursor: pointer" onclick="logout()">
-                            <i class="fa-solid fa-arrow-right-from-bracket" style="color: lightcoral;"></i><p>Abmelden</p>
+                            <i class="fa-solid fa-arrow-right-from-bracket" style="color: lightcoral;"></i><span>Abmelden</span>
                         </a>
                     </li>
                     <li><a href="/admin/user/edit/?id=<?php echo $_SESSION["user_id"] ?>">
-                        <i class="fas fa-user"></i><p>Profil</p>
+                        <i class="fas fa-user"></i><span>Profil</span>
                     </a></li>
                     <li><a href="/admin/user/change_password.php">
-                        <i class="fas fa-key"></i><p>Passwort ändern</p>
+                        <i class="fas fa-key"></i><span>Passwort ändern</span>
                     </a></li>
                 </ul>
             </li>
@@ -68,6 +68,6 @@
     </script>
     <script>
         function logout() {
-            $.post('/admin/api/user.php', {action: 'logout'}).always(function (jqXHR){if(typeof jqXHR.status == 'undefined'){location.href = "/admin/login/";};});
+            $.post('https:\/\/<?php echo $_SERVER["HTTP_HOST"] ?>/admin/api/user.php', {action: 'logout'}).always(function (jqXHR){if(typeof jqXHR.status == 'undefined'){location.href = "/admin/login/";};});
         }
     </script>
