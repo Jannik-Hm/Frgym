@@ -1,0 +1,19 @@
+#stylecontextmenu {
+    position: absolute;
+    display: block;
+    display: none;
+    background-color: #fff;
+    color: #000;
+    z-index: 10;
+    box-shadow: 2px 3px 5px 5px grey;
+}
+
+#stylecontextmenu btn {
+    font-size: 25px;
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+#stylecontextmenu btn:hover {
+    background-color: rgb(177, 177, 177);
+}

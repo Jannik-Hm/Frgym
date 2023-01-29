@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+    <body>
+        <link rel="stylesheet" href="/new-css/stylemenu.css">
+        <div id="stylecontextmenu" onclick="event.stopPropagation()">
+            <btn title="linksbündig" onclick='inserttag(clickdata, "linksbündig")'><i class="fas fa-align-left"></i></btn>
+            <btn title="zentriert" onclick='inserttag(clickdata, "zentriert")'><i class="fas fa-align-center"></i></btn>
+            <btn title="rechtsbündig" onclick='inserttag(clickdata, "rechtsbündig")'><i class="fas fa-align-right"></i></btn>
+            <btn title="Block" onclick='inserttag(clickdata, "block")'><i class="fas fa-align-justify"></i></btn>
+            <btn title="Kursiv" onclick='inserttag(clickdata, "i")'><i class="fa-solid fa-italic"></i></btn>
+        </div>
+        <script defer>
+            // javascript text for getting selected area and adding custom text at beginning and end for future custom right click menu
+            var contextmenu = document.getElementById("stylecontextmenu");
+            var clickdata;
+            function insertat2pos(text, pos1, insert1, pos2, insert2){
+                if(pos1 > pos2){
+                    temp = pos1;
+                    pos1 = pos2;
+                    pos2 = temp;
+                }
+                text = [text.slice(0, pos1), insert1, text.slice(pos1)].join('');
+                text = [text.slice(0, pos2+insert1.length), insert2, text.slice(pos2+insert1.length)].join('');
+                return text;
+            }
+
+            function inserttag(clickdata, tagname){
+                elementtype = clickdata.anchorNode.nodeName;
+                if(elementtype == "TEXTAREA" || (elementtype == "INPUT" && clickdata.anchorNode.type == "text")){ //check if element is textarea or input
+                    if(elementtype == "TEXTAREA"){
+                        console.log(clickdata);
+                        newtext = insertat2pos(clickdata.anchorNode.innerHTML, clickdata.anchorOffset, "<"+tagname+">", clickdata.extentOffset, "</"+tagname+">");
+                        clickdata.anchorNode.innerHTML = newtext;
+                    }else{
+                        newtext = insertat2pos(clickdata.anchorNode.value, clickdata.anchorOffset, "<"+tagname+">", clickdata.extentOffset, "</"+tagname+">");
+                        clickdata.anchorNode.value = newtext;
+                    }
+                }
+            }
+
+            function stylecontextmenuevent(e){
+                // add custom popup and then change inserted text appropiately
+                e.preventDefault();
+                // var s = window.getSelection();
+                var s = document.activeElement;
+                // console.log(s);
+                // console.log(s.anchorNode.children);
+                clickdata = {anchorNode: s, anchorOffset: s.selectionStart, extentOffset: s.selectionEnd};
+                contextmenu.style.left = e.clientX+"px";
+                contextmenu.style.top = e.clientY+"px";
+                contextmenu.style.display = "inherit";
+            }
+
+            function hidecontextmenu(){
+                contextmenu.style.display = "none";
+            }
+
+            function stylecontextmenu(menuwindow = document.body){
+                // spawn custom element at right click position
+                menuwindow.addEventListener("contextmenu", stylecontextmenuevent);
+                document.body.addEventListener("click", hidecontextmenu);
+            }
+
+            function disablestylecontextmenu(menuwindow = document.body){
+                menuwindow.removeEventListener("contextmenu", stylecontextmenuevent);
+            }
+        </script>
+    </body>
+</html>

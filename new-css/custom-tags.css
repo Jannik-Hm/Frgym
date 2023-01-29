@@ -1,0 +1,28 @@
+/* cutom html tags */
+
+überschrift {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+zentriert {
+    text-align: center!important;
+    display: block;
+}
+
+linksbündig {
+    text-align: left;
+    display: block;
+}
+
+rechtsbündig {
+    display: block;
+    text-align: right;
+}
+
+block {
+    display: block;
+    text-align: justify;
+    hyphens: auto;
+    text-align-last: inherit;
+}

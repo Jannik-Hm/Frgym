@@ -95,6 +95,11 @@
                     $(\'#\'+this.id+\'save\').css("display", "inline-block");
                     $(\'[id*="\'+this.id+\'"]\').find(\'[name="content"]\').attr(\'class\', \'edit\');
                     $(\'[id*="\'+this.id+\'"]\').find(\'[name="content"]\').removeAttr(\'disabled\');
+                    textarealist = $("li#"+this.id+" textarea");
+                    console.log(textarealist);
+                    for(var i=0; i<textarealist.length; i++){
+                        stylecontextmenu(textarealist[i]);
+                    }
                 },
                 save: Function(\''.$savefunction.'\'),
                 editactive: false
