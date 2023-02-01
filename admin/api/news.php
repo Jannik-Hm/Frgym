@@ -7,7 +7,7 @@
     $id = $_POST["id"];
     if($app == "getall"){
         $response["performed"] = "getall";
-        $select = mysqli_query(getsqlconnection(), "SELECT news.id, news.titel, news.inhalt, news.zeit, CONCAT(if(users.titel IS NOT NULL, CONCAT(users.titel, ' '), ''), users.vorname,' ',users.nachname) AS autor FROM news, users WHERE news.autor = users.id ORDER BY zeit DESC".((is_null($_POST["limit"]) || $_POST["limit"] == "") ? "" : (" LIMIT ".$_POST["limit"])));
+        $select = mysqli_query(getsqlconnection(), "SELECT news.id, news.titel, news.inhalt, news.zeit, CONCAT(if(users.titel IS NOT NULL, CONCAT(users.titel, ' '), ''), users.vorname,' ',users.nachname) AS autor, news.autor as autor_id FROM news, users WHERE news.autor = users.id ORDER BY zeit DESC, id DESC".((is_null($_POST["limit"]) || $_POST["limit"] == "") ? "" : (" LIMIT ".$_POST["limit"])));
         $response["data"] = array();
         while ($db_field = mysqli_fetch_assoc($select)) {
             $response["data"][] = $db_field;

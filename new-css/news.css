@@ -76,7 +76,8 @@ div.news ul li {
   align-self: center;
 }
 
-.newssettings input[type="submit"] {
+#itemssubmit {
+  font-size: 16px;
   top: 0px;
   cursor: pointer;
   position: relative;
@@ -552,7 +553,7 @@ div.pagination a {
 .add-input-news form input,
 .add-input-news form textarea,
 .newssettings select,
-.newssettings input[type="submit"],
+#itemssubmit,
 .singlenews,
 .newssettings select,
 div.pagination,
@@ -582,7 +583,7 @@ div.pagination a:hover {
   .add-input-news form textarea,
   .add-input-news form ::placeholder,
   .newssettings select,
-  .newssettings input[type="submit"],
+  #itemssubmit,
   .fa-edit,
   .newssettings label {
     color: var(--newstextcolor);
@@ -598,7 +599,7 @@ div.pagination a:hover {
   .add-input-news form input,
   .add-input-news form textarea,
   .newssettings select,
-  .newssettings input[type="submit"],
+  #itemssubmit,
   .singlenews,
   .newssettings select,
   div.pagination,

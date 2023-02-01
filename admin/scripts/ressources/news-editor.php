@@ -29,7 +29,7 @@
         confirmation("Hinzufügen erfolgreich!", "Die Neuigkeit wurde erfolgreich hinzugefügt.", "Weitere Neuigkeit verfassen", "/admin/news/add/", "Zurück zur Übersicht", "/admin/news/");
     }
 
-    $autor = $_SESSION["vorname"] . " " . $_SESSION["nachname"];
+    $autor = $_SESSION["user_id"];
     $titel = $_POST["titel"];
     $inhalt = $_POST["inhalt"];
     $date = date("Y-m-d H:i");

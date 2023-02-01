@@ -34,7 +34,7 @@
         }
         if($GLOBALS["news.own"] == 1 || $GLOBALS["news.all"] == 1){
             $GLOBAS["disabled"] = false;
-            if($edit && ($GLOBALS["news.all"] == 1 || ($GLOBALS["news.own"] == 1 && $GLOBALS["autor"] == $_SESSION["vorname"] . " " . $_SESSION["nachname"]))){
+            if($edit && ($GLOBALS["news.all"] == 1 || ($GLOBALS["news.own"] == 1 && $GLOBALS["autor"] == $_SESSION["user_id"]))){
                 $GLOBALS["edit"] = true;
             }elseif(! $edit){
                 $GLOBALS["edit"] = false;
@@ -58,7 +58,7 @@
             $row = $result->fetch_assoc();
             $autor = $row["autor"];
         }
-        if($GLOBALS["news.all"] == 1 || ($GLOBALS["news.own"] == 1 && $autor == $_SESSION["vorname"] . " " . $_SESSION["nachname"])){
+        if($GLOBALS["news.all"] == 1 || ($GLOBALS["news.own"] == 1 && $autor == $_SESSION["user_id"])){
             $insert = mysqli_query($conn, "DELETE FROM news WHERE id='{$id}'");
             if ($insert) {echo '<script type="text/javascript">window.location = "/admin/news/"</script>';}
         }else{
