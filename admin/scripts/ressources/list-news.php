@@ -60,8 +60,8 @@
 
                 function deletenews(id){
                     event.stopPropagation();
-                    document.getElementById("confirmdelete").href = '/admin/news/delete.php?id='+newsdata[id].id;
-                    document.getElementById("confirmdeletefirst").href = '/admin/news/delete.php?id='+newsdata[id].id;
+                    document.getElementById("confirmdelete").setAttribute('onclick', '$.post("/admin/api/news.php", {action: "delete", id:"'+newsdata[id].id+'"}, function(data){if(JSON.parse(data).success){document.getElementsByClassName("confirm")[0].style.display = "none";getdata();}})');
+                    document.getElementById("confirmdeletefirst").setAttribute('onclick', '$.post("/admin/api/news.php", {action: "delete", id:"'+newsdata[id].id+'"}, function(data){if(JSON.parse(data).success){document.getElementsByClassName("confirm")[0].style.display = "none";getdata();}})');
                     document.getElementsByClassName("confirm")[0].style.display = "inherit";
                     document.getElementById('confirmtext').innerHTML='Möchtest du die Neuigkeit &#34;'+newsdata[id].title+'&#34; wirklich löschen?';
                 }
@@ -97,28 +97,33 @@
                     }
                 }
 
-                $.post("/admin/api/news.php", {"action": "getall"}, function(data){
-                    var itemsperpage = Number(document.getElementById("itemsnum").value);
-                    var startitem = (page-1)*itemsperpage;
-                    var counter = 0;
-                    <?php if($GLOBALS["admin"]) { echo '$.post("/admin/api/user.php", {"action": "getperms"}, function(permdata){perms = JSON.parse(permdata).data;';} ?>
-                        JSON.parse(data).data.forEach(function(cur){
-                            newsdata[counter] = {};
-                            newsdata[counter].id = cur.id;
-                            newsdata[counter].title = cur.titel;
-                            var d = new Date(cur.zeit);
-                            newsdata[counter].time = ("0" + d.getDate()).slice(-2) + "." + ("0" + (d.getMonth() + 1)).slice(-2) + "." + d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
-                            newsdata[counter].author = cur.autor;
-                            newsdata[counter].author_id = cur.autor_id;
-                            newsdata[counter].content = cur.inhalt;
-                            if((counter >= startitem) && (counter < (itemsperpage+startitem))){
-                                generatenewsitem(counter);
-                            };
-                            counter++;
-                        });
-                        createpagebuttons();
-                    <?php if($GLOBALS["admin"]) { echo '});';} ?>
-                })
+                function getdata(){
+                    document.getElementById("newslist").innerHTML = "";
+                    document.getElementById("pageselector").innerHTML = "";
+                    $.post("/admin/api/news.php", {"action": "getall"}, function(data){
+                        var itemsperpage = Number(document.getElementById("itemsnum").value);
+                        var startitem = (page-1)*itemsperpage;
+                        var counter = 0;
+                        <?php if($GLOBALS["admin"]) { echo '$.post("/admin/api/user.php", {"action": "getperms"}, function(permdata){perms = JSON.parse(permdata).data;';} ?>
+                            JSON.parse(data).data.forEach(function(cur){
+                                newsdata[counter] = {};
+                                newsdata[counter].id = cur.id;
+                                newsdata[counter].title = cur.titel;
+                                var d = new Date(cur.zeit);
+                                newsdata[counter].time = ("0" + d.getDate()).slice(-2) + "." + ("0" + (d.getMonth() + 1)).slice(-2) + "." + d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+                                newsdata[counter].author = cur.autor;
+                                newsdata[counter].author_id = cur.autor_id;
+                                newsdata[counter].content = cur.inhalt;
+                                if((counter >= startitem) && (counter < (itemsperpage+startitem))){
+                                    generatenewsitem(counter);
+                                };
+                                counter++;
+                            });
+                            createpagebuttons();
+                        <?php if($GLOBALS["admin"]) { echo '});';} ?>
+                    });
+                }
+                window.addEventListener('load', function() {getdata();});
             </script>
             <div onclick="event.stopPropagation();document.getElementsByClassName('readmorebox')[0].style.display = 'none'" style='left: 0;' class='readmorebox'>
                 <span class='helper'></span>
