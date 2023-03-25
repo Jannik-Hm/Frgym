@@ -7,6 +7,7 @@
 
         ?>
         <title>Lehrer - Friedrich-Gymnasium Luckenwalde</title>
+        <link rel="stylesheet" href="/new-css/lehrer.css">
         <script>
             function searchTable() {
                 // Declare variables

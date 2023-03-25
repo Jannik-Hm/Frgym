@@ -7,6 +7,7 @@
 
         ?>
         <title>Kontakt - Friedrich-Gymnasium Luckenwalde</title>
+        <link rel="stylesheet" href="/new-css/contact.css">
     </head>
     <body>
             <?php
