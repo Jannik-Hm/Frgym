@@ -5,6 +5,10 @@
 }
 
 #toolbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 3;
     display: flex;
     align-items: center;
     background-color: var(--newsbackground);
@@ -51,7 +55,7 @@
     /* Hide Scrollbar IE */
     height: fit-content;
     min-width: fit-content;
-    margin-top: 10px;
+    margin-top: 50px;
 }
 
 #viewport {

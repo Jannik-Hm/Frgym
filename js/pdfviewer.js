@@ -1,9 +1,9 @@
-(function () {
     let currentPageIndex = 0;
     let pageMode = 1;
     let cursorIndex = Math.floor(currentPageIndex / pageMode);
     let pdfInstance = null;
     let totalPagesCount = 0;
+    textcontentarray = [];
 
     const viewport = document.querySelector("#viewport");
     window.initPDFViewer = function (pdfURL) {
@@ -11,41 +11,10 @@
             pdfInstance = pdf;
             totalPagesCount = pdf.numPages;
             pageMode = pdf.numPages;
-            console.log(pdf);
-            // initPager();
-            // initPageMode();
+            standardzoom = getzoom();
             render();
         });
     };
-
-    function onPagerButtonsClick(event) {
-        const action = event.target.getAttribute("data-pager");
-        if (action === "prev") {
-            if (currentPageIndex === 0) {
-                return;
-            }
-            currentPageIndex -= pageMode;
-            if (currentPageIndex < 0) {
-                currentPageIndex = 0;
-            }
-            render();
-        }
-        if (action === "next") {
-            if (currentPageIndex === totalPagesCount - 1) {
-                return;
-            }
-            currentPageIndex += pageMode;
-            if (currentPageIndex > totalPagesCount - 1) {
-                currentPageIndex = totalPagesCount - 1;
-            }
-            render();
-        }
-    }
-
-    function onPageModeChange(event) {
-        pageMode = Number(event.target.value);
-        render();
-    }
 
     function render() {
         cursorIndex = Math.floor(currentPageIndex / pageMode);
@@ -73,17 +42,11 @@
         let pdfViewport = page.getViewport(container.offsetWidth / page.getViewport(1).width * 3);
         let textViewport = page.getViewport(container.offsetWidth / page.getViewport(1).width);
         scale = 1;
-        // let pdfViewport = page.getViewport(3);
-        // let textViewport = page.getViewport(3);
         const canvas = container.children[0];
         const textLayer = container.children[1];
         const context = canvas.getContext("2d");
         canvas.height = pdfViewport.height;
         canvas.width = pdfViewport.width;
-        console.log("pdfviewport");
-        console.log(pdfViewport);
-        console.log("textviewport");
-        console.log(textViewport);
 
         page.render({
             canvasContext: context,
@@ -91,12 +54,11 @@
         }).then(() => {
             return page.getTextContent();
         }).then((textContent) => {
-            console.log(textContent);
+            textcontentarray[page.pageIndex] = {"height": canvas.offsetHeight + 'px', "width": canvas.offsetWidth + 'px', "textContent": textContent, "container": textLayer, "viewport": textViewport};
             textLayer.style.left = canvas.offsetLeft + 'px';
             textLayer.style.top = canvas.offsetTop + 'px';
             textLayer.style.height = canvas.offsetHeight + 'px';
             textLayer.style.width = canvas.offsetWidth + 'px';
-            console.log(textContent);
             pdfjsLib.renderTextLayer({
                 textContent: textContent,
                 container: textLayer,
@@ -104,27 +66,13 @@
                 textDivs: []
             });
         });
-
-        // console.log(page);
-
-        // Wait for rendering to finish
-        // renderTask.promise.then(function () {
-        //     pageRendering = false;
-        //     var textContent = page.getTextContent();
-        //     textContent.then(function (text) { // return content promise
-        //         console.log(text.items);
-        //         // Text Layer CSS
-
-        //         console.log(page.getTextContent());
-
-
-        //     });
-        // console.log(page.getTextContent());
-        // })//.then(function () {
-        //     // Returns a promise, on resolving it will return text contents of the page
-        //     console.log(page.getTextContent());
-        // }).then(function (textContent) {
-        // });
-
     }
-})();
+
+    function renderText(page, zoom = 1){
+        const textLayer = viewport.children[page].children[1];
+        textLayer.style.left = document.getElementById("viewport").children[page].offsetLeft + 'px';
+        textLayer.style.top = document.getElementById("viewport").children[page].offsetTop + 'px';
+        textLayer.style.height = textcontentarray[page].height;
+        textLayer.style.width = textcontentarray[page].width;
+        textLayer.style.scale = zoom;
+    }
