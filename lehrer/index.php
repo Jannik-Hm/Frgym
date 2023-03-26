@@ -79,17 +79,19 @@
                     function createuserlist(data){
                         data.forEach(function(val, key){
                             var faecher = "";
-                            var faecherlist = val["faecher"].split(";");
-                            faecherlist.forEach(function(val, key){
-                                faecher += " "+val;
-                                if(key == faecherlist.length-1){
-                                    return;
-                                }else if(key == faecherlist.length-2){
-                                    faecher += " &";
-                                }else{
-                                    faecher += ",";
-                                }
-                            })
+                            if(val.faecher != null){
+                                var faecherlist = val["faecher"].split(";");
+                                faecherlist.forEach(function(val, key){
+                                    faecher += " "+val;
+                                    if(key == faecherlist.length-1){
+                                        return;
+                                    }else if(key == faecherlist.length-2){
+                                        faecher += " &";
+                                    }else{
+                                        faecher += ",";
+                                    }
+                                })
+                            }
                             $("#lehrerTable").append("<tr onclick=\"window.location='/lehrer/?id="+val["id"]+"'\"><td>"+((val["titel"]!=null)?val["titel"]+" ":"")+((val["display_vorname"]!=null)?val["display_vorname"]:val["vorname"])+" "+val["nachname"]+"</td><td>"+faecher.trim()+"</td></tr>");
                         });
                     }
