@@ -26,7 +26,7 @@
         $permarray = getcalperms();
         $roles = array_column($permarray, 'role');
         if(isset($username) && isset($password) && $username != "" && $password != "" && $username != NULL && $password != NULL){
-            if($username == "schueler"){
+            if($username == "schueler" && $password == "schueler"){ // change here for new schueler password TODO: db based
                 $roleindex = array_search('Schüler*in', $roles);
             }else{
                 $user = verifyapi($username, $password);
