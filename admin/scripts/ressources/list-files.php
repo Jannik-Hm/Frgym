@@ -80,9 +80,7 @@
                         } else if ($extension == "pdf") {
                             $icon = "far fa-file-pdf";
                             $is_image = false;
-                            // $previewaction = 'window.location="'."https://".$_SERVER['SERVER_NAME'].$pathworoot."/".$i.'"';
-                            // $previewaction = '$("#filepreviewiframe").attr("src", "'.$pathworoot."/".$i.'"); $("#filepreviewiframe").attr("title", "'.$i.'"); $("#previewiframe").show();$(".filepreview").show()';
-                            $previewaction = '$("#filepreviewiframe").attr("src", ( /^((?!chrome|android).)*safari/i.test(navigator.userAgent) == true ) ? "https://drive.google.com/viewerng/viewer?embedded=true&url="+encodeURIComponent("https://'.$_SERVER['SERVER_NAME'].$pathworoot."/".$i.'") : "'.$pathworoot."/".$i.'" ); $("#filepreviewiframe").attr("title", "'.$i.'"); $("#previewiframe").show();$(".filepreview").show()';
+                            $previewaction = '$("#filepreviewiframe").attr("src", "/pdfviewer/?file='.$pathworoot."/".$i.'"); $("#filepreviewiframe").attr("title", "'.$i.'"); $("#previewiframe").show();$(".filepreview").show()';
                             $title = "PDF öffnen";
                         } else {
                             $icon = "far fa-file-alt";
@@ -130,8 +128,7 @@
         ?>
 
         <script>
-            function onresizefunc() {
-            if ($(".filename").width()>=7/8*$(".file_name_span").width() && $(window).width() > 500) { $(".editdate").show(); } else { $(".editdate").hide(); }
+            onresizefunc += 'if ($(".filename").width()>=7/8*$(".file_name_span").width() && $(window).width() > 500) { $(".editdate").show(); } else { $(".editdate").hide(); };'
             // if (!$(".editdate").is("hidden")) {
             //     if ($(".filename").outerWidth()+$(".floatright").outerWidth() <= 0.9 * $(window).width()) {
             //         $(".editdate").hide();
@@ -139,6 +136,6 @@
             // }
             // if (1/2*$(window).width()>$(".file_name_span").width()) { $(".editdate").show(); } else { $(".editdate").hide(); } // TODO: implement this
             // if ( $(".filename").outerWidth()+30+320 > $("#fileTable").width() ) { $(".editdate").hide(); } else { $(".editdate").show(); }
-        }</script>
+        </script>
     </table>
 </section>
