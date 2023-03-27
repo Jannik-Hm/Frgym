@@ -14,7 +14,7 @@
             $curl = curl_init();
 
             curl_setopt_array($curl, [
-            CURLOPT_URL => "https://frgym.greenygames.de/admin/api/faecher.php",
+            CURLOPT_URL => "https://".$_SERVER['SERVER_NAME']."/admin/api/faecher.php",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => "-----011000010111000001101001\r\nContent-Disposition: form-data; name=\"action\"\r\n\r\ngetallvisibility\r\n-----011000010111000001101001--\r\n",

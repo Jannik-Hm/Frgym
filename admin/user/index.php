@@ -44,7 +44,7 @@
                 }
             }
             function deleteuser(id){
-                $.post("https://frgym.greenygames.de/admin/api/user.php", {action: "delete", id: id}, function() {window.location.reload();});
+                $.post("/admin/api/user.php", {action: "delete", id: id}, function() {window.location.reload();});
             }
         </script>
     </head>

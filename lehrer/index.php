@@ -75,7 +75,7 @@
             <script>
                 var id = <?php echo ((isset($_GET["id"]))?$_GET["id"]:"null") ?>;
                 if(id == null){
-                    var ajax = $.post("https://frgym.greenygames.de/admin/api/user.php", {"action": "getall"}, function(data){console.log(ajax.status); createuserlist(JSON.parse(data)["data"]);});
+                    var ajax = $.post("/admin/api/user.php", {"action": "getall"}, function(data){console.log(ajax.status); createuserlist(JSON.parse(data)["data"]);});
                     function createuserlist(data){
                         data.forEach(function(val, key){
                             var faecher = "";
@@ -123,7 +123,7 @@
                         })
                         $("#faecher").html(faecherstring);
                     }
-                    var ajax = $.post("https://frgym.greenygames.de/admin/api/user.php", {"action": "getbyid", "id": id}, function(data){console.log(ajax.status); console.log(JSON.parse(data)["data"]);createuserprofile(JSON.parse(data)["data"]);});
+                    var ajax = $.post("/admin/api/user.php", {"action": "getbyid", "id": id}, function(data){console.log(ajax.status); console.log(JSON.parse(data)["data"]);createuserprofile(JSON.parse(data)["data"]);});
                     function createuserprofile(data){
                         $("#name").html(((data.titel!=null)?data["titel"]+" ":"")+((data["display_vorname"]!=null)?data["display_vorname"]:data["vorname"])+" "+data["nachname"]);
                         $("#position").html(data.role);

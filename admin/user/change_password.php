@@ -65,7 +65,7 @@
                             $("#"+hashinputid).val(sha256($("#"+rawinputid).val()));
                         }
                         function save(){
-                            $.post("https://frgym.greenygames.de/admin/api/user.php", {action: "changepassword", newpassword_hash: sha256($("#pass_new").val()), username: "<?php echo $_SESSION["username"] ?>", password_hash: sha256($("#pass_old").val())}, success);
+                            $.post("/admin/api/user.php", {action: "changepassword", newpassword_hash: sha256($("#pass_new").val()), username: "<?php echo $_SESSION["username"] ?>", password_hash: sha256($("#pass_old").val())}, success);
                         }
                         function success(data){
                             if(JSON.parse(data).success){
