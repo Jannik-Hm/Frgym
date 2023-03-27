@@ -26,7 +26,12 @@
         $permarray = getcalperms();
         $roles = array_column($permarray, 'role');
         if(isset($username) && isset($password) && $username != "" && $password != "" && $username != NULL && $password != NULL){
-            if($username == "schueler" && $password == "schueler"){ // change here for new schueler password TODO: db based
+            $schuelerpassword = null;
+            if($username == "schueler"){
+                $sql = mysqli_query(getsqlconnection(), "SELECT overwrite_password FROM calendars WHERE role='Schüler*in'");
+                $schuelerpassword = mysqli_fetch_assoc($sql)["overwrite_password"];
+            }
+            if($username == "schueler" && $password == $schuelerpassword){ // change here for new schueler password TODO: db based
                 $roleindex = array_search('Schüler*in', $roles);
             }else{
                 $user = verifyapi($username, $password);

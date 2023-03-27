@@ -34,12 +34,19 @@ session_start();
                             <span class='helper'></span>
                             <div class='no_permission'>
                                 <h1>Passwort</h1><br>
+                                <p id='wrongpass' style='display: none;color: #F75140'>Falsches Passwort</p>
                                 <input type='password' id='schuelerpasswordinput' style='background-color: var(--terminbackground);color: var(--inputcolor);border: none;border-radius: 10px;font-size: 24px;padding: 7px;margin-bottom: 20px;'></input>
                                 <br>
                                 <a onclick=\"getcaldata('schueler', document.getElementById('schuelerpasswordinput').value);$('.no_perm').hide();\" class='back'>OK</a>
                             </div>
                         </div>
                     </div>
+                    <script>
+                        function wrongpassword() {
+                            $('.no_perm').show();
+                            document.getElementById('wrongpass').style.display = 'block';
+                        }
+                    </script>
                     ");
                 }
             ?>

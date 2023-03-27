@@ -1,5 +1,5 @@
 function getcaldata(username, password) {
-    var ajax = $.post("https://frgym.greenygames.de/admin/api/calendar.php", { "action": "geteventlist", "username": username, "password_hash": password }, function (data) { console.log(ajax.status); processcaldata(JSON.parse(data)["data"]); });
+    var ajax = $.post("/admin/api/calendar.php", { "action": "geteventlist", "username": username, "password_hash": password }, function (data) { console.log(ajax.status); processcaldata(JSON.parse(data)["data"]); }).fail(function(response){if(typeof wrongpassword == "function" && response.status==401){wrongpassword()};});
 }
 function geticsuri(id, datestamp, dayevent, start, end, summary, description = null, location = null) {
     var ics = [];
