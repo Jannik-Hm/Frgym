@@ -5,6 +5,20 @@
         $dropzone_id = uniqid();
         echo('<style>#drop_zone'.$dropzone_id.' {width: 25%; min-height: 200px; background-size: 100%;} [id*=drop_zone] [id*=img_preview] {max-height: 400px; }</style>');
         if($viewer){
+            echo('
+            <script>
+                var img = document.getElementById("img_preview_'.$dropzone_id.'");
+                var dropzone = document.getElementById("drop_zone'.$dropzone_id.'");
+                imgheight = img.naturalHeight;
+                imgwidth = img.naturalWidth
+                if(imgheight > imgwidth){
+                    dropzone.style.height = "200px";
+                    img.style.height = "200px";
+                }else{
+                    dropzone.style.width = "clamp(150px, 25vw, 400px)";
+                    img.style.width = "clamp(150px, 25vw, 400px)";
+                }
+            </script>');
             echo '<span style="width: 75%;text-align: left;padding: 0 10px 0 0; margin: 0 auto;">'.nl2br($data[0]).'</span>';
         }else{
             echo '

@@ -332,7 +332,7 @@
             if($GLOBALS["file_exists"]){
                 echo'
                 <script>
-                    $("#img_preview_'.$id.'").attr("src", "'.$imgpath.'");';
+                    document.getElementById("img_preview_'.$id.'").src = "'.$imgpath.'";';
                 if(!$viewer) echo'load.success(function(){
                     segment["'.$segmentid.'"]["'.$id.'"]["old_id"] = "'.pathinfo($existingfile, PATHINFO_FILENAME).'";
                     segment["'.$segmentid.'"]["'.$id.'"].previewadjustheight();

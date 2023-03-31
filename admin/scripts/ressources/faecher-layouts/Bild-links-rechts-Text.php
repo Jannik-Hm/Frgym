@@ -7,6 +7,22 @@
         echo('<style>#drop_zone'.$dropzone_id1.',#drop_zone'.$dropzone_id2.' {width: 25%; min-height: 200px; background-size: 100%;} [id*=drop_zone] [id*=img_preview] {max-height: 400px; }</style>');
         $save1 = faecher_img_dropzone($id, $dropzone_id1, "content1", array("jpg","jpeg","png", "webp"), $data[0], $viewer, $preview);
         if($viewer){
+            echo('
+            <script>
+                [[document.getElementById("img_preview_'.$dropzone_id1.'"), document.getElementById("drop_zone'.$dropzone_id1.'")], [document.getElementById("img_preview_'.$dropzone_id2.'"), document.getElementById("drop_zone'.$dropzone_id2.'")]].forEach(function(cur){
+                    var img = cur[0];
+                    var dropzone = cur[1];
+                    imgheight = img.naturalHeight;
+                    imgwidth = img.naturalWidth
+                    if(imgheight > imgwidth){
+                        dropzone.style.height = "200px";
+                        img.style.height = "200px";
+                    }else{
+                        dropzone.style.width = "clamp(150px, 25vw, 400px)";
+                        img.style.width = "clamp(150px, 25vw, 400px)";
+                    }
+                })
+            </script>');
             echo '<span style="margin: 0 auto;padding: 0 10px">'.nl2br($data[1]).'</span>';
         }else{
             echo '
