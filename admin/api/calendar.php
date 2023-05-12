@@ -405,6 +405,151 @@
         }
     }
 
+    function create_calendar($username, $password, $title, $description=NULL){
+        $access_token = $GLOBALS["tokens"]["edit"]["access_token"];
+        $refresh_token = $GLOBALS["tokens"]["edit"]["refresh_token"];
+        $token_type = $GLOBALS["tokens"]["edit"]["token_type"];
+        $client_id = $GLOBALS["tokens"]["edit"]["client_id"];
+        $client_secret = $GLOBALS["tokens"]["edit"]["client_secret"];
+        $user = verifyapi($username, $password);
+        if(is_array($user) && $user["perms"]["calendar.administration"]){
+            $i = 0;
+            begin:
+            $i++;
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://www.googleapis.com/calendar/v3/calendars",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => "{\n\t\"summary\": \"$title\",\n\t\"description\": \"$description\",\n\t\"timeZone\": \"Europe/Berlin\"\n}",
+                CURLOPT_HTTPHEADER => [
+                    "Authorization: ".$token_type." ".$access_token,
+                    "Content-Type: application/json"
+                ],
+            ]);
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+            curl_close($curl);
+            $result = json_decode($response, true);
+            if($result["error"]["code"] == 401) {
+                $access_token = getnewtoken($refresh_token, $client_id, $client_secret);
+                if(isset($access_token)){
+                    $GLOBALS["tokens"]["edit"]["access_token"] = $access_token;;
+                    file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/secrets/GoogleApisecrets.json", json_encode($GLOBALS["tokens"]));
+                }
+                if($i < 2){
+                    goto begin;
+                }
+                return;
+            }else{
+                return $result;
+            }
+        }else{
+            $response["error"] = $user;
+            return $response;
+        }
+    }
+
+    function update_calendar($username, $password, $calid, $title, $description=NULL){
+        $access_token = $GLOBALS["tokens"]["edit"]["access_token"];
+        $refresh_token = $GLOBALS["tokens"]["edit"]["refresh_token"];
+        $token_type = $GLOBALS["tokens"]["edit"]["token_type"];
+        $client_id = $GLOBALS["tokens"]["edit"]["client_id"];
+        $client_secret = $GLOBALS["tokens"]["edit"]["client_secret"];
+        $user = verifyapi($username, $password);
+        if(is_array($user) && $user["perms"]["calendar.administration"]){
+            $i = 0;
+            begin:
+            $i++;
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://www.googleapis.com/calendar/v3/calendars/$calid",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "PUT",
+                CURLOPT_POSTFIELDS => "{\n\t\"summary\": \"$title\",\n\t\"description\": \"$description\",\n\t\"timeZone\": \"Europe/Berlin\"\n}",
+                CURLOPT_HTTPHEADER => [
+                    "Authorization: ".$token_type." ".$access_token,
+                    "Content-Type: application/json"
+                ],
+            ]);
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+            curl_close($curl);
+            $result = json_decode($response, true);
+            if($result["error"]["code"] == 401) {
+                $access_token = getnewtoken($refresh_token, $client_id, $client_secret);
+                if(isset($access_token)){
+                    $GLOBALS["tokens"]["edit"]["access_token"] = $access_token;;
+                    file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/secrets/GoogleApisecrets.json", json_encode($GLOBALS["tokens"]));
+                }
+                if($i < 2){
+                    goto begin;
+                }
+                return;
+            }else{
+                return $result;
+            }
+        }else{
+            $response["error"] = $user;
+            return $response;
+        }
+    }
+
+    function delete_calendar($username, $password, $calid){
+        $access_token = $GLOBALS["tokens"]["edit"]["access_token"];
+        $refresh_token = $GLOBALS["tokens"]["edit"]["refresh_token"];
+        $token_type = $GLOBALS["tokens"]["edit"]["token_type"];
+        $client_id = $GLOBALS["tokens"]["edit"]["client_id"];
+        $client_secret = $GLOBALS["tokens"]["edit"]["client_secret"];
+        $user = verifyapi($username, $password);
+        if(is_array($user) && $user["perms"]["calendar.administration"]){
+            $i = 0;
+            begin:
+            $i++;
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://www.googleapis.com/calendar/v3/calendars/$calid",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "DELETE",
+                CURLOPT_HTTPHEADER => [
+                    "Authorization: ".$token_type." ".$access_token
+                ],
+            ]);
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+            curl_close($curl);
+            $result = json_decode($response, true);
+            if($result["error"]["code"] == 401) {
+                $access_token = getnewtoken($refresh_token, $client_id, $client_secret);
+                if(isset($access_token)){
+                    $GLOBALS["tokens"]["edit"]["access_token"] = $access_token;;
+                    file_put_contents(realpath($_SERVER["DOCUMENT_ROOT"])."/secrets/GoogleApisecrets.json", json_encode($GLOBALS["tokens"]));
+                }
+                if($i < 2){
+                    goto begin;
+                }
+                return;
+            }else{
+                return $result;
+            }
+        }else{
+            $response["error"] = $user;
+            return $response;
+        }
+    }
+
     if($app == "updateperm"){
         $user = verifyapi($username, $password);
         if(!is_array($user)){
@@ -471,6 +616,12 @@
         $response["data"] = create_event($username, $password, $_POST["calid"], $_POST["eventid"], $_POST["title"], $_POST["description"], $_POST["location"], $_POST["start"], $_POST["end"], filter_var($_POST["isdayevent"], FILTER_VALIDATE_BOOLEAN));
     }elseif($app == "delete_event"){
         $response["data"] = delete_event($username, $password, $_POST["calid"], $_POST["eventid"]);
+    }elseif($app == "create_calendar"){
+        $response["data"] = create_calendar($username, $password, $_POST["title"], $_POST["description"]);
+    }elseif($app == "update_calendar"){
+        $response["data"] = update_calendar($username, $password, $_POST["calid"], $_POST["title"], $_POST["description"]);
+    }elseif($app == "delete_calendar"){
+        $response["data"] = delete_calendar($username, $password, $_POST["calid"]);
     }else{
         http_response_code(404);
         $response["error"] = "Application unknown";
