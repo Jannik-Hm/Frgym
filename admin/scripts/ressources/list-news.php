@@ -146,6 +146,7 @@
             </div>
             <script>
                 function gotopage(newpage, pagenums){
+                    pagenums = Math.ceil(pagenums);
                     if(newpage <= pagenums && newpage > 0){
                         history.pushState(null, null, location.pathname+"?page="+newpage+"&items="+Number(document.getElementById("itemsnum").value));
                         page = newpage;
