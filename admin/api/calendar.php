@@ -613,7 +613,7 @@
     }elseif($app == "create_event"){
         $response["data"] = create_event($username, $password, $_POST["calid"], $_POST["title"], $_POST["description"], $_POST["location"], $_POST["start"], $_POST["end"], filter_var($_POST["isdayevent"], FILTER_VALIDATE_BOOLEAN));
     }elseif($app == "update_event"){
-        $response["data"] = create_event($username, $password, $_POST["calid"], $_POST["eventid"], $_POST["title"], $_POST["description"], $_POST["location"], $_POST["start"], $_POST["end"], filter_var($_POST["isdayevent"], FILTER_VALIDATE_BOOLEAN));
+        $response["data"] = update_event($username, $password, $_POST["calid"], $_POST["eventid"], $_POST["title"], $_POST["description"], $_POST["location"], $_POST["start"], $_POST["end"], filter_var($_POST["isdayevent"], FILTER_VALIDATE_BOOLEAN));
     }elseif($app == "delete_event"){
         $response["data"] = delete_event($username, $password, $_POST["calid"], $_POST["eventid"]);
     }elseif($app == "create_calendar"){

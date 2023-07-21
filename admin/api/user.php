@@ -43,6 +43,7 @@
                 <ul style="display: none">
                     <li><a href="/admin/calendar/">Kalendar</a></li>
                     <li><a href="/admin/calendar/permission.php">Berechtigungen</a></li>
+                    <li><a href="/admin/calendar/entry/">Eintrag erstellen</a></li>
                 </ul>
             </li>';
         }else{
@@ -219,10 +220,11 @@
         if(!is_array($user)){
             $response["error"] = $user;
         }else{
+            $_POST["newpassword_hash"] = password_hash($_POST["password_hash"]);
             $response["performed"] = "changedpassword";
             $conn = getsqlconnection();
-            $sql = $conn->prepare("UPDATE users SET password_hash=? WHERE id=? && password_hash=?;");
-            $sql->bind_param("sss", $_POST["newpassword_hash"], $user["id"], $password);
+            $sql = $conn->prepare("UPDATE users SET password_hash=? WHERE id=?;");
+            $sql->bind_param("ss", $_POST["newpassword_hash"], $user["id"]);
             $sql->execute();
             if($sql->affected_rows != 0){
                 $response["success"] = true;
