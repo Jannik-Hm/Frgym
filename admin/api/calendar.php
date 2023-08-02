@@ -21,6 +21,7 @@
     }
 
     function getcalids($username, $password) {
+        $user = verifyapi($username, $password);
         $response = array();
         $calarray = array();
         $permarray = getcalperms();
@@ -158,7 +159,7 @@
                 $tempeventarray = array();
                 $tempeventarray["name"] = trim(str_replace(["Erster", "Zweiter", "Dritter", "Vierter", "der", "Deutschen", "Neujahrstag"], ["1.", "2.", "3.", "4.", "d.", "Dt.", "Neujahr"], str_replace(["(regionaler Feiertag)", "Halloween", "St. Martin", "Volkstrauertag", "Totensonntag", "Heilige Drei Könige", "Valentinstag", "Rosenmontag", "Faschingsdienstag", "Aschermittwoch", "Palmsonntag", "Jahrestag der Befreiung vom Nationalsozialismus", "Internationaler Frauentag", "Vatertag", "Fronleichnam", "Allerheiligen", "Mariä Himmelfahrt", "Nikolaustag", "Gründonnerstag", "Karsamstag", "Muttertag"], NULL, (preg_match("(Bayern|Sachsen|Sommerzeit|Thüringen)", $entry["summary"]) === 1) ? "" : $entry["summary"])));
                 if($tempeventarray["name"] == "" || $tempeventarray["name"] == NULL) continue;
-                $tempeventarray["id"] = $entry["id"];
+                $tempeventarray["eventid"] = $entry["id"];
                 $tempeventarray["description"] = str_replace("\nWenn Sie Gedenktage ausblenden möchten, rufen Sie die Google Kalender-Einstellungen auf > Feiertage in Deutschland", "", $entry["description"]);
                 if(strpos($tempeventarray["description"], "Feiertag") !== false){
                     $tempeventarray["description"] = "Feiertag";
@@ -183,12 +184,17 @@
     }
 
     function geteventdata($calid, $eventid){
+        $access_token = $GLOBALS["tokens"]["readonly"]["access_token"];
+        $refresh_token = $GLOBALS["tokens"]["readonly"]["refresh_token"];
+        $token_type = $GLOBALS["tokens"]["readonly"]["token_type"];
+        $client_id = $GLOBALS["tokens"]["readonly"]["client_id"];
+        $client_secret = $GLOBALS["tokens"]["readonly"]["client_secret"];
         $i = 0;
         begin:
         $i++;
         $curl = curl_init();
         curl_setopt_array($curl, [
-            CURLOPT_URL => "https://www.googleapis.com/calendar/v3/calendars/".urlencode($calid)."/events/$eventid",
+            CURLOPT_URL => "https://www.googleapis.com/calendar/v3/calendars/".urlencode($calid)."/events/".urlencode($eventid),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -598,6 +604,7 @@
                 foreach($event as $key => $value){
                     $temparray[$key] = (($value == "")?NULL:$value);
                 }
+                $temparray["calid"] = $cal["id"];
                 // Adjust php date format to javascript date format
                 $temparray["start"] = $temparray["start"]*1000;
                 $temparray["end"] = $temparray["end"]*1000;
@@ -610,6 +617,8 @@
         $keys = array_column($event_array, 'start');
         array_multisort($keys, SORT_ASC, $event_array);
         $response["data"] = $event_array;
+    }elseif($app == "get_eventdata"){
+        $response["data"] = geteventdata($_POST["calid"], $_POST["eventid"]);
     }elseif($app == "create_event"){
         $response["data"] = create_event($username, $password, $_POST["calid"], $_POST["title"], $_POST["description"], $_POST["location"], $_POST["start"], $_POST["end"], filter_var($_POST["isdayevent"], FILTER_VALIDATE_BOOLEAN));
     }elseif($app == "update_event"){
