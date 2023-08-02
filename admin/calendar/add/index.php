@@ -339,6 +339,7 @@
                                 document.getElementById("calselector").append(option);
                             });
                             addtocssselector();
+                            geteditdata();
                         }
                         $.post("/admin/api/calendar.php", {"action": "getcallist"}, function (data) { addcalselector(JSON.parse(data).data) });
                         function addevent() {
@@ -356,7 +357,12 @@
                                     start = "@"+startdatetime.getDate().getTime()/1000;
                                     end = "@"+enddatetime.getDate().getTime()/1000;
                                 }
-                                $.post("/admin/api/calendar.php", {"action": "create_event", "calid":document.getElementById("calselector").value, "title":document.getElementById("eventname").value, "description":document.getElementById("eventdescr").value, "location":document.getElementById("eventloc").value, "start":start, "end":end, "isdayevent":isdayevent}, function(data) {console.log(data)});
+                                uri = new URLSearchParams(window.location.search);
+                                if(uri.has("edit") && uri.get("edit") == "true"){
+                                    $.post("/admin/api/calendar.php", {"action": "update_event", "eventid":uri.get("eventid"), "calid":document.getElementById("calselector").value, "title":document.getElementById("eventname").value, "description":document.getElementById("eventdescr").value, "location":document.getElementById("eventloc").value, "start":start, "end":end, "isdayevent":isdayevent}, function(data) {console.log(data)});
+                                }else{
+                                    $.post("/admin/api/calendar.php", {"action": "create_event", "calid":document.getElementById("calselector").value, "title":document.getElementById("eventname").value, "description":document.getElementById("eventdescr").value, "location":document.getElementById("eventloc").value, "start":start, "end":end, "isdayevent":isdayevent}, function(data) {console.log(data)});
+                                }
                             }
                         }
                         function daycheckchange(checkbox){
@@ -370,6 +376,46 @@
                                 document.getElementById("enddatepicker").style.display = "none";
                                 document.getElementById("startdatetimepicker").style.display = "";
                                 document.getElementById("enddatetimepicker").style.display = "";
+                            }
+                        }
+                        function geteditdata() {
+                            uri = new URLSearchParams(window.location.search);
+                            if(uri.has("edit") && uri.get("edit") == "true"){
+                                document.getElementsByClassName("custom-select")[0].hidden = true;
+                                var eventid = uri.get("eventid");
+                                var calid = uri.get("calid");
+                                $.post("/admin/api/calendar.php", {"action": "get_eventdata", "calid": calid, "eventid": eventid}, function(data) {
+                                    eventdata = JSON.parse(data).data;
+                                    calname = document.querySelectorAll("option[value='"+calid+"']")[0].innerHTML;
+                                    document.querySelectorAll("div.select-items div").forEach(function(calbutton){
+                                        if(calbutton.innerHTML == calname){
+                                            calbutton.click();
+                                    }});
+                                    document.getElementById("eventname").value = (typeof eventdata.summary !== "undefined") ? eventdata.summary : "";
+                                    document.getElementById("eventdescr").value = (typeof eventdata.description !== "undefined") ? eventdata.description : "";
+                                    document.getElementById("eventloc").value = (typeof eventdata.location !== "undefined") ? eventdata.location : "";
+                                    if (typeof eventdata.start.date !== 'undefined') {
+                                        document.getElementById("dayeventcheck").click();
+                                        start = new Date(eventdata.start.date);
+                                        end = new Date(eventdata.end.date);
+                                        startdate.setDate(start);
+                                        enddate.setDate(end);
+                                        startdatetime.setDate(start);
+                                        startdatetime.setTime("00:00");
+                                        enddatetime.setDate(end);
+                                        enddatetime.setTime("01:00");
+                                    } else {
+                                        document.getElementById("dayeventcheck");
+                                        start = new Date(eventdata.start.dateTime);
+                                        end = new Date(eventdata.end.dateTime);
+                                        startdate.setDate(start);
+                                        enddate.setDate(end);
+                                        startdatetime.setDate(start);
+                                        startdatetime.setTime(start.getHours() + ":" + start.getMinutes());
+                                        enddatetime.setDate(end);
+                                        enddatetime.setTime(end.getHours() + ":" + end.getMinutes());
+                                    }
+                                });
                             }
                         }
                     </script>
