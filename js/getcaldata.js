@@ -1,6 +1,11 @@
-function getcaldata(username, password) {
-    var ajax = $.post("/admin/api/calendar.php", { "action": "geteventlist", "username": username, "password_hash": password }, function (data) { console.log(ajax.status); processcaldata(JSON.parse(data)["data"]); }).fail(function(response){if(typeof wrongpassword == "function" && response.status==401){wrongpassword()};});
+function getcaldata(username, password, edit=false) {
+    var ajax = $.post("/admin/api/calendar.php", { "action": "geteventlist", "username": username, "password_hash": password }, function (data) { console.log(ajax.status); processcaldata(JSON.parse(data)["data"], edit); }).fail(function(response){if(typeof wrongpassword == "function" && response.status==401){wrongpassword()};});
 }
+
+function deleteevent(calid, eventid){
+    $.post("/admin/api/calendar.php", {"action":"delete_event", "calid":calid, "eventid":eventid}, function(){$(".terminelistdiv, #pdfbtn").hide();$(".loadingscreen").show();$(".terminelistdiv").html("");getcaldata(null, null, true)});
+}
+
 function geticsuri(id, datestamp, dayevent, start, end, summary, description = null, location = null) {
     var ics = [];
     ics.push("BEGIN:VCALENDAR");
@@ -36,11 +41,12 @@ Date.prototype.getFullDate = function () {
 Date.prototype.getClock = function () {
     return ("0" + this.getHours()).slice(-2) + ":" + ("0" + this.getMinutes()).slice(-2);
 };
-function processcaldata(data) {
+function processcaldata(data, edit = false) {
     var current = new Date();
     var currentdate = new Date(current.getFullYear() + "-" + ("0" + (current.getMonth() + 1)).slice(-2) + "-" + ("0" + current.getDate()).slice(-2)).getTime();
     console.log(data);
     var dd = createcal(data);
+    eventlist = [];
     data.forEach(function (val, key) {
         if (val["name"] == "" || val["name"] == null) return;
         if (val["end"] < new Date().getTime()) return;
@@ -68,10 +74,15 @@ function processcaldata(data) {
         } else {
             daysleftspan = "<span style='color: var(--newstextcolor)'> in " + daysleft + " Tagen</span> ";
         }
-        $(".terminelistdiv").append("<a style='cursor: pointer' onclick='$(\".readmorebox\").show();$(\"#termintest\").html(\"" + val["name"] + "\");$(\"#termintest1\").html(\"" + val["eventtype"] + "\");$(\"#popuptime\").html(\"" + popuptime + "\");$(\"#ics #icslink\").attr(\"href\", geticsuri(\"bla@frgym.de\", Date().now, " + !val["istime"] + ", " + val["start"] + ", " + val["end"] + ", \"" + (val["name"]) + "\", \"" + val["description"] + "\", \"" + val["location"] + "\"));$(\"#ics #icslink\").attr(\"download\", \"" + val["name"] + ".ics\");"
-            + ((val["description"] != null) ? "$(\"#popupdesc\").html(\"" + val["description"] + "\");$(\"#description\").show();" : "$(\"#description\").hide();") +
-            ((val["location"] != null) ? "$(\"#popuploc\").html(\"" + val["location"] + "\");$(\"#location\").show();" : "$(\"#location\").hide();") +
-            "$(\"#popuptermincolordiv\").css(\"background-color\",\"" + val["color"] + "\");'><div class='termindiv'><i class='termincolori'><div style='background-color:" + val["color"] + ";'></div></i><span>" + val["name"] + " " + daysleftspan + "</span></div></a>");
+        var event = document.createElement("a");
+        event.setAttribute("style", "cursor:pointer");
+        event.setAttribute("onclick", "$(\".readmorebox\").show();$(\"#termintest\").html(\"" + val["name"] + "\");$(\"#termintest1\").html(\"" + val["eventtype"] + "\");$(\"#popuptime\").html(\"" + popuptime + "\");$(\"#ics #icslink\").attr(\"href\", geticsuri(\"bla@frgym.de\", Date().now, " + !val["istime"] + ", " + val["start"] + ", " + val["end"] + ", \"" + (val["name"]) + "\", \"" + val["description"] + "\", \"" + val["location"] + "\"));$(\"#ics #icslink\").attr(\"download\", \"" + val["name"] + ".ics\");"
+        + ((val["description"] != null) ? "$(\"#popupdesc\").html(\"" + val["description"] + "\");$(\"#description\").show();" : "$(\"#description\").hide();") +
+        ((val["location"] != null) ? "$(\"#popuploc\").html(\"" + val["location"] + "\");$(\"#location\").show();" : "$(\"#location\").hide();") +
+        "$(\"#popuptermincolordiv\").css(\"background-color\",\"" + val["color"] + "\");");
+        event.innerHTML = "<div class='termindiv'><i class='termincolori'><div style='background-color:" + val["color"] + ";><div style='background-color:" + val["color"] + ";'></div></i><span>" + val["name"] + " " + daysleftspan + "</span>"+(edit ? ("<span style='float:right; margin-left: 10px'><a  title=\"Bearbeiten\" onclick=\"event.stopPropagation()\"; href=\"/admin/calendar/entry?edit=true&eventid="+encodeURI(val.eventid)+"&calid="+encodeURI(val.calid)+"\"><i class=\"fas fa-edit\"></i></a><i class=\"fas fa-trash\" onclick=\"event.stopPropagation();deleteevent('"+val.calid+"','"+val.eventid+"')\" title=\"Löschen\" style=\"color:#F75140;margin-left: 5px\"></i></span>") : "")+"</div>";
+        element = document.getElementsByClassName("terminelistdiv")[0].appendChild(event);
+        eventlist.push({"element":element, "eventid":val.eventid, "calid":val.calid});
     });
     $(".terminelistdiv, #pdfbtn").show();
     $(".loadingscreen").hide();

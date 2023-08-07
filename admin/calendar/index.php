@@ -19,12 +19,12 @@
       <?php include_once "$root/admin/sites/header.php"; ?>
   <br>
   <section>
-    <div class="terminelistdiv" style="display: none">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/vfs_fonts.js"></script>
     <script src="/js/calpdfgen.js"></script>
     <script src="/js/getcaldata.js"></script>
-    <script>getcaldata(null, null);</script>
+    <script>getcaldata(null, null, true);</script>
+    <div class="terminelistdiv" style="display: none">
     </div>
     </section>
         <button href="" onclick="pdfMake.createPdf(dd).open();" id="pdfbtn" style="display: none">PDF generieren</button>
